@@ -1,0 +1,25 @@
+.image-grid {
+  overflow: auto;
+  clear: both;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: -20px; }
+  .image-grid > li {
+    margin-left: 20px; }
+  .image-grid > img {
+    width: 100%; }
+
+.image-additional {
+  max-width: 78px; }
+  .image-additional a {
+    margin-bottom: 20px;
+    padding: 5px;
+    display: block;
+    border: 1px solid #ddd; }
+
+.image-grid .image-additional {
+  float: left;
+  margin-left: 20px; }
+
+/*# sourceMappingURL=gallery.css.map */

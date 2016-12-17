@@ -1,0 +1,18 @@
+#content {
+    .nav.menu > li {
+        float: left;
+        &.active{
+            a{
+                color: rgb(30, 145, 207);
+            }
+        }
+        a{
+            color: rgb(153, 153, 153);
+        }
+    }
+    .table{
+        input , button, select, textarea{
+            width: 100%;
+        }
+    }
+}

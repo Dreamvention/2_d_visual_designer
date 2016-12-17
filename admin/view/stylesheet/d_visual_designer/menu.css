@@ -1,0 +1,10 @@
+#content .nav.menu > li {
+  float: left; }
+  #content .nav.menu > li.active a {
+    color: #1e91cf; }
+  #content .nav.menu > li a {
+    color: #999999; }
+#content .table input, #content .table button, #content .table select, #content .table textarea {
+  width: 100%; }
+
+/*# sourceMappingURL=menu.css.map */
