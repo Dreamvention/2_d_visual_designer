@@ -166,7 +166,7 @@
 			<operation>
 				<search position="before"><![CDATA[return $query->row;]]></search>
 				<add><![CDATA[
-					if(!empty($query->row['description'])){
+					if(isset($query->row['description'])){
 						$this->load->model('module/d_visual_designer');
 						$designer_data = array(
 							'content' => $query->row['description'],
