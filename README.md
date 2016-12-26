@@ -8,6 +8,23 @@ You can purchase the full version from [Opencart](https://www.opencart.com/index
 [TOC]
 
 ##Installation and Update
+###With shopunity
+1. go to shopunity admin panel
+2. go to tab market 
+3. search for Visual Designer
+4. click install
+
+###With FTP  (shopunity required)
+1. Download the archive
+2. Unzip
+3. Upload into your opencart root folder
+
+###When the Visual designer is visible in the admin panel
+1. Click install Visual Designer
+2. Click edit Visual Designer
+3. Set status to enabled and click save.
+
+Now you can edit your Category, Product and Information Description using the best visual page builder for opencart.
 
 
 #API
