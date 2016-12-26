@@ -8,7 +8,7 @@ You can purchase the full version from [Opencart](https://www.opencart.com/index
 [TOC]
 
 ##Installation and Update
-###With shopunity
+###With [shopunity](https://shopunity.net/download)
 1. go to shopunity admin panel
 2. go to tab market 
 3. search for Visual Designer
