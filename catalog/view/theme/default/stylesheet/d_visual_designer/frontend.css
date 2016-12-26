@@ -1,359 +1,53 @@
-.tabs-content {
-  position: relative;
-  padding: .2em; }
-  .tabs-content > ul.vd-tabs-list {
-    margin: 0;
-    padding: 0px; }
-    .tabs-content > ul.vd-tabs-list.vd-align-center {
-      text-align: center; }
-    .tabs-content > ul.vd-tabs-list.vd-align-left {
-      text-align: left; }
-    .tabs-content > ul.vd-tabs-list.vd-align-right {
-      text-align: right; }
-    .tabs-content > ul.vd-tabs-list > li {
-      position: relative;
-      top: 0;
-      float: left;
-      margin: 1px 1px 0 0;
-      padding: 0;
-      padding-bottom: 1;
-      list-style: none;
-      white-space: nowrap;
-      color: #fff;
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
-      background: #4c5866;
-      font-weight: normal; }
-      .tabs-content > ul.vd-tabs-list > li.tab-control > a {
-        border: 0; }
-        .tabs-content > ul.vd-tabs-list > li.tab-control > a:first-child {
-          border-top-left-radius: 5px; }
-        .tabs-content > ul.vd-tabs-list > li.tab-control > a:last-child {
-          border-top-right-radius: 5px; }
-      .tabs-content > ul.vd-tabs-list > li.active {
-        font-weight: normal; }
-        .tabs-content > ul.vd-tabs-list > li.active > a {
-          background-color: #F8F8F8;
-          color: #000; }
-          .tabs-content > ul.vd-tabs-list > li.active > a.vd-btn {
-            display: block !important; }
-      .tabs-content > ul.vd-tabs-list > li:not(.tab-control):hover {
-        font-weight: normal; }
-        .tabs-content > ul.vd-tabs-list > li:not(.tab-control):hover > a {
-          background-color: #F8F8F8;
-          color: #000; }
-      .tabs-content > ul.vd-tabs-list > li:not(.tab-control) > a.vd-btn {
-        display: none;
-        width: 40px;
-        height: 40px; }
-      .tabs-content > ul.vd-tabs-list > li > a {
-        display: block;
-        float: left;
-        padding: 10px 14px;
-        cursor: pointer;
-        text-decoration: none;
-        color: #fff;
-        font-size: 13px; }
-  .tabs-content > .block-section {
-    display: block;
-    margin-top: 0px;
-    color: #333333;
-    /* border: 1px solid #dddddd;*/
-    background: #F8F8F8; }
+/*
+Error: File to import not found or unreadable: bootstrap.scss.
+       Load path: /Users/dmitriyzhuk/Sites/opencart/230/d_visual_designer_lite/catalog/view/theme/default/stylesheet/d_visual_designer
+        on line 2 of /Users/dmitriyzhuk/Sites/opencart/230/d_visual_designer_lite/catalog/view/theme/default/stylesheet/d_visual_designer/frontend.scss
 
-.tour-content {
-  position: relative;
-  display: flex;
-  padding: 0px !important; }
-  .tour-content > .control {
-    padding-bottom: 10px; }
-  .tour-content > ul.vd-tour-list {
-    float: left;
-    flex: 0 0 202px;
-    min-height: 112px;
-    margin: 0;
-    padding: 0; }
-    .tour-content > ul.vd-tour-list > li {
-      position: relative;
-      top: 0;
-      float: left;
-      clear: left;
-      width: 100%;
-      margin: 0 0 1px 0;
-      padding: 0;
-      padding-right: .1em;
-      padding-bottom: 0;
-      list-style: none;
-      white-space: nowrap;
-      color: #fff;
-      border-right-width: 0 !important;
-      border-bottom-width: 1px !important;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      border-bottom-left-radius: 5px;
-      background: #4c5866;
-      font-weight: normal; }
-      .tour-content > ul.vd-tour-list > li.tab-control > a {
-        border: 0; }
-        .tour-content > ul.vd-tour-list > li.tab-control > a:first-child {
-          border-top-left-radius: 5px;
-          border-bottom-left-radius: 5px; }
-      .tour-content > ul.vd-tour-list > li.active {
-        background: #F8F8F8;
-        font-weight: normal; }
-        .tour-content > ul.vd-tour-list > li.active > a {
-          color: #4c5866; }
-          .tour-content > ul.vd-tour-list > li.active > a.vd-btn {
-            display: block !important; }
-      .tour-content > ul.vd-tour-list > li:hover {
-        background: #F8F8F8;
-        cursor: pointer;
-        font-weight: normal; }
-        .tour-content > ul.vd-tour-list > li:hover > a {
-          color: #4c5866; }
-      .tour-content > ul.vd-tour-list > li:not(.tab-control) > a.vd-btn {
-        display: none;
-        width: 40px;
-        height: 40px; }
-      .tour-content > ul.vd-tour-list > li > a {
-        display: block;
-        float: left;
-        padding: 14px 20px;
-        cursor: pointer;
-        text-decoration: none;
-        color: #fff;
-        font-size: 13px;
-        line-height: 15.6px; }
-  .tour-content > .block-section {
-    display: block;
-    float: right;
-    width: calc(100% - 12em);
-    padding: 1em 1.4em;
-    padding: 1px;
-    border-width: 0;
-    background: #F8F8F8; }
+1: @import "component.scss";
+2: @import "bootstrap.scss";
+3: #tab-description{
+4:     overflow: visible;
+5:     .vd{
+6:         div,p{
+7:             margin-bottom: 0;
 
-.vd-search .input-lg {
-  height: 40px;
-  line-height: 20px;
-  padding: 0 10px; }
-.vd-search .btn-lg {
-  font-size: 15px;
-  line-height: 18px;
-  padding: 10px 35px;
-  text-shadow: 0 1px 0 #FFF; }
-
-.vd-button-container.vd-button-align-left {
-  text-align: left; }
-.vd-button-container.vd-button-align-center {
-  text-align: center; }
-.vd-button-container.vd-button-align-right {
-  text-align: right; }
-.vd-button-container .vd-button {
-  display: inline-block;
-  margin-bottom: 0;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  background-color: transparent;
-  color: #5472d2;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  -ms-user-select: none;
-  user-select: none;
-  text-decoration: none;
-  position: relative;
-  top: 0;
-  -webkit-transition: all .2s ease-in-out;
-  transition: all .2s ease-in-out;
-  line-height: normal;
-  font-size: 14px;
-  padding: 14px 20px; }
-.vd-button-container .vd-button-xs {
-  font-size: 11px;
-  padding: 8px 12px; }
-.vd-button-container .vd-button-sm {
-  font-size: 12px;
-  padding: 11px 16px; }
-.vd-button-container .vd-button-md {
-  font-size: 14px;
-  padding: 14px 20px; }
-.vd-button-container .vd-button-lg {
-  font-size: 16px;
-  padding: 18px 25px; }
-.vd-button-container .vd-button-style-modern {
-  color: #666;
-  border-color: #ebebeb;
-  background-color: #ebebeb; }
-  .vd-button-container .vd-button-style-modern:hover {
-    color: #5e5e5e;
-    border-color: #dcdcdc;
-    background-color: #dcdcdc; }
-  .vd-button-container .vd-button-style-modern:active {
-    color: #595959;
-    border-color: #d7d7d7;
-    background-color: #d7d7d7; }
-.vd-button-container .vd-button-style-classic {
-  border-color: rgba(0, 0, 0, 0.1); }
-.vd-button-container .vd-button-style-flat {
-  color: #666;
-  background-color: #ebebeb; }
-  .vd-button-container .vd-button-style-flat:hover {
-    color: #5e5e5e;
-    background-color: #dcdcdc; }
-  .vd-button-container .vd-button-style-flat:active {
-    color: #595959;
-    background-color: #d7d7d7; }
-.vd-button-container .vd-button-style-outline {
-  color: #ebebeb;
-  border-color: #ebebeb;
-  background-color: transparent;
-  padding: 7px 11px; }
-  .vd-button-container .vd-button-style-outline:hover {
-    color: #666;
-    border-color: #ebebeb;
-    background-color: #ebebeb; }
-.vd-button-container .vd-button-style-3d {
-  color: #666;
-  background-color: #ebebeb;
-  box-shadow: 0 5px 0 #cfcfcf;
-  box-shadow: 0 3px 0 #cfcfcf; }
-  .vd-button-container .vd-button-style-3d:hover {
-    color: #5e5e5e;
-    background-color: #ebebeb;
-    box-shadow: 0 2px 0 #cfcfcf;
-    top: 1px; }
-  .vd-button-container .vd-button-style-3d:active {
-    color: #595959;
-    background-color: #ebebeb; }
-.vd-button-container .vd-button-shape-rounded {
-  border-radius: 5px; }
-.vd-button-container .vd-button-shape-square {
-  border-radius: 0; }
-.vd-button-container .vd-button-shape-round {
-  border-radius: 2em; }
-
-.block-section:not(.accordion) {
-  display: none; }
-  .block-section:not(.accordion).active {
-    display: block; }
-.block-section.accordion {
-  display: block;
-  margin-top: 0px;
-  margin-bottom: 2px;
-  color: #333333;
-  background: #ffffff; }
-  .block-section.accordion:not(.active) {
-    max-height: 43px;
-    min-height: 43px; }
-  .block-section.accordion.active > .vd-panel-heading {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px; }
-  .block-section.accordion > .vd-panel-heading {
-    box-sizing: border-box;
-    cursor: pointer;
-    -webkit-transition: background .2s ease-in-out;
-    transition: background .2s ease-in-out;
-    background-color: #4c5866;
-    text-align: left;
-    border: solid transparent;
-    border-width: 0;
-    border-radius: 5px; }
-    .block-section.accordion > .vd-panel-heading > .control {
-      visibility: visible;
-      opacity: 1; }
-    .block-section.accordion > .vd-panel-heading > h4.vd-panel-title {
-      margin: 0;
-      line-height: 1; }
-      .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading {
-        position: relative;
-        display: block;
-        box-sizing: border-box;
-        padding: 14px 20px;
-        -webkit-transition: color .2s ease-in-out;
-        transition: color .2s ease-in-out;
-        text-decoration: none;
-        color: #fff;
-        border: none;
-        background: 0 0; }
-        .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading > span.title {
-          padding-left: 20px;
-          color: #fff; }
-        .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading > i {
-          color: #fff;
-          position: absolute;
-          top: 50%;
-          left: 20px;
-          -webkit-transform: translateY(-50%);
-          transform: translateY(-50%); }
-  .block-section.accordion.active > .vd-panel-body {
-    display: block; }
-  .block-section.accordion > .vd-panel-body {
-    border: 1px solid #4c5866;
-    display: none;
-    min-height: 65px; }
-    .block-section.accordion > .vd-panel-body > top {
-      right: 0;
-      left: auto; }
-
-.pie {
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  width: 100%; }
-  .pie > .pie-value {
-    display: block;
-    position: absolute;
-    font-size: 14px;
-    height: 40px;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin-top: -20px;
-    line-height: 40px; }
-
-.progress {
-  height: 44px; }
-  .progress > .progress-bar {
-    line-height: 28px;
-    text-align: left;
-    padding: 8px 16px; }
-
-.block-container {
-  padding: 0px; }
-  .block-container.video {
-    position: relative; }
-
-.video-background {
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: -1; }
-
-.wrapper-video {
-  position: relative;
-  width: 100%; }
-  .wrapper-video.vd-video-aspect-ration-169 {
-    padding-top: 56.25%; }
-  .wrapper-video.vd-video-aspect-ration-43 {
-    padding-top: 75%; }
-  .wrapper-video.vd-video-aspect-ration-235 {
-    padding-top: 42.55319149%; }
-  .wrapper-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    margin: 0; }
-
-/*# sourceMappingURL=frontend.css.map */
+Backtrace:
+/Users/dmitriyzhuk/Sites/opencart/230/d_visual_designer_lite/catalog/view/theme/default/stylesheet/d_visual_designer/frontend.scss:2
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/import_node.rb:66:in `rescue in import'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/import_node.rb:45:in `import'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/import_node.rb:28:in `imported_file'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/import_node.rb:37:in `css_import?'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:301:in `visit_import'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/stack.rb:79:in `block in with_base'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/stack.rb:115:in `with_frame'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/stack.rb:79:in `with_base'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/base.rb:52:in `map'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/engine.rb:368:in `_render_with_sourcemap'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/engine.rb:285:in `render_with_sourcemap'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/exec/sass_scss.rb:396:in `run'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/exec/sass_scss.rb:62:in `process_result'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/exec/base.rb:52:in `parse'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/lib/sass/exec/base.rb:19:in `parse!'
+/Applications/Koala.app/Contents/Resources/app.nw/rubygems/gems/sass-3.4.9/bin/sass:13:in `<top (required)>'
+/Applications/Koala.app/Contents/Resources/app.nw/bin/sass:18:in `load'
+/Applications/Koala.app/Contents/Resources/app.nw/bin/sass:18:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File to import not found or unreadable: bootstrap.scss.\A        Load path: /Users/dmitriyzhuk/Sites/opencart/230/d_visual_designer_lite/catalog/view/theme/default/stylesheet/d_visual_designer\A         on line 2 of /Users/dmitriyzhuk/Sites/opencart/230/d_visual_designer_lite/catalog/view/theme/default/stylesheet/d_visual_designer/frontend.scss\A \A 1: @import \"component.scss\";\A 2: @import \"bootstrap.scss\";\A 3: #tab-description{\A 4:     overflow: visible;\A 5:     .vd{\A 6:         div,p{\A 7:             margin-bottom: 0;"; }

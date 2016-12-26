@@ -1,6 +1,6 @@
 <form class="form-horizontal" id="form-vd-<?php echo $designer_id; ?>">
 <div class="content vd" id="<?php echo $designer_id; ?>">
-    <div class="vd clearfix" id="sortable"><?php echo $content; ?></div>
+    <div class="vd" id="sortable"><?php echo $content; ?></div>
     <div class="vd-helper">
         <a id="vd-add-button" class="vd-button vd-add-block vd-btn-add"></a>
     </div>
@@ -40,7 +40,7 @@
     </div>
 </script>
 <script type="text/html" id="template-add-block">
-    <div class="popup add_block">
+    <div class="vd vd-popup add_block">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_block; ?></h2>
             <!-- <div class="search">
@@ -73,7 +73,7 @@
     </div>
 </script>
 <script type="text/html" id="template-add-template">
-    <div class="popup add_template" style="max-height:75vh;">
+    <div class="vd vd-popup add_template" style="max-height:75vh;">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_template; ?></h2>
             <a class="close"></a>
@@ -134,157 +134,159 @@
 </script>
 
 <script type="text/html" id="template-edit-block">
-    <div class="popup-header">
-            <h2 class="title">{{{block_title}}} <?php echo $text_edit_block; ?></h2>
-        <a class="close"></a>
-    </div>
-    <div class="popup-tabs">
-        <ul class="vd-nav">
-            <li class="active"><a href="#tab-edit-block" data-toggle="tab"><?php echo $tab_general; ?></a></li>
-            <li><a href="#tab-design-block" data-toggle="tab"><?php echo $tab_design; ?></a></li>
-        </ul>
-    </div>
-    <div class="popup-content">
-        <div class="tab-content body">
-            <div class="tab-pane active" id="tab-edit-block">
-                {{{module_setting}}}
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_additional_css_class; ?></label>
-                    <div class="fg-setting">
-                        <input type="text" name="additional_css_class" class="form-control" value="{{{additional_css_class}}}">
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="tab-design-block">
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_margin; ?></label>
-                    <div class="fg-setting">
-                        <div class=wrap-setting>
-                            <input type="text" name="design_margin_top" class="form-control pixels" value="{{{design_margin_top}}}">
-                            <span class="label-helper"><?php echo $text_top; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_margin_right" class="form-control pixels" value="{{{design_margin_right}}}">
-                            <span class="label-helper"><?php echo $text_right; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_margin_bottom" class="form-control pixels" value="{{{design_margin_bottom}}}">
-                            <span class="label-helper"><?php echo $text_bottom; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_margin_left" class="form-control pixels" value="{{{design_margin_left}}}">
-                            <span class="label-helper"><?php echo $text_left; ?></span>
+    <div class="vd vd-popup {{class_popup}}" style="max-height:75vh;">
+        <div class="popup-header">
+                <h2 class="title">{{{block_title}}} <?php echo $text_edit_block; ?></h2>
+            <a class="close"></a>
+        </div>
+        <div class="popup-tabs">
+            <ul class="vd-nav">
+                <li class="active"><a href="#tab-edit-block" data-toggle="tab"><?php echo $tab_general; ?></a></li>
+                <li><a href="#tab-design-block" data-toggle="tab"><?php echo $tab_design; ?></a></li>
+            </ul>
+        </div>
+        <div class="popup-content">
+            <div class="tab-content body">
+                <div class="tab-pane active" id="tab-edit-block">
+                    {{{module_setting}}}
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_additional_css_class; ?></label>
+                        <div class="fg-setting">
+                            <input type="text" name="additional_css_class" class="form-control" value="{{{additional_css_class}}}">
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_padding; ?></label>
-                    <div class="fg-setting">
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_top" class="form-control pixels" value="{{{design_padding_top}}}">
-                            <span class="label-helper"><?php echo $text_top; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_right" class="form-control pixels" value="{{{design_padding_right}}}">
-                            <span class="label-helper"><?php echo $text_right; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_bottom" class="form-control pixels" value="{{{design_padding_bottom}}}">
-                            <span class="label-helper"><?php echo $text_bottom; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_left" class="form-control pixels" value="{{{design_padding_left}}}">
-                            <span class="label-helper"><?php echo $text_left; ?></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_border; ?></label>
-                    <div class="fg-setting">
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_top" class="form-control pixels" value="{{{design_border_top}}}">
-                            <span class="label-helper"><?php echo $text_top; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_right" class="form-control pixels" value="{{{design_border_right}}}">
-                            <span class="label-helper"><?php echo $text_right; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_bottom" class="form-control pixels" value="{{{design_border_bottom}}}">
-                            <span class="label-helper"><?php echo $text_bottom; ?></span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_left" class="form-control pixels" value="{{{design_border_left}}}">
-                            <span class="label-helper"><?php echo $text_left; ?></span>
+                <div class="tab-pane" id="tab-design-block">
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_margin; ?></label>
+                        <div class="fg-setting">
+                            <div class=wrap-setting>
+                                <input type="text" name="design_margin_top" class="form-control pixels-procent" value="{{{design_margin_top}}}">
+                                <span class="label-helper"><?php echo $text_top; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_margin_right" class="form-control pixels-procent" value="{{{design_margin_right}}}">
+                                <span class="label-helper"><?php echo $text_right; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_margin_bottom" class="form-control pixels-procent" value="{{{design_margin_bottom}}}">
+                                <span class="label-helper"><?php echo $text_bottom; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_margin_left" class="form-control pixels-procent" value="{{{design_margin_left}}}">
+                                <span class="label-helper"><?php echo $text_left; ?></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_border_color; ?></label>
-                    <div class="fg-setting">
-                        <div id="color-input" class="input-group colorpicker-component fg-color">
-                            <input type="text" name="design_border_color" class="form-control" value="{{{design_border_color}}}">
-                            <span class="input-group-addon"><i></i></span>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_padding; ?></label>
+                        <div class="fg-setting">
+                            <div class="wrap-setting">
+                                <input type="text" name="design_padding_top" class="form-control pixels-procent" value="{{{design_padding_top}}}">
+                                <span class="label-helper"><?php echo $text_top; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_padding_right" class="form-control pixels-procent" value="{{{design_padding_right}}}">
+                                <span class="label-helper"><?php echo $text_right; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_padding_bottom" class="form-control pixels-procent" value="{{{design_padding_bottom}}}">
+                                <span class="label-helper"><?php echo $text_bottom; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_padding_left" class="form-control pixels-procent" value="{{{design_padding_left}}}">
+                                <span class="label-helper"><?php echo $text_left; ?></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_border_style; ?></label>
-                    <div class="fg-setting">
-                        <select name="design_border_style" class="form-control">
-                            {{#select design_border_style}}
-                            <?php foreach($styles as $key => $value){ ?>
-                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                            <?php } ?>
-                            {{/select}}
-                        </select>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_border; ?></label>
+                        <div class="fg-setting">
+                            <div class="wrap-setting">
+                                <input type="text" name="design_border_top" class="form-control pixels-procent" value="{{{design_border_top}}}">
+                                <span class="label-helper"><?php echo $text_top; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_border_right" class="form-control pixels-procent" value="{{{design_border_right}}}">
+                                <span class="label-helper"><?php echo $text_right; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_border_bottom" class="form-control pixels-procent" value="{{{design_border_bottom}}}">
+                                <span class="label-helper"><?php echo $text_bottom; ?></span>
+                            </div>
+                            <div class="wrap-setting">
+                                <input type="text" name="design_border_left" class="form-control pixels-procent" value="{{{design_border_left}}}">
+                                <span class="label-helper"><?php echo $text_left; ?></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_border_radius; ?></label>
-                    <div class="fg-setting">
-                        <input type="text" name="design_border_radius" class="form-control pixels" value="{{{design_border_radius}}}">
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_border_color; ?></label>
+                        <div class="fg-setting">
+                            <div id="color-input" class="input-group colorpicker-component fg-color">
+                                <input type="text" name="design_border_color" class="form-control" value="{{{design_border_color}}}">
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_image; ?></label>
-                    <div class="fg-setting">
-                        <a href="" id="thumb-vd-image" data-toggle="image" class="img-thumbnail">
-                            <img src="{{{design_background_thumb}}}" alt="" title="" data-placeholder="<?php echo $placeholder; ?>"/>
-                        </a>
-                          <input type="hidden" name="design_background_image" value="{{{design_background_image}}}" id="input-vd-image" />
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_border_style; ?></label>
+                        <div class="fg-setting">
+                            <select name="design_border_style" class="form-control">
+                                {{#select design_border_style}}
+                                <?php foreach($styles as $key => $value){ ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                <?php } ?>
+                                {{/select}}
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_image_style; ?></label>
-                    <div class="fg-setting">
-                        <select name="design_background_image_style" class="form-control">
-                            {{#select design_background_image_style}}
-                            <?php foreach($image_styles as $key => $value){ ?>
-                                <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-                            <?php } ?>
-                            {{/select}}
-                        </select>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_border_radius; ?></label>
+                        <div class="fg-setting">
+                            <input type="text" name="design_border_radius" class="form-control pixels" value="{{{design_border_radius}}}">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"><?php echo $entry_background; ?></label>
-                    <div class="fg-setting">
-                        <div id="color-input" class="input-group colorpicker-component fg-color">
-                            <input type="text" name="design_background" class="form-control" value="{{{design_background}}}">
-                            <span class="input-group-addon"><i></i></span>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_image; ?></label>
+                        <div class="fg-setting">
+                            <a href="" id="thumb-vd-image" data-toggle="image" class="img-thumbnail">
+                                <img src="{{{design_background_thumb}}}" alt="" title="" data-placeholder="<?php echo $placeholder; ?>"/>
+                            </a>
+                              <input type="hidden" name="design_background_image" value="{{{design_background_image}}}" id="input-vd-image" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_image_style; ?></label>
+                        <div class="fg-setting">
+                            <select name="design_background_image_style" class="form-control">
+                                {{#select design_background_image_style}}
+                                <?php foreach($image_styles as $key => $value){ ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                <?php } ?>
+                                {{/select}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_background; ?></label>
+                        <div class="fg-setting">
+                            <div id="color-input" class="input-group colorpicker-component fg-color">
+                                <input type="text" name="design_background" class="form-control" value="{{{design_background}}}">
+                                <span class="input-group-addon"><i></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="popup-footer">
-        <a id="save" class="vd-btn save" data-id="{{{block_id}}}" data-designer_id="{{{designer_id}}}" data-type="{{{type}}}" data-loading-text="<?php echo $button_saved; ?>"><?php echo $button_save; ?></a>
+        <div class="popup-footer">
+            <a id="save" class="vd-btn save" data-id="{{{block_id}}}" data-designer_id="{{{designer_id}}}" data-type="{{{type}}}" data-loading-text="<?php echo $button_saved; ?>"><?php echo $button_save; ?></a>
+        </div>
     </div>
 </script>
 <script type="text/html" id="template-row-layout">
-    <div class="popup edit-layout">
+    <div class="vd vd-popup edit-layout">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_layout; ?></h2>
             <a class="close"></a>
@@ -360,6 +362,14 @@
         </div>
     </div>
 </script>
+<script type="text/html" id="template-popover">
+    <button type="button" id="button-image" class="btn btn-primary">
+        <i class="fa fa-pencil"></i>
+    </button>
+    <button type="button" id="button-clear" class="btn btn-danger">
+        <i class="fa fa-trash-o"></i>
+    </button>
+</script>
 <script>
 var setting = {
     form: $('#<?php echo $designer_id; ?>'),
@@ -395,14 +405,16 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
     var block_id = $(this).closest('.block-container').attr('id');
     d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
 });
-$('#<?php echo $designer_id; ?>').on('click','span.column',function(){
+$(document).off('click','span.column');
+$(document).on('click','span.column',function(){
     var size = $(this).data('layout');
-    var target = $('.popup').find('input[name=target]').val();
+    var target = $('.vd-popup').find('input[name=target]').val();
     d_visual_designer.editLayout({'size': size}, target, '<?php echo $designer_id; ?>');
 });
-$('#<?php echo $designer_id; ?>').on('click','#layoutSet',function(){
-    var setting = $('.popup').find('input, select, textarea').serializeJSON();
-    var target = $('.popup').find('input[name=target]').val();
+$(document).off('click','#layoutSet');
+$(document).on('click','#layoutSet',function(){
+    var setting = $('.vd-popup').find('input, select, textarea').serializeJSON();
+    var target = $('.vd-popup').find('input[name=target]').val();
     d_visual_designer.editLayout(setting, target, '<?php echo $designer_id; ?>');
 });
 
@@ -422,24 +434,24 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
     d_visual_designer.cloneBlock('<?php echo $designer_id; ?>', block_id);
 });
 
-$(document).off('keyup', '.popup.add_block > .popup-header input[name=search]');
-$(document).on('keyup', '.popup.add_block > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.popup > .popup-content .popup-new-block > .element', 'a')
+$(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
+$(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
+    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')
 });
-$(document).off('keyup', '.popup.add_template > .popup-header input[name=search]');
-$(document).on('keyup', '.popup.add_template > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.popup > .popup-content .popup-new-template > .element', 'a')
+$(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
+$(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
+    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
 });
 
-
-$('#<?php echo $designer_id; ?>').on('click','a[id=save]',function(){
+$(document).off('click','a[id=save]');
+$(document).on('click','a[id=save]',function(){
     var block_id = $(this).data('id');
     d_visual_designer.saveBlock(block_id, '<?php echo $designer_id; ?>');
 });
-$('#<?php echo $designer_id; ?>').on('click','a[id=saveTemplate]',function(){
+$(document).off('click','a[id=saveTemplate]');
+$(document).on('click','a[id=saveTemplate]',function(){
     d_visual_designer.saveTemplate('<?php echo $designer_id; ?>');
 });
-
 
 $('#<?php echo $designer_id; ?>').on('click','#button_add_child',function(){
     var block_id = $(this).parents('.block-container').attr('id');
@@ -474,34 +486,24 @@ $('#<?php echo $designer_id; ?>').on('click','.block-content:empty',function(){
     return false;
 });
 
-$('#<?php echo $designer_id; ?>').on('click','#add_template', function(){
-    var template_id = $(this).attr('id');
+$(document).off('click','#add_template');
+$(document).on('click','#add_template', function(){
+    var template_id = $(this).data('id');
     d_visual_designer.addTemplate(template_id, '<?php echo $designer_id; ?>');
 });
-$('#<?php echo $designer_id; ?>').on('click','#add_block', function(){
+$(document).off('click','#add_block');
+$(document).on('click','#add_block', function(){
     var type = $(this).data('type');
     var title = $(this).data('title');
-    var target = $('.popup').find('input[name=target]').val();
-    var level = $('.popup').find('input[name=level]').val();
+    var target = $('.vd-popup').find('input[name=target]').val();
+    var level = $('.vd-popup').find('input[name=level]').val();
     d_visual_designer.addBlock(type,title, target, '<?php echo $designer_id; ?>', level);
 });
-$('#<?php echo $designer_id; ?>').on('click','#button_full_screen', function(){
-    d_visual_designer.fullscreen('<?php echo $designer_id; ?>');
-});
-$(document).off('click','.popup-overlay');
-$(document).on('click','.popup-overlay',function(){
+$(document).off('click','.vd-popup a.close');
+$(document).on('click','.vd-popup a.close',function(){
     d_visual_designer.closePopup();
 });
 
-$(document).off('click','.popup .close');
-$(document).on('click','.popup .close',function(){
-    d_visual_designer.closePopup();
-});
-
-$(document).off('click','a[id=cancel]');
-$(document).on('click','a[id=cancel]',function(){
-    d_visual_designer.closePopup();
-});
 $('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
     var block_id = $(this).parent().data('control');
     d_visual_designer.removeBlock(block_id, '<?php echo $designer_id; ?>');
@@ -518,7 +520,8 @@ $('#<?php echo $designer_id; ?>').on('mouseover', '.block-button', function(){
 $('#<?php echo $designer_id; ?>').on('mouseout', '.block-button', function(){
     $(this).closest('.block-container').removeClass('active-border');
 });
-$('#<?php echo $designer_id; ?>').on('change', 'input.percents', function(){
+$(document).off('change',  'input.percents');
+$(document).on('change', 'input.percents', function(){
     var value = $(this).val();
     var er = /^-?[0-9]+$/;
     var er2 = /^-?[0-9]+%$/;
@@ -530,7 +533,8 @@ $('#<?php echo $designer_id; ?>').on('change', 'input.percents', function(){
         $(this).val('');
     }
 });
-$('#<?php echo $designer_id; ?>').on('change', 'input.pixels', function(){
+$(document).off('change',  'input.pixels');
+$(document).on('change', 'input.pixels', function(){
     var value = $(this).val();
     var er = /^-?[0-9]+$/;
     var er2 = /^-?[0-9]+px$/;
@@ -540,11 +544,23 @@ $('#<?php echo $designer_id; ?>').on('change', 'input.pixels', function(){
     }
     else if(!er2.test(value)){
         $(this).val('');
+  
     }
 });
+$(document).off('change',  'input.pixels-procent');
+$(document).on('change', 'input.pixels-procent', function(){
+    var value = $(this).val();
+    var er = /^-?[0-9]+$/;
+    var er2 = /^-?[0-9]+(px|%)$/;
 
-// Image Manager
-$(document).delegate('a[data-toggle=\'image\']', 'click', function(e) {
+    if(er.test(value)){
+        $(this).val(value+'px');
+    }
+    else if(!er2.test(value)){
+        $(this).val('');
+    }
+});
+$(document).on('click', 'a[data-toggle=\'image\']', function(e){
     e.preventDefault();
 
     $('.popover').popover('hide', function() {
@@ -558,7 +574,7 @@ $(document).delegate('a[data-toggle=\'image\']', 'click', function(e) {
         placement: 'right',
         trigger: 'manual',
         content: function() {
-            return '<button type="button" id="button-image" class="btn btn-primary"><i class="fa fa-pencil"></i></button> <button type="button" id="button-clear" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>';
+            return $('script#template-popover').html();
         }
     });
 

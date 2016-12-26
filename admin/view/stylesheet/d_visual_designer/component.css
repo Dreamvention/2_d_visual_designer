@@ -1,0 +1,135 @@
+.tabs-content {
+  position: relative;
+  padding: .4em; }
+  .tabs-content > ul.vd-tabs-list {
+    margin: 0;
+    padding: 0px; }
+    .tabs-content > ul.vd-tabs-list.vd-align-center {
+      text-align: center; }
+    .tabs-content > ul.vd-tabs-list.vd-align-left {
+      text-align: left; }
+    .tabs-content > ul.vd-tabs-list.vd-align-right {
+      text-align: right; }
+    .tabs-content > ul.vd-tabs-list:hover {
+      z-index: 1001;
+      position: relative; }
+    .tabs-content > ul.vd-tabs-list > li {
+      position: relative;
+      top: 0;
+      float: left;
+      margin: 1px 1px 0 0;
+      padding: 0;
+      list-style: none;
+      white-space: nowrap;
+      color: #fff;
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+      background: #4c5866;
+      font-weight: normal; }
+      .tabs-content > ul.vd-tabs-list > li.tab-control > a {
+        border: 0; }
+        .tabs-content > ul.vd-tabs-list > li.tab-control > a:first-child {
+          border-top-left-radius: 5px; }
+        .tabs-content > ul.vd-tabs-list > li.tab-control > a:last-child {
+          border-top-right-radius: 5px; }
+      .tabs-content > ul.vd-tabs-list > li.active {
+        font-weight: normal; }
+        .tabs-content > ul.vd-tabs-list > li.active > a {
+          background-color: #F8F8F8;
+          color: #000; }
+          .tabs-content > ul.vd-tabs-list > li.active > a.vd-btn {
+            display: block !important; }
+      .tabs-content > ul.vd-tabs-list > li:not(.tab-control) > a.vd-btn {
+        display: none;
+        width: 40px;
+        height: 40px; }
+      .tabs-content > ul.vd-tabs-list > li > a {
+        display: block;
+        float: left;
+        padding: 11px 14px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+        font-size: 13px; }
+  .tabs-content > .block-section {
+    display: block;
+    margin-top: 0px;
+    color: #333333;
+    /* border: 1px solid #dddddd;*/
+    background: #F8F8F8; }
+
+.tour-content {
+  position: relative;
+  display: flex;
+  padding: 0px !important; }
+  .tour-content > .control {
+    padding-bottom: 10px; }
+  .tour-content > ul.vd-tour-list {
+    float: left;
+    flex: 0 0 202px;
+    min-height: 112px;
+    margin: 0;
+    padding: 0; }
+    .tour-content > ul.vd-tour-list > li {
+      position: relative;
+      top: 0;
+      float: left;
+      clear: left;
+      width: 100%;
+      margin: 0 0 1px 0;
+      padding: 0;
+      padding-right: .1em;
+      padding-bottom: 0;
+      list-style: none;
+      white-space: nowrap;
+      color: #fff;
+      border-right-width: 0 !important;
+      border-bottom-width: 1px !important;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom-left-radius: 5px;
+      background: #4c5866;
+      font-weight: normal; }
+      .tour-content > ul.vd-tour-list > li.tab-control > a {
+        border: 0; }
+        .tour-content > ul.vd-tour-list > li.tab-control > a:first-child {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px; }
+      .tour-content > ul.vd-tour-list > li.active {
+        background: #F8F8F8;
+        font-weight: normal; }
+        .tour-content > ul.vd-tour-list > li.active > a {
+          color: #4c5866; }
+          .tour-content > ul.vd-tour-list > li.active > a.vd-btn {
+            display: block !important; }
+      .tour-content > ul.vd-tour-list > li:not(.tab-control) > a.vd-btn {
+        display: none;
+        width: 40px;
+        height: 40px; }
+      .tour-content > ul.vd-tour-list > li > a {
+        display: block;
+        float: left;
+        padding: 14px 20px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+        font-size: 13px;
+        line-height: 15.6px; }
+  .tour-content > .block-section {
+    display: block;
+    float: right;
+    width: calc(100% - 12em);
+    padding: 1em 1.4em;
+    padding: 1px;
+    border-width: 0;
+    background: #F8F8F8; }
+
+.vd-btn {
+  text-align: center;
+  cursor: pointer; }
+
+.vd-btn-small {
+  font-size: 9px; }
+
+/*# sourceMappingURL=component.css.map */

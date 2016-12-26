@@ -1,12 +1,12 @@
 /**
- * Super simple wysiwyg editor v0.7.3
+ * Super simple wysiwyg editor v0.8.2
  * http://summernote.org/
  *
  * summernote.js
- * Copyright 2013-2015 Alan Hong. and other contributors
+ * Copyright 2013-2016 Alan Hong. and other contributors
  * summernote may be freely distributed under the MIT license./
  *
- * Date: 2016-01-14T13:17Z
+ * Date: 2016-08-07T05:11Z
  */
 (function (factory) {
   /* global define */
@@ -93,7 +93,7 @@
     /**
      * returns bnd (bounds) from rect
      *
-     * - IE Compatability Issue: http://goo.gl/sRLOAo
+     * - IE Compatibility Issue: http://goo.gl/sRLOAo
      * - Scroll Issue: http://goo.gl/sNjUc
      *
      * @param {Rect} rect
@@ -140,6 +140,35 @@
       }).join('');
     };
 
+    /**
+     * Returns a function, that, as long as it continues to be invoked, will not
+     * be triggered. The function will be called after it stops being called for
+     * N milliseconds. If `immediate` is passed, trigger the function on the
+     * leading edge, instead of the trailing.
+     * @param {Function} func
+     * @param {Number} wait
+     * @param {Boolean} immediate
+     * @return {Function}
+     */
+    var debounce = function (func, wait, immediate) {
+      var timeout;
+      return function () {
+        var context = this, args = arguments;
+        var later = function () {
+          timeout = null;
+          if (!immediate) {
+            func.apply(context, args);
+          }
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) {
+          func.apply(context, args);
+        }
+      };
+    };
+
     return {
       eq: eq,
       eq2: eq2,
@@ -153,7 +182,8 @@
       uniqueId: uniqueId,
       rect2bnd: rect2bnd,
       invertObject: invertObject,
-      namespaceToCamel: namespaceToCamel
+      namespaceToCamel: namespaceToCamel,
+      debounce: debounce
     };
   })();
 
@@ -294,7 +324,7 @@
     };
   
     /**
-     * returns a copy of the array with all falsy values removed
+     * returns a copy of the array with all false values removed
      *
      * @param {Array} array - array
      * @param {Function} fn - predicate function for cluster rule
@@ -391,6 +421,24 @@
     }
   }
 
+  var isEdge = /Edge\/\d+/.test(userAgent);
+
+  var hasCodeMirror = !!window.CodeMirror;
+  if (!hasCodeMirror && isSupportAmd && typeof require !== 'undefined') {
+    if (typeof require.resolve !== 'undefined') {
+      try {
+        // If CodeMirror can't be resolved, `require.resolve` will throw an
+        // exception and `hasCodeMirror` won't be set to `true`.
+        require.resolve('codemirror');
+        hasCodeMirror = true;
+      } catch (e) {
+        // Do nothing.
+      }
+    } else if (typeof eval('require').specified !== 'undefined') {
+      hasCodeMirror = eval('require').specified('codemirror');
+    }
+  }
+
   /**
    * @class core.agent
    *
@@ -402,13 +450,16 @@
   var agent = {
     isMac: navigator.appVersion.indexOf('Mac') > -1,
     isMSIE: isMSIE,
-    isFF: /firefox/i.test(userAgent),
-    isWebkit: /webkit/i.test(userAgent),
-    isSafari: /safari/i.test(userAgent),
+    isEdge: isEdge,
+    isFF: !isEdge && /firefox/i.test(userAgent),
+    isPhantom: /PhantomJS/i.test(userAgent),
+    isWebkit: !isEdge && /webkit/i.test(userAgent),
+    isChrome: !isEdge && /chrome/i.test(userAgent),
+    isSafari: !isEdge && /safari/i.test(userAgent),
     browserVersion: browserVersion,
     jqueryVersion: parseFloat($.fn.jquery),
     isSupportAmd: isSupportAmd,
-    hasCodeMirror: isSupportAmd ? require.specified('codemirror') : !!window.CodeMirror,
+    hasCodeMirror: hasCodeMirror,
     isFontInstalled: isFontInstalled,
     isW3CRangeSupport: !!document.createRange
   };
@@ -520,13 +571,16 @@
 
     var isTable = makePredByNodeName('TABLE');
 
+    var isData = makePredByNodeName('DATA');
+
     var isInline = function (node) {
       return !isBodyContainer(node) &&
              !isList(node) &&
              !isHr(node) &&
              !isPara(node) &&
              !isTable(node) &&
-             !isBlockquote(node);
+             !isBlockquote(node) &&
+             !isData(node);
     };
 
     var isList = function (node) {
@@ -608,8 +662,13 @@
       if (isText(node)) {
         return node.nodeValue.length;
       }
-
-      return node.childNodes.length;
+      
+      if (node) {
+        return node.childNodes.length;
+      }
+      
+      return 0;
+      
     };
 
     /**
@@ -763,20 +822,20 @@
      * @param {Function} [pred] - predicate function
      */
     var listDescendant = function (node, pred) {
-      var descendents = [];
+      var descendants = [];
       pred = pred || func.ok;
 
       // start DFS(depth first search) with node
       (function fnWalk(current) {
         if (node !== current && pred(current)) {
-          descendents.push(current);
+          descendants.push(current);
         }
         for (var idx = 0, len = current.childNodes.length; idx < len; idx++) {
           fnWalk(current.childNodes[idx]);
         }
       })(node);
 
-      return descendents;
+      return descendants;
     };
 
     /**
@@ -856,7 +915,7 @@
     };
 
     /**
-     * returns wheter node is left edge of ancestor or not.
+     * returns whether node is left edge of ancestor or not.
      *
      * @param {Node} node
      * @param {Node} ancestor
@@ -881,6 +940,9 @@
      * @return {Boolean}
      */
     var isRightEdgeOf = function (node, ancestor) {
+      if (!ancestor) {
+        return false;
+      }
       while (node && node !== ancestor) {
         if (position(node) !== nodeLength(node.parentNode) - 1) {
           return false;
@@ -1003,7 +1065,7 @@
 
     /**
      * returns whether point is visible (can set cursor) or not.
-     * 
+     *
      * @param {BoundaryPoint} point
      * @return {Boolean}
      */
@@ -1419,6 +1481,7 @@
       isPre: isPre,
       isList: isList,
       isTable: isTable,
+      isData: isData,
       isCell: isCell,
       isBlockquote: isBlockquote,
       isBodyContainer: isBodyContainer,
@@ -1483,7 +1546,6 @@
     };
   })();
 
-
   /**
    * @param {jQuery} $note
    * @param {Object} options
@@ -1521,9 +1583,14 @@
      * destory modules and other resources and initialize it again
      */
     this.reset = function () {
+      var disabled = self.isDisabled();
       this.code(dom.emptyPara);
       this._destroy();
       this._initialize();
+
+      if (disabled) {
+        self.disable();
+      }
     };
 
     this._initialize = function () {
@@ -1689,10 +1756,6 @@
     return this.initialize();
   };
 
-  $.summernote = $.summernote || {
-    lang: {}
-  };
-
   $.fn.extend({
     /**
      * Summernote API
@@ -1709,6 +1772,7 @@
 
       options = $.extend({}, $.summernote.options, options);
       options.langInfo = $.extend(true, {}, $.summernote.lang['en-US'], $.summernote.lang[options.lang]);
+      options.icons = $.extend(true, {}, $.summernote.options.icons, options.icons);
 
       this.each(function (idx, note) {
         var $note = $(note);
@@ -1811,7 +1875,7 @@
   var airEditable = renderer.create('<div class="note-editable" contentEditable="true"/>');
 
   var buttonGroup = renderer.create('<div class="note-btn-group btn-group">');
-  var button = renderer.create('<button type="button" class="note-btn btn btn-default btn-sm">', function ($node, options) {
+  var button = renderer.create('<button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">', function ($node, options) {
     if (options && options.tooltip) {
       $node.attr({
         title: options.tooltip
@@ -1987,6 +2051,10 @@
       layoutInfo.editor.remove();
       $note.show();
     }
+  };
+
+  $.summernote = $.summernote || {
+    lang: {}
   };
 
   $.extend($.summernote.lang, {
@@ -2200,7 +2268,7 @@
           keyMap.BACKSPACE,
           keyMap.TAB,
           keyMap.ENTER,
-          keyMap.SPACe
+          keyMap.SPACE
         ], keyCode);
       },
       /**
@@ -2225,7 +2293,6 @@
       code: keyMap
     };
   })();
-
 
   var range = (function () {
 
@@ -2409,15 +2476,15 @@
         return this;
       };
 
-
       /**
        * Moves the scrollbar to start container(sc) of current range
        *
        * @return {WrappedRange}
        */
-      this.scrollIntoView = function ($container) {
-        if ($container[0].scrollTop + $container.height() < this.sc.offsetTop) {
-          $container[0].scrollTop += Math.abs($container[0].scrollTop + $container.height() - this.sc.offsetTop);
+      this.scrollIntoView = function (container) {
+        var height = $(container).height();
+        if (container.scrollTop + height < this.sc.offsetTop) {
+          container.scrollTop += Math.abs(container.scrollTop + height - this.sc.offsetTop);
         }
 
         return this;
@@ -2660,8 +2727,10 @@
       this.isOnList = makeIsOn(dom.isList);
       // isOnAnchor: judge whether range is on anchor node or not
       this.isOnAnchor = makeIsOn(dom.isAnchor);
-      // isOnAnchor: judge whether range is on cell node or not
+      // isOnCell: judge whether range is on cell node or not
       this.isOnCell = makeIsOn(dom.isCell);
+      // isOnData: judge whether range is on data node or not
+      this.isOnData = makeIsOn(dom.isData);
 
       /**
        * @param {Function} pred
@@ -2863,8 +2932,6 @@
    */
     return {
       /**
-       * @method
-       * 
        * create Range Object From arguments or Browser Selection
        *
        * @param {Node} sc - start container
@@ -2874,47 +2941,62 @@
        * @return {WrappedRange}
        */
       create: function (sc, so, ec, eo) {
-        if (!arguments.length) { // from Browser Selection
-          if (agent.isW3CRangeSupport) {
-            var selection = document.getSelection();
-            if (!selection || selection.rangeCount === 0) {
-              return null;
-            } else if (dom.isBody(selection.anchorNode)) {
-              // Firefox: returns entire body as range on initialization. We won't never need it.
-              return null;
-            }
-  
-            var nativeRng = selection.getRangeAt(0);
-            sc = nativeRng.startContainer;
-            so = nativeRng.startOffset;
-            ec = nativeRng.endContainer;
-            eo = nativeRng.endOffset;
-          } else { // IE8: TextRange
-            var textRange = document.selection.createRange();
-            var textRangeEnd = textRange.duplicate();
-            textRangeEnd.collapse(false);
-            var textRangeStart = textRange;
-            textRangeStart.collapse(true);
-  
-            var startPoint = textRangeToPoint(textRangeStart, true),
-            endPoint = textRangeToPoint(textRangeEnd, false);
-
-            // same visible point case: range was collapsed.
-            if (dom.isText(startPoint.node) && dom.isLeftEdgePoint(startPoint) &&
-                dom.isTextNode(endPoint.node) && dom.isRightEdgePoint(endPoint) &&
-                endPoint.node.nextSibling === startPoint.node) {
-              startPoint = endPoint;
-            }
-
-            sc = startPoint.cont;
-            so = startPoint.offset;
-            ec = endPoint.cont;
-            eo = endPoint.offset;
-          }
+        if (arguments.length === 4) {
+          return new WrappedRange(sc, so, ec, eo);
         } else if (arguments.length === 2) { //collapsed
           ec = sc;
           eo = so;
+          return new WrappedRange(sc, so, ec, eo);
+        } else {
+          var wrappedRange = this.createFromSelection();
+          if (!wrappedRange && arguments.length === 1) {
+            wrappedRange = this.createFromNode(arguments[0]);
+            return wrappedRange.collapse(dom.emptyPara === arguments[0].innerHTML);
+          }
+          return wrappedRange;
         }
+      },
+
+      createFromSelection: function () {
+        var sc, so, ec, eo;
+        if (agent.isW3CRangeSupport) {
+          var selection = document.getSelection();
+          if (!selection || selection.rangeCount === 0) {
+            return null;
+          } else if (dom.isBody(selection.anchorNode)) {
+            // Firefox: returns entire body as range on initialization.
+            // We won't never need it.
+            return null;
+          }
+
+          var nativeRng = selection.getRangeAt(0);
+          sc = nativeRng.startContainer;
+          so = nativeRng.startOffset;
+          ec = nativeRng.endContainer;
+          eo = nativeRng.endOffset;
+        } else { // IE8: TextRange
+          var textRange = document.selection.createRange();
+          var textRangeEnd = textRange.duplicate();
+          textRangeEnd.collapse(false);
+          var textRangeStart = textRange;
+          textRangeStart.collapse(true);
+
+          var startPoint = textRangeToPoint(textRangeStart, true),
+          endPoint = textRangeToPoint(textRangeEnd, false);
+
+          // same visible point case: range was collapsed.
+          if (dom.isText(startPoint.node) && dom.isLeftEdgePoint(startPoint) &&
+              dom.isTextNode(endPoint.node) && dom.isRightEdgePoint(endPoint) &&
+              endPoint.node.nextSibling === startPoint.node) {
+            startPoint = endPoint;
+          }
+
+          sc = startPoint.cont;
+          so = startPoint.offset;
+          ec = endPoint.cont;
+          eo = endPoint.offset;
+        }
+
         return new WrappedRange(sc, so, ec, eo);
       },
 
@@ -3077,7 +3159,7 @@
     var editable = $editable[0];
 
     var makeSnapshot = function () {
-      var rng = range.create();
+      var rng = range.create(editable);
       var emptyBookmark = {s: {path: [], offset: 0}, e: {path: [], offset: 0}};
 
       return {
@@ -3101,7 +3183,6 @@
     * Leaves the stack intact, so that "Redo" can still be used.
     */
     this.rewind = function () {
-
       // Create snap shot if not yet recorded
       if ($editable.html() !== stack[stackOffset].contents) {
         this.recordUndo();
@@ -3112,16 +3193,13 @@
 
       // Apply that snapshot.
       applySnapshot(stack[stackOffset]);
-
     };
-
 
     /**
     * @method reset
     * Resets the history stack completely; reverting to an empty editor.
     */
     this.reset = function () {
-
       // Clear the stack.
       stack = [];
 
@@ -3133,7 +3211,6 @@
 
       // Record our first snapshot (of nothing).
       this.recordUndo();
-
     };
 
     /**
@@ -3342,38 +3419,28 @@
    * @alternateClassName Bullet
    */
   var Bullet = function () {
+    var self = this;
+
     /**
-     * @method insertOrderedList
-     *
      * toggle ordered list
-     *
-     * @type command
      */
-    this.insertOrderedList = function () {
-      this.toggleList('OL');
+    this.insertOrderedList = function (editable) {
+      this.toggleList('OL', editable);
     };
 
     /**
-     * @method insertUnorderedList
-     *
      * toggle unordered list
-     *
-     * @type command
      */
-    this.insertUnorderedList = function () {
-      this.toggleList('UL');
+    this.insertUnorderedList = function (editable) {
+      this.toggleList('UL', editable);
     };
 
     /**
-     * @method indent
-     *
      * indent
-     *
-     * @type command
      */
-    this.indent = function () {
+    this.indent = function (editable) {
       var self = this;
-      var rng = range.create().wrapBodyInlineWithPara();
+      var rng = range.create(editable).wrapBodyInlineWithPara();
 
       var paras = rng.nodes(dom.isPara, { includeAncestor: true });
       var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
@@ -3395,15 +3462,11 @@
     };
 
     /**
-     * @method outdent
-     *
      * outdent
-     *
-     * @type command
      */
-    this.outdent = function () {
+    this.outdent = function (editable) {
       var self = this;
-      var rng = range.create().wrapBodyInlineWithPara();
+      var rng = range.create(editable).wrapBodyInlineWithPara();
 
       var paras = rng.nodes(dom.isPara, { includeAncestor: true });
       var clustereds = list.clusterBy(paras, func.peq2('parentNode'));
@@ -3426,15 +3489,12 @@
     };
 
     /**
-     * @method toggleList
-     *
      * toggle list
      *
      * @param {String} listName - OL or UL
      */
-    this.toggleList = function (listName) {
-      var self = this;
-      var rng = range.create().wrapBodyInlineWithPara();
+    this.toggleList = function (listName, editable) {
+      var rng = range.create(editable).wrapBodyInlineWithPara();
 
       var paras = rng.nodes(dom.isPara, { includeAncestor: true });
       var bookmark = rng.paraBookmark(paras);
@@ -3468,8 +3528,6 @@
     };
 
     /**
-     * @method wrapList
-     *
      * @param {Node[]} paras
      * @param {String} listName
      * @return {Node[]}
@@ -3576,11 +3634,10 @@
     /**
      * insert tab
      *
-     * @param {jQuery} $editable
      * @param {WrappedRange} rng
      * @param {Number} tabsize
      */
-    this.insertTab = function ($editable, rng, tabsize) {
+    this.insertTab = function (rng, tabsize) {
       var tab = dom.createText(new Array(tabsize + 1).join(dom.NBSP_CHAR));
       rng = rng.deleteContents();
       rng.insertNode(tab, true);
@@ -3592,8 +3649,8 @@
     /**
      * insert paragraph
      */
-    this.insertParagraph = function ($editable) {
-      var rng = range.create();
+    this.insertParagraph = function (editable) {
+      var rng = range.create(editable);
 
       // deleteContents on range.
       rng = rng.deleteContents();
@@ -3644,7 +3701,7 @@
         }
       }
 
-      range.create(nextPara, 0).normalize().select().scrollIntoView($editable);
+      range.create(nextPara, 0).normalize().select().scrollIntoView(editable);
     };
   };
 
@@ -3715,6 +3772,9 @@
     var options = context.options;
     var lang = options.langInfo;
 
+    var editable = $editable[0];
+    var lastRange = null;
+
     var style = new Style();
     var table = new Table();
     var typing = new Typing();
@@ -3729,8 +3789,12 @@
         }
         context.triggerEvent('keydown', event);
 
-        if (options.shortcuts && !event.isDefaultPrevented()) {
-          self.handleKeyMap(event);
+        if (!event.isDefaultPrevented()) {
+          if (options.shortcuts) {
+            self.handleKeyMap(event);
+          } else {
+            self.preventDefaultEditableShortCuts(event);
+          }
         }
       }).on('keyup', function (event) {
         context.triggerEvent('keyup', event);
@@ -3748,12 +3812,15 @@
         context.triggerEvent('paste', event);
       });
 
+      // init content before set event
+      $editable.html(dom.html($note) || dom.emptyPara);
+
       // [workaround] IE doesn't have input events for contentEditable
       // - see: https://goo.gl/4bfIvA
       var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
-      $editable.on(changeEventName, function () {
+      $editable.on(changeEventName, func.debounce(function () {
         context.triggerEvent('change', $editable.html());
-      });
+      }, 250));
 
       $editor.on('focusin', function (event) {
         context.triggerEvent('focusin', event);
@@ -3761,17 +3828,21 @@
         context.triggerEvent('focusout', event);
       });
 
-      if (!options.airMode && options.height) {
-        $editable.outerHeight(options.height);
-      }
-      if (!options.airMode && options.maxHeight) {
-        $editable.css('max-height', options.maxHeight);
-      }
-      if (!options.airMode && options.minHeight) {
-        $editable.css('min-height', options.minHeight);
+      if (!options.airMode) {
+        if (options.width) {
+          $editor.outerWidth(options.width);
+        }
+        if (options.height) {
+          $editable.outerHeight(options.height);
+        }
+        if (options.maxHeight) {
+          $editable.css('max-height', options.maxHeight);
+        }
+        if (options.minHeight) {
+          $editable.css('min-height', options.minHeight);
+        }
       }
 
-      $editable.html(dom.html($note) || dom.emptyPara);
       history.recordUndo();
     };
 
@@ -3801,15 +3872,21 @@
       }
     };
 
+    this.preventDefaultEditableShortCuts = function (event) {
+      // B(Bold, 66) / I(Italic, 73) / U(Underline, 85)
+      if ((event.ctrlKey || event.metaKey) &&
+        list.contains([66, 73, 85], event.keyCode)) {
+        event.preventDefault();
+      }
+    };
+
     /**
-     * createRange
-     *
      * create range
      * @return {WrappedRange}
      */
     this.createRange = function () {
       this.focus();
-      return range.create();
+      return range.create(editable);
     };
 
     /**
@@ -3820,10 +3897,9 @@
      * @param {Boolean} [thenCollapse=false]
      */
     this.saveRange = function (thenCollapse) {
-      this.focus();
-      $editable.data('range', range.create());
+      lastRange = this.createRange();
       if (thenCollapse) {
-        range.create().collapse().select();
+        lastRange.collapse().select();
       }
     };
 
@@ -3833,9 +3909,8 @@
      * restore lately range
      */
     this.restoreRange = function () {
-      var rng = $editable.data('range');
-      if (rng) {
-        rng.select();
+      if (lastRange) {
+        lastRange.select();
         this.focus();
       }
     };
@@ -3897,7 +3972,6 @@
     context.memo('help.redo', lang.help.redo);
 
     /**
-     * beforeCommand
      * before command
      */
     var beforeCommand = this.beforeCommand = function () {
@@ -3907,7 +3981,6 @@
     };
 
     /**
-     * afterCommand
      * after command
      * @param {Boolean} isPreventTrigger
      */
@@ -3938,8 +4011,6 @@
     /* jshint ignore:end */
 
     /**
-     * tab
-     *
      * handle tab key
      */
     this.tab = function () {
@@ -3948,17 +4019,14 @@
         table.tab(rng);
       } else {
         beforeCommand();
-        typing.insertTab($editable, rng, options.tabSize);
+        typing.insertTab(rng, options.tabSize);
         afterCommand();
       }
     };
     context.memo('help.tab', lang.help.tab);
 
     /**
-     * untab
-     *
      * handle shift+tab key
-     *
      */
     this.untab = function () {
       var rng = this.createRange();
@@ -3969,8 +4037,6 @@
     context.memo('help.untab', lang.help.untab);
 
     /**
-     * wrapCommand
-     *
      * run given function between beforeCommand and afterCommand
      */
     this.wrapCommand = function (fn) {
@@ -3982,35 +4048,30 @@
     };
 
     /**
-     * insertParagraph
-     *
      * insert paragraph
      */
     this.insertParagraph = this.wrapCommand(function () {
-      typing.insertParagraph($editable);
+      typing.insertParagraph(editable);
     });
     context.memo('help.insertParagraph', lang.help.insertParagraph);
 
-    /**
-     * insertOrderedList
-     */
     this.insertOrderedList = this.wrapCommand(function () {
-      bullet.insertOrderedList($editable);
+      bullet.insertOrderedList(editable);
     });
     context.memo('help.insertOrderedList', lang.help.insertOrderedList);
 
     this.insertUnorderedList = this.wrapCommand(function () {
-      bullet.insertUnorderedList($editable);
+      bullet.insertUnorderedList(editable);
     });
     context.memo('help.insertUnorderedList', lang.help.insertUnorderedList);
 
     this.indent = this.wrapCommand(function () {
-      bullet.indent($editable);
+      bullet.indent(editable);
     });
     context.memo('help.indent', lang.help.indent);
 
     this.outdent = this.wrapCommand(function () {
-      bullet.outdent($editable);
+      bullet.outdent(editable);
     });
     context.memo('help.outdent', lang.help.outdent);
 
@@ -4035,11 +4096,11 @@
         }
 
         $image.show();
-        range.create().insertNode($image[0]);
+        range.create(editable).insertNode($image[0]);
         range.createFromNodeAfter($image[0]).select();
         afterCommand();
-      }).fail(function () {
-        context.triggerEvent('image.upload.error');
+      }).fail(function (e) {
+        context.triggerEvent('image.upload.error', e);
       });
     };
 
@@ -4084,7 +4145,8 @@
      * @param {Node} node
      */
     this.insertNode = this.wrapCommand(function (node) {
-      range.create().insertNode(node);
+      var rng = this.createRange();
+      rng.insertNode(node);
       range.createFromNodeAfter(node).select();
     });
 
@@ -4093,7 +4155,8 @@
      * @param {String} text
      */
     this.insertText = this.wrapCommand(function (text) {
-      var textNode = range.create().insertNode(dom.createText(text));
+      var rng = this.createRange();
+      var textNode = rng.insertNode(dom.createText(text));
       range.create(textNode, dom.nodeLength(textNode)).select();
     });
 
@@ -4117,7 +4180,7 @@
      * @param {String} markup
      */
     this.pasteHTML = this.wrapCommand(function (markup) {
-      var contents = range.create().pasteHTML(markup);
+      var contents = this.createRange().pasteHTML(markup);
       range.createFromNodeAfter(list.last(contents)).select();
     });
 
@@ -4148,15 +4211,13 @@
     };
     /* jshint ignore:end */
 
-
     /**
      * fontSize
      *
      * @param {String} value - px
      */
     this.fontSize = function (value) {
-      this.focus();
-      var rng = range.create();
+      var rng = this.createRange();
 
       if (rng && rng.isCollapsed()) {
         var spans = style.styleNodes(rng);
@@ -4186,14 +4247,12 @@
      * insert horizontal rule
      */
     this.insertHorizontalRule = this.wrapCommand(function () {
-      var rng = range.create();
-      var hrNode = rng.insertNode($('<HR/>')[0]);
+      var hrNode = this.createRange().insertNode(dom.create('HR'));
       if (hrNode.nextSibling) {
         range.create(hrNode.nextSibling, 0).normalize().select();
       }
     });
     context.memo('help.insertHorizontalRule', lang.help.insertHorizontalRule);
-
 
     /**
      * remove bogus node and character
@@ -4223,7 +4282,7 @@
      * @param {String} value
      */
     this.lineHeight = this.wrapCommand(function (value) {
-      style.stylePara(range.create(), {
+      style.stylePara(this.createRange(), {
         lineHeight: value
       });
     });
@@ -4258,13 +4317,18 @@
       var rng = linkInfo.range || this.createRange();
       var isTextChanged = rng.toString() !== linkText;
 
+      // handle spaced urls from input
+      if (typeof linkUrl === 'string') {
+        linkUrl = linkUrl.trim();
+      }
+
       if (options.onCreateLink) {
         linkUrl = options.onCreateLink(linkUrl);
       }
 
       var anchors = [];
       if (isTextChanged) {
-        // Create a new link when text changed.
+        rng = rng.deleteContents();
         var anchor = rng.insertNode($('<A>' + linkText + '</A>')[0]);
         anchors.push(anchor);
       } else {
@@ -4276,6 +4340,10 @@
       }
 
       $.each(anchors, function (idx, anchor) {
+        // if url doesn't match an URL schema, set http:// as default
+        linkUrl = /^[A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?/.test(linkUrl) ?
+          linkUrl : 'http://' + linkUrl;
+
         $(anchor).attr('href', linkUrl);
         if (isNewWindow) {
           $(anchor).attr('target', '_blank');
@@ -4307,9 +4375,7 @@
      * @return {String} [return.url=""]
      */
     this.getLinkInfo = function () {
-      this.focus();
-
-      var rng = range.create().expand(dom.isAnchor);
+      var rng = this.createRange().expand(dom.isAnchor);
 
       // Get the first anchor on range(for edit).
       var $anchor = $(list.head(rng.nodes(dom.isAnchor)));
@@ -4340,12 +4406,12 @@
     /**
      * insert Table
      *
-     * @param {String} sDim dimension of table (ex : "5x5")
+     * @param {String} dimension of table (ex : "5x5")
      */
-    this.insertTable = this.wrapCommand(function (sDim) {
-      var dimension = sDim.split('x');
+    this.insertTable = this.wrapCommand(function (dim) {
+      var dimension = dim.split('x');
 
-      var rng = range.create().deleteContents();
+      var rng = this.createRange().deleteContents();
       rng.insertNode(table.createTable(dimension[0], dimension[1], options));
     });
 
@@ -4418,14 +4484,6 @@
       //  - do focus when not focused
       if (!this.hasFocus()) {
         $editable.focus();
-
-        // [workaround] for firefox bug http://goo.gl/lVfAaI
-        if (!this.hasFocus() && agent.isFF) {
-          range.createFromNode($editable[0])
-               .normalize()
-               .collapse()
-               .select();
-        }
       }
     };
 
@@ -4474,7 +4532,7 @@
       //  - IE11 and Firefox: CTRL+v hook
       //  - Webkit: event.clipboardData
       if (this.needKeydownHook()) {
-        this.$paste = $('<div />').attr('contenteditable', true).css({
+        this.$paste = $('<div tabindex="-1" />').attr('contenteditable', true).css({
           position: 'absolute',
           left: -100000,
           opacity: 0
@@ -4549,6 +4607,7 @@
     var $editable = context.layoutInfo.editable;
     var options = context.options;
     var lang = options.langInfo;
+    var documentEventHandlers = {};
 
     var $dropzone = $([
       '<div class="note-dropzone">',
@@ -4556,15 +4615,23 @@
       '</div>'
     ].join('')).prependTo($editor);
 
+    var detachDocumentEvent = function () {
+      Object.keys(documentEventHandlers).forEach(function (key) {
+        $document.off(key.substr(2).toLowerCase(), documentEventHandlers[key]);
+      });
+      documentEventHandlers = {};
+    };
+
     /**
      * attach Drag and Drop Events
      */
     this.initialize = function () {
       if (options.disableDragAndDrop) {
         // prevent default drop event
-        $document.on('drop', function (e) {
+        documentEventHandlers.onDrop = function (e) {
           e.preventDefault();
-        });
+        };
+        $document.on('drop', documentEventHandlers.onDrop);
       } else {
         this.attachDragAndDropEvent();
       }
@@ -4577,9 +4644,7 @@
       var collection = $(),
           $dropzoneMessage = $dropzone.find('.note-dropzone-message');
 
-      // show dropzone on dragenter when dragging a object to document
-      // -but only if the editor is visible, i.e. has a positive width and height
-      $document.on('dragenter', function (e) {
+      documentEventHandlers.onDragenter = function (e) {
         var isCodeview = context.invoke('codeview.isActivated');
         var hasEditorSize = $editor.width() > 0 && $editor.height() > 0;
         if (!isCodeview && !collection.length && hasEditorSize) {
@@ -4589,15 +4654,25 @@
           $dropzoneMessage.text(lang.image.dragImageHere);
         }
         collection = collection.add(e.target);
-      }).on('dragleave', function (e) {
+      };
+
+      documentEventHandlers.onDragleave = function (e) {
         collection = collection.not(e.target);
         if (!collection.length) {
           $editor.removeClass('dragover');
         }
-      }).on('drop', function () {
+      };
+
+      documentEventHandlers.onDrop = function () {
         collection = $();
         $editor.removeClass('dragover');
-      });
+      };
+
+      // show dropzone on dragenter when dragging a object to document
+      // -but only if the editor is visible, i.e. has a positive width and height
+      $document.on('dragenter', documentEventHandlers.onDragenter)
+        .on('dragleave', documentEventHandlers.onDragleave)
+        .on('drop', documentEventHandlers.onDrop);
 
       // change dropzone's message on hover.
       $dropzone.on('dragenter', function () {
@@ -4630,6 +4705,10 @@
           });
         }
       }).on('dragover', false); // prevent default dragover event
+    };
+
+    this.destroy = function () {
+      detachDocumentEvent();
     };
   };
 
@@ -4778,6 +4857,7 @@
 
     this.destroy = function () {
       $statusbar.off();
+      $statusbar.remove();
     };
   };
 
@@ -4803,8 +4883,7 @@
       };
 
       $editor.toggleClass('fullscreen');
-      var isFullscreen = $editor.hasClass('fullscreen');
-      if (isFullscreen) {
+      if (this.isFullscreen()) {
         $editable.data('orgHeight', $editable.css('height'));
 
         $window.on('resize', function () {
@@ -4822,7 +4901,11 @@
         $scrollbar.css('overflow', 'visible');
       }
 
-      context.invoke('toolbar.updateFullscreen', isFullscreen);
+      context.invoke('toolbar.updateFullscreen', this.isFullscreen());
+    };
+
+    this.isFullscreen = function () {
+      return $editor.hasClass('fullscreen');
     };
   };
 
@@ -4941,7 +5024,7 @@
   var AutoLink = function (context) {
     var self = this;
     var defaultScheme = 'http://';
-    var linkPattern = /^(https?:\/\/|ssh:\/\/|ftp:\/\/|file:\/|mailto:[A-Z0-9._%+-]+@)?(www\.)?(.+)$/i;
+    var linkPattern = /^([A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?|mailto:[A-Z0-9._%+-]+@)?(www\.)?(.+)$/i;
 
     this.events = {
       'summernote.keyup': function (we, e) {
@@ -5059,6 +5142,10 @@
 
     var representShortcut = this.representShortcut = function (editorMethod) {
       var shortcut = invertedKeyMap[editorMethod];
+      if (!options.shortcuts || !shortcut) {
+        return '';
+      }
+      
       if (agent.isMac) {
         shortcut = shortcut.replace('CMD', '⌘').replace('SHIFT', '⇧');
       }
@@ -5075,6 +5162,20 @@
       this.addToolbarButtons();
       this.addImagePopoverButtons();
       this.addLinkPopoverButtons();
+      this.fontInstalledMap = {};
+    };
+
+    this.destroy = function () {
+      delete this.fontInstalledMap;
+    };
+
+    this.isFontInstalled = function (name) {
+      if (!self.fontInstalledMap.hasOwnProperty(name)) {
+        self.fontInstalledMap[name] = agent.isFontInstalled(name) ||
+          list.contains(options.fontNamesIgnoreCheck, name);
+      }
+
+      return self.fontInstalledMap[name];
     };
 
     this.addToolbarButtons = function () {
@@ -5094,13 +5195,13 @@
             template: function (item) {
 
               if (typeof item === 'string') {
-                item = { tag: item, title: item };
+                item = { tag: item, title: (lang.style.hasOwnProperty(item) ? lang.style[item] : item) };
               }
 
               var tag = item.tag;
               var title = item.title;
               var style = item.style ? ' style="' + item.style + '" ' : '';
-              var className = item.className ? ' className="' + item.className + '"' : '';
+              var className = item.className ? ' class="' + item.className + '"' : '';
 
               return '<' + tag + style + className + '>' + title + '</' + tag +  '>';
             },
@@ -5184,10 +5285,7 @@
           ui.dropdownCheck({
             className: 'dropdown-fontname',
             checkClassName: options.icons.menuCheck,
-            items: options.fontNames.filter(function (name) {
-              return agent.isFontInstalled(name) ||
-                list.contains(options.fontNamesIgnoreCheck, name);
-            }),
+            items: options.fontNames.filter(self.isFontInstalled),
             template: function (item) {
               return '<span style="font-family:' + item + '">' + item + '</span>';
             },
@@ -5223,16 +5321,17 @@
               className: 'note-current-color-button',
               contents: ui.icon(options.icons.font + ' note-recent-color'),
               tooltip: lang.color.recent,
-              click: context.createInvokeHandler('editor.color'),
+              click: function (e) {
+                var $button = $(e.currentTarget);
+                context.invoke('editor.color', {
+                  backColor: $button.attr('data-backColor'),
+                  foreColor: $button.attr('data-foreColor')
+                });
+              },
               callback: function ($button) {
                 var $recentColor = $button.find('.note-recent-color');
-                $recentColor.css({
-                  'background-color': 'yellow'
-                });
-
-                $button.data('value', {
-                  backColor: 'yellow'
-                });
+                $recentColor.css('background-color', '#FFFF00');
+                $button.attr('data-backColor', '#FFFF00');
               }
             }),
             ui.button({
@@ -5285,11 +5384,8 @@
                   var $color = $button.closest('.note-color').find('.note-recent-color');
                   var $currentButton = $button.closest('.note-color').find('.note-current-color-button');
 
-                  var colorInfo = $currentButton.data('value');
-                  colorInfo[eventName] = value;
                   $color.css(key, value);
-                  $currentButton.data('value', colorInfo);
-
+                  $currentButton.attr('data-' + eventName, value);
                   context.invoke('editor.' + eventName, value);
                 }
               }
@@ -5298,7 +5394,7 @@
         }).render();
       });
 
-      context.memo('button.ol',  function () {
+      context.memo('button.ul',  function () {
         return ui.button({
           contents: ui.icon(options.icons.unorderedlist),
           tooltip: lang.lists.unordered + representShortcut('insertUnorderedList'),
@@ -5306,7 +5402,7 @@
         }).render();
       });
 
-      context.memo('button.ul', function () {
+      context.memo('button.ol', function () {
         return ui.button({
           contents: ui.icon(options.icons.orderedlist),
           tooltip: lang.lists.ordered + representShortcut('insertOrderedList'),
@@ -5361,7 +5457,7 @@
         return ui.buttonGroup([
           ui.button({
             className: 'dropdown-toggle',
-            contents: ui.icon(options.icons.align) + ' ' + ui.icon(options.icons.caret, 'span'),
+            contents: ui.icon(options.icons.alignLeft) + ' ' + ui.icon(options.icons.caret, 'span'),
             tooltip: lang.paragraph.paragraph,
             data: {
               toggle: 'dropdown'
@@ -5435,7 +5531,7 @@
       context.memo('button.link', function () {
         return ui.button({
           contents: ui.icon(options.icons.link),
-          tooltip: lang.link.link,
+          tooltip: lang.link.link + representShortcut('linkDialog.show'),
           click: context.createInvokeHandler('linkDialog.show')
         }).render();
       });
@@ -5604,7 +5700,7 @@
         for (var idx = 0, len = buttons.length; idx < len; idx++) {
           var button = context.memo('button.' + buttons[idx]);
           if (button) {
-            $group.append(typeof button === 'function' ? button() : button);
+            $group.append(typeof button === 'function' ? button(context) : button);
           }
         }
         $group.appendTo($container);
@@ -5640,10 +5736,7 @@
             .replace(/\s+$/, '')
             .replace(/^\s+/, '');
         });
-        var fontName = list.find(fontNames, function (name) {
-          return agent.isFontInstalled(name) ||
-            list.contains(options.fontNamesIgnoreCheck, name);
-        });
+        var fontName = list.find(fontNames, self.isFontInstalled);
 
         $toolbar.find('.dropdown-fontname li a').each(function () {
           // always compare string to avoid creating another func.
@@ -5836,6 +5929,13 @@
     };
 
     /**
+     * toggle update button
+     */
+    this.toggleLinkBtn = function ($linkBtn, $linkText, $linkUrl) {
+      ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
+    };
+
+    /**
      * Show link dialog and set event handlers on dialog controls.
      *
      * @param {Object} linkInfo
@@ -5851,30 +5951,38 @@
         ui.onDialogShown(self.$dialog, function () {
           context.triggerEvent('dialog.shown');
 
+          // if no url was given, copy text to url
+          if (!linkInfo.url) {
+            linkInfo.url = linkInfo.text;
+          }
+
           $linkText.val(linkInfo.text);
 
-          $linkText.on('input', function () {
-            ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
+          var handleLinkTextUpdate = function () {
+            self.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
             // if linktext was modified by keyup,
             // stop cloning text from linkUrl
             linkInfo.text = $linkText.val();
+          };
+
+          $linkText.on('input', handleLinkTextUpdate).on('paste', function () {
+            setTimeout(handleLinkTextUpdate, 0);
           });
 
-          // if no url was given, copy text to url
-          if (!linkInfo.url) {
-            linkInfo.url = linkInfo.text || 'http://';
-            ui.toggleBtn($linkBtn, linkInfo.text);
-          }
-
-          $linkUrl.on('input', function () {
-            ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
+          var handleLinkUrlUpdate = function () {
+            self.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
             // display same link on `Text to display` input
             // when create a new link
             if (!linkInfo.text) {
               $linkText.val($linkUrl.val());
             }
+          };
+
+          $linkUrl.on('input', handleLinkUrlUpdate).on('paste', function () {
+            setTimeout(handleLinkUrlUpdate, 0);
           }).val(linkInfo.url).trigger('focus');
 
+          self.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
           self.bindEnterKey($linkUrl, $linkBtn);
           self.bindEnterKey($linkText, $linkBtn);
 
@@ -5895,8 +6003,8 @@
 
         ui.onDialogHidden(self.$dialog, function () {
           // detach events
-          $linkText.off('input keypress');
-          $linkUrl.off('input keypress');
+          $linkText.off('input paste keypress');
+          $linkUrl.off('input paste keypress');
           $linkBtn.off('click');
 
           if (deferred.state() === 'pending') {
@@ -6014,7 +6122,7 @@
                    '<input class="note-image-input form-control" type="file" name="files" accept="image/*" multiple="multiple" />' +
                    imageLimitation +
                  '</div>' +
-                 '<div class="form-group" style="overflow:auto;">' +
+                 '<div class="form-group note-group-image-url" style="overflow:auto;">' +
                    '<label>' + lang.image.url + '</label>' +
                    '<input class="note-image-url form-control col-md-12" type="text" />' +
                  '</div>';
@@ -6192,13 +6300,13 @@
       var ytRegExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
       var ytMatch = url.match(ytRegExp);
 
-      var igRegExp = /\/\/instagram.com\/p\/(.[a-zA-Z0-9_-]*)/;
+      var igRegExp = /(?:www\.|\/\/)instagram\.com\/p\/(.[a-zA-Z0-9_-]*)/;
       var igMatch = url.match(igRegExp);
 
-      var vRegExp = /\/\/vine.co\/v\/(.[a-zA-Z0-9]*)/;
+      var vRegExp = /\/\/vine\.co\/v\/([a-zA-Z0-9]+)/;
       var vMatch = url.match(vRegExp);
 
-      var vimRegExp = /\/\/(player.)?vimeo.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/;
+      var vimRegExp = /\/\/(player\.)?vimeo\.com\/([a-z]*\/)*([0-9]{6,11})[?]?.*/;
       var vimMatch = url.match(vimRegExp);
 
       var dmRegExp = /.+dailymotion.com\/(video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/;
@@ -6226,7 +6334,7 @@
       } else if (igMatch && igMatch[0].length) {
         $video = $('<iframe>')
             .attr('frameborder', 0)
-            .attr('src', igMatch[0] + '/embed/')
+            .attr('src', 'https://instagram.com/p/' + igMatch[1] + '/embed/')
             .attr('width', '612').attr('height', '710')
             .attr('scrolling', 'no')
             .attr('allowtransparency', 'true');
@@ -6265,7 +6373,6 @@
 
       return $video[0];
     };
-
 
     this.show = function () {
       var text = context.invoke('editor.getSelectedText');
@@ -6354,9 +6461,9 @@
 
       var body = [
         '<p class="text-center">',
-        '<a href="//summernote.org/" target="_blank">Summernote 0.7.3</a> · ',
-        '<a href="//github.com/summernote/summernote" target="_blank">Project</a> · ',
-        '<a href="//github.com/summernote/summernote/issues" target="_blank">Issues</a>',
+        '<a href="http://summernote.org/" target="_blank">Summernote 0.8.2</a> · ',
+        '<a href="https://github.com/summernote/summernote" target="_blank">Project</a> · ',
+        '<a href="https://github.com/summernote/summernote/issues" target="_blank">Issues</a>',
         '</p>'
       ].join('');
 
@@ -6699,8 +6806,9 @@
 
 
   $.summernote = $.extend($.summernote, {
-    version: '0.7.3',
+    version: '0.8.2',
     ui: ui,
+    dom: dom,
 
     plugins: {},
 
@@ -6821,7 +6929,6 @@
         onEnter: null,
         onKeyup: null,
         onKeydown: null,
-        onSubmit: null,
         onImageUpload: null,
         onImageUploadError: null
       },
@@ -6894,44 +7001,44 @@
         }
       },
       icons: {
-        'align': 'fa fa-align-left',
-        'alignCenter': 'fa fa-align-center',
-        'alignJustify': 'fa fa-align-justify',
-        'alignLeft': 'fa fa-align-left',
-        'alignRight': 'fa fa-align-right',
-        'indent': 'fa fa-indent',
-        'outdent': 'fa fa-outdent',
-        'arrowsAlt': 'fa fa-arrows-alt',
-        'bold': 'fa fa-bold',
-        'caret': 'caret',
-        'circle': 'fa fa-circle',
-        'close': 'fa fa-close',
-        'code': 'fa fa-code',
-        'eraser': 'fa fa-eraser',
-        'font': 'fa fa-font',
-        'frame': 'fa fa-frame',
-        'italic': 'fa fa-italic',
-        'link': 'fa fa-link',
-        'unlink': 'fa fa-chain-broken',
-        'magic': 'fa fa-magic',
-        'menuCheck': 'fa fa-check',
-        'minus': 'fa fa-minus',
-        'orderedlist': 'fa fa-list-ol',
-        'pencil': 'fa fa-pencil',
-        'picture': 'fa fa-picture-o',
-        'question': 'fa fa-question',
-        'redo': 'fa fa-repeat',
-        'square': 'fa fa-square',
-        'strikethrough': 'fa fa-strikethrough',
-        'subscript': 'fa fa-subscript',
-        'superscript': 'fa fa-superscript',
-        'table': 'fa fa-table',
-        'textHeight': 'fa fa-text-height',
-        'trash': 'fa fa-trash',
-        'underline': 'fa fa-underline',
-        'undo': 'fa fa-undo',
-        'unorderedlist': 'fa fa-list-ul',
-        'video': 'fa fa-youtube-play'
+        'align': 'note-icon-align',
+        'alignCenter': 'note-icon-align-center',
+        'alignJustify': 'note-icon-align-justify',
+        'alignLeft': 'note-icon-align-left',
+        'alignRight': 'note-icon-align-right',
+        'indent': 'note-icon-align-indent',
+        'outdent': 'note-icon-align-outdent',
+        'arrowsAlt': 'note-icon-arrows-alt',
+        'bold': 'note-icon-bold',
+        'caret': 'note-icon-caret',
+        'circle': 'note-icon-circle',
+        'close': 'note-icon-close',
+        'code': 'note-icon-code',
+        'eraser': 'note-icon-eraser',
+        'font': 'note-icon-font',
+        'frame': 'note-icon-frame',
+        'italic': 'note-icon-italic',
+        'link': 'note-icon-link',
+        'unlink': 'note-icon-chain-broken',
+        'magic': 'note-icon-magic',
+        'menuCheck': 'note-icon-check',
+        'minus': 'note-icon-minus',
+        'orderedlist': 'note-icon-orderedlist',
+        'pencil': 'note-icon-pencil',
+        'picture': 'note-icon-picture',
+        'question': 'note-icon-question',
+        'redo': 'note-icon-redo',
+        'square': 'note-icon-square',
+        'strikethrough': 'note-icon-strikethrough',
+        'subscript': 'note-icon-subscript',
+        'superscript': 'note-icon-superscript',
+        'table': 'note-icon-table',
+        'textHeight': 'note-icon-text-height',
+        'trash': 'note-icon-trash',
+        'underline': 'note-icon-underline',
+        'undo': 'note-icon-undo',
+        'unorderedlist': 'note-icon-unorderedlist',
+        'video': 'note-icon-video'
       }
     }
   });

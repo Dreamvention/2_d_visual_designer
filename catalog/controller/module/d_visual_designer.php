@@ -4,13 +4,19 @@ class ControllerModuleDVisualDesigner extends Controller {
     private $codename = 'd_visual_designer';
 
     private $route = 'module/d_visual_designer';
+    
+    private $theme = 'default';
 
     public function __construct($registry)
     {
         parent::__construct($registry);
         $this->load->language($this->route);
         $this->load->model($this->route);
-
+        $this->theme = $this->config->get('config_template');
+        if(empty($this->theme)&& VERSION=='2.2.0.0'){
+            $this->theme = $this->config->get('theme_default_directory');
+        }
+        
         if(VERSION >= '2.3.0.0'){
             $this->route = 'extension/'.$this->route;
         }
@@ -63,25 +69,25 @@ class ControllerModuleDVisualDesigner extends Controller {
         //Carousel
         $this->document->addScript('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.carousel.min.js');
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.carousel.css');
-        // $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.theme.default.min.css');
+        
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.transitions.css');
-
+                
         if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/stylesheet/d_visual_designer/animate.css')) {
-            $this->document->addStyle('catalog/view/theme/' . $this->config->get('config_template') . '/stylesheet/d_visual_designer/animate.css');
+            $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/animate.css');
         } else {
             $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/animate.css');
         }
 
         if($edit_status&&isset($this->request->get['edit'])){
 
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/stylesheet/d_visual_designer/d_visual_designer.css')) {
-                $this->document->addStyle('catalog/view/theme/' . $this->config->get('config_template') . '/stylesheet/d_visual_designer/d_visual_designer.css');
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css')) {
+                $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css');
             } else {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/d_visual_designer.css');
             }
 
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/javascript/d_visual_designer.js')) {
-                $this->document->addScript('catalog/view/theme/' . $this->config->get('config_template') . '/javascript/d_visual_designer.js');
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/javascript/d_visual_designer.js')) {
+                $this->document->addScript('catalog/view/theme/' . $this->theme . '/javascript/d_visual_designer.js');
             } else {
                 $this->document->addScript('catalog/view/theme/default/javascript/d_visual_designer.js');
             }
@@ -190,7 +196,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 
             $data['base'] = $this->request->server['HTTPS'] ? HTTPS_SERVER.'catalog/view/theme/default/' : HTTP_SERVER.'catalog/view/theme/default/';
 
-            $data['filemanager_url'] = $this->config->get('config_url').'admin/index.php?route=common/filemanager&token='.$this->session->data['token'].'';
+            $data['filemanager_url'] = $this->config->get('config_url').'index.php?route=common/filemanager&token='.$this->session->data['token'].'';
 
             $this->load->model('tool/image');
 
@@ -227,8 +233,8 @@ class ControllerModuleDVisualDesigner extends Controller {
         }
         elseif($edit_status&&isset($this->request->get[$route_info['frontend_param']])){
 
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/stylesheet/d_visual_designer/frontend.css')) {
-                $this->document->addStyle('catalog/view/theme/' . $this->config->get('config_template') . '/stylesheet/d_visual_designer/frontend.css');
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/frontend.css')) {
+                $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/frontend.css');
             } else {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
             }
@@ -242,11 +248,16 @@ class ControllerModuleDVisualDesigner extends Controller {
                 $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$this->request->get[$route_info['frontend_param']]));
             }
             $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].'&id='.$this->request->get[$route_info['frontend_param']];
+           
             $setting['content'] = '<div class="btn-group-xs btn-edit" ><a class="btn btn-default " href="'.$edit_url.'" target="_blank"><i class="fa fa-pencil"></i> '.$this->language->get('text_edit').'</a><br/><br/></div>'.$setting['content'];
             return $setting['content'];
         }
         else{
-            $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/frontend.css')) {
+                $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/frontend.css');
+            } else {
+                $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
+            }
             return $setting['content'];
         }
     }
@@ -575,7 +586,7 @@ class ControllerModuleDVisualDesigner extends Controller {
     public function saveVDModule(){
         $json = array();
 
-        if(!empty($this->request->post['description'])){
+        if(isset($this->request->post['description'])){
             $description = $this->request->post['description'];
         }
 

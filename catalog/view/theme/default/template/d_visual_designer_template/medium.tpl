@@ -27,7 +27,7 @@
     <div class="vd-border vd-border-bottom"></div>
     <?php } ?>
 <style>
-#<?php echo $key; ?>{
+#<?php echo $key; ?>.block-inner.block-container{
     <?php if(!empty($setting['design_margin_top'])) {?>
         margin-top: <?php echo $setting['design_margin_top']; ?>;
     <?php } ?>
@@ -91,5 +91,5 @@
     <?php } ?>
 }
 </style>
-    <div class="block-content clearfix <?php echo isset($child)?'child':'';?>" data-id="<?php echo $key; ?>"><?php echo $content; ?></div>
+    <div class="block-content <?php echo isset($child)?'child':'';?>" data-id="<?php echo $key; ?>"><?php echo $content; ?></div>
 </div>

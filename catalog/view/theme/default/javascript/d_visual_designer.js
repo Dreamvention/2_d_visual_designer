@@ -18,6 +18,7 @@ var d_visual_designer = {
         width:'',
         height:''
     },
+    popup:'',
     settings:{},
     //Данные
     data: {
@@ -32,10 +33,6 @@ var d_visual_designer = {
         row_layout:'',
         //шаблон блока
         block:'',
-        //шаблон popup окна
-        popup:'<div class="popup" style="max-height:75vh;"></div>',
-        //шаблона фона при popup окне
-        popup_overlay:'<div class="popup-overlay"></div>',
         //Шаблон добавления нового блока
         add_block:'',
         //Шаблон каркаса popup окна
@@ -92,24 +89,20 @@ var d_visual_designer = {
                 },
                 distance: 3,
                 scroll: true,
-        				scrollSensitivity: 70,
+				scrollSensitivity: 70,
                 zIndex: 9999,
                 appendTo:'body',
                 cursor: 'move',
-        				cursorAt: { top: 20, left: 16 },
+				cursorAt: { top: 20, left: 16 },
                 handle:' .drag',
                 tolerance: 'intersect',
-                activate: function( event, ui ) {
-                    var html = $(ui.helper).wrap('<div>').parent().html();
-                    console.log(html);
-                },
                 
                 stop: function( event, ui ) {
                     var designer_id = $(this).parents('.vd.content').attr('id');
                     
                     that.updateSortOrder($(ui.item).closest('.block-inner').attr('id'), designer_id);
                     that.updateSortOrder(designer_id, $(this).parents('.vd.content').attr('id'));
-                    that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner').attr('id'));    
+                    that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner, .block-section').attr('id'),$(this).data('id'));    
                 }
             })
         });
@@ -182,7 +175,7 @@ var d_visual_designer = {
         });
     },
     //Инициализация Handlebars Partial
-    initPartial:function(){
+    initPartial:function(content){
         if(window.Handlebars !== undefined){
             console.log('d_visual_designer:init_partials');
             window.Handlebars.registerHelper('select', function( value, options ){
@@ -201,27 +194,29 @@ var d_visual_designer = {
           
     },
     //Инициализация ColorPicker
-    initColorpicker:function(element){
-        $(element).find('[id=color-input]').colorpicker();
+    initColorpicker:function(){
+        this.popup.find('[id=color-input]').colorpicker();
     },
     //Инициализация popup окна
-    initPopup:function(element){
+    initPopup:function(content){
         var that = this;
+        $('body').append(content);
         
-        this.setting.form.find('.popup').resizable({
+        this.popup = $('.vd-popup');
+        
+        this.popup.resizable({
             resize:function(event,ui){
               
-                if(!that.setting.form.find('.popup').hasClass('drag')){
-                    that.setting.form.find('.popup').addClass('drag');
+                if(!that.popup.hasClass('drag')){
+                    that.popup.addClass('drag');
                 }
-              
     
                 that.popup_setting.width = ui.size.width;
                 that.popup_setting.height = ui.size.height;
-                that.setting.form.find('.popup').css({'max-height':''});
+                that.popup.css({'max-height':''});
             }
         });
-        this.setting.form.find('.popup').draggable({
+        this.popup.draggable({
             handle:'.popup-header',
             drag: function( event, ui ) {
                 
@@ -239,31 +234,20 @@ var d_visual_designer = {
             }
         });
         if(this.popup_setting.left != '' && this.popup_setting.top != ''){
-            this.setting.form.find('.popup').addClass('drag');
-            this.setting.form.find('.popup').css({'left':this.popup_setting.left, 'top':this.popup_setting.top});
+            this.popup.addClass('drag');
+            this.popup.css({'left':this.popup_setting.left, 'top':this.popup_setting.top});
         }
         if(this.popup_setting.width != '' && this.popup_setting.height != ''){
-            this.setting.form.find('.popup').css({'width':this.popup_setting.width, 'height':this.popup_setting.height});
+            this.popup.css({'width':this.popup_setting.width, 'height':this.popup_setting.height});
         }
 
-        this.setting.form.find('.popup').css({visibility:'visible', opacity:1});
+        this.popup.css({visibility:'visible', opacity:1});
     },
     //закрыть все popup окна
     closePopup:function(){
-        this.setting.form.find('.popup').remove();
-        this.setting.form.find('.popup-overlay').remove();
-    },
-    //Включение дизайнера
-    enable:function(element){
-        var designer_id = $(element).attr('id');
-        this.settings[designer_id].form.removeAttr('style');
-        this.settings[designer_id].form.parents('.form-group').find('.note-editor').css('display','none');
-    },
-    //Выключение дизайнера
-    disable:function(element){
-        var designer_id = $(element).attr('id');
-        this.settings[designer_id].form.attr('style','display:none;');
-        this.settings[designer_id].form.parents('.form-group').find('.note-editor').css('display','block');
+        if(this.popup != ''){
+            this.popup.remove();
+        }
     },
     //Компиляция шаблона
     templateСompile: function(template,data){
@@ -319,8 +303,7 @@ var d_visual_designer = {
                     data['level'] = level;
                     
                     var content = that.templateСompile(that.template.add_block, json);
-                    that.setting.form.append(content);
-                    that.initPopup();
+                    that.initPopup(content);
                 }
             }
         });    
@@ -409,32 +392,30 @@ var d_visual_designer = {
             data: send_data,
             success: function( json ) {
                 if(json['success']){
+                    var class_popup = '';
+                    if(block_info['parent'] == ''){
+                        class_popup = 'main'
+                    }else if (block_info['child']) {
+                        class_popup = 'inner'
+                    }else{
+                        class_popup = 'child'
+                    }
+                    
                     var data = {
                         'module_setting': json['content'],
                         'block_id': block_id,
                         'designer_id': designer_id,
                         'block_title': that.setting.form.find('#'+block_id).data('title'),
                         'type' : block_info['type'],
-                        'design_background_thumb' : json['design_background_thumb']
+                        'design_background_thumb' : json['design_background_thumb'],
+                        'class_popup' :class_popup
                     };
                     
                     data = Object.assign(data, block_info['setting']);
+                    var content = that.templateСompile(that.template.edit_block,data);
                     that.closePopup();
-                    var html = that.templateСompile(that.template.edit_block,data);
-                    that.setting.form.append(that.template.popup);
-                    that.setting.form.find('.popup').html(html);
-                    
-                    if(block_info['parent'] == ''){
-                        that.setting.form.find('.popup').addClass('main');
-                    }else if (block_info['child']) {
-                        that.setting.form.find('.popup').addClass('inner')
-                    }else{
-                        that.setting.form.find('.popup').addClass('child')
-                    }
-                    
-                    that.initColorpicker(that.setting.form.find('.popup'));
-                    
-                    that.initPopup();
+                    that.initPopup(content);
+                    that.initColorpicker();
                 }
             }
         });
@@ -444,8 +425,7 @@ var d_visual_designer = {
         
         var that = this;
         
-        // this.settings[designer_id].form.find('.popup a#save').addClass('loading');
-        this.data[designer_id][block_id]['setting'] =  this.setting.form.find('.popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
+        this.data[designer_id][block_id]['setting'] =  this.popup.find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
         if(this.setting.save_change){
             this.saveContent(designer_id);
         }
@@ -482,7 +462,7 @@ var d_visual_designer = {
             this.removeBlock(parent_id, designer_id);
         }
         else if(block_info['child'] == undefined && block_info['parent'] != '' && count_childs == 0){
-            this.settings[designer_id].form.find('#block-content[data-id='+block_info['parent']+']').empty();
+            this.settings[designer_id].form.find('.block-content[data-id='+block_info['parent']+']').empty();
         }
         else if(block_info['parent'] == '' && count_childs == 0){
             this.settings[designer_id].form.find('#sortable').empty();
@@ -518,11 +498,9 @@ var d_visual_designer = {
             'items':this.getBlockByParent(designer_id, target),
         };
         
-        var html = this.templateСompile(this.template.row_layout, data);
+        var content = this.templateСompile(this.template.row_layout, data);
         
-        this.setting.form.append(html);
-        
-        this.initPopup();
+        this.initPopup(content);
     },
     //Редактирование layout
     editLayout: function(setting_layout, block_id, designer_id){
@@ -573,8 +551,7 @@ var d_visual_designer = {
                     
                     data['designer_id'] = designer_id;
                     var content = that.templateСompile(that.template.add_template, data);
-                    that.setting.form.append(content);
-                    that.initPopup();
+                    that.initPopup(content);
                 }
             }
         });    
@@ -601,9 +578,9 @@ var d_visual_designer = {
 
     //Сохранения шаблона
     saveTemplate:function(){
-        var designer_id = this.setting.form.find('.popup input[name=designer_id]').val();
+        var designer_id = this.popup.find('input[name=designer_id]').val();
         var content = this.getText(designer_id,'');
-        var template_description = this.setting.form.find('.popup input[name^=\'template_description\']').serializeJSON();
+        var template_description = this.popup.find('input[name^=\'template_description\']').serializeJSON();
         
         var send_data = {
             template_description,
@@ -677,14 +654,14 @@ var d_visual_designer = {
             data: setting,
             success: function( json ) {
                 if(json['success']){                
-                    that.settings[designer_id].form.find('.popup a#save').button('loading')
-                    that.settings[designer_id].form.find('.popup a#save').addClass('saved');
+                    that.popup.find('a#save').button('loading')
+                    that.popup.find('a#save').addClass('saved');
                     console.log('d_visual_designer:update_content_block');
                     that.setting.form.find('#'+block_id).replaceWith(json['content']);
                     that.initSortable();
                     setTimeout(function(){
-                        that.settings[designer_id].form.find('.popup a#save').button('reset')
-                        that.settings[designer_id].form.find('.popup a#save').removeClass('saved');
+                        that.popup.find('a#save').button('reset')
+                        that.popup.find('a#save').removeClass('saved');
                         
                     },2000);
                 }

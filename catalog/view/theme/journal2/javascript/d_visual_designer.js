@@ -8,7 +8,15 @@ var d_visual_designer = {
         //id,
         id:'',
         //field name
-        field_name:''
+        field_name:'',
+        //Статус наличия изменений
+        stateEdit: false
+    },
+    popup_setting:{
+        left:'',
+        top:'',
+        width:'',
+        height:''
     },
     settings:{},
     //Данные
@@ -25,7 +33,7 @@ var d_visual_designer = {
         //шаблон блока
         block:'',
         //шаблон popup окна
-        popup:'<div class="vd popup" style="max-height:75vh;"></div>',
+        popup:'<div class="popup" style="max-height:75vh;"></div>',
         //шаблона фона при popup окне
         popup_overlay:'<div class="popup-overlay"></div>',
         //Шаблон добавления нового блока
@@ -43,6 +51,7 @@ var d_visual_designer = {
 
         that.initSortable();
         that.initPartial();    
+        that.initAlertClose();
     },
     //инициализация данных
     initData:function(data, designer_id){
@@ -56,18 +65,26 @@ var d_visual_designer = {
     //Инициализация Sortable
     initSortable:function(){
         var that = this;
+        console.log('d_visual_designer:init_sortable');
         this.setting.form.find('.block-content:not(.child)').each(function() {
             $(this).sortable({
                 forcePlaceholderSize: true,
-				forceHelperSize: false,
+        				forceHelperSize: false,
                 connectWith: ".block-content:not(.child)",
                 placeholder: "element-placeholder col-sm-12",
                 items:".block-child, .block-inner",
                 // helper: 'clone',
                 helper: function(event, ui){
+                  if(ui.hasClass('.block-inner')){
+                      var type = "inner";
+                  }
+                  else{
+                      var type = "child";
+                  }
                     var data = {
                         title:ui.data('title'),
-                        image: ui.data('image')
+                        image: ui.data('image'),
+                        type: type
                     };
                     
                     var helper = that.templateСompile(that.template.helper, data);
@@ -75,21 +92,24 @@ var d_visual_designer = {
                 },
                 distance: 3,
                 scroll: true,
-				scrollSensitivity: 70,
+        				scrollSensitivity: 70,
+                zIndex: 9999,
+                appendTo:'body',
                 cursor: 'move',
-				cursorAt: { top: 20, left: 16 },
+        				cursorAt: { top: 20, left: 16 },
                 handle:' .drag',
                 tolerance: 'intersect',
                 activate: function( event, ui ) {
                     var html = $(ui.helper).wrap('<div>').parent().html();
                     console.log(html);
                 },
+                
                 stop: function( event, ui ) {
                     var designer_id = $(this).parents('.vd.content').attr('id');
                     
                     that.updateSortOrder($(ui.item).closest('.block-inner').attr('id'), designer_id);
                     that.updateSortOrder(designer_id, $(this).parents('.vd.content').attr('id'));
-                    that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner').attr('id'));    
+                    that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner, .block-section').attr('id'),$(this).data('id'));    
                 }
             })
         });
@@ -103,7 +123,8 @@ var d_visual_designer = {
             helper: function(event, ui){
                 var data = {
                     title:ui.data('title'),
-                    image: ui.data('image')
+                    image: ui.data('image'),
+                    type:'main'
                 };
                 
                 var helper = that.templateСompile(that.template.helper, data);
@@ -112,21 +133,39 @@ var d_visual_designer = {
             distance: 3,
             scroll: true,
             scrollSensitivity: 70,
+            appendTo:'body',
             cursor: 'move',
-            cursorAt: { top: 5, left: 5 },
+            cursorAt: { top: 20, left: 16 },
             handle:' > .control > .drag',
             stop: function( event, ui ) {
                 that.updateSortOrderRow($(this).parents('.vd.content').attr('id'));
-            },
-            start: function(event,ui){
-                // ui.helper.css({width:'150px',height:'30px'});
-                // ui.helper.children('.block-content').remove();
             }
         });
     },
+    //Инициализация оповещения при закрытии
+    initAlertClose:function(){
+        var that = this;
+        
+        window.onbeforeunload = function() {
+            if(that.setting.stateEdit){
+                return true;
+            }
+        }  
+    },
     //обновление родителя
-    updateParent:function(block_id, designer_id, parent_id){
-        this.data[designer_id][block_id]['parent'] = parent_id;
+    updateParent:function(block_id, designer_id, parent_id, old_parent_id){
+      
+        this.data[designer_id][block_id]['parent'] = parent_id
+        
+        var block_info = this.data[designer_id][block_id];
+        
+        this.getChildBlock(old_parent_id, designer_id);
+        
+        var count_childs = Object.keys(this.tmpSetting.items).length;
+        
+        if(block_info['parent'] != '' && count_childs == 0 && old_parent_id != parent_id){
+            this.settings[designer_id].find('.block-content[data-id='+old_parent_id+']').empty();
+        }
     },
     //обновление sort_order
     updateSortOrder:function(block_id, designer_id){
@@ -151,12 +190,63 @@ var d_visual_designer = {
                 $el.find('[value="' + value + '"]').attr({'selected':'selected'});
                 return $el.html();
             });      
+            window.Handlebars.registerHelper('concat', function( value, options ){
+                var res = [];
+                for (var key in value) {
+                    res.push(value[key]['setting']['size']);
+                }
+                return res.join(options['hash']['chart']);
+            });      
         }
           
     },
     //Инициализация ColorPicker
     initColorpicker:function(element){
         $(element).find('[id=color-input]').colorpicker();
+    },
+    //Инициализация popup окна
+    initPopup:function(element){
+        var that = this;
+        
+        $('.popup').resizable({
+            resize:function(event,ui){
+              
+                if(!$('.popup').hasClass('drag')){
+                    $('.popup').addClass('drag');
+                }
+              
+    
+                that.popup_setting.width = ui.size.width;
+                that.popup_setting.height = ui.size.height;
+                $('.popup').css({'max-height':''});
+            }
+        });
+        $('.popup').draggable({
+            handle:'.popup-header',
+            drag: function( event, ui ) {
+                
+                that.popup_setting.left = ui.position.left;
+                that.popup_setting.top = ui.position.top;
+                
+                if(!ui.helper.hasClass('drag')){
+                    ui.helper.addClass('drag');
+                }
+            },
+            stop: function(event, ui){
+                if(ui.position.top < 0){
+                    ui.helper.css({'top':'10px'});
+                }
+            }
+        });
+        if(this.popup_setting.left != '' && this.popup_setting.top != ''){
+            $('.popup').addClass('drag');
+            $('.popup').css({'left':this.popup_setting.left, 'top':this.popup_setting.top});
+        }
+        if(this.popup_setting.width != '' && this.popup_setting.height != ''){
+            $('.popup').css({'width':this.popup_setting.width, 'height':this.popup_setting.height});
+        }
+
+        $('.popup').css({visibility:'visible', opacity:1});
     },
     //закрыть все popup окна
     closePopup:function(){
@@ -165,13 +255,13 @@ var d_visual_designer = {
     },
     //Включение дизайнера
     enable:function(element){
-        var designer_id = $(element).data('id');
+        var designer_id = $(element).attr('id');
         this.settings[designer_id].form.removeAttr('style');
         this.settings[designer_id].form.parents('.form-group').find('.note-editor').css('display','none');
     },
     //Выключение дизайнера
     disable:function(element){
-        var designer_id = $(element).data('id');
+        var designer_id = $(element).attr('id');
         this.settings[designer_id].form.attr('style','display:none;');
         this.settings[designer_id].form.parents('.form-group').find('.note-editor').css('display','block');
     },
@@ -229,16 +319,9 @@ var d_visual_designer = {
                     data['level'] = level;
                     
                     var content = that.templateСompile(that.template.add_block, json);
-                    $('footer').before(content);
-                    // that.setting.form.append(that.template.popup_overlay);
-                    $('.popup').resizable({
-                        resize:function(event,ui){
-                            $('.popup').css({'max-height':''});
-                        }
-                    });
-                    $('.popup').draggable({
-                        handle:'.popup-header'
-                    });
+                    // that.setting.form.append(content);
+                    $('body').append(content);
+                    that.initPopup();
                 }
             }
         });    
@@ -263,20 +346,6 @@ var d_visual_designer = {
                     }
                     console.log(that.data[designer_id]);
                     
-                    // if(target == ''){
-                    //     that.settings[designer_id].form.find('.vd#sortable').append(json['content']);
-                    // }
-                    // else{
-                    //     that.settings[designer_id].form.find('.vd#sortable').find('#'+target+' > .block-content').find('.block-content-empty').remove();
-                    //     that.settings[designer_id].form.find('.vd#sortable').find('#'+target+' > .block-content').append(json['content']);
-                    //     var block =  that.settings[designer_id].form.find('.vd#sortable').find('#'+target+' > .block-content').children('.block-container:last');
-                    //     if(block.children('.control').size() == 1){
-                    //             that.editBlock(block.children('.control').find('a#button_edit'), designer_id);
-                    //     }
-                    //     else{
-                    //             that.editBlock(block.children('.control-integr').find('a#button_edit'), designer_id);
-                    //     }
-                    // }
                     if(target == ''){
                         that.settings[designer_id].form.find('.vd#sortable').append(json['content']);
                     }
@@ -284,12 +353,8 @@ var d_visual_designer = {
                         that.settings[designer_id].form.find('.vd#sortable').find('.block-content[data-id=\''+target+'\']').append(json['content']);
                     }
                     var block =  that.settings[designer_id].form.find('.vd#sortable').find('#'+json['target']);
-                    if(block.children('.control').size() == 1){
-                            that.editBlock(block.children('.control').find('a#button_edit'), designer_id);
-                    }
-                    else{
-                            that.editBlock(block.children('.control-integr').find('a#button_edit'), designer_id);
-                    }
+                    that.editBlock(json['target'], designer_id);
+                    that.setting.stateEdit = true;
 
                 }
                 that.initSortable();
@@ -323,9 +388,8 @@ var d_visual_designer = {
         });
     },
     //Вызов окна редактирование блока
-    editBlock: function(element, designer_id){
+    editBlock: function(block_id, designer_id){
         
-        var block_id = $(element).closest('.block-container').data('id');
         var that = this;
         
         var block_info = that.data[designer_id][block_id];
@@ -337,7 +401,6 @@ var d_visual_designer = {
             var send_data = that.data[designer_id][block_id]['setting'];
         }
 
-    
         send_data['type'] = block_info['type'];
         
         $.ajax({
@@ -351,57 +414,83 @@ var d_visual_designer = {
                         'module_setting': json['content'],
                         'block_id': block_id,
                         'designer_id': designer_id,
-                        'type' : block_info['type']
+                        'block_title': that.setting.form.find('#'+block_id).data('title'),
+                        'type' : block_info['type'],
+                        'design_background_thumb' : json['design_background_thumb']
                     };
-                    data = Object.assign(data,block_info['setting']);
+                    
+                    data = Object.assign(data, block_info['setting']);
+                    that.closePopup();
                     var html = that.templateСompile(that.template.edit_block,data);
-                    $('footer').before(that.template.popup);
+                    $('body').append(that.template.popup);
+                    // that.setting.form.append(that.template.popup);
                     $('.popup').html(html);
-                    // that.settings[designer_id].form.append(that.template.popup_overlay);
+                    
+                    if(block_info['parent'] == ''){
+                        $('.popup').addClass('main');
+                    }else if (block_info['child']) {
+                        $('.popup').addClass('inner')
+                    }else{
+                        $('.popup').addClass('child')
+                    }
+                    
                     that.initColorpicker($('.popup'));
-                    $('.popup').resizable({
-                        resize:function(event,ui){
-                            $('.popup').css({'max-height':''});
-                        }
-                    });
-                    $('.popup').draggable({
-                        handle:'.popup-header'
-                    });
+                    
+                    that.initPopup();
                 }
             }
         });
     },
     //сохранение настроек блока
-    saveBlock:function(block_id,designer_id){
+    saveBlock:function(block_id, designer_id){
         
         var that = this;
         
         // this.settings[designer_id].form.find('.popup a#save').addClass('loading');
-        this.data[designer_id][block_id]['setting'] = $('.popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeObject();
+        this.data[designer_id][block_id]['setting'] =  $('.popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
+        if(this.setting.save_change){
+            this.saveContent(designer_id);
+        }
         this.updateContentBlock(block_id, designer_id);
+        this.setting.stateEdit = true;
         
     },
     //Удаление выбранного блока
-    removeBlock:function(element, designer_id){
+    removeBlock:function(block_id, designer_id){
         console.log('d_visual_designer:remove_block');
-        var block_id = $(element).closest('.block-container').data('id');
+        
+        var block_info = this.data[designer_id][block_id];
         
         var trigger_data = {
             'title' : that.settings[designer_id].form.find('#'+block_id).data('title')
         };
         
-        if(this.data[designer_id][block_id]['child']){
-            var parent_id = this.data[designer_id][block_id]['parent'];
+        if(block_info['child']){
+            var parent_id = block_info['parent'];
         }
         
         delete this.data[designer_id][block_id];
         
-        if(parent_id != undefined){
-            this.updateContentBlock(parent_id, designer_id);
+        console.log(block_info)
+        var childs = this.getBlockByParent(designer_id, block_info['parent']);
+        
+        console.log(childs)
+        var count_childs = Object.keys(childs).length;
+        
+        if(block_info['child'] && count_childs > 0){
+            this.updateContentBlock(block_info['parent'], designer_id);
+        }
+        else if(block_info['child'] && count_childs == 0){
+            this.removeBlock(parent_id, designer_id);
+        }
+        else if(block_info['child'] == undefined && block_info['parent'] != '' && count_childs == 0){
+            this.settings[designer_id].form.find('#block-content[data-id='+block_info['parent']+']').empty();
+        }
+        else if(block_info['parent'] == '' && count_childs == 0){
+            this.settings[designer_id].form.find('#sortable').empty();
         }
         
-        $(element).parent().parent().remove();
-        
+        this.settings[designer_id].form.find('#'+block_id).remove();
         
         $('body').trigger('remove_block_success', trigger_data);
     },
@@ -412,12 +501,65 @@ var d_visual_designer = {
         
         var parent = this.data[designer_id][block_id]['parent'];
         
-        while(parent != ''){
-            parent = this.data[designer_id][parent]['parent'];
-            level++;
+        if(parent != ''){
+            if(this.data[designer_id][parent]['parent'] != parent){
+                while(parent != ''){
+                    parent = this.data[designer_id][parent]['parent'];
+                    level++;
+                }
+            }
         }
+
         return level;
         
+    },
+    //Вызов окна редактирование layout
+    showEditLayout: function(target, designer_id){
+        var data = {
+            'target' : target,
+            'items':this.getBlockByParent(designer_id, target),
+        };
+        
+        var html = this.templateСompile(this.template.row_layout, data);
+        $('body').append(html);
+        // this.setting.form.append(html);
+        
+        this.initPopup();
+    },
+    //Редактирование layout
+    editLayout: function(setting_layout, block_id, designer_id){
+        
+        var that = this;
+        
+        var send_data = {
+            'setting_layout': setting_layout,
+            'type':this.data[designer_id][block_id]['type'],
+            'parent': block_id,
+            'items':this.getBlockByParent(designer_id, block_id)
+        };
+        
+        $.ajax({
+            type:'post',
+            url:'index.php?route=module/d_visual_designer/editLayout',
+            data:send_data,
+            dataType:'json',
+            success: function(json){
+                if(json['success']){
+                    console.log(json);
+                    for(var key in send_data['items']){
+                        delete that.data[designer_id][key];
+                    }
+                    
+                    for(var key in json['items']){
+                        that.data[designer_id][key] = json['items'][key];
+                    }
+                    
+                    that.updateContentBlock(block_id, designer_id);
+                    that.closePopup();
+                }
+                console.log(json);
+            }
+        });
     },
     //Вызов окна добавление шаблона
     showAddTemplate:function(designer_id){
@@ -432,18 +574,10 @@ var d_visual_designer = {
                     var data = json;
                     
                     data['designer_id'] = designer_id;
-                    
                     var content = that.templateСompile(that.template.add_template, data);
-                    $('footer').before(content);
-                    // that.setting.form.append(that.template.popup_overlay);
-                    $('.popup').resizable({
-                        resize:function(event,ui){
-                            $('.popup').css({'max-height':''});
-                        }
-                    });
-                    $('.popup').draggable({
-                        handle:'.popup-header'
-                    });
+                    $('body').append(content);
+                    // that.setting.form.append(content);
+                    that.initPopup();
                 }
             }
         });    
@@ -459,9 +593,10 @@ var d_visual_designer = {
             data:{'template_id':template_id},
             success: function( json ) {
                 if(json['success']){
-                     that.settings[designer_id].form.find('.vd.container-fluid').html(json['content']);
+                     that.settings[designer_id].form.find('.vd').html(json['content']);
                      that.data[designer_id] = json['setting'];
                      that.closePopup();
+                    that.setting.stateEdit = true;
                 }
             }
         });
@@ -469,9 +604,9 @@ var d_visual_designer = {
 
     //Сохранения шаблона
     saveTemplate:function(){
-        var designer_id = $('.popup input[name=designer_id]').val();
+        var designer_id = this.setting.form.find('.popup input[name=designer_id]').val();
         var content = this.getText(designer_id,'');
-        var template_description = $('.popup input[name^=\'template_description\']').serializeObject();
+        var template_description = this.setting.form.find('.popup input[name^=\'template_description\']').serializeJSON();
         
         var send_data = {
             template_description,
@@ -491,18 +626,6 @@ var d_visual_designer = {
                 
             }
         });    
-    },   
-    //Поиск блоков
-    search:function(text, items, target){
-        console.log(text);
-        $(items).addClass('hide');
-        $(items).each(function(){
-            var content = $(this).find(target).text();
-            var content = content.toLowerCase();
-            if(content.indexOf(text) != -1){
-                $(this).removeClass('hide');
-            }
-        });
     },
     //Возвращает массив дочерних блоков
     getChildBlock:function(block_id, designer_id, child=false){
@@ -561,6 +684,7 @@ var d_visual_designer = {
                     $('.popup a#save').addClass('saved');
                     console.log('d_visual_designer:update_content_block');
                     that.setting.form.find('#'+block_id).replaceWith(json['content']);
+                    that.initSortable();
                     setTimeout(function(){
                         $('.popup a#save').button('reset')
                         $('.popup a#save').removeClass('saved');
@@ -658,7 +782,7 @@ var d_visual_designer = {
             success:function(json){
                 that.settings[designer_id].form.find('input[type=hidden][name=status_save]').val(0);
                 console.log(json);
-                
+                that.setting.stateEdit = false;
                 $('body').trigger('save_content_success');
             }
         });
@@ -688,6 +812,18 @@ var d_visual_designer = {
             }
         }
         return result;
+    },
+    //Поиск блоков
+    search:function(text, items, target){
+        console.log(text);
+        $(items).addClass('hide');
+        $(items).each(function(){
+            var content = $(this).find(target).text();
+            var content = content.toLowerCase();
+            if(content.indexOf(text) != -1){
+                $(this).removeClass('hide');
+            }
+        });
     },
     //Сортировка объекта
     sortProperties:function(obj)
@@ -747,15 +883,15 @@ var d_visual_designer = {
                     name = key2.replace('][',':');
                     name = name.replace('[','::');
                     name = name.replace(']','');
-                    if(array_values[key2] != ''){
+                    // if(array_values[key2] != ''){
                         shortcode+= ' '+name+'=\''+array_values[key2]+'\''+' ';
-                    }
+                    // }
                 }
             }
             else{
-                if(value != ''){
+                // if(value != ''){
                     shortcode+= ' '+name+'=\''+value+'\''+' ';
-                }
+                // }
             }
         }
         if(!child){
