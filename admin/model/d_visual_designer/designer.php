@@ -505,13 +505,15 @@ class ModelDVisualDesignerDesigner extends Model {
         $setting_default = $this->getSettingBlock($type);
 
         $result = $setting_default['setting'];
-
-        foreach ($setting as $key => $value) {
-            $result[$key] = $value;
+        if(!empty($setting)){
+            foreach ($setting as $key => $value){
+                $result[$key] = $value;
+            }  
         }
 
         return $result;
     }
+    
     public function getBlocks(){
         $dir = DIR_APPLICATION.'controller/d_visual_designer_module';
         $files = scandir($dir);
