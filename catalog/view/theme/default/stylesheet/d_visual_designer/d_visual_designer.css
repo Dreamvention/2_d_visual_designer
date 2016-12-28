@@ -7347,7 +7347,7 @@
       display: none !important; } }
 
 .vd-popup {
-  position: fixed;
+  position: fixed !important;
   z-index: 1003 !important;
   top: 20%;
   left: 25%;
@@ -7561,7 +7561,9 @@
       display: block;
       margin: 0;
       padding: 0;
-      line-height: normal; }
+      line-height: normal;
+      border-width: 0;
+      background: white; }
     .vd-popup .popup-content .layout-edit > h3 {
       position: relative;
       box-sizing: border-box;

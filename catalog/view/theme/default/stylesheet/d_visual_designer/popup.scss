@@ -1,5 +1,5 @@
 .vd-popup {
-    position: fixed;
+    position: fixed!important;
     z-index: 1003!important;
     top: 20%;
     left: 25%;
@@ -358,6 +358,9 @@
             padding: 0;
 
             line-height: normal;
+
+            border-width: 0;
+            background: white;
         }
         .layout-edit{
             > h3{
