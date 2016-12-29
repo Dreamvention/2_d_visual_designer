@@ -60,8 +60,6 @@
         "catalog/model/module/d_visual_designer.php",
         "catalog/view/theme/default/javascript/d_visual_designer.js",
 
-        "catalog/view/theme/journal2/javascript/d_visual_designer.js",
-
         "admin/view/template/d_visual_designer_template/main.tpl",
         "admin/view/template/d_visual_designer_template/medium.tpl",
         "admin/view/template/d_visual_designer_template/children.tpl",
