@@ -742,21 +742,7 @@ class ModelModuleDVisualDesigner extends Model {
             }
         }
     }
-
-    public function getModule($module_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "module WHERE module_id = '" . (int)$module_id . "'");
-
-        if ($query->row) {
-            return json_decode($query->row['setting'], true);
-        } else {
-            return array();
-        }
-    }
-
-    public function editModule($module_id, $data) {
-        $this->db->query("UPDATE `" . DB_PREFIX . "module` SET `name` = '" . $this->db->escape($data['name']) . "', `setting` = '" . $this->db->escape(json_encode($data)) . "' WHERE `module_id` = '" . (int)$module_id . "'");
-    }
-
+    
     public function editInformation($information_id, $data){
         if(!empty($data['information_description'])){
             foreach ($data['information_description'] as $language_id => $value) {

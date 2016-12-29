@@ -589,35 +589,6 @@ class ControllerModuleDVisualDesigner extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function saveVDModule(){
-        $json = array();
-
-        if(isset($this->request->post['description'])){
-            $description = $this->request->post['description'];
-        }
-
-        if(!empty($this->request->get['id'])){
-            $module_id = $this->request->get['id'];
-        }
-
-        if(isset($description)&&isset($module_id)){
-
-            $setting = $this->{'model_module_'.$this->codename}->getModule($module_id);
-
-            $setting['description'] = $description;
-
-            $this->{'model_module_'.$this->codename}->editModule($module_id, $setting);
-
-            $json['success'] = 'success';
-        }
-        else{
-            $json['error'] = 'error';
-        }
-
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
     public function saveProduct(){
         $json = array();
 
