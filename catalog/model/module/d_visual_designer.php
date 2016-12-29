@@ -19,6 +19,8 @@ class ModelModuleDVisualDesigner extends Model {
     private $text = '';
 
     private $parent = '';
+    
+    private $token = '';
 
     private $parent_clear = false;
 
@@ -26,6 +28,14 @@ class ModelModuleDVisualDesigner extends Model {
         $this->setting = array();
 
         $this->settingJS = array();
+        
+        if(!empty($data['token'])){
+            $this->token = $data['token'];    
+        }
+        else{
+            $this->token = '';
+        }
+        
 
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $data['content']);
 
@@ -39,6 +49,7 @@ class ModelModuleDVisualDesigner extends Model {
             'content' => $content,
             'setting' => $this->settingJS,
             'id' => $data['id'],
+            'token' => $data['token'],
             'description' => $data['content']
         );
 
@@ -383,8 +394,8 @@ class ModelModuleDVisualDesigner extends Model {
             $this->user = new User($this->registry);
         }
 
-        if(isset($this->request->get['route'])){
-            $route_info = $this->getRoute($this->request->get['route']);
+        if(!empty($this->token)){
+            $route_info = $this->getRoute($this->token);
         }
         else{
             $route_info = array();
@@ -411,8 +422,25 @@ class ModelModuleDVisualDesigner extends Model {
             $edit_status = false;
         }
 
-        if(!empty($this->request->get['route']) && $this->request->get['route'] == 'module/d_visual_designer/getTemplate'){
-            $edit_status = true;
+        if(!empty($this->request->get['route'])){
+            switch ($this->request->get['route']) {
+                case 'module/d_visual_designer/getTemplate':
+                    $edit_status = true;
+                    break;
+                case 'module/d_visual_designer/getModule':
+                    $edit_status = true;
+                    break;
+                case 'module/d_visual_designer/getContent':
+                    $edit_status = true;
+                    break;
+                case $route_info['frontend_route']:
+                    $edit_status = true;
+                    break;
+                
+                default:
+                    $edit_status = false;
+                    break;
+            }
         }
 
         if($edit_status){
@@ -617,8 +645,8 @@ class ModelModuleDVisualDesigner extends Model {
         return array('content' => $content,'setting' => $settingJS, 'setting_child' => array( $block_info['block_id'] => $settingChild), 'block_id' => $block_info['block_id']);
     }
 
-    public function getRoute($frontend_route){
-        $query = $this->db->query("SELECT * FROM ".DB_PREFIX."visual_designer_route WHERE frontend_route = '".$frontend_route."'");
+    public function getRoute($token){
+        $query = $this->db->query("SELECT * FROM ".DB_PREFIX."visual_designer_route WHERE token = '".$token."'");
         return $query->row;
     }
 

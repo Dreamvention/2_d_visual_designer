@@ -401,17 +401,15 @@ var d_visual_designer = {
                         class_popup = 'child'
                     }
                     
-                    var data = {
-                        'module_setting': json['content'],
-                        'block_id': block_id,
-                        'designer_id': designer_id,
-                        'block_title': that.setting.form.find('#'+block_id).data('title'),
-                        'type' : block_info['type'],
-                        'design_background_thumb' : json['design_background_thumb'],
-                        'class_popup' :class_popup
-                    };
+                    var data = block_info['setting'];
+                    data['module_setting'] = json['content'];
+                    data['block_id'] = block_id;
+                    data['designer_id'] = designer_id;
+                    data['block_title'] = that.setting.form.find('#'+block_id).data('title');
+                    data['type'] = block_info['type'];
+                    data['design_background_thumb'] = json['design_background_thumb'];
+                    data['class_popup'] = class_popup;
                     
-                    data = Object.assign(data, block_info['setting']);
                     var content = that.templateСompile(that.template.edit_block,data);
                     that.closePopup();
                     that.initPopup(content);
@@ -425,7 +423,8 @@ var d_visual_designer = {
         
         var that = this;
         
-        this.data[designer_id][block_id]['setting'] =  this.popup.find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
+        this.data[designer_id][block_id]['setting'] =  this.popup.find('input[name]:not([class^=note],[name=designer_id]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
+        
         if(this.setting.save_change){
             this.saveContent(designer_id);
         }
@@ -657,7 +656,7 @@ var d_visual_designer = {
                     that.popup.find('a#save').button('loading')
                     that.popup.find('a#save').addClass('saved');
                     console.log('d_visual_designer:update_content_block');
-                    that.setting.form.find('#'+block_id).replaceWith(json['content']);
+                    that.settings[designer_id].form.find('#'+block_id).replaceWith(json['content']);
                     that.initSortable();
                     setTimeout(function(){
                         that.popup.find('a#save').button('reset')

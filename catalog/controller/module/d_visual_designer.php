@@ -33,9 +33,9 @@ class ControllerModuleDVisualDesigner extends Controller {
         else{
             $this->user = new User($this->registry);
         }
-
-        if(isset($this->request->get['route'])){
-            $route_info = $this->model_module_d_visual_designer->getRoute($this->request->get['route']);
+        
+        if(!empty($setting['token'])){
+            $route_info = $this->model_module_d_visual_designer->getRoute($setting['token']);
         }
         else{
             $route_info = array();
@@ -50,12 +50,18 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(!$this->user->isLogged()){
             $edit_status = false;
         }
+        
         if(empty($route_info)){
             $edit_status = false;
         }
         elseif (!$route_info['status']) {
             $edit_status = false;
         }
+        
+        if(!empty($this->request->get['route']) && $this->request->get['route'] != $route_info['frontend_route']){
+            $edit_status = false;
+        }
+                
         //sharrre
         $this->document->addScript('catalog/view/javascript/d_visual_designer/library/sharrre/jquery.sharrre.min.js');
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/sharrre/style.css');
@@ -77,7 +83,7 @@ class ControllerModuleDVisualDesigner extends Controller {
         } else {
             $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/animate.css');
         }
-
+        
         if($edit_status&&isset($this->request->get['edit'])){
 
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css')) {
@@ -189,7 +195,7 @@ class ControllerModuleDVisualDesigner extends Controller {
             else{
                 $data['save_change'] = 0;
             }
-
+            
             $data['content'] = $setting['content'];
 
             $data['settings'] = $setting['setting'];

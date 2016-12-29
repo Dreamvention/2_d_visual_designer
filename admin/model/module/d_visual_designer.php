@@ -9,6 +9,7 @@ class ModelModuleDVisualDesigner extends Model {
 		$this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_route (
 		`route_id` INT(11) NOT NULL AUTO_INCREMENT,
 		`name` VARCHAR(256) NOT NULL,
+		`token` VARCHAR(64) NOT NULL,
 		`backend_route` VARCHAR(256) NOT NULL,
 		`frontend_status` INT(11) NOT NULL,
 		`status` INT(11) NOT NULL,
@@ -37,26 +38,15 @@ class ModelModuleDVisualDesigner extends Model {
 		COLLATE='utf8_general_ci' ENGINE=MyISAM;");
 
 		$this->db->query("INSERT IGNORE INTO ".DB_PREFIX."visual_designer_route
-			(`route_id`, `name`, `backend_route`, `frontend_status`, `frontend_route`, `backend_param`, `frontend_param`, `edit_url`, `status`)
+			(`token` ,`name`, `backend_route`, `frontend_status`, `frontend_route`, `backend_param`, `frontend_param`, `edit_url`, `status`)
 		VALUES
-			(1, 'Add Product', 'catalog/product/add', 0, '', '', '', '', 1),
-			(2, 'Add Category', 'catalog/category/add', 0, '', '', '', '', 1),
-			(3, 'Add Information','catalog/information/add', 0, '', '', '', '', 1),
-			(4, 'Edit Product','catalog/product/edit', 1, 'product/product', 'product_id', 'product_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveProduct', 1),
-			(5,' Edit Category', 'catalog/category/edit', 1, 'product/category', 'category_id', 'path', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveCategory', 1),
-			(6,  'Edit Information','catalog/information/edit', 1, 'information/information', 'information_id', 'information_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveInformation', 1);
+			('5864c301788d1', 'Add Product', 'catalog/product/add', 0, '', '', '', '', 1),
+			('5864c3211c699', 'Add Category', 'catalog/category/add', 0, '', '', '', '', 1),
+			('5864c327e6094', 'Add Information','catalog/information/add', 0, '', '', '', '', 1),
+			('5864c32f56c94', 'Edit Product','catalog/product/edit', 1, 'product/product', 'product_id', 'product_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveProduct', 1),
+			('5864c33ab26ac', 'Edit Category', 'catalog/category/edit', 1, 'product/category', 'category_id', 'path', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveCategory', 1),
+			('5864c343f014d', 'Edit Information','catalog/information/edit', 1, 'information/information', 'information_id', 'information_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveInformation', 1);
 		");
-				
-		if(VERSION >= '2.3.0.0'){
-			$this->db->query("INSERT IGNORE INTO ".DB_PREFIX."visual_designer_route
-				(`route_id`, `name`, `backend_route`, `frontend_status`, `frontend_route`, `backend_param`, `frontend_param`, `edit_url`, `status`)
-				VALUES (7, 'Visual Designer Module', 'extension/module/d_visual_designer_module', 1, 'common/home', 'module_id', 'module_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveVDModule', 1);");
-		}
-		else{
-			$this->db->query("INSERT IGNORE INTO ".DB_PREFIX."visual_designer_route
-				(`route_id`, `name`, `backend_route`, `frontend_status`, `frontend_route`, `backend_param`, `frontend_param`, `edit_url`, `status`)
-			VALUES (7, 'Visual Designer Module', 'module/d_visual_designer_module', 0, 'common/home', 'module_id', 'module_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveVDModule', 1);");
-		}
 	}
 	
 	public function dropDatabase(){

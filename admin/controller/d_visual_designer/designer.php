@@ -18,8 +18,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
         $this->load->model('module/d_visual_designer');
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
-				$this->load->model('d_shopunity/mbooth');
-				$this->extension = $this->model_d_shopunity_mbooth->getExtension($this->codename);
+		$this->load->model('d_shopunity/mbooth');
+		$this->extension = $this->model_d_shopunity_mbooth->getExtension($this->codename);
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 
     }
@@ -155,16 +155,23 @@ class ControllerDVisualDesignerDesigner extends Controller {
                 $data['frontend_route'] = '';
             }
             elseif($route_info['frontend_status']){
-                if($this->request->server['HTTPS']){
-                    $frontend_url = htmlentities(urlencode(HTTPS_CATALOG.'index.php?route='.
-                        $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$url_params[$route_info['backend_param']]));
+                if(!empty($route_info['backend_param']) && !empty($route_info['frontend_route'])){
+                    $params = '&'.$route_info['frontend_param'].'='.$url_params[$route_info['backend_param']];
+                    $frontend_param = '&id='.$url_params[$route_info['backend_param']];
                 }
                 else{
-                    $frontend_url = htmlentities(urlencode(HTTP_CATALOG.'index.php?route='.
-                        $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$url_params[$route_info['backend_param']]));
+                    $params = '';
+                    $frontend_param = '';
                 }
-
-                $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].'&id='.$url_params[$route_info['backend_param']]);
+                
+                if($this->request->server['HTTPS']){
+                    $frontend_url = htmlentities(urlencode(HTTPS_CATALOG.'index.php?route='.$route_info['frontend_route'].$params));
+                }
+                else{
+                    $frontend_url = htmlentities(urlencode(HTTP_CATALOG.'index.php?route='.$route_info['frontend_route'].$params));
+                }
+                
+                $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].$frontend_param);
             }
 
             $this->load->model('localisation/language');
@@ -173,7 +180,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
             foreach ($data['languages'] as $key =>  $language){
                 if(VERSION >= '2.2.0.0'){
                     $data['languages'][$key]['flag'] = 'language/'.$language['code'].'/'.$language['code'].'.png';
-                }else{
+                }
+                else{
                     $data['languages'][$key]['flag'] = 'view/image/flags/'.$language['image'];
                 }
             }
@@ -259,8 +267,15 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $data['url'] = $url;
             $route_info = $this->{'model_'.$this->codename.'_route'}->getRoute($route_id);
-
-            $data['backend_url'] = $this->url->link($route_info['backend_route'], $route_info['backend_param'].'='.$id.'&token='.$this->session->data['token']);
+            
+            if(!empty($route_info['backend_param'])){
+                $param = $route_info['backend_param'].'='.$id;
+            }
+            else{
+                $param = '';
+            }
+            
+            $data['backend_url'] = $this->url->link($route_info['backend_route'], $param.'&token='.$this->session->data['token']);
             $data['direction'] = $this->language->get('direction');
             $data['lang'] = $this->language->get('code');
             $data['base'] = $this->request->server['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER;

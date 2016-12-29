@@ -283,6 +283,7 @@
         <div class="popup-footer">
             <a id="save" class="vd-btn save" data-id="{{{block_id}}}" data-designer_id="{{{designer_id}}}" data-type="{{{type}}}" data-loading-text="<?php echo $button_saved; ?>"><?php echo $button_save; ?></a>
         </div>
+        <input type="hidden" name="designer_id" value="{{{designer_id}}}"/>
     </div>
 </script>
 <script type="text/html" id="template-row-layout">
@@ -446,7 +447,8 @@ $(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=searc
 $(document).off('click','a[id=save]');
 $(document).on('click','a[id=save]',function(){
     var block_id = $(this).data('id');
-    d_visual_designer.saveBlock(block_id, '<?php echo $designer_id; ?>');
+    var designer_id = $('.vd-popup input[type=hidden][name=designer_id]').val();
+    d_visual_designer.saveBlock(block_id, designer_id);
 });
 $(document).off('click','a[id=saveTemplate]');
 $(document).on('click','a[id=saveTemplate]',function(){
@@ -496,8 +498,9 @@ $(document).on('click','#add_block', function(){
     var type = $(this).data('type');
     var title = $(this).data('title');
     var target = $('.vd-popup').find('input[name=target]').val();
+    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
     var level = $('.vd-popup').find('input[name=level]').val();
-    d_visual_designer.addBlock(type,title, target, '<?php echo $designer_id; ?>', level);
+    d_visual_designer.addBlock(type,title, target, designer_id, level);
 });
 $(document).off('click','.vd-popup a.close');
 $(document).on('click','.vd-popup a.close',function(){
