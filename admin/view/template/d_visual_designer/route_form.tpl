@@ -37,6 +37,13 @@
                             <?php } ?>
                         </div>
                     </div>
+                    
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"><?php echo $entry_key; ?></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="token" value="<?php echo $token; ?>" readonly/>
+                        </div>
+                    </div>
                                     
                     <div class="form-group">
                         <label class="control-label col-sm-2"><?php echo $entry_backend_route; ?></label>

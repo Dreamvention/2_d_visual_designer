@@ -352,6 +352,7 @@ class ControllerDVisualDesignerRoute extends Controller {
         $data['text_no'] = $this->language->get('text_no');
 
 		$data['entry_name'] = $this->language->get('entry_name');
+        $data['entry_key'] = $this->language->get('entry_key');
         $data['entry_backend_route'] = $this->language->get('entry_backend_route');
         $data['entry_frontend_route'] = $this->language->get('entry_frontend_route');
         $data['entry_params'] = $this->language->get('entry_params');
@@ -434,15 +435,24 @@ class ControllerDVisualDesignerRoute extends Controller {
                 $data['languages'][$key]['flag'] = 'view/image/flags/'.$language['image'];
             }
         }
+        
+        if (isset($this->request->post['token'])) {
+			$data['token'] = $this->request->post['token'];
+		} elseif (!empty($route_info)) {
+			$data['token'] = $route_info['token'];
+		} else {
+			$data['token'] = uniqid();
+		}
 
-    if (isset($this->request->post['backend_route'])) {
+        if (isset($this->request->post['backend_route'])) {
 			$data['backend_route'] = $this->request->post['backend_route'];
 		} elseif (!empty($route_info)) {
 			$data['backend_route'] = $route_info['backend_route'];
 		} else {
 			$data['backend_route'] = '';
 		}
-    if (isset($this->request->post['name'])) {
+        
+        if (isset($this->request->post['name'])) {
 			$data['name'] = $this->request->post['name'];
 		} elseif (!empty($route_info)) {
 			$data['name'] = $route_info['name'];

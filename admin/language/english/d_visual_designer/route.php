@@ -10,6 +10,7 @@ $_['text_success']          = 'Success: You have modified routes!';
 
 //entry
 $_['entry_name']            = 'Name';
+$_['entry_key']             = 'Key';
 $_['entry_backend_route']   = 'Route page in Admin';
 $_['entry_frontend_route']  = 'Route page in Catalog';
 $_['entry_backend_param']   = 'Backend param in Admin';

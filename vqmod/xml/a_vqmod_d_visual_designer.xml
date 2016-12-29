@@ -69,6 +69,7 @@
 				<add><![CDATA[
 					$this->load->model('module/d_visual_designer');
 					$designer_data = array(
+						'token' => '5864c32f56c94',
 						'content' => $product_info['description'],
 						'field_name' => 'product_description['.(int)$this->config->get('config_language_id').'][description]',
 						'id' => $product_id
@@ -169,6 +170,7 @@
 					if(isset($query->row['description'])){
 						$this->load->model('module/d_visual_designer');
 						$designer_data = array(
+							'token' => '5864c33ab26ac',
 							'content' => $query->row['description'],
 							'field_name' => 'category_description['.(int)$this->config->get('config_language_id').'][description]',
 							'id' => $category_id
@@ -185,6 +187,7 @@
 					if(!empty($query->row['description'])){
 						$this->load->model('module/d_visual_designer');
 						$designer_data = array(
+							'token' => '5864c343f014d',
 							'content' => $query->row['description'],
 							'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
 							'id' => $information_id

@@ -7,9 +7,10 @@ class ModelDVisualDesignerRoute extends Model {
     
     public function addRoute($data){
         $this->db->query("INSERT INTO ".DB_PREFIX."visual_designer_route SET
-            name='".$this->db->escape($data['name'])."', 
-            backend_route='".$data['backend_route']."', 
-            status='".$data['status']."', 
+            name='".$this->db->escape($data['name'])."',
+            token='".$data['token']."',
+            backend_route='".$data['backend_route']."',
+            status='".$data['status']."',
             frontend_route='".$data['frontend_route']."',
             edit_url='".$data['edit_url']."',
             frontend_param='".$data['frontend_param']."',
@@ -23,9 +24,10 @@ class ModelDVisualDesignerRoute extends Model {
     
     public function editRoute($route_id, $data){
         $this->db->query("UPDATE ".DB_PREFIX."visual_designer_route SET 
-        name='".$this->db->escape($data['name'])."', 
-        backend_route='".$data['backend_route']."', 
-        status='".$data['status']."', 
+        name='".$this->db->escape($data['name'])."',
+        token='".$data['token']."',
+        backend_route='".$data['backend_route']."',
+        status='".$data['status']."',
         frontend_route='".$data['frontend_route']."',
         edit_url='".$data['edit_url']."',
         frontend_param='".$data['frontend_param']."',
@@ -89,6 +91,7 @@ class ModelDVisualDesignerRoute extends Model {
                 
                 $route_data[] = array(
                     'route_id' => $row['route_id'],
+                    'token' => $row['token'],
                     'status' => $row['status'],
                     'backend_route' => $row['backend_route'],
                     'frontend_route' => $row['frontend_route'],

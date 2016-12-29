@@ -9,6 +9,7 @@ $_['text_edit_route']       = 'Редактирование';
 
 //entry
 $_['entry_name']            = 'Название';
+$_['entry_key']             = 'Ключ';
 $_['entry_backend_route']   = 'Путь к странице в админке';
 $_['entry_frontend_route']  = 'Путь к странице в Каталоге';
 $_['entry_backend_param']   = 'Параметр в админке';
