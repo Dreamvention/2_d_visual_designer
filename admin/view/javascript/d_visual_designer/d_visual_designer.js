@@ -527,6 +527,7 @@ var d_visual_designer = {
         
         this.setting.form.find('#'+designer_id).find('#'+block_id).remove();
         
+        this.updateValue();
     },
     //Возвращает уровень влдожености блока
     getLevelBlock:function(block_id, designer_id){
