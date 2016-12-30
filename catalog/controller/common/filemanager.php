@@ -203,12 +203,6 @@ class ControllerCommonFileManager extends Controller {
 
 		$json = array();
 
-		// Check user has permission
-		
-		if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-			$json['error'] = $this->language->get('error_permission');
-		}
-
 		// Make sure we have the correct directory
 		if (isset($this->request->get['directory'])) {
 			$directory = rtrim(DIR_IMAGE . 'catalog/' . str_replace(array('../', '..\\', '..'), '', $this->request->get['directory']), '/');
@@ -280,11 +274,6 @@ class ControllerCommonFileManager extends Controller {
 
 		$json = array();
 
-		// Check user has permission
-		if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-			$json['error'] = $this->language->get('error_permission');
-		}
-
 		// Make sure we have the correct directory
 		if (isset($this->request->get['directory'])) {
 			$directory = rtrim(DIR_IMAGE . 'catalog/' . str_replace(array('../', '..\\', '..'), '', $this->request->get['directory']), '/');
@@ -328,10 +317,6 @@ class ControllerCommonFileManager extends Controller {
 
 		$json = array();
 
-		// Check user has permission
-		if (!$this->user->hasPermission('modify', 'common/filemanager')) {
-			$json['error'] = $this->language->get('error_permission');
-		}
 
 		if (isset($this->request->post['path'])) {
 			$paths = $this->request->post['path'];
