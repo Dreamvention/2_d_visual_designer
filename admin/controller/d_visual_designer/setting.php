@@ -23,7 +23,6 @@ class ControllerDVisualDesignerSetting extends Controller {
     public function index(){
 
         $this->load->model('setting/setting');
-        $this->load->model('extension/module');
         $this->load->model('d_shopunity/setting');
 
         //save post
