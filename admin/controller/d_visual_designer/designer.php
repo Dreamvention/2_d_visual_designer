@@ -122,6 +122,9 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['entry_border_radius'] = $this->language->get('entry_border_radius');
             $data['entry_background'] = $this->language->get('entry_background');
             $data['entry_additional_css_class'] = $this->language->get('entry_additional_css_class');
+            $data['entry_additional_css_before'] = $this->language->get('entry_additional_css_before');
+            $data['entry_additional_css_content'] = $this->language->get('entry_additional_css_content');
+            $data['entry_additional_css_after'] = $this->language->get('entry_additional_css_after');
             $data['entry_margin'] = $this->language->get('entry_margin');
             $data['entry_padding'] = $this->language->get('entry_padding');
             $data['entry_border'] = $this->language->get('entry_border');
@@ -132,6 +135,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $data['tab_general'] = $this->language->get('tab_general');
             $data['tab_design'] = $this->language->get('tab_design');
+            $data['tab_css'] = $this->language->get('tab_css');
             $data['tab_save_block'] = $this->language->get('tab_save_block');
             $data['tab_templates'] = $this->language->get('tab_templates');
             $data['tab_all_blocks'] = $this->language->get('tab_all_blocks');

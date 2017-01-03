@@ -143,18 +143,13 @@
             <ul class="vd-nav">
                 <li class="active"><a href="#tab-edit-block" data-toggle="tab"><?php echo $tab_general; ?></a></li>
                 <li><a href="#tab-design-block" data-toggle="tab"><?php echo $tab_design; ?></a></li>
+                <li><a href="#tab-css-block" data-toggle="tab"><?php echo $tab_css; ?></a></li>
             </ul>
         </div>
         <div class="popup-content">
             <div class="tab-content body">
                 <div class="tab-pane active" id="tab-edit-block">
                     {{{module_setting}}}
-                    <div class="form-group">
-                        <label class="control-label"><?php echo $entry_additional_css_class; ?></label>
-                        <div class="fg-setting">
-                            <input type="text" name="additional_css_class" class="form-control" value="{{{additional_css_class}}}">
-                        </div>
-                    </div>
                 </div>
                 <div class="tab-pane" id="tab-design-block">
                     <div class="form-group">
@@ -278,6 +273,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane" id="tab-css-block">
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_additional_css_class; ?></label>
+                        <div class="fg-setting">
+                            <input type="text" name="additional_css_class" class="form-control" value="{{{additional_css_class}}}">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_additional_css_before; ?></label>
+                        <div class="fg-setting">
+                            <textarea name="additional_css_before" class="form-control">{{{additional_css_before}}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_additional_css_content; ?></label>
+                        <div class="fg-setting">
+                            <textarea name="additional_css_content" class="form-control">{{{additional_css_content}}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo $entry_additional_css_after; ?></label>
+                        <div class="fg-setting">
+                           <textarea name="additional_css_after" class="form-control">{{{additional_css_after}}}</textarea>
+                       </div>
+                   </div>
+               </div>
             </div>
         </div>
         <div class="popup-footer">

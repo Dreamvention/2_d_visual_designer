@@ -66,6 +66,19 @@
     <?php if(!empty($setting['design_background'])) {?>
         background-color: <?php echo $setting['design_background']; ?>;
     <?php } ?>
+    <?php if(!empty($setting['additional_css_content'])) {?>
+        <?php echo $setting['additional_css_content']; ?>
+    <?php } ?>
+}
+#<?php echo $key; ?>.block-parent.block-container:before{
+    <?php if(!empty($setting['additional_css_before'])) {?>
+        <?php echo $setting['additional_css_before']; ?>
+    <?php } ?>
+}
+#<?php echo $key; ?>.block-parent.block-container:after{
+    <?php if(!empty($setting['additional_css_after'])) {?>
+        <?php echo $setting['additional_css_after']; ?>
+    <?php } ?>
 }
 </style>
     <div class="block-content child" data-id="<?php echo $key; ?>">
