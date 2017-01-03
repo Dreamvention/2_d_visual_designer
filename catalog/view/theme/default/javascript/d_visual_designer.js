@@ -856,15 +856,11 @@ var d_visual_designer = {
                     name = key2.replace('][',':');
                     name = name.replace('[','::');
                     name = name.replace(']','');
-                    // if(array_values[key2] != ''){
-                        shortcode+= ' '+name+'=\''+array_values[key2]+'\''+' ';
-                    // }
+                    shortcode+= ' '+name+'=\''+this.escape(array_values[key2])+'\''+' ';
                 }
             }
             else{
-                // if(value != ''){
-                    shortcode+= ' '+name+'=\''+value+'\''+' ';
-                // }
+                shortcode+= ' '+name+'=\''+this.escape(value)+'\''+' ';
             }
         }
         if(!child){
@@ -874,6 +870,14 @@ var d_visual_designer = {
             shortcode += '][/vd_'+type+']';
         }
         return shortcode;
+    },
+    escape:function(text){
+       if(typeof text == "string"){
+            if(text.length > 0){
+                text = text.replace(/[\[\]\']/g,'');
+            }
+        }
+        return text;
     },
     convert:function(key, obj) {
         var collector = {};
