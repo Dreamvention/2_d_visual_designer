@@ -7376,6 +7376,7 @@
     left: 0 !important;
     top: 0 !important;
     width: 340px !important;
+    min-width: 340px !important;
     height: 100% !important;
     max-height: 100% !important;
     transition: none !important; }
