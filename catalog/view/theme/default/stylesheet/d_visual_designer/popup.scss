@@ -28,6 +28,25 @@
     -ms-flex-direction: column;
     -ms-flex-preferred-size: 100%;
     flex-basis: 100%;
+    &.stick-left{
+        left:0!important;
+        top:0!important;
+        width:400px!important;
+        height:100%!important;
+        max-height: 100%!important;
+        > .popup-header{
+            border-radius:0!important;
+        }
+        > .popup-content{
+            border-radius:0!important;
+        }
+        > .popup-footer{
+            border-radius:0!important;
+            > a{
+                border-radius:0!important;
+            }
+        }
+    }
     .note-editor.note-frame.panel.panel-default{
         margin-left:0;
         margin-right:0;
@@ -70,6 +89,11 @@
                     background-color: #f7cd32;
                 }
             }
+            > a.stick-left{
+                &:hover{
+                    background-color: #f7cd32;
+                }
+            }
         }
         .popup-tabs{
             .vd-nav{
@@ -93,6 +117,11 @@
         >.popup-header{
             background: #72b338;
             > a.close{
+                &:hover{
+                    background-color: #84c24d;
+                }
+            }
+            > a.stick-left{
                 &:hover{
                     background-color: #84c24d;
                 }
@@ -215,6 +244,20 @@
             &:hover{
                 border-top-right-radius: 5px;
                 background-color: #56a6e6;
+            }
+        }
+        > a.stick-left{
+            position: absolute;
+            top: 0;
+            height: 53px;
+            right: 53px;
+            width: 53px;
+
+            background: url(../../image/d_visual_designer/layout.svg) no-repeat center;
+
+            &:hover{
+                background-color: #56a6e6;
+                cursor: pointer;
             }
         }
         > .title{

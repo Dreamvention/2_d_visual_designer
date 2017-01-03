@@ -136,7 +136,8 @@
 <script type="text/html" id="template-edit-block">
     <div class="vd vd-popup {{class_popup}}" style="max-height:75vh;">
         <div class="popup-header">
-                <h2 class="title">{{{block_title}}} <?php echo $text_edit_block; ?></h2>
+            <h2 class="title">{{{block_title}}} <?php echo $text_edit_block; ?></h2>
+            <a class="stick-left"></a>
             <a class="close"></a>
         </div>
         <div class="popup-tabs">
@@ -527,6 +528,11 @@ $(document).off('click','.vd-popup a.close');
 $(document).on('click','.vd-popup a.close',function(){
     d_visual_designer.closePopup();
 });
+$(document).off('click','.vd-popup a.stick-left');
+$(document).on('click','.vd-popup a.stick-left',function(){
+    d_visual_designer.stickPopup();
+});
+
 
 $('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
     var block_id = $(this).parent().data('control');

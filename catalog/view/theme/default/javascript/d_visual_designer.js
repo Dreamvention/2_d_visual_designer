@@ -206,7 +206,10 @@ var d_visual_designer = {
         
         this.popup.resizable({
             resize:function(event,ui){
-              
+                if(that.popup.hasClass('stick-left')){
+                    $('body').removeAttr('style');
+                    that.popup.removeClass('stick-left'); 
+                }
                 if(!that.popup.hasClass('drag')){
                     that.popup.addClass('drag');
                 }
@@ -219,7 +222,10 @@ var d_visual_designer = {
         this.popup.draggable({
             handle:'.popup-header',
             drag: function( event, ui ) {
-                
+                if(that.popup.hasClass('stick-left')){
+                    $('body').removeAttr('style');
+                    that.popup.removeClass('stick-left'); 
+                }
                 that.popup_setting.left = ui.position.left;
                 that.popup_setting.top = ui.position.top;
                 
@@ -243,9 +249,28 @@ var d_visual_designer = {
 
         this.popup.css({visibility:'visible', opacity:1});
     },
+    //Прикрепить окно к леому краю
+    stickPopup:function(){
+        var that = this;
+        if(!this.popup.hasClass('stick-left')){
+            var body_width = $('body').width();
+
+            body_width = body_width - 400;
+            $('body').attr('style', 'width:'+body_width+'px; margin-left:auto');
+            this.popup.addClass('stick-left'); 
+        }
+        else{
+            $('body').removeAttr('style');
+            this.popup.removeClass('stick-left'); 
+        }
+       
+    },
     //закрыть все popup окна
     closePopup:function(){
         if(this.popup != ''){
+            if(this.popup.hasClass('stick-left')){
+                $('body').removeAttr('style');
+            }
             this.popup.remove();
         }
     },
