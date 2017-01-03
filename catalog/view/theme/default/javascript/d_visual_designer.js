@@ -13,6 +13,7 @@ var d_visual_designer = {
         stateEdit: false
     },
     popup_setting:{
+        stick:false,
         left:'',
         top:'',
         width:'',
@@ -239,13 +240,21 @@ var d_visual_designer = {
                 }
             }
         });
-        if(this.popup_setting.left != '' && this.popup_setting.top != ''){
-            this.popup.addClass('drag');
-            this.popup.css({'left':this.popup_setting.left, 'top':this.popup_setting.top});
+        if(this.popup_setting.stick && !this.popup.hasClass('add_block')){
+            this.stickPopup();
         }
-        if(this.popup_setting.width != '' && this.popup_setting.height != ''){
-            this.popup.css({'width':this.popup_setting.width, 'height':this.popup_setting.height});
+        else {
+            if(this.popup_setting.left != '' && this.popup_setting.top != ''){
+                this.popup.addClass('drag');
+                this.popup.css({'left':this.popup_setting.left, 'top':this.popup_setting.top});
+            }
+            if(this.popup_setting.width != '' && this.popup_setting.height != ''){
+                this.popup.css({'width':this.popup_setting.width, 'height':this.popup_setting.height});
+            }
         }
+       
+
+
 
         this.popup.css({visibility:'visible', opacity:1});
     },
@@ -255,13 +264,15 @@ var d_visual_designer = {
         if(!this.popup.hasClass('stick-left')){
             var body_width = $('body').width();
 
-            body_width = body_width - 400;
+            body_width = body_width - 340;
             $('body').attr('style', 'width:'+body_width+'px; margin-left:auto');
             this.popup.addClass('stick-left'); 
+            this.popup_setting.stick = true;
         }
         else{
             $('body').removeAttr('style');
             this.popup.removeClass('stick-left'); 
+            this.popup_setting.stick = false;
         }
        
     },

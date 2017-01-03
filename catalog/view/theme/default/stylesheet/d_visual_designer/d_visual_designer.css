@@ -7375,9 +7375,10 @@
   .vd-popup.stick-left {
     left: 0 !important;
     top: 0 !important;
-    width: 400px !important;
+    width: 340px !important;
     height: 100% !important;
-    max-height: 100% !important; }
+    max-height: 100% !important;
+    transition: none !important; }
     .vd-popup.stick-left > .popup-header {
       border-radius: 0 !important; }
     .vd-popup.stick-left > .popup-content {
