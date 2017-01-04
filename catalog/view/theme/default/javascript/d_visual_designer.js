@@ -238,6 +238,10 @@ var d_visual_designer = {
                 if(ui.position.top < 0){
                     ui.helper.css({'top':'10px'});
                 }
+                var height = $(window).height();
+                if((ui.position.top+100) > height){
+                    ui.helper.css({'top':(height-100)+'px'});
+                }
             }
         });
         if(this.popup_setting.stick && !this.popup.hasClass('add_block')){
