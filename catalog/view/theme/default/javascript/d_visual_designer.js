@@ -886,6 +886,10 @@ var d_visual_designer = {
         var setting = block_info['setting'];
         var shortcode = '[';
         shortcode += 'vd_'+type;
+        if(setting['module_setting']!= undefined){
+            delete setting['module_setting'];
+        }
+        
         for (var key in setting) {
             var name  =key;
             var value = setting[key];
