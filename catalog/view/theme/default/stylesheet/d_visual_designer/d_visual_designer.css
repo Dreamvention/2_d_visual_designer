@@ -7585,6 +7585,8 @@
         color: #32373c;
         font-size: 14px;
         font-weight: 600; }
+      .vd-popup .popup-content .form-group textarea {
+        max-width: 100%; }
       .vd-popup .popup-content .form-group > .fg-setting {
         width: 100%; }
         .vd-popup .popup-content .form-group > .fg-setting .wrap-setting {
