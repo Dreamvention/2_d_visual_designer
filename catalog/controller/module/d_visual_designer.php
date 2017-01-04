@@ -241,7 +241,7 @@ class ControllerModuleDVisualDesigner extends Controller {
                 }
             }
         }
-        elseif($edit_status&&isset($this->request->get[$route_info['frontend_param']])){
+        elseif($edit_status&&!empty($route_info)){
 
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/frontend.css')) {
                 $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/frontend.css');
