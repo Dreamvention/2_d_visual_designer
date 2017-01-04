@@ -40,7 +40,7 @@ class ModelModuleDVisualDesigner extends Model {
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $data['content']);
 
         if(empty($this->settingJS) && !empty($content)){
-            $content = "[vd_row][vd_column][vd_text text='".$data['content']."'][/vd_column][/vd_row]";
+            $content = "[vd_row][vd_column][vd_text text='".str_replace(array(']','[','\''), '', $data['content'])."'][/vd_column][/vd_row]";
             $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $content);
         }
 

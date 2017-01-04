@@ -107,7 +107,7 @@ class ModelDVisualDesignerDesigner extends Model {
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelDVisualDesignerDesigner::do_shortcode_tag', $description);
 
         if(empty($this->settingJS) && !empty($content)){
-            $content = "[vd_row][vd_column][vd_text text='".$description."'][/vd_column][/vd_row]";
+            $content = "[vd_row][vd_column][vd_text text='".str_replace(array(']','[','\''), '', $description)."'][/vd_column][/vd_row]";
             $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelDVisualDesignerDesigner::do_shortcode_tag', $content);
         }
 
