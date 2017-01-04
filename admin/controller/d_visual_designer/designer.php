@@ -271,8 +271,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $data['url'] = $url;
             $route_info = $this->{'model_'.$this->codename.'_route'}->getRoute($route_id);
-            
-            if(!empty($route_info['backend_param'])){
+
+            if(!empty($route_info['backend_param'])&!empty($id)){
                 $param = $route_info['backend_param'].'='.$id;
             }
             else{

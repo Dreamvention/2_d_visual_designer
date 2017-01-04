@@ -433,6 +433,9 @@ class ModelModuleDVisualDesigner extends Model {
                 case 'module/d_visual_designer/getContent':
                     $edit_status = true;
                     break;
+                case 'module/d_visual_designer/getChildBlock':
+                    $edit_status = true;
+                    break;
                 case $route_info['frontend_route']:
                     $edit_status = true;
                     break;
