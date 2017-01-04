@@ -322,12 +322,20 @@
                     display: -ms-flexbox;
                     display: flex;
                 }
+                > .block-content{
+                    &:empty{
+                        &:before{
+                            z-index: 1003;
+                        }
+                    }
+                }
             }
             &.col-sm-1, &.col-sm-2, &.col-sm-3{
                 > .control-top{
                     top:-40px;
                 }
             }
+            
             & > .block-content{
                 min-height: 40px;
                 .block-content-empty{

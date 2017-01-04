@@ -8622,6 +8622,8 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
+  .content.vd .block-inner.active-control > .block-content:empty:before {
+    z-index: 1003; }
   .content.vd .block-inner.col-sm-1 > .control-top, .content.vd .block-inner.col-sm-2 > .control-top, .content.vd .block-inner.col-sm-3 > .control-top {
     top: -40px; }
   .content.vd .block-inner > .block-content {
