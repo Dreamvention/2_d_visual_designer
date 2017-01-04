@@ -7390,6 +7390,12 @@
       border-radius: 0 !important; }
       .vd-popup.stick-left > .popup-footer > a {
         border-radius: 0 !important; }
+  .vd-popup.ui-draggable-dragging > .popup-header {
+    cursor: move; }
+    .vd-popup.ui-draggable-dragging > .popup-header > h2 {
+      cursor: move; }
+    .vd-popup.ui-draggable-dragging > .popup-header > a {
+      cursor: move; }
   .vd-popup .note-editor.note-frame.panel.panel-default {
     margin-left: 0;
     margin-right: 0;
@@ -7483,7 +7489,8 @@
     background: #308cd6;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
-    flex: 0 0 auto; }
+    flex: 0 0 auto;
+    cursor: pointer; }
     .vd-popup .popup-header > a.close {
       position: absolute;
       top: 0px;

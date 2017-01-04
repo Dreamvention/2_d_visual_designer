@@ -52,6 +52,18 @@
             }
         }
     }
+    &.ui-draggable-dragging{
+        > .popup-header{
+            cursor:move;
+            > h2{
+                cursor:move;
+            }
+            > a{
+                cursor:move;
+            }
+        }
+        
+    }
     .note-editor.note-frame.panel.panel-default{
         margin-left:0;
         margin-right:0;
@@ -236,6 +248,8 @@
         -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
+        
+        cursor:pointer;
         > a.close{
             position: absolute;
             top: 0px;
