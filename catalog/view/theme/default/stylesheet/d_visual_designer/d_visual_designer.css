@@ -7567,8 +7567,7 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto; }
     .vd-popup .popup-content .form-group {
-      margin: 0px 0px 20px 0px;
-      margin-bottom: 0px;
+      margin: 0px 0px 20px 0px !important;
       font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif; }
       .vd-popup .popup-content .form-group > label {
         display: inline-block;
