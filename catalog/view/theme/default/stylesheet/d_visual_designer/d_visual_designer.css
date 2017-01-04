@@ -7382,6 +7382,8 @@
     transition: none !important; }
     .vd-popup.stick-left > .popup-header {
       border-radius: 0 !important; }
+      .vd-popup.stick-left > .popup-header > h2.title {
+        max-width: calc(100% - 91px); }
     .vd-popup.stick-left > .popup-content {
       border-radius: 0 !important; }
     .vd-popup.stick-left > .popup-footer {

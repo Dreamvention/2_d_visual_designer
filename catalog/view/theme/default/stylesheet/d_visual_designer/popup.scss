@@ -38,6 +38,9 @@
         transition: none!important;
         > .popup-header{
             border-radius:0!important;
+            > h2.title{
+                max-width: calc(100% - 91px);
+            }
         }
         > .popup-content{
             border-radius:0!important;
