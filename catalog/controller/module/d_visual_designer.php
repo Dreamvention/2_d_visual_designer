@@ -161,7 +161,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 
             $data['tab_general'] = $this->language->get('tab_general');
             $data['tab_design'] = $this->language->get('tab_design');
-             $data['tab_css'] = $this->language->get('tab_css');
+            $data['tab_css'] = $this->language->get('tab_css');
             $data['tab_save_block'] = $this->language->get('tab_save_block');
             $data['tab_templates'] = $this->language->get('tab_templates');
             $data['tab_all_blocks'] = $this->language->get('tab_all_blocks');
@@ -248,16 +248,25 @@ class ControllerModuleDVisualDesigner extends Controller {
             } else {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
             }
-
+            
+            if(!empty($this->request->get[$route_info['frontend_param']])){
+                $param = '&'.$route_info['frontend_param'].'='.$this->request->get[$route_info['frontend_param']];
+                $param_front = '&id='.$this->request->get[$route_info['frontend_param']];
+            }
+            else{
+                $param = '';
+                $param_front = '';
+            }
+            
             if($this->request->server['HTTPS']){
                 $frontend_url = htmlentities(urlencode(HTTPS_SERVER.'index.php?route='.
-                $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$this->request->get[$route_info['frontend_param']]));
+                $route_info['frontend_route'].$param));
             }
             else{
                 $frontend_url = htmlentities(urlencode(HTTP_SERVER.'index.php?route='.
-                $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$this->request->get[$route_info['frontend_param']]));
+                $route_info['frontend_route'].$param));
             }
-            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].'&id='.$this->request->get[$route_info['frontend_param']];
+            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].$param_front;
            
             $setting['content'] = '<div class="btn-group-xs btn-edit" ><a class="btn btn-default " href="'.$edit_url.'" target="_blank"><i class="fa fa-pencil"></i> '.$this->language->get('text_edit').'</a><br/><br/></div>'.$setting['content'];
             return $setting['content'];
