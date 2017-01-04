@@ -159,7 +159,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
                 $data['frontend_route'] = '';
             }
             elseif($route_info['frontend_status']){
-                if(!empty($route_info['backend_param']) && !empty($route_info['frontend_route'])){
+                if(!empty($route_info['backend_param']) && !empty($url_params[$route_info['backend_param']])){
                     $params = '&'.$route_info['frontend_param'].'='.$url_params[$route_info['backend_param']];
                     $frontend_param = '&id='.$url_params[$route_info['backend_param']];
                 }
