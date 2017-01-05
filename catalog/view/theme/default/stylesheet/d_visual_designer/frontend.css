@@ -1,53 +1,53 @@
-.product-thumb {
+.vd-product-thumb {
   overflow: auto;
   margin-bottom: 20px;
   border: 1px solid #ddd; }
-  .product-thumb h4 {
+  .vd-product-thumb h4 {
     font-weight: bold; }
-  .product-thumb .caption {
+  .vd-product-thumb .caption {
     min-height: 180px;
     padding: 0 20px; }
-  .product-thumb .image {
+  .vd-product-thumb .image {
     float: none;
     text-align: center; }
-    .product-thumb .image a {
+    .vd-product-thumb .image a {
       display: block; }
-      .product-thumb .image a:hover {
+      .vd-product-thumb .image a:hover {
         opacity: 0.8; }
-    .product-thumb .image img {
+    .vd-product-thumb .image img {
       margin-right: auto;
       margin-left: auto; }
-  .product-thumb .rating {
+  .vd-product-thumb .rating {
     padding-bottom: 10px; }
-    .product-thumb .rating .fa-stack {
+    .vd-product-thumb .rating .fa-stack {
       font-size: 8px; }
-    .product-thumb .rating .fa-star-o {
+    .vd-product-thumb .rating .fa-star-o {
       color: #999;
       font-size: 15px; }
-    .product-thumb .rating .fa-star {
+    .vd-product-thumb .rating .fa-star {
       color: #FC0;
       font-size: 15px; }
-    .product-thumb .rating .fa-star + .fa-star-o {
+    .vd-product-thumb .rating .fa-star + .fa-star-o {
       color: #E69500; }
-  .product-thumb h2.price {
+  .vd-product-thumb h2.price {
     margin: 0; }
-  .product-thumb .price {
+  .vd-product-thumb .price {
     color: #444; }
-    .product-thumb .price .price-new {
+    .vd-product-thumb .price .price-new {
       font-weight: 600; }
-    .product-thumb .price .price-old {
+    .vd-product-thumb .price .price-old {
       margin-left: 10px;
       text-decoration: line-through;
       color: #999; }
-    .product-thumb .price .price-tax {
+    .vd-product-thumb .price .price-tax {
       display: block;
       color: #999;
       font-size: 12px; }
-  .product-thumb .button-group {
+  .vd-product-thumb .button-group {
     overflow: auto;
     border-top: 1px solid #ddd;
     background-color: #eee; }
-    .product-thumb .button-group button {
+    .vd-product-thumb .button-group button {
       display: inline-block;
       float: left;
       width: 60%;
@@ -58,12 +58,12 @@
       background-color: #eee;
       font-weight: bold;
       line-height: 38px; }
-      .product-thumb .button-group button > span {
+      .vd-product-thumb .button-group button > span {
         display: inline !important; }
-      .product-thumb .button-group button + button {
+      .vd-product-thumb .button-group button + button {
         width: 20%;
         border-left: 1px solid #ddd; }
-      .product-thumb .button-group button:hover {
+      .vd-product-thumb .button-group button:hover {
         cursor: pointer;
         text-decoration: none;
         color: #444;

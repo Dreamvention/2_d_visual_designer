@@ -1,4 +1,4 @@
-.product-thumb {
+.vd-product-thumb {
     overflow: auto;
 
     margin-bottom: 20px;
@@ -8,7 +8,8 @@
         font-weight: bold;
     }
     .caption {
-        min-height: 180px;
+        min-height: 180px;
+
         padding: 0 20px;
     }
     .image {
@@ -22,7 +23,8 @@
             }
         }
         img {
-            margin-right: auto;
+            margin-right: auto;
+
             margin-left: auto;
         }
     }
@@ -272,7 +274,8 @@
             &.active{
                 font-weight: normal;
                 > a{
-                    color: #000;
+                    color: #000;
+
                     background-color: #F8F8F8;
                     &.vd-btn{
                         display: block!important;
