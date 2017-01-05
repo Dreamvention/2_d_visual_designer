@@ -36,11 +36,11 @@ class ModelModuleDVisualDesigner extends Model {
             $this->token = '';
         }
         
-
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $data['content']);
 
         if(empty($this->settingJS) && !empty($content)){
-            $content = "[vd_row][vd_column][vd_text text='".str_replace(array(']','[','\''), '', $data['content'])."'][/vd_column][/vd_row]";
+            $data['content'] = $this->escape($data['content']);
+            $content = "[vd_row][vd_column][vd_text text='".$data['content']."'][/vd_column][/vd_row]";
             $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $content);
         }
 
@@ -67,6 +67,7 @@ class ModelModuleDVisualDesigner extends Model {
 
         $blocks = $this->getTextBlocks();
         $this->text = '';
+        $description = $this->escape($description);
         preg_replace_callback('/' . $this->getTextPattern($blocks) . '/s', 'ModelModuleDVisualDesigner::do_shortcode_text', $description);
 
         $content = preg_replace('/\[.+\]/s',$this->text,$description);
@@ -103,6 +104,24 @@ class ModelModuleDVisualDesigner extends Model {
             return array();
         }
 
+    }
+
+    public function escape($text){
+
+        $text = str_replace("'", '""', $text);
+        $text = str_replace("[", '"{"', $text);
+        $text = str_replace("]", '"}"', $text);
+
+        return $text;
+    } 
+
+    public function unescape($text){
+
+        $text = str_replace('""', "'", $text);
+        $text = str_replace('"{"', '[', $text);
+        $text = str_replace('"}"', ']', $text);
+
+        return $text;
     }
 
     public function do_child_shortcode_tag($m){
@@ -203,6 +222,7 @@ class ModelModuleDVisualDesigner extends Model {
         if($pos === false){
 
             $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+            $value = $this->unescape($value);
 
             return array($name => $value);
         }
@@ -212,6 +232,7 @@ class ModelModuleDVisualDesigner extends Model {
             $name .= ']';
 
             $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
+            $value = $this->unescape($value);
 
             parse_str($name.'='.$value, $res);
             return $res;

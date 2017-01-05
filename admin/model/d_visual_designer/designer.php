@@ -45,6 +45,24 @@ class ModelDVisualDesignerDesigner extends Model {
         return $pattern;
     }
 
+    public function escape($text){
+
+        $text = str_replace("'", '""', $text);
+        $text = str_replace("[", '"{"', $text);
+        $text = str_replace("]", '"}"', $text);
+
+        return $text;
+    } 
+
+    public function unescape($text){
+
+        $text = str_replace('""', "'", $text);
+        $text = str_replace('"{"', '[', $text);
+        $text = str_replace('"}"', ']', $text);
+
+        return $text;
+    }
+
     public function shortcode_parse_atts($text, $parse_name = true) {
 
         $atts = array();
@@ -77,12 +95,17 @@ class ModelDVisualDesignerDesigner extends Model {
     public function parseName($name,$value,$parse_name){
         $pos = strpos($name, '::');
         if($pos === false){
+            $value = $this->unescape($value);
+
             return array($name => $value);
         }
         else{
             $name = str_replace('::','[',$name);
             $name = str_replace(':','][',$name);
             $name .= ']';
+            
+            $value = $this->unescape($value);
+
             if($parse_name){
                 parse_str($name.'='.$value,$res);
             }
@@ -107,7 +130,8 @@ class ModelDVisualDesignerDesigner extends Model {
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelDVisualDesignerDesigner::do_shortcode_tag', $description);
 
         if(empty($this->settingJS) && !empty($content)){
-            $content = "[vd_row][vd_column][vd_text text='".str_replace(array(']','[','\''), '', $description)."'][/vd_column][/vd_row]";
+            $description = $this->escape($description);
+            $content = "[vd_row][vd_column][vd_text text='".$description."'][/vd_column][/vd_row]";
             $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelDVisualDesignerDesigner::do_shortcode_tag', $content);
         }
 

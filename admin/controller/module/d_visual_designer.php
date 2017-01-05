@@ -16,8 +16,12 @@ class ControllerModuleDVisualDesigner extends Controller {
 		$this->load->model('module/d_visual_designer');
 
 		$this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
-		$this->load->model('d_shopunity/mbooth');
-		$this->extension = $this->model_d_shopunity_mbooth->getExtension($this->codename);
+		
+		if($this->d_shopunity){
+			$this->load->model('d_shopunity/mbooth');
+			$this->extension = $this->model_d_shopunity_mbooth->getExtension($this->codename);
+		}
+		
 		$this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 		if(VERSION >= '2.3.0.0'){
 			$this->route = 'extension/'.$this->route;
