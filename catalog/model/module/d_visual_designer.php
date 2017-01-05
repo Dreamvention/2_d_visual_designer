@@ -107,18 +107,18 @@ class ModelModuleDVisualDesigner extends Model {
 
     public function escape($text){
 
-        $text = str_replace("'", '""', $text);
-        $text = str_replace("[", '"{"', $text);
-        $text = str_replace("]", '"}"', $text);
+        $text = str_replace("'", '``', $text);
+        $text = str_replace("[", '`{`', $text);
+        $text = str_replace("]", '`}`', $text);
 
         return $text;
     } 
 
     public function unescape($text){
 
-        $text = str_replace('"{"', '[', $text);
-        $text = str_replace('"}"', ']', $text);
-        $text = str_replace('""', "'", $text);
+        $text = str_replace('`{`', '[', $text);
+        $text = str_replace('`}`', ']', $text);
+        $text = str_replace('``', "'", $text);
 
         return $text;
     }

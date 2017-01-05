@@ -949,9 +949,9 @@ var d_visual_designer = {
     escape:function(text){
        if(typeof text == "string"){
             if(text.length > 0){
-                text = text.replace(/\[/g, '"{"');
-                text = text.replace(/\]/g, '"}"');
-                text = text.replace(/\'/g, '""');
+                text = text.replace(/\[/g, '`{`');
+                text = text.replace(/\]/g, '`}`');
+                text = text.replace(/\'/g, '``');
             }
         }
         return text;
