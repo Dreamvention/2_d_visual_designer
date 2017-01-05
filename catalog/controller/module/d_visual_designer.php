@@ -241,32 +241,23 @@ class ControllerModuleDVisualDesigner extends Controller {
                 }
             }
         }
-        elseif($edit_status&&!empty($this->request->get[$route_info['frontend_param']])){
+        elseif($edit_status&&!empty($setting['id'])){
 
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/frontend.css')) {
                 $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/frontend.css');
             } else {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
             }
-            
-            if(!empty($this->request->get[$route_info['frontend_param']])){
-                $param = '&'.$route_info['frontend_param'].'='.$this->request->get[$route_info['frontend_param']];
-                $param_front = '&id='.$this->request->get[$route_info['frontend_param']];
-            }
-            else{
-                $param = '';
-                $param_front = '';
-            }
-            
+                    
             if($this->request->server['HTTPS']){
                 $frontend_url = htmlentities(urlencode(HTTPS_SERVER.'index.php?route='.
-                $route_info['frontend_route'].$param));
+                $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
             }
             else{
                 $frontend_url = htmlentities(urlencode(HTTP_SERVER.'index.php?route='.
-                $route_info['frontend_route'].$param));
+                $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
             }
-            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].$param_front;
+            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].'&id='.$setting['id'];
            
             $setting['content'] = '<div class="btn-group-xs btn-edit" ><a class="btn btn-default " href="'.$edit_url.'" target="_blank"><i class="fa fa-pencil"></i> '.$this->language->get('text_edit').'</a><br/><br/></div>'.$setting['content'];
             return $setting['content'];
