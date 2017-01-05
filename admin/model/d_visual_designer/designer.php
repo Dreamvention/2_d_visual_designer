@@ -55,10 +55,10 @@ class ModelDVisualDesignerDesigner extends Model {
     } 
 
     public function unescape($text){
-
-        $text = str_replace('""', "'", $text);
+        
         $text = str_replace('"{"', '[', $text);
         $text = str_replace('"}"', ']', $text);
+        $text = str_replace('""', "'", $text);
 
         return $text;
     }

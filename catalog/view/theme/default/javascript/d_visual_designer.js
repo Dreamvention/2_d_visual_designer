@@ -441,7 +441,7 @@ var d_visual_designer = {
                         class_popup = 'child'
                     }
                     
-                    var data = block_info['setting'];
+                    var data = Object.assign({}, block_info['setting']);
                     data['module_setting'] = json['content'];
                     data['block_id'] = block_id;
                     data['designer_id'] = designer_id;

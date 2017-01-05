@@ -67,10 +67,9 @@ class ModelModuleDVisualDesigner extends Model {
 
         $blocks = $this->getTextBlocks();
         $this->text = '';
-        $description = $this->escape($description);
         preg_replace_callback('/' . $this->getTextPattern($blocks) . '/s', 'ModelModuleDVisualDesigner::do_shortcode_text', $description);
 
-        $content = preg_replace('/\[.+\]/s',$this->text,$description);
+        $content = preg_replace('/\[.+\]/s', $this->text, $description);
         return $content;
     }
 
@@ -117,9 +116,9 @@ class ModelModuleDVisualDesigner extends Model {
 
     public function unescape($text){
 
-        $text = str_replace('""', "'", $text);
         $text = str_replace('"{"', '[', $text);
         $text = str_replace('"}"', ']', $text);
+        $text = str_replace('""', "'", $text);
 
         return $text;
     }
