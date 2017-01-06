@@ -6,29 +6,29 @@
     
     <file path="admin/controller/catalog/product.php">
         <operation>
-			<search><![CDATA[	protected function getForm() {]]></search>
-			<add  position="after"><![CDATA[
-    			$this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js');
-			]]></add>
-		</operation>
+            <search><![CDATA[   protected function getForm() {]]></search>
+            <add  position="after"><![CDATA[
+                $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js');
+            ]]></add>
+        </operation>
     </file>
-	<file path="admin/view/template/catalog/product_form.tpl">
+    <file path="admin/view/template/catalog/product_form.tpl">
         <operation error="skip">
-			<search><![CDATA[class="form-control summernote"]]></search>
-			<add position="replace"><![CDATA[
-			class="form-control summernote d_visual_designer"
-			]]></add>
-		</operation>
-        <operation error="skip">
-			<search><![CDATA[<textarea name="product_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] : ''; ?></textarea>]]></search>
-			<add position="replace"><![CDATA[
+            <search><![CDATA[<textarea name="product_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] : ''; ?></textarea>]]></search>
+            <add position="replace"><![CDATA[
                 <textarea name="product_description[<?php echo $language['language_id']; ?>][description]" class="d_visual_designer" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>"><?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['description'] : ''; ?></textarea>
-			]]></add>
-		</operation>
+            ]]></add>
+        </operation>
+        <operation error="skip">
+            <search><![CDATA[class="form-control summernote"]]></search>
+            <add position="replace"><![CDATA[
+            class="form-control summernote d_visual_designer"
+            ]]></add>
+        </operation>
     </file>
     <file path="admin/controller/catalog/category.php">
         <operation>
-            <search><![CDATA[	protected function getForm() {]]></search>
+            <search><![CDATA[   protected function getForm() {]]></search>
             <add position="after"><![CDATA[
             $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js');
             ]]></add>
@@ -37,21 +37,21 @@
     
     <file path="admin/view/template/catalog/category_form.tpl">
         <operation error="skip">
+            <search><![CDATA[<textarea name="category_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($category_description[$language['language_id']]) ? $category_description[$language['language_id']]['description'] : ''; ?></textarea>]]></search>
+            <add position="replace"><![CDATA[
+                <textarea name="category_description[<?php echo $language['language_id']; ?>][description]" class="d_visual_designer" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($category_description[$language['language_id']]) ? $category_description[$language['language_id']]['description'] : ''; ?></textarea>
+            ]]></add>
+        </operation>
+        <operation error="skip">
             <search><![CDATA[class="form-control summernote"]]></search>
             <add position="replace"><![CDATA[
             class="form-control summernote d_visual_designer"
             ]]></add>
         </operation>
-        <operation error="skip">
-			<search><![CDATA[<textarea name="category_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($category_description[$language['language_id']]) ? $category_description[$language['language_id']]['description'] : ''; ?></textarea>]]></search>
-			<add position="replace"><![CDATA[
-                <textarea name="category_description[<?php echo $language['language_id']; ?>][description]" class="d_visual_designer" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($category_description[$language['language_id']]) ? $category_description[$language['language_id']]['description'] : ''; ?></textarea>
-			]]></add>
-		</operation>
     </file>
     <file path="admin/controller/catalog/information.php">
         <operation>
-            <search><![CDATA[	protected function getForm() {]]></search>
+            <search><![CDATA[   protected function getForm() {]]></search>
             <add position="after"><![CDATA[
                 $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js');
             ]]></add>
@@ -59,15 +59,15 @@
     </file>
     <file path="admin/view/template/catalog/information_form.tpl">
         <operation error="skip">
-            <search><![CDATA[class="form-control summernote"]]></search>
-            <add position="replace"><![CDATA[
-            class="form-control summernote d_visual_designer"
-            ]]></add>
-        </operation>
-        <operation error="skip">
             <search><![CDATA[<textarea name="information_description[<?php echo $language['language_id']; ?>][description]" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['description'] : ''; ?></textarea>]]></search>
             <add position="replace"><![CDATA[
                 <textarea name="information_description[<?php echo $language['language_id']; ?>][description]" class="d_visual_designer" placeholder="<?php echo $entry_description; ?>" id="input-description<?php echo $language['language_id']; ?>" class="form-control"><?php echo isset($information_description[$language['language_id']]) ? $information_description[$language['language_id']]['description'] : ''; ?></textarea>
+            ]]></add>
+        </operation>
+        <operation error="skip">
+            <search><![CDATA[class="form-control summernote"]]></search>
+            <add position="replace"><![CDATA[
+            class="form-control summernote d_visual_designer"
             ]]></add>
         </operation>
     </file>
