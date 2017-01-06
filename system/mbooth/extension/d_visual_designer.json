@@ -45,8 +45,6 @@
         "system/config/d_visual_designer/column.php",
         "system/config/d_visual_designer/row.php",
         "system/config/d_visual_designer/text.php",
-        
-        "vqmod/xml/a_vqmod_d_visual_designer.xml",
 
         "admin/controller/module/d_visual_designer.php",
         "admin/language/en-gb/module/d_visual_designer.php",
