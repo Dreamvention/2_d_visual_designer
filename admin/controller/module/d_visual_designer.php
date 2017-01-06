@@ -58,14 +58,14 @@ class ControllerModuleDVisualDesigner extends Controller {
 	public function install() {
 
 		if($this->d_shopunity){
-			$this->load->model('d_shopunity/vqmod');
-			$this->model_d_shopunity_vqmod->setVqmod('a_vqmod_d_visual_designer.xml', 1);
-
+			$this->load->model('d_shopunity/ocmod');
+			$this->model_d_shopunity_ocmod->setOcmod('d_visual_designer.xml', 1);
+			$this->model_d_shopunity_ocmod->refreshCache();
+			
 			$this->load->model('d_shopunity/mbooth');
 			$this->model_d_shopunity_mbooth->installDependencies($this->codename);
 		}
-
-		$this->load->model('user/user');
+		$this->load->model('user/user_group');
 
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'access', $this->codename.'/designer');
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'modify', $this->codename.'/designer');
@@ -84,9 +84,9 @@ class ControllerModuleDVisualDesigner extends Controller {
 	public function uninstall() {
 
 		if($this->d_shopunity){
-			$this->load->model('d_shopunity/vqmod');
-
-			$this->model_d_shopunity_vqmod->setVqmod('a_vqmod_d_visual_designer.xml', 0);
+			$this->load->model('d_shopunity/ocmod');
+			$this->model_d_shopunity_ocmod->setOcmod('d_visual_designer.xml', 0);
+			$this->model_d_shopunity_ocmod->refreshCache();
 		}
 
 		$this->model_module_d_visual_designer->dropDatabase();
