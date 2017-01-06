@@ -196,7 +196,7 @@
             &:empty{
                 position: relative;
                 
-                min-height: 50px;
+                min-height: 100px!important;
                 
                 cursor: pointer;
                 &:after{

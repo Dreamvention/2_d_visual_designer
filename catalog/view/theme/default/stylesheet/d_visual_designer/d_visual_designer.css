@@ -8557,7 +8557,7 @@
   clear: both; }
 .content.vd .block-content:empty {
   position: relative;
-  min-height: 50px;
+  min-height: 100px !important;
   cursor: pointer; }
   .content.vd .block-content:empty:after {
     display: table;
