@@ -194,8 +194,17 @@ class ControllerCommonFileManager extends Controller {
 		$pagination->url = $this->url->link('common/filemanager', 'token=' . $this->session->data['token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
-
-		$this->response->setOutput($this->load->view('d_visual_designer/filemanager', $data));
+		
+		if(VERSION>='2.2.0.0') {
+			$this->response->setOutput($this->load->view('d_visual_designer/filemanager', $data));
+		}
+		else {
+			if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/d_visual_designer/filemanager.tpl')) {
+				$this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/d_visual_designer/filemanager.tpl', $data));
+			} else {
+				$this->response->setOutput($this->load->view('default/template/d_visual_designer/filemanager.tpl', $data));
+			}
+		}
 	}
 
 	public function upload() {
