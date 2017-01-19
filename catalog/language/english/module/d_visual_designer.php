@@ -35,6 +35,18 @@ $_['text_add_block']               = 'Add block';
 $_['text_add_text_block']          = 'Add Text block';
 $_['text_add_template']            = 'Add Template';
 
+$_['text_column_1']                = '1 Column';
+$_['text_column_1_2']              = '1:2 Column';
+$_['text_column_1_2_1']            = '1:2:1 Column';
+$_['text_column_1_3']              = '1:3 Column';
+$_['text_column_1_3_1']            = '1:3:1 Column';
+$_['text_column_1_3_2']            = '1:3:2 Column';
+$_['text_column_2']                = '2 Column';
+$_['text_column_2_1']              = '2:1 Column';
+$_['text_column_2_1_2']            = '2:1:2 Column';
+$_['text_column_3_1_3']            = '3:1:3 Column';
+$_['text_column_3_1_2']            = '3:1:2 Column';
+
 //tab
 $_['tab_save_block']               = 'Save Template';
 $_['tab_templates']                = 'Templates';

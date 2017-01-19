@@ -309,83 +309,83 @@
     </div>
 </script>
 <script type="text/html" id="template-row-layout">
-    <div class="vd vd-popup edit-layout">
+      <div class="vd vd-popup edit-layout">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_layout; ?></h2>
             <a class="close"></a>
         </div>
         <div class="popup-content">
             <div class="row layout-edit">
-               <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12'}} active {{/ifCond}}">
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12">
                         <span class="layout-1"></span>
-                        <p class="title">1 Column</p>
+                        <p class="title"><?php echo $text_column_1; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12+6+6">
                         <span class="layout-1-2"></span>
-                        <p class="title">1:2 Column</p>
+                        <p class="title"><?php echo $text_column_1_2; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+6+6+12'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12+6+6+12">
                         <span class="layout-1-2-1"></span>
-                        <p class="title">1:2:1 Column</p>
+                        <p class="title"><?php echo $text_column_1_2_1; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12+4+4+4">
                         <span class="layout-1-3"></span>
-                        <p class="title">1:3 Column</p>
+                        <p class="title"><?php echo $text_column_1_3; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4+12'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12+4+4+4+12">
                         <span class="layout-1-3-1"></span>
-                        <p class="title">1:3:1 Column</p>
+                        <p class="title"><?php echo $text_column_1_3_1; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4+6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12+4+4+4+6+6">
                         <span class="layout-1-3-2"></span>
-                        <p class="title">1:3:2 Column</p>
+                        <p class="title"><?php echo $text_column_1_3_2; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="6+6">
                         <span class="layout-2"></span>
-                        <p class="title">2 Column</p>
+                        <p class="title"><?php echo $text_column_2; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+12'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="6+6+12">
                         <span class="layout-2-1"></span>
-                        <p class="title">2:1 Column</p>
+                        <p class="title"><?php echo $text_column_2_1; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+12+6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="6+6+12+6+6">
                         <span class="layout-2-1-2"></span>
-                        <p class="title">2:1:2 Column</p>
+                        <p class="title"><?php echo $text_column_2_1_2; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4+12+4+4+4'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="4+4+4+12+4+4+4">
                         <span class="layout-3-1-3"></span>
-                        <p class="title">3:1:3 Column</p>
+                        <p class="title"><?php echo $text_column_3_1_3; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4+12+6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="4+4+4+12+6+6">
                         <span class="layout-3-1-2"></span>
-                        <p class="title">3:1:2 Column</p>
+                        <p class="title"><?php echo $text_column_3_1_2; ?></p>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="6+6+6+6">
                         <span class="layout-2-2"></span>
-                        <p class="title">2 Column</p>
+                        <p class="title"><?php echo $text_column_2; ?></p>
                     </a>
                 </div>
             </div>
@@ -394,7 +394,7 @@
                     <label class="control-label"><?php echo $entry_size; ?></label>
                     <div class="fg-setting">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="size" value="{{concat items chart='+'}}"/>
+                            <input type="text" class="form-control" name="size" value="{{size}}"/>
                             <span class="input-group-btn">
                                <button id="layoutSet" class="btn btn-default" type="button"><?php echo $text_set_custom; ?></button>
                              </span>
@@ -403,6 +403,7 @@
                 </div>
             </div>
             <input type="hidden" name="target" value="{{{target}}}"/>
+            <input type="hidden" name="designer_id" value="{{{designer_id}}}"/>
         </div>
     </div>
 </script>

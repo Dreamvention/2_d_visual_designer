@@ -119,6 +119,17 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_search'] = $this->language->get('text_search');
             $data['text_layout'] = $this->language->get('text_layout');
             $data['text_set_custom'] = $this->language->get('text_set_custom');
+            $data['text_column_1'] = $this->language->get('text_column_1');
+            $data['text_column_1_2'] = $this->language->get('text_column_1_2');
+            $data['text_column_1_2_1'] = $this->language->get('text_column_1_2_1');
+            $data['text_column_1_3'] = $this->language->get('text_column_1_3');
+            $data['text_column_1_3_1'] = $this->language->get('text_column_1_3_1');
+            $data['text_column_1_3_2'] = $this->language->get('text_column_1_3_2');
+            $data['text_column_2'] = $this->language->get('text_column_2');
+            $data['text_column_2_1'] = $this->language->get('text_column_2_1');
+            $data['text_column_2_1_2'] = $this->language->get('text_column_2_1_2');
+            $data['text_column_3_1_3'] = $this->language->get('text_column_3_1_3');
+            $data['text_column_3_1_2'] = $this->language->get('text_column_3_1_2');
 
 
             $data['entry_border_color'] = $this->language->get('entry_border_color');
