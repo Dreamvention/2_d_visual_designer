@@ -337,65 +337,86 @@
             <a class="close"></a>
         </div>
         <div class="popup-content">
-            <div class="layout-edit">
-                <ul class="column-layout">
-                    <li data-layout="12">
-                        <span class="column" data-layout="12" style="width:100%;"><span></span></span>
-                    </li>
-                    <li data-layout="6+6">
-                        <span class="column" data-layout="6+6" style="width:50%"><span></span></span>
-                        <span class="column" data-layout="6+6" style="width:50%"><span></span></span>
-                    </li>
-                    <li data-layout="4+4+4">
-                        <span class="column" data-layout="4+4+4" style="width:33.3333%"><span></span></span>
-                        <span class="column" data-layout="4+4+4" style="width:33.3333%"><span></span></span>
-                        <span class="column" data-layout="4+4+4" style="width:33.3333%"><span></span></span>
-                    </li>
-                    <li data-layout="3+3+3+3">
-                        <span class="column" data-layout="3+3+3+3" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+3+3+3" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+3+3+3" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+3+3+3" style="width:25%"><span></span></span>
-                    </li>
-                    <li data-layout="8+4">
-                        <span class="column" data-layout="8+4" style="width:66.6667%"><span></span></span>
-                        <span class="column" data-layout="8+4" style="width:33.3333%"><span></span></span>
-                    </li>
-                    <li data-layout="4+8">
-                        <span class="column" data-layout="4+8" style="width:33.3333%"><span></span></span>
-                        <span class="column" data-layout="4+8" style="width:66.6667%"><span></span></span>
-                    </li>
-                    <li data-layout="3+9">
-                        <span class="column" data-layout="3+9" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+9" style="width:75%"><span></span></span>
-                    </li>
-                    <li data-layout="9+3">
-                        <span class="column" data-layout="9+3" style="width:75%"><span></span></span>
-                        <span class="column" data-layout="9+3" style="width:25%"><span></span></span>
-                    </li>
-                    <li data-layout="6+3+3">
-                        <span class="column" data-layout="6+3+3" style="width:50%"><span></span></span>
-                        <span class="column" data-layout="6+3+3" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="6+3+3" style="width:25%"><span></span></span>
-                    </li>
-                    <li data-layout="3+3+6">
-                        <span class="column" data-layout="3+3+6" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+3+6" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+3+6" style="width:50%"><span></span></span>
-                    </li>
-                    <li data-layout="3+6+3">
-                        <span class="column" data-layout="3+6+3" style="width:25%"><span></span></span>
-                        <span class="column" data-layout="3+6+3" style="width:50%"><span></span></span>
-                        <span class="column" data-layout="3+6+3" style="width:25%"><span></span></span>
-                    </li>
-                </ul>
+            <div class="row layout-edit">
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="12">
+                        <span class="layout-1"></span>
+                        <p class="title">1 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+6+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="12+6+6">
+                        <span class="layout-1-2"></span>
+                        <p class="title">1:2 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+6+6+12'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="12+6+6+12">
+                        <span class="layout-1-2-1"></span>
+                        <p class="title">1:2:1 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="12+4+4+4">
+                        <span class="layout-1-3"></span>
+                        <p class="title">1:3 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4+12'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="12+4+4+4+12">
+                        <span class="layout-1-3-1"></span>
+                        <p class="title">1:3:1 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4+6+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="12+4+4+4+6+6">
+                        <span class="layout-1-3-2"></span>
+                        <p class="title">1:3:2 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="6+6">
+                        <span class="layout-2"></span>
+                        <p class="title">2 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+12'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="6+6+12">
+                        <span class="layout-2-1"></span>
+                        <p class="title">2:1 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+12+6+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="6+6+12+6+6">
+                        <span class="layout-2-1-2"></span>
+                        <p class="title">2:1:2 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4+12+4+4+4'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="4+4+4+12+4+4+4">
+                        <span class="layout-3-1-3"></span>
+                        <p class="title">3:1:3 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4+12+6+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="4+4+4+12+6+6">
+                        <span class="layout-3-1-2"></span>
+                        <p class="title">3:1:2 Column</p>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+6+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="6+6+6+6">
+                        <span class="layout-2-2"></span>
+                        <p class="title">2 Column</p>
+                    </a>
+                </div>
             </div>
             <div class="setting">
                 <div class="form-group">
                     <label class="control-label"><?php echo $entry_size; ?></label>
                     <div class="fg-setting">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="size" value="{{concat items chart='+'}}"/>
+                            <input type="text" class="form-control" name="size" value="{{size}}"/>
                             <span class="input-group-btn">
                                <button id="layoutSet" class="btn btn-default" type="button"><?php echo $text_set_custom; ?></button>
                              </span>
@@ -442,8 +463,8 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
     var block_id = $(this).parent().data('control');
     d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
 });
-$(document).off('click','span.column');
-$(document).on('click','span.column',function(){
+$(document).off('click','a[id=edit-layout]');
+$(document).on('click','a[id=edit-layout]',function(){
     var size = $(this).data('layout');
     var target = $('.popup').find('input[name=target]').val();
     var designer_id = $('.popup').find('input[name=designer_id]').val();

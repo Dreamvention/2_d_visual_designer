@@ -231,6 +231,12 @@ var d_visual_designer = {
                 }
                 return res.join(options['hash']['chart']);
             });   
+            window.Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+              if(v1 === v2) {
+                return options.fn(this);
+            }
+            return options.inverse(this);
+        });
         }
           
     },
@@ -777,10 +783,19 @@ var d_visual_designer = {
     },
     //Вызов окна редактирование layout
     showEditLayout: function(target, designer_id){
+
+        var items = this.getBlockByParent(designer_id, target);
+
+        var size = [];
+
+        for (var key in items) {
+            size.push(items[key]['setting']['size']);
+        }
+
         var data = {
             'target' : target,
             'designer_id': designer_id,
-            'items':this.getBlockByParent(designer_id, target)
+            'size':size.join('+')
         };
         
         var html = this.templateСompile(this.template.row_layout, data);

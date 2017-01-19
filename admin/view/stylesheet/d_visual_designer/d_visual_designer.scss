@@ -1373,66 +1373,75 @@ span.module_name {
     }
 }
 .layout-edit{
-    > h3{
-        position: relative;
-
-        box-sizing: border-box;
-        width: 100%;
-        margin: 0;
-        padding: 21px 30px;
-
-        cursor: move;
-        cursor: default;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-
-        color: #fff;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        background-color: #2A4B80;
-
-        font-size: 1.125rem;
-        font-size: 1.125rem;
-        font-weight: 600;
-        line-height: 1rem;
-    }
-    > ul.column-layout{
-        padding: 30px 0 10px 30px!important;
-
-        list-style-type: disc;
-
-        line-height: 26px;
-        > li{
-            display: inline-block;
-
-            box-sizing: border-box;
-            width: 27%;
-            margin-right: 20px;
-            margin-bottom: 20px;
-
-            cursor: pointer;
-
-            > span.column{
-                display: inline-block;
-                float: left;
-
-                box-sizing: border-box;
-                padding: 0 2px;
+    margin:0px;
+    > div.layout{
+        padding-top:10px;
+        padding-bottom:10px;
+        &.active{
+            > a{
                 > span{
-                    display: block;
+                    border: 10px solid #e8f5ff;
+                    border-radius:5px;
+                }
+            }
+        }
+        > a{
+            > p.title{
+                text-align: center;
+                margin-top: 10px;
+                color: black;
+                font-weight: bold;
+                font-size: 15px;
+            }
+            > span{
+                display:block;
+                width: 176px;
+                height: 191px;
+                margin-left: auto;
+                margin-right: auto;
+                border:1px dashed white;
+                border-radius:5px;
 
-                    height: 30px;
-
-                    -webkit-transition: background .2s ease;
-                    transition: background .2s ease;
-                    text-align: center;
-                    text-indent: -9999em;
-
-                    background: #29c4a9;
-
-                    font-size: 11px;
+                &:hover{
+                    cursor:pointer;
+                    border: 10px solid #e8f5ff;
+                    border-radius:5px;
+                }
+                &.layout-1{
+                    background: url(../../image/d_visual_designer/layouts/1.svg) no-repeat center;
+                }
+                &.layout-1-2{
+                    background: url(../../image/d_visual_designer/layouts/1-2.svg) no-repeat center;
+                }
+                &.layout-1-2-1{
+                    background: url(../../image/d_visual_designer/layouts/1-2-1.svg) no-repeat center;
+                }
+                &.layout-1-3{
+                    background: url(../../image/d_visual_designer/layouts/1-3.svg) no-repeat center;
+                }
+                &.layout-1-3-1{
+                    background: url(../../image/d_visual_designer/layouts/1-3-1.svg) no-repeat center;
+                }
+                &.layout-1-3-2{
+                    background: url(../../image/d_visual_designer/layouts/1-3-2.svg) no-repeat center;
+                }
+                &.layout-2{
+                    background: url(../../image/d_visual_designer/layouts/2.svg) no-repeat center;
+                }
+                &.layout-2-1{
+                    background: url(../../image/d_visual_designer/layouts/2-1.svg) no-repeat center;
+                }
+                &.layout-2-1-2{
+                    background: url(../../image/d_visual_designer/layouts/2-1-2.svg) no-repeat center;
+                }
+                &.layout-3-1-3{
+                    background: url(../../image/d_visual_designer/layouts/3-1-3.svg) no-repeat center;
+                }
+                &.layout-3-1-2{
+                    background: url(../../image/d_visual_designer/layouts/3-1-2.svg) no-repeat center;
+                }
+                &.layout-2-2{
+                    background: url(../../image/d_visual_designer/layouts/2-chess.svg) no-repeat center;
                 }
             }
         }
