@@ -435,10 +435,22 @@
                 padding-top:10px;
                 padding-bottom:10px;
                 &.active{
-        			background: #f5f5f5;
+        			> a {
+        				> span{
+        					> span{
+        						background: #59a1da;
+        					}
+        				}
+        			}
                 }
         		&:hover{
-        			background: #f5f5f5;
+        			> a {
+        				> span{
+        					> span{
+        						background: #59a1da;
+        					}
+        				}
+        			}
         		}
                 > a{
         			&:hover{

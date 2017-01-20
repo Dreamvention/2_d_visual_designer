@@ -61,7 +61,7 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(!empty($this->request->get['route']) && $this->request->get['route'] != $route_info['frontend_route']){
             $edit_status = false;
         }
-                
+        
         //sharrre
         $this->document->addScript('catalog/view/javascript/d_visual_designer/library/sharrre/jquery.sharrre.min.js');
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/sharrre/style.css');
@@ -138,18 +138,7 @@ class ControllerModuleDVisualDesigner extends Controller {
             $data['text_layout'] = $this->language->get('text_layout');
             $data['entry_size'] = $this->language->get('entry_size');
             $data['text_set_custom'] = $this->language->get('text_set_custom');
-            $data['text_column_1'] = $this->language->get('text_column_1');
-            $data['text_column_1_2'] = $this->language->get('text_column_1_2');
-            $data['text_column_1_2_1'] = $this->language->get('text_column_1_2_1');
-            $data['text_column_1_3'] = $this->language->get('text_column_1_3');
-            $data['text_column_1_3_1'] = $this->language->get('text_column_1_3_1');
-            $data['text_column_1_3_2'] = $this->language->get('text_column_1_3_2');
-            $data['text_column_2'] = $this->language->get('text_column_2');
-            $data['text_column_2_1'] = $this->language->get('text_column_2_1');
-            $data['text_column_2_1_2'] = $this->language->get('text_column_2_1_2');
-            $data['text_column_3_1_3'] = $this->language->get('text_column_3_1_3');
-            $data['text_column_3_1_2'] = $this->language->get('text_column_3_1_2');
-
+        
             $data['text_left'] = $this->language->get('text_left');
             $data['text_right'] = $this->language->get('text_right');
             $data['text_top'] = $this->language->get('text_top');

@@ -1419,10 +1419,10 @@ span.module_name {
   .layout-edit > div.layout {
     padding-top: 10px;
     padding-bottom: 10px; }
-    .layout-edit > div.layout.active {
-      background: #f5f5f5; }
-    .layout-edit > div.layout:hover {
-      background: #f5f5f5; }
+    .layout-edit > div.layout.active > a > span > span {
+      background: #59a1da; }
+    .layout-edit > div.layout:hover > a > span > span {
+      background: #59a1da; }
     .layout-edit > div.layout > a:hover {
       cursor: pointer; }
     .layout-edit > div.layout > a > span {

@@ -420,28 +420,26 @@ class ModelModuleDVisualDesigner extends Model {
         else{
             $route_info = array();
         }
-
+        
         $edit_status = true;
 
         if(!$status){
             $edit_status = false;
         }
-
+        
         if(!$this->user->isLogged()){
             $edit_status = false;
         }
-
         if(!isset($this->request->get['edit'])){
             $edit_status = false;
         }
-
         if(empty($route_info)){
             $edit_status = false;
         }
         elseif (!$route_info['status']) {
             $edit_status = false;
         }
-
+        
         if(!empty($this->request->get['route'])){
             switch ($this->request->get['route']) {
                 case 'module/d_visual_designer/getTemplate':
@@ -457,7 +455,9 @@ class ModelModuleDVisualDesigner extends Model {
                     $edit_status = true;
                     break;
                 case $route_info['frontend_route']:
-                    $edit_status = true;
+                    if(isset($this->request->get['edit'])){
+                        $edit_status = true;
+                    }
                     break;
                 
                 default:
@@ -465,7 +465,7 @@ class ModelModuleDVisualDesigner extends Model {
                     break;
             }
         }
-
+        
         if($edit_status){
             $data['permission'] = true;
         }

@@ -154,11 +154,14 @@ var d_visual_designer = {
         var block_info = this.data[designer_id][block_id];
         
         this.getChildBlock(old_parent_id, designer_id);
-        
+        if(this.tmpSetting.items[old_parent_id]!= undefined ){
+            delete this.tmpSetting.items[old_parent_id];
+        }
+         
         var count_childs = Object.keys(this.tmpSetting.items).length;
         
         if(block_info['parent'] != '' && count_childs == 0 && old_parent_id != parent_id){
-            this.settings[designer_id].find('.block-content[data-id='+old_parent_id+']').empty();
+            this.settings[designer_id].form.find('.block-content[data-id='+old_parent_id+']').empty();
         }
     },
     //обновление sort_order
@@ -248,7 +251,7 @@ var d_visual_designer = {
                 }
             }
         });
-        if(this.popup_setting.stick && !this.popup.hasClass('add_block')){
+        if(this.popup_setting.stick && !this.popup.hasClass('add_block') && !this.popup.hasClass('edit-layout')){
             this.stickPopup();
         }
         else {
@@ -623,6 +626,7 @@ var d_visual_designer = {
                 if(json['success']){
                      that.settings[designer_id].form.find('.vd').html(json['content']);
                      that.data[designer_id] = json['setting'];
+                     that.initSortable();
                      that.closePopup();
                     that.setting.stateEdit = true;
                 }

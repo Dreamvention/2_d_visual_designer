@@ -171,11 +171,6 @@
     </file>
     <file path="catalog/model/catalog/category.php">
         <operation>
-            <search><![CDATA[public function getCategory($category_id) {]]></search>
-            <add position="after"><![CDATA[$this->load->model('module/d_visual_designer');]]>
-            </add>
-        </operation>
-        <operation>
             <search><![CDATA[return $query->row;]]></search>
             <add position="before"><![CDATA[
                 $this->load->model('module/d_visual_designer');

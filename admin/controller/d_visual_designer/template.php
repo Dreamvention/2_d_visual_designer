@@ -433,6 +433,8 @@ class ControllerDVisualDesignerTemplate extends Controller {
         else{
             $data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
         }
+        
+        $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
 		if (isset($this->request->post['sort_order'])) {
 			$data['sort_order'] = $this->request->post['sort_order'];
