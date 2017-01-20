@@ -49,20 +49,28 @@
             </div> -->
             <a class="close"></a>
         </div>
+        <div class="popup-tabs">
+            <ul class="vd-nav">
+                <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category="{{all}}"><?php echo $tab_all_blocks; ?></a></li>
+                {{#categories}}
+                    <li><a id="new-block-tab"  data-toggle="tab" data-category="{{key}}">{{title}}</a></li>
+                {{/categories}}
+            </ul>
+        </div>
         <div class="popup-content">
             <div class="row popup-new-block">
                 {{#blocks}}
                 <div class="col-md-3 col-sm-6 col-xs-12 element">
-                    <div class="block">
-                        <a id="add_block" name="type" data-title="{{{title}}}" data-type="{{{type}}}">
-                            <span><img src="{{{image}}}" class="image"></span>
-                            {{{title}}}
-                            <i class="description">
-                                {{{description}}}
-                            </i>
-                        </a>
-                    </div>
-                </div>
+	                <div class="block">
+	                    <a id="add_block" name="type" data-title="{{{title}}}" data-type="{{{type}}}" data-category="{{category}}">
+	                        <span><img src="{{{image}}}" class="image"></span>
+	                        {{{title}}}
+	                        <i class="description">
+	                            {{{description}}}
+	                        </i>
+	                    </a>
+	                </div>
+				</div>
                 {{/blocks}}
             </div>
             <input type="hidden" name="target" value='{{{target}}}'/>
@@ -478,7 +486,10 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
     var block_id = $(this).closest('.block-container').attr('id');
     d_visual_designer.cloneBlock('<?php echo $designer_id; ?>', block_id);
 });
-
+$(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
+$(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
+    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
+});
 $(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
 $(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
     d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')

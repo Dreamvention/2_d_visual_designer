@@ -35,18 +35,6 @@ $_['text_add_block']               = 'Add block';
 $_['text_add_text_block']          = 'Add Text block';
 $_['text_add_template']            = 'Add Template';
 
-$_['text_column_1']                = '1 Column';
-$_['text_column_1_2']              = '1:2 Column';
-$_['text_column_1_2_1']            = '1:2:1 Column';
-$_['text_column_1_3']              = '1:3 Column';
-$_['text_column_1_3_1']            = '1:3:1 Column';
-$_['text_column_1_3_2']            = '1:3:2 Column';
-$_['text_column_2']                = '2 Column';
-$_['text_column_2_1']              = '2:1 Column';
-$_['text_column_2_1_2']            = '2:1:2 Column';
-$_['text_column_3_1_3']            = '3:1:3 Column';
-$_['text_column_3_1_2']            = '3:1:2 Column';
-
 //tab
 $_['tab_save_block']               = 'Save Template';
 $_['tab_templates']                = 'Templates';
@@ -54,9 +42,9 @@ $_['tab_general']                  = 'General';
 $_['tab_design']                   = 'Design';
 $_['tab_css']                      = 'CSS';
 $_['tab_all_blocks']               = 'All';
-$_['tab_content_blocks']           = 'Content';
-$_['tab_social_blocks']            = 'Social';
-$_['tab_structure_blocks']         = 'Structure';
+$_['tab_category_content']         = 'Content';
+$_['tab_category_social']          = 'Social';
+$_['tab_category_structure']       = 'Structure';
 
 //Button
 $_['button_saved']                 = "<i class='fa fa-check' aria-hidden='true'></i>Saved";
