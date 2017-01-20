@@ -23,6 +23,7 @@ class ModelModuleDVisualDesigner extends Model {
 		
 		$this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_template (
 			`template_id` INT(11) NOT NULL AUTO_INCREMENT,
+			`image` VARCHAR(256) NOT NULL,
 			`content` MEDIUMTEXT NULL,
 			`sort_order` INT(11) NULL DEFAULT NULL,
 			PRIMARY KEY (`template_id`)
@@ -36,17 +37,30 @@ class ModelModuleDVisualDesigner extends Model {
 			PRIMARY KEY (`template_id`, `language_id`)
 		)
 		COLLATE='utf8_general_ci' ENGINE=MyISAM;");
+		
+		if (!file_exists(DIR_SYSTEM.'/mbooth/install/d_visual_designer.sql')) {
+            exit('Could not load sql file: ' . DIR_SYSTEM.'/mbooth/install/d_visual_designer.sql');
+        }
 
-		$this->db->query("INSERT IGNORE INTO ".DB_PREFIX."visual_designer_route
-			(`token` ,`name`, `backend_route`, `frontend_status`, `frontend_route`, `backend_param`, `frontend_param`, `edit_url`, `status`)
-		VALUES
-			('5864c301788d1', 'Add Product', 'catalog/product/add', 0, '', '', '', '', 1),
-			('5864c3211c699', 'Add Category', 'catalog/category/add', 0, '', '', '', '', 1),
-			('5864c327e6094', 'Add Information','catalog/information/add', 0, '', '', '', '', 1),
-			('5864c32f56c94', 'Edit Product','catalog/product/edit', 1, 'product/product', 'product_id', 'product_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveProduct', 1),
-			('5864c33ab26ac', 'Edit Category', 'catalog/category/edit', 1, 'product/category', 'category_id', 'path', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveCategory', 1),
-			('5864c343f014d', 'Edit Information','catalog/information/edit', 1, 'information/information', 'information_id', 'information_id', '".$this->config->get('config_url')."index.php?route=module/d_visual_designer/saveInformation', 1);
-		");
+        $lines = file(DIR_SYSTEM.'/mbooth/install/d_visual_designer.sql');
+        if ($lines) {
+            foreach($lines as $line) {
+                if ($line) {
+                    if (preg_match('/;\s*$/', $line)) {				
+						$sql = str_replace("INSERT INTO `oc_", "INSERT INTO `" . DB_PREFIX, $line);
+						$sql = str_replace("TRUNCATE TABLE `oc_", "TRUNCATE TABLE `" . DB_PREFIX, $line);
+						$this->db->query($sql);
+					}
+				}
+			}
+			if($this->config->get('config_language_id')!=1){
+              $sql = "INSERT INTO ".DB_PREFIX."visual_designer_template_description
+              	(`template_id`, `language_id`, `name`)
+              	SELECT `template_id`, '".$this->config->get('config_language_id')."', `name`
+               	FROM ".DB_PREFIX."visual_designer_template_description";
+              $this->db->query($sql);
+            }
+		}
 	}
 	
 	public function dropDatabase(){

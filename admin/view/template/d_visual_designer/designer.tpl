@@ -249,7 +249,7 @@
                     <div class="fg-setting">
                         <select name="design_border_style" class="form-control">
                             {{#select design_border_style}}
-                            <?php foreach($styles as $key => $value){ ?>
+                            <?php foreach($border_styles as $key => $value){ ?>
                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                             <?php } ?>
                             {{/select}}
