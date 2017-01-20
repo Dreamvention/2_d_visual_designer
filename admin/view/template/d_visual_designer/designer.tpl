@@ -10,7 +10,7 @@
     <a id="button_classic" data-id="<?php echo $designer_id; ?>" class="btn btn-default"><?php echo $text_classic_mode; ?></a>
     <a id="button_vd" data-id="<?php echo $designer_id; ?>" class="btn btn-default hidden"><?php echo $text_backend_editor; ?></a>
     <?php if(!empty($frontend_route)){ ?>
-        <a id="button_frontend" href="<?php echo $frontend_route; ?>" class="btn btn-default"><?php echo $text_frontend_editor; ?></a>
+        <a id="button_frontend"  data-href="<?php echo $frontend_route; ?>" class="btn btn-default"><?php echo $text_frontend_editor; ?></a>
     <?php } ?>
 </div>
 <div class="content vd" id="<?php echo $designer_id; ?>">
@@ -25,9 +25,6 @@
             </a>
         </div>
         <div class="pull-right">
-            <a id="button_save" class="btn btn-default">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </a>
             <a id="button_full_screen" class="btn btn-default">
                 <i class="fa fa-arrows-alt" aria-hidden="true"></i>
             </a>
@@ -41,9 +38,6 @@
         </a>
     </div>
     <div class="vd-welcome">
-		<div class="vd-welcome-brand">
-			<!-- <img src="http://localhost/wordpress44/wp-content/plugins/js_composer/assets/vc/logo/64x64.png" alt=""> -->
-		</div>
 		<div class="vd-welcome-header">
 			<?php echo $text_welcome_header; ?>
         </div>
@@ -85,7 +79,7 @@
         <div class="popup-content">
             <div class="row popup-new-block">
               {{#blocks}}
-							<div class="col-md-3 col-sm-6 col-xs-12 element">
+				<div class="col-md-3 col-sm-6 col-xs-12 element">
 	                <div class="block">
 	                    <a id="add_block" name="type" data-title="{{{title}}}" data-type="{{{type}}}">
 	                        <span><img src="{{{image}}}" class="image"></span>
@@ -95,7 +89,7 @@
 	                        </i>
 	                    </a>
 	                </div>
-							</div>
+				</div>
               {{/blocks}}
             </div>
             <input type="hidden" name="target" value='{{{target}}}'/>
@@ -140,10 +134,11 @@
                 <div class="tab-pane active" id="tab-get-template">
                     <div class="popup-new-template">
                         {{#templates}}
-                        <div class="element">
+                        <div class="col-md-3 col-sm-6 col-xs-12 element">
                             <div class="template">
                                 <a id="add_template" data-id="{{template_id}}" name="type">
-                                    {{{name}}}
+                                    <img src="{{{image}}}"/>
+                                    <p class="title">{{{name}}}</p>
                                 </a>
 
                             </div>
@@ -340,74 +335,73 @@
             <div class="row layout-edit">
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="12">
-                        <span class="layout-1"></span>
-                        <p class="title"><?php echo $text_column_1; ?></p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+6+6'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="12+6+6">
-                        <span class="layout-1-2"></span>
-                        <p class="title"><?php echo $text_column_1_2; ?></p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+6+6+12'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="12+6+6+12">
-                        <span class="layout-1-2-1"></span>
-                        <p class="title"><?php echo $text_column_1_2_1; ?></p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="12+4+4+4">
-                        <span class="layout-1-3"></span>
-                        <p class="title"><?php echo $text_column_1_3; ?></p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4+12'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="12+4+4+4+12">
-                        <span class="layout-1-3-1"></span>
-                        <p class="title"><?php echo $text_column_1_3_1; ?></p>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '12+4+4+4+6+6'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="12+4+4+4+6+6">
-                        <span class="layout-1-3-2"></span>
-                        <p class="title"><?php echo $text_column_1_3_2; ?></p>
+                        <span class="layout-12"><span></span></span>
                     </a>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6'}} active {{/ifCond}}">
                     <a id="edit-layout" data-layout="6+6">
-                        <span class="layout-2"></span>
-                        <p class="title"><?php echo $text_column_2; ?></p>
+                        <span class="layout-6"><span></span></span>
+                        <span class="layout-6"><span></span></span>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+12'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="6+6+12">
-                        <span class="layout-2-1"></span>
-                        <p class="title"><?php echo $text_column_2_1; ?></p>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="4+4+4">
+                        <span class="layout-4"><span></span></span>
+                        <span class="layout-4"><span></span></span>
+                        <span class="layout-4"><span></span></span>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+12+6+6'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="6+6+12+6+6">
-                        <span class="layout-2-1-2"></span>
-                        <p class="title"><?php echo $text_column_2_1_2; ?></p>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '3+3+3+3'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="3+3+3+3">
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-3"><span></span></span>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4+12+4+4+4'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="4+4+4+12+4+4+4">
-                        <span class="layout-3-1-3"></span>
-                        <p class="title"><?php echo $text_column_3_1_3; ?></p>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '8+4'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="8+4">
+                        <span class="layout-8"><span></span></span>
+                        <span class="layout-4"><span></span></span>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+4+4+12+6+6'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="4+4+4+12+6+6">
-                        <span class="layout-3-1-2"></span>
-                        <p class="title"><?php echo $text_column_3_1_2; ?></p>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '4+8'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="4+8">
+                        <span class="layout-4"><span></span></span>
+                        <span class="layout-8"><span></span></span>
                     </a>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+6+6+6'}} active {{/ifCond}}">
-                    <a id="edit-layout" data-layout="6+6+6+6">
-                        <span class="layout-2-2"></span>
-                        <p class="title"><?php echo $text_column_2; ?></p>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '3+9'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="3+9">
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-9"><span></span></span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '9+3'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="9+3">
+                        <span class="layout-9"><span></span></span>
+                        <span class="layout-3"><span></span></span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '6+3+3'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="6+3+3">
+                        <span class="layout-6"><span></span></span>
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-3"><span></span></span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '3+3+6'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="3+3+6">
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-6"><span></span></span>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 layout {{#ifCond size '3+6+3'}} active {{/ifCond}}">
+                    <a id="edit-layout" data-layout="3+6+3">
+                        <span class="layout-3"><span></span></span>
+                        <span class="layout-6"><span></span></span>
+                        <span class="layout-3"><span></span></span>
                     </a>
                 </div>
             </div>
@@ -469,6 +463,12 @@ $(document).on('click','a[id=edit-layout]',function(){
     var target = $('.popup').find('input[name=target]').val();
     var designer_id = $('.popup').find('input[name=designer_id]').val();
     d_visual_designer.editLayout({'size': size}, target, designer_id);
+});
+
+$(document).off('click','a[id=button_frontend]');
+$(document).on('click','a[id=button_frontend]',function(){
+    var href = $(this).data('href');
+    d_visual_designer.openFrontend(href);
 });
 $(document).off('click','#layoutSet');
 $(document).on('click','#layoutSet',function(){
@@ -547,13 +547,6 @@ $('#<?php echo $designer_id; ?>').off('click','#vd-add-template');
 $('#<?php echo $designer_id; ?>').on('click','#vd-add-template',function(){
     var designer_id = $(this).parents('.vd.content').attr('id');
     d_visual_designer.showAddTemplate(designer_id);
-    return false;
-});
-
-
-$(document).off('click','#button_save');
-$(document).on('click','#button_save',function(){
-    d_visual_designer.saveContent($(this));
     return false;
 });
 

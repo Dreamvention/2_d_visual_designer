@@ -536,9 +536,20 @@ var d_visual_designer = {
     },
     //Вызов окна редактирование layout
     showEditLayout: function(target, designer_id){
+        
+        var items = this.getBlockByParent(designer_id, target);
+
+        var size = [];
+
+        for (var key in items) {
+            size.push(items[key]['setting']['size']);
+        }
+        console.log(items);
+        console.log(size);
         var data = {
             'target' : target,
-            'items':this.getBlockByParent(designer_id, target),
+            'designer_id': designer_id,
+            'size':size.join('+')
         };
         
         var content = this.templateСompile(this.template.row_layout, data);

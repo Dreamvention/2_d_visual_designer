@@ -689,6 +689,7 @@ class ModelModuleDVisualDesigner extends Model {
                 $template_data[] = array(
                     'template_id' => $row['template_id'],
                     'content' => $row['content'],
+                    'image' => $row['image'],
                     'sort_order' => $row['sort_order'],
                     'name' => $row['name']
                 );

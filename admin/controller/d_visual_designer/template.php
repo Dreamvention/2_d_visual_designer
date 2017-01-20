@@ -328,11 +328,14 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $data['text_routes'] = $this->language->get('text_routes');
         $data['text_setting'] = $this->language->get('text_setting');
         $data['text_instructions'] = $this->language->get('text_instructions');
+        $data['text_file_manager'] = $this->language->get('text_file_manager');
 
 		$data['entry_name'] = $this->language->get('entry_name');
         $data['entry_content'] = $this->language->get('entry_content');
         $data['entry_sort_order'] = $this->language->get('entry_sort_order');
-
+        $data['entry_image'] = $this->language->get('entry_image');
+        
+        $data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
 
 		if (isset($this->error['warning'])) {
@@ -413,6 +416,23 @@ class ControllerDVisualDesignerTemplate extends Controller {
 		} else {
 			$data['name'] = '';
 		}
+        
+		if (isset($this->request->post['image'])) {
+			$data['image'] = $this->request->post['image'];
+		} elseif (!empty($template_info)) {
+			$data['image'] = $template_info['image'];
+		} else {
+			$data['image'] = '';
+		}
+        
+        $this->load->model('tool/image');
+        
+        if(file_exists(DIR_IMAGE.$data['image'])){
+            $data['thumb'] = $this->model_tool_image->resize($data['image'], 100, 100);
+        }
+        else{
+            $data['thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
+        }
 
 		if (isset($this->request->post['sort_order'])) {
 			$data['sort_order'] = $this->request->post['sort_order'];
@@ -487,8 +507,18 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $json['templates'] = array();
 
         foreach ($templates as $template) {
+            
+            $this->load->model('tool/image');
+            
+            if(file_exists(DIR_IMAGE.$template['image'])){
+                $thumb = $this->model_tool_image->resize($template['image'], 156, 171);
+            }
+            else{
+                $thumb = $this->model_tool_image->resize('no_image.png', 156, 171);
+            }
             $json['templates'][] = array(
                 'template_id' => $template['template_id'],
+                'image' => $thumb,
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
             );
         }
@@ -544,7 +574,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
         }
 
         if(isset($template_description) && isset($content)){
-        	$this->{'model_'.$this->codename.'_template'}->addTemplate($template_description+array('content' => $content,'sort_order'=>0));
+        	$this->{'model_'.$this->codename.'_template'}->addTemplate($template_description+array('content' => $content,'image'=>'', 'sort_order'=>0));
         	$json['success'] = 'success';
         }
         else{
@@ -602,4 +632,29 @@ class ControllerDVisualDesignerTemplate extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+    public function getFileManager() {
+        if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+            $data['base'] = HTTPS_CATALOG;
+        } else {
+            $data['base'] = HTTP_CATALOG;
+        }
+        $this->load->model('module/'.$this->codename);
+        $this->load->model('user/user_group');
+        $this->model_user_user_group->addPermission($this->{'model_module_'.$this->codename}->getGroupId(), 'access', 'common/d_elfinder');
+        $this->model_user_user_group->addPermission($this->{'model_module_'.$this->codename}->getGroupId(), 'modify', 'common/d_elfinder'); 
+        
+        $data['route'] = 'common/d_elfinder';
+        
+        $data['token'] = $this->session->data['token'];
+        
+        $this->response->setOutput($this->load->view('common/d_elfinder.tpl', $data));
+    }
+    
+    public function getImage() {
+        $this->load->model('tool/image');
+        
+        if (isset($this->request->get['image'])) {
+            $this->response->setOutput($this->model_tool_image->resize(html_entity_decode($this->request->get['image'], ENT_QUOTES, 'UTF-8'), 100, 100));
+        }
+    }
 }

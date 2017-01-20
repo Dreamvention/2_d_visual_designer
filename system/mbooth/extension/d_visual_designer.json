@@ -35,7 +35,8 @@
         "url": "https://dreamvention.com/support"
     },
     "required": {
-        "d_shopunity": ">= 3.0.0"
+        "d_shopunity": ">= 3.0.0",
+        "d_elfinder": ">= 1.0.0"
     },
     "files": [
         "system/mbooth/extension/d_visual_designer.json",
@@ -140,16 +141,18 @@
         "admin/view/stylesheet/d_visual_designer",
         "admin/view/javascript/d_visual_designer",
         "admin/view/image/d_visual_designer",
-
+        
         "catalog/view/theme/default/template/d_visual_designer",
         "catalog/view/theme/default/stylesheet/d_visual_designer",
         "catalog/view/theme/default/image/d_visual_designer",
-        "catalog/view/javascript/d_visual_designer"
+        "catalog/view/javascript/d_visual_designer",
+        
+        "image/catalog/d_visual_designer"
     ],
     "changelog": [
         {
             "version":"1.0.3",
-            "change":"1.Fix bugs 2.Redesigned popup window for editing layout."
+            "change":"1.Fix bugs 2.Redesigned popup window for editing layout.3.Redesigned popup window for template selection."
         }, 
         {
             "version":"1.0.2",

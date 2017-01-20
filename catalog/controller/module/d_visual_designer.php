@@ -561,8 +561,17 @@ class ControllerModuleDVisualDesigner extends Controller {
         $json['templates'] = array();
 
         foreach ($templates as $template) {
+            $this->load->model('tool/image');
+            if(file_exists(DIR_IMAGE.$template['image'])){
+                $thumb = $this->model_tool_image->resize($template['image'], 156, 171);
+            }
+            else{
+                $thumb = $this->model_tool_image->resize('no_image.png', 156, 171);
+            }
+            
             $json['templates'][] = array(
                 'template_id' => $template['template_id'],
+                'image' => $thumb,
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
             );
         }
