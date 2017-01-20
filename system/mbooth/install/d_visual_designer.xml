@@ -210,4 +210,47 @@
                 </add>
         </operation>
     </file>
+    <file path="admin/model/tool/image.php">
+		<operation error="skip">
+            <search><![CDATA[if (!is_file(DIR_IMAGE . $filename)) {]]></search>
+            <add position="before"><![CDATA[
+			if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+				$server = HTTPS_CATALOG;
+			} else {
+				$server = HTTP_CATALOG;
+			}
+			
+			if ($filename) {
+				$image_info = @getimagesize(DIR_IMAGE . $filename);
+				if (!$image_info) {
+					return $server . 'image/' . $filename;
+				}
+			} else {
+				$filename = "no_image.png";
+			}
+            ]]></add>
+        </operation>
+    </file> 
+	
+	<file path="catalog/model/tool/image.php">
+		<operation error="skip">
+            <search><![CDATA[if (!is_file(DIR_IMAGE . $filename)) {]]></search>
+            <add position="before"><![CDATA[
+			if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+				$server = $this->config->get('config_ssl');
+			} else {
+				$server = $this->config->get('config_url');
+			}
+			
+			if ($filename) {
+				$image_info = @getimagesize(DIR_IMAGE . $filename);
+				if (!$image_info) {
+					return $server . 'image/' . $filename;
+				}
+			} else {
+				$filename = "no_image.png";
+			}
+            ]]></add>
+        </operation>
+    </file> 
 </modification>
