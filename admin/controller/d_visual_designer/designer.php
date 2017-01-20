@@ -94,6 +94,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $this->scripts[] = 'view/javascript/d_visual_designer/library/handlebars-v4.0.5.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery-ui.js';
+            $this->scripts[] = 'view/javascript/d_visual_designer/library/list.min.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery.serialize-object.js';
 
             //summernote
@@ -119,17 +120,6 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_search'] = $this->language->get('text_search');
             $data['text_layout'] = $this->language->get('text_layout');
             $data['text_set_custom'] = $this->language->get('text_set_custom');
-            $data['text_column_1'] = $this->language->get('text_column_1');
-            $data['text_column_1_2'] = $this->language->get('text_column_1_2');
-            $data['text_column_1_2_1'] = $this->language->get('text_column_1_2_1');
-            $data['text_column_1_3'] = $this->language->get('text_column_1_3');
-            $data['text_column_1_3_1'] = $this->language->get('text_column_1_3_1');
-            $data['text_column_1_3_2'] = $this->language->get('text_column_1_3_2');
-            $data['text_column_2'] = $this->language->get('text_column_2');
-            $data['text_column_2_1'] = $this->language->get('text_column_2_1');
-            $data['text_column_2_1_2'] = $this->language->get('text_column_2_1_2');
-            $data['text_column_3_1_3'] = $this->language->get('text_column_3_1_3');
-            $data['text_column_3_1_2'] = $this->language->get('text_column_3_1_2');
 
 
             $data['entry_border_color'] = $this->language->get('entry_border_color');
@@ -157,6 +147,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['tab_content_blocks'] = $this->language->get('tab_content_blocks');
             $data['tab_social_blocks'] = $this->language->get('tab_social_blocks');
             $data['tab_structure_blocks'] = $this->language->get('tab_structure_blocks');
+            
 
             $data['text_top'] = $this->language->get('text_top');
             $data['text_right'] = $this->language->get('text_right');
@@ -402,9 +393,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $results = $this->{'model_'.$this->codename.'_designer'}->getBlocks();
             $json['success'] = 'success';
             $json['blocks'] = array();
-            $json['socials'] = array();
-            $json['contents'] = array();
-            $json['structures'] = array();
+            $json['categories'] = array();
 
             foreach ($results as $block) {
 
@@ -419,9 +408,17 @@ class ControllerDVisualDesignerDesigner extends Controller {
                 }
                 if($setting['display']){
                     if(($level >= $setting['level_min']) && ($level <= $setting['level_max']) || ($level == '0' && $setting['level_min'] == '2')){
+                        $category_info = array(
+                            'key' => $setting['category'],
+                            'title' => $this->language->get('tab_category_'.$setting['category'])
+                        );
+                        if(!in_array($category_info, $json['categories'])){
+                            $json['categories'][] = $category_info;
+                        }
                         $json['blocks'][] = array(
                             'sort_order' => $setting['sort_order'],
                             'title' => $this->language->get('text_title'),
+                            'category' => $setting['category'],
                             'type'	=> $block,
                             'description' => $this->language->get('text_description'),
                             'image' => $image

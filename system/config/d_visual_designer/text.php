@@ -4,7 +4,7 @@ $_['display']         = true;
 //Порядковый номер
 $_['sort_order']      = 1;
 //Категория(content, social, structure)
-$_['category'] = 'cotent';
+$_['category'] = 'content';
 //отображать название блока
 $_['display_title']   = false;
 //Может содержать дочерние блоки

@@ -887,6 +887,24 @@
                 }
             }
         }
+		> .popup-tabs{
+            .vd-nav{
+                background: #8bc15b;
+                li{
+                    > a{
+						cursor: pointer;
+                        &:hover{
+                            background-color: #a6d27e;
+                        }
+                    }
+                }
+                li.active{
+                    > a{
+                        background-color:#a6d27e;
+                    }
+                }
+            }
+		}
         > .popup-content{
             max-height: 450px;
 

@@ -870,11 +870,16 @@ var d_visual_designer = {
         return result;
     },
     //Поиск блоков
-    search:function(text, items, target){
+    search:function(text, items, target, attr='text'){
         console.log(text);
         $(items).addClass('hide');
         $(items).each(function(){
-            var content = $(this).find(target).text();
+            if(attr=='text'){
+                var content = $(this).find(target).text();
+            }
+            else{
+                var content = $(this).find(target).attr(attr);
+            }
             var content = content.toLowerCase();
             if(content.indexOf(text) != -1){
                 $(this).removeClass('hide');

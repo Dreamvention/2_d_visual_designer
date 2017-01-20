@@ -56,9 +56,9 @@ $_['text_column_3_1_2']            = '3:1:2 Column';
 $_['tab_save_block']               = 'Save Template';
 $_['tab_templates']                = 'Templates';
 $_['tab_all_blocks']               = 'All';
-$_['tab_content_blocks']           = 'Content';
-$_['tab_social_blocks']            = 'Social';
-$_['tab_structure_blocks']         = 'Structure';
+$_['tab_category_content']         = 'Content';
+$_['tab_category_social']          = 'Social';
+$_['tab_category_structure']       = 'Structure';
 $_['tab_css']                      = 'CSS';
 
 //Button

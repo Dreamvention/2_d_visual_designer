@@ -76,12 +76,20 @@
             </div> -->
             <a class="close"></a>
         </div>
+        <div class="popup-tabs">
+            <ul class="vd-nav">
+                <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category="{{all}}"><?php echo $tab_all_blocks; ?></a></li>
+                {{#categories}}
+                    <li><a id="new-block-tab"  data-toggle="tab" data-category="{{key}}">{{title}}</a></li>
+                {{/categories}}
+            </ul>
+        </div>
         <div class="popup-content">
             <div class="row popup-new-block">
               {{#blocks}}
 				<div class="col-md-3 col-sm-6 col-xs-12 element">
 	                <div class="block">
-	                    <a id="add_block" name="type" data-title="{{{title}}}" data-type="{{{type}}}">
+	                    <a id="add_block" name="type" data-title="{{{title}}}" data-type="{{{type}}}" data-category="{{category}}">
 	                        <span><img src="{{{image}}}" class="image"></span>
 	                        {{{title}}}
 	                        <i class="description">
@@ -457,6 +465,7 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
     var block_id = $(this).parent().data('control');
     d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
 });
+
 $(document).off('click','a[id=edit-layout]');
 $(document).on('click','a[id=edit-layout]',function(){
     var size = $(this).data('layout');
@@ -480,6 +489,10 @@ $(document).on('click','#layoutSet',function(){
 $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
     var block_id = $(this).parent().data('control')
     d_visual_designer.cloneBlock(block_id, '<?php echo $designer_id; ?>');
+});
+$(document).off('click', '.popup.add_block > .popup-tabs > .vd-nav > li > a');
+$(document).on('click', '.popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
+    d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
 });
 $(document).off('keyup', '.popup.add_block > .popup-header input[name=search]');
 $(document).on('keyup', '.popup.add_block > .popup-header input[name=search]', function(){
