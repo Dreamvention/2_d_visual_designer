@@ -1084,6 +1084,12 @@
   .popup.add_template {
     width: 60%;
     left: 20%; }
+    .popup.add_template > .popup-tabs li > a {
+      cursor: pointer; }
+    .popup.add_template > .popup-tabs.active + .popup-tabs.templates {
+      display: block; }
+    .popup.add_template > .popup-tabs.templates {
+      display: none; }
     .popup.add_template > .popup-content {
       padding: 5px;
       border-bottom-left-radius: 5px;

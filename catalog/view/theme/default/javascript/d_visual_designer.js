@@ -851,12 +851,12 @@ var d_visual_designer = {
         $(items).addClass('hide');
         $(items).each(function(){
             if(attr=='text'){
-                var content = $(this).find(target).text();
+                var content = $(this).find(target).text().toLowerCase();
             }
             else{
                 var content = $(this).find(target).attr(attr);
             }
-            var content = content.toLowerCase();
+            
             if(content.indexOf(text) != -1){
                 $(this).removeClass('hide');
             }

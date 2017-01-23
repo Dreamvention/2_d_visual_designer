@@ -329,6 +329,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $data['entry_content'] = $this->language->get('entry_content');
         $data['entry_sort_order'] = $this->language->get('entry_sort_order');
         $data['entry_image'] = $this->language->get('entry_image');
+        $data['entry_category'] = $this->language->get('entry_category');
         
         $data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');
@@ -410,6 +411,14 @@ class ControllerDVisualDesignerTemplate extends Controller {
 			$data['name'] = $template_info['name'];
 		} else {
 			$data['name'] = '';
+		}
+
+        if (isset($this->request->post['category'])) {
+			$data['category'] = $this->request->post['category'];
+		} elseif (!empty($template_info)) {
+			$data['category'] = $template_info['category'];
+		} else {
+			$data['category'] = '';
 		}
         
 		if (isset($this->request->post['image'])) {
@@ -502,6 +511,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $templates = $this->model_d_visual_designer_template->getTemplates();
 
         $json['templates'] = array();
+        $json['categories'] = array();
 
         foreach ($templates as $template) {
             
@@ -513,9 +523,14 @@ class ControllerDVisualDesignerTemplate extends Controller {
             else{
                 $thumb = $this->model_tool_image->resize('no_image.png', 156, 171);
             }
+
+            if(!empty($template['category']) && !in_array(ucfirst($template['category']), $json['categories'])){
+            	$json['categories'][] = ucfirst($template['category']);
+            }
             $json['templates'][] = array(
                 'template_id' => $template['template_id'],
                 'image' => $thumb,
+                'category' => ucfirst($template['category']),
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
             );
         }

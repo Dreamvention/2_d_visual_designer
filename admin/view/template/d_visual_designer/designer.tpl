@@ -77,14 +77,16 @@
             </div> -->
             <a class="close"></a>
         </div>
+        {{#if categories}}
         <div class="popup-tabs">
             <ul class="vd-nav">
-                <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category="{{all}}"><?php echo $tab_all_blocks; ?></a></li>
+                <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category=""><?php echo $tab_all_blocks; ?></a></li>
                 {{#categories}}
-                <li><a id="new-block-tab"  data-toggle="tab" data-category="{{key}}">{{title}}</a></li>
+                <li><a id="new-block-tab"  data-toggle="tab" data-category="{{this}}">{{this}}</a></li>
                 {{/categories}}
             </ul>
         </div>
+        {{/if}}
         <div class="popup-content">
             <div class="row popup-new-block">
                 {{#blocks}}
@@ -107,18 +109,29 @@
         </div>
     </div>
 </script>
+
 <script type="text/x-handlebars-template" id="template-add-template">
     <div class="popup add_template" style="max-height:75vh;">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_template; ?></h2>
             <a class="close"></a>
         </div>
-        <div class="popup-tabs">
+        <div class="popup-tabs active">
             <ul class="vd-nav">
                 <li class="active"><a href="#tab-get-template" data-toggle="tab"><?php echo $tab_templates; ?></a></li>
                 <li><a href="#tab-save-template" data-toggle="tab"><?php echo $tab_save_block; ?></a></li>
             </ul>
         </div>
+        {{#if categories}}
+        <div class="popup-tabs templates">
+            <ul class="vd-nav">
+                <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category=""><?php echo $tab_all_blocks; ?></a></li>
+                {{#categories}}
+                <li><a id="new-template-tab"  data-toggle="tab" data-category="{{this}}">{{this}}</a></li>
+                {{/categories}}
+            </ul>
+        </div>
+        {{/if}}
         <div class="popup-content">
             <div class="tab-content body">
                 <div class="tab-pane" id="tab-save-template">
@@ -144,7 +157,7 @@
                         {{#templates}}
                         <div class="col-md-3 col-sm-6 col-xs-12 element">
                             <div class="template">
-                                <a id="add_template" data-id="{{template_id}}" name="type">
+                                <a id="add_template" data-id="{{template_id}}" name="type" data-category="{{category}}">
                                     <img src="{{{image}}}"/>
                                     <p class="title">{{{name}}}</p>
                                 </a>
@@ -488,9 +501,23 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
     var block_id = $(this).parent().data('control')
     d_visual_designer.cloneBlock(block_id, '<?php echo $designer_id; ?>');
 });
+$(document).off('click', '.popup.add_template > .popup-tabs:not(.templates) > .vd-nav > li > a');
+$(document).on('click', '.popup.add_template > .popup-tabs:not(.templates) > .vd-nav > li > a', function(){
+    var url = $(this).attr('href');
+    if(url == '#tab-get-template'){
+        $(this).closest('.popup-tabs').addClass('active');
+    }
+    else{
+        $(this).closest('.popup-tabs').removeClass('active');
+    } 
+});
 $(document).off('click', '.popup.add_block > .popup-tabs > .vd-nav > li > a');
 $(document).on('click', '.popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
     d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
+});
+$(document).off('click', '.popup.add_template > .popup-tabs.templates > .vd-nav > li > a');
+$(document).on('click', '.popup.add_template > .popup-tabs.templates > .vd-nav > li > a', function(){
+    d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
 });
 $(document).off('keyup', '.popup.add_block > .popup-header input[name=search]');
 $(document).on('keyup', '.popup.add_block > .popup-header input[name=search]', function(){

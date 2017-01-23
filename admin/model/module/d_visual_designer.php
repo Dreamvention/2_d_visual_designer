@@ -24,6 +24,7 @@ class ModelModuleDVisualDesigner extends Model {
 		$this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_template (
 			`template_id` INT(11) NOT NULL AUTO_INCREMENT,
 			`image` VARCHAR(256) NOT NULL,
+			`category` VARCHAR(64) NOT NULL,
 			`content` MEDIUMTEXT NULL,
 			`sort_order` INT(11) NULL DEFAULT NULL,
 			PRIMARY KEY (`template_id`)

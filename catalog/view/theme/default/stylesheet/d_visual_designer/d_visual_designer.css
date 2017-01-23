@@ -7449,6 +7449,12 @@
   .vd-popup.add_template {
     left: 20%;
     width: 60%; }
+    .vd-popup.add_template > .popup-tabs li > a {
+      cursor: pointer; }
+    .vd-popup.add_template > .popup-tabs.active + .popup-tabs.templates {
+      display: block; }
+    .vd-popup.add_template > .popup-tabs.templates {
+      display: none; }
     .vd-popup.add_template > .popup-content {
       padding: 5px;
       border-bottom: 1px solid #c8c8c8;

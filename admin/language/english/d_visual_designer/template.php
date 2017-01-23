@@ -16,6 +16,7 @@ $_['column_action']      = 'Action';
 $_['entry_name']         = 'Name';
 $_['entry_image']        = 'Image';
 $_['entry_content']      = 'Content';
+$_['entry_category']     = 'Category';
 $_['entry_sort_order']   = 'Sort Order';
 
 $_['error_warning']      = 'Warning: Please check the form carefully for errors!';

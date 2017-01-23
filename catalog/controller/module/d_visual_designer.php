@@ -334,18 +334,14 @@ class ControllerModuleDVisualDesigner extends Controller {
                 }
                 if($setting['display']){
                     if(($level >= $setting['level_min']) && ($level <= $setting['level_max']) || ($level == '0' && $setting['level_min'] == '2')){
-                        $category_info = array(
-                            'key' => $setting['category'],
-                            'title' => $this->language->get('tab_category_'.$setting['category'])
-                        );
-                        if(!in_array($category_info, $json['categories'])){
-                            $json['categories'][] = $category_info;
+                        if(!empty($setting['category'])&&!in_array(ucfirst($setting['category']), $json['categories'])){
+                            $json['categories'][] = ucfirst($setting['category']);
                         }
                         $json['blocks'][] = array(
                             'sort_order' => $setting['sort_order'],
                             'title' => $this->language->get('text_title'),
                             'type'	=> $block,
-                            'category' => $setting['category'],
+                            'category' => ucfirst($setting['category']),
                             'description' => $this->language->get('text_description'),
                             'image' => $image
                         );
@@ -550,19 +546,26 @@ class ControllerModuleDVisualDesigner extends Controller {
         $templates = $this->model_module_d_visual_designer->getTemplates();
 
         $json['templates'] = array();
+        $json['categories'] = array();
 
         foreach ($templates as $template) {
             $this->load->model('tool/image');
+
             if(file_exists(DIR_IMAGE.$template['image'])){
                 $thumb = $this->model_tool_image->resize($template['image'], 156, 171);
             }
             else{
                 $thumb = $this->model_tool_image->resize('no_image.png', 156, 171);
             }
-            
+
+            if(!empty($template['category']) && !in_array(ucfirst($template['category']), $json['categories'])){
+                $json['categories'][] = ucfirst($template['category']);
+            }
+
             $json['templates'][] = array(
                 'template_id' => $template['template_id'],
                 'image' => $thumb,
+                'category' => ucfirst($template['category']),
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
             );
         }

@@ -188,6 +188,21 @@
         left: 20%;
 
         width: 60%;
+        > .popup-tabs {
+            li {
+                > a {
+                    cursor: pointer;
+                }
+            }
+            &.active{
+                &+.popup-tabs.templates{
+                    display:block;
+                }
+            }
+        }    
+        > .popup-tabs.templates{
+            display:none;
+        }  
         > .popup-content{
             padding: 5px;
 
@@ -195,6 +210,7 @@
             border-bottom-right-radius: 5px;
             border-bottom-left-radius: 5px;
         }
+
     }
     &.add_block{
         left: 20%;
