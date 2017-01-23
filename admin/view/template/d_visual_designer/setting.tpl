@@ -44,60 +44,58 @@
 		<?php } ?>
 		<div class="panel panel-default">
 			<div class="panel-heading">
-                <h3 class="panel-title">
-                  <ul class="nav menu">
+				<h3 class="panel-title">
+				<ul class="nav menu">
 					<li class="active"><a href="<?php echo $href_setting; ?>" class="htab-item"><i class="fa fa-cog fa-fw"></i> <?php echo $text_setting; ?></a></li>
-                    <li><a href="<?php echo $href_templates; ?>" class="htab-item"><i class="fa fa-envelope"></i> <?php echo $text_templates; ?></a></li>
-                    <li><a href="<?php echo $href_routes; ?>" class="htab-item"><i class="fa fa-user"></i> <?php echo $text_routes; ?></a></li>
-                    <li><a href="<?php echo $href_instruction; ?>" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> <?php echo $text_instructions; ?></a></li>
-                  </ul>
-                </h3>
+					<li><a href="<?php echo $href_templates; ?>" class="htab-item"><i class="fa fa-envelope"></i> <?php echo $text_templates; ?></a></li>
+					<li><a href="<?php echo $href_routes; ?>" class="htab-item"><i class="fa fa-user"></i> <?php echo $text_routes; ?></a></li>
+					<li><a href="<?php echo $href_instruction; ?>" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> <?php echo $text_instructions; ?></a></li>
+				</ul>
+				</h3>
 			</div>
 			<div class="panel-body">
-	            <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">						
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input_status"><?php echo $entry_status; ?></label>
-							<div class="col-sm-10">
-                                <input type="hidden" name="<?php echo $id;?>_status" value="0" />
-								<input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>"id="input_checkbox" name="<?php echo $id;?>_status" <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
-							</div>
-						</div><!-- //status -->
-						
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="input_status"><?php echo $entry_save_change; ?></label>
-							<div class="col-sm-10">
-                                <input type="hidden" name="<?php echo $id;?>_setting[save_change]" value="0" />
-								<input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>"id="input_checkbox" name="<?php echo $id;?>_setting[save_change]" <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
-							</div>
+				<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input_status"><?php echo $entry_status; ?></label>
+						<div class="col-sm-10">
+							<input type="hidden" name="<?php echo $id;?>_status" value="0" />
+							<input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>"id="input_checkbox" name="<?php echo $id;?>_status" <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
 						</div>
-						
-						<?php if ($config_files) { ?>
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="select_config"><?php echo $entry_config_files; ?></label>
-							<div class="col-sm-10">
-								<select id="select_config" name="<?php echo $id;?>_setting[config]"  class="form-control">
-									<?php foreach ($config_files as $config_file) { ?>
-									<option value="<?php echo $config_file; ?>" <?php echo ($config_file == $config)? 'selected="selected"' : ''; ?>><?php echo $config_file; ?></option>
-									<?php } ?>
-								</select>
-							</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="input_status"><?php echo $entry_save_change; ?></label>
+						<div class="col-sm-10">
+							<input type="hidden" name="<?php echo $id;?>_setting[save_change]" value="0" />
+							<input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>"id="input_checkbox" name="<?php echo $id;?>_setting[save_change]" <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
 						</div>
-						<?php } ?>
-						<!-- //config -->
-
-						<div class="form-group">
-							<label class="col-sm-2 control-label" for="button_support_email"><?php echo $entry_support; ?></label>
-							<div class="col-sm-2">
-									<a href="mailto:<?php echo $support_email; ?>?Subject=Request Support: <?php echo $heading_title; ?>&body=Shop: <?php echo HTTP_SERVER; ?>" id="button_support_email" class="btn btn-primary btn-block"><i class="fa fa-support"></i> <?php echo $button_support_email; ?></a>
-									
-							</div>
-							<div class="col-sm-8">
-								<label class="form-control-static"><?php echo $support_email; ?></label>
-							</div>
-						</div><!-- //support_email -->
-                    </form>
-				</div>
-			
+					</div>
+					
+					<?php if ($config_files) { ?>
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="select_config"><?php echo $entry_config_files; ?></label>
+						<div class="col-sm-10">
+							<select id="select_config" name="<?php echo $id;?>_setting[config]"  class="form-control">
+								<?php foreach ($config_files as $config_file) { ?>
+								<option value="<?php echo $config_file; ?>" <?php echo ($config_file == $config)? 'selected="selected"' : ''; ?>><?php echo $config_file; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+					<?php } ?>
+					<!-- //config -->
+					<div class="form-group">
+						<label class="col-sm-2 control-label" for="button_support_email"><?php echo $entry_support; ?></label>
+						<div class="col-sm-2">
+							<a href="mailto:<?php echo $support_email; ?>?Subject=Request Support: <?php echo $heading_title; ?>&body=Shop: <?php echo HTTP_SERVER; ?>" id="button_support_email" class="btn btn-primary btn-block"><i class="fa fa-support"></i> <?php echo $button_support_email; ?></a>
+							
+						</div>
+						<div class="col-sm-8">
+							<label class="form-control-static"><?php echo $support_email; ?></label>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

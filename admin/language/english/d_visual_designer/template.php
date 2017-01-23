@@ -5,6 +5,7 @@
 $_['text_edit_template'] = 'Edit Template';
 $_['text_add_template']  = 'Add Template';
 $_['text_success']       = 'Success: You have modified templates!';
+$_['text_file_manager']  = 'File Manager';
 
 //column
 $_['column_name']        = 'Name';

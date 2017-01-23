@@ -94,7 +94,6 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $this->scripts[] = 'view/javascript/d_visual_designer/library/handlebars-v4.0.5.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery-ui.js';
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/list.min.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery.serialize-object.js';
 
             //summernote
@@ -147,7 +146,6 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['tab_content_blocks'] = $this->language->get('tab_content_blocks');
             $data['tab_social_blocks'] = $this->language->get('tab_social_blocks');
             $data['tab_structure_blocks'] = $this->language->get('tab_structure_blocks');
-            
 
             $data['text_top'] = $this->language->get('text_top');
             $data['text_right'] = $this->language->get('text_right');
