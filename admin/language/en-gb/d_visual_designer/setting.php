@@ -2,7 +2,6 @@
 //entry
 $_['entry_status']         = 'Status';
 $_['entry_save_change']    = 'Save at change';
-$_['entry_config_files']   = 'Config File';
 $_['entry_support']        = 'Support';
 
 $_['text_success']         = 'Success: You have modified settings!';

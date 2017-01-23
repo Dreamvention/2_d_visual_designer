@@ -182,12 +182,7 @@ class ControllerDVisualDesignerRoute extends Controller {
 		$data['add'] = $this->url->link('d_visual_designer/route/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
 		$data['delete'] = $this->url->link('d_visual_designer/route/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
 
-        if(VERSION >= '2.3.0.0'){
-            $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token']."&type=module", 'SSL');
-        }
-        else{
-            $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
-        }
+        $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
 
         $data['href_templates'] = $this->url->link($this->codename.'/template','token='.$this->session->data['token'], 'SSL');
         $data['href_routes'] = $this->url->link($this->codename.'/route','token='.$this->session->data['token'], 'SSL');

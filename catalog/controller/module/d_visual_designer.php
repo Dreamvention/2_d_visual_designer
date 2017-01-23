@@ -16,10 +16,6 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(empty($this->theme)&& VERSION=='2.2.0.0'){
             $this->theme = $this->config->get('theme_default_directory');
         }
-        
-        if(VERSION >= '2.3.0.0'){
-            $this->route = 'extension/'.$this->route;
-        }
     }
 
     public function index($setting) {
