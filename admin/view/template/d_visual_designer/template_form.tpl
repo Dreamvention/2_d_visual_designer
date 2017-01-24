@@ -29,18 +29,11 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2"><?php echo $entry_name; ?></label>
                         <div class="col-sm-10">
-                            <?php foreach ($languages as $language) { ?>
-                            <div class="input-group pull-left">
-                                <span class="input-group-addon">
-                                    <img src="<?php echo $language['flag']; ?>" title="<?php echo $language['name']; ?>" />
-                                </span>
-                                <input type="text" name="template_description[<?php echo $language['language_id']; ?>][name]" value="<?php echo isset($template_description[$language['language_id']]) ? $template_description[$language['language_id']]['name'] : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
-                            </div>
-                            <?php if (isset($error_name[$language['language_id']])) { ?>
+                            <input type="text" name="name" value="<?php echo isset($name) ? $name : ''; ?>" placeholder="<?php echo $entry_name; ?>" class="form-control" />
+                            <?php if (!empty($error_name)) { ?>
                             <div class="text-danger">
-                                <?php echo $error_name[$language['language_id']]; ?>
+                                <?php echo $error_name; ?>
                             </div>
-                            <?php } ?>
                             <?php } ?>
                         </div>
                     </div>

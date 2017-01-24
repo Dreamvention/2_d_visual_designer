@@ -264,10 +264,13 @@ class ModelModuleDVisualDesigner extends Model {
         }
 
         $tag = $m[2];
-        $attr = $this->shortcode_parse_atts( $m[3] );
-        $attrd = $this->shortcode_parse_atts( $m[3], false );
 
         $type=str_replace('vd_','',$tag);
+
+        $attr = $this->getSetting($this->shortcode_parse_atts( $m[3]), $type);
+        $attrd = $this->getSetting($this->shortcode_parse_atts( $m[3], false ), $type);
+
+        
 
         if ( !empty( $m[5] ) ) {
             $current_block = $type.'_'.$this->getRandomString();
@@ -675,10 +678,7 @@ class ModelModuleDVisualDesigner extends Model {
 
     public function getTemplates($data=array()){
 
-        $sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t
-        LEFT JOIN ".DB_PREFIX."visual_designer_template_description td
-        ON t.template_id = td.template_id
-        WHERE td.language_id='".(int)$this->config->get('config_language_id')."'";
+        $sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t";
 
         $query = $this->db->query($sql);
 
@@ -701,28 +701,21 @@ class ModelModuleDVisualDesigner extends Model {
     }
 
     public function getTemplate($template_id){
-        $query = $this->db->query("SELECT * FROM ".DB_PREFIX."visual_designer_template t
-        LEFT JOIN ".DB_PREFIX."visual_designer_template_description td
-        ON t.template_id = td.template_id
-        WHERE td.language_id='".(int)$this->config->get('config_language_id')."' AND t.template_id='".$template_id."'");
+        $query = $this->db->query("SELECT * FROM ".DB_PREFIX."visual_designer_template t WHERE t.template_id='".$template_id."'");
 
         return $query->row;
     }
 
     public function addTemplate($data){
-        $this->db->query("INSERT INTO ".DB_PREFIX."visual_designer_template SET content='".$this->db->escape($data['content'])."', sort_order='".$data['sort_order']."'");
+        $this->db->query("INSERT INTO ".DB_PREFIX."visual_designer_template SET 
+            content='".$this->db->escape($data['content'])."', 
+            image='".$data['image']."', 
+            category='".$data['category']."', 
+            name='".$data['name']."', 
+            sort_order='".$data['sort_order']."
+        '");
+
         $template_id = $this->db->getLastId();
-        if(!empty($data['template_description'])){
-            foreach ($data['template_description'] as $language_id => $value) {
-                if(!empty($value)){
-                   $this->db->query("INSERT INTO ".DB_PREFIX."visual_designer_template_description SET
-                    template_id='".$template_id."',
-                    language_id='".$language_id."',
-                    name='".$value['name']."'
-                ");
-                }
-            }
-        }
 
         return $template_id;
     }

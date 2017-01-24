@@ -7,6 +7,8 @@ class ControllerModuleDVisualDesigner extends Controller {
     
     private $theme = 'default';
 
+    private $error = array();
+
     public function __construct($registry)
     {
         parent::__construct($registry);
@@ -130,6 +132,7 @@ class ControllerModuleDVisualDesigner extends Controller {
             $data['text_add_block'] = $this->language->get('text_add_block');
             $data['text_add_text_block'] = $this->language->get('text_add_text_block');
             $data['text_add_template'] = $this->language->get('text_add_template');
+            $data['text_save_template'] = $this->language->get('text_save_template');
             $data['text_search'] = $this->language->get('text_search');
             $data['text_layout'] = $this->language->get('text_layout');
             $data['entry_size'] = $this->language->get('entry_size');
@@ -154,6 +157,9 @@ class ControllerModuleDVisualDesigner extends Controller {
             $data['entry_border'] = $this->language->get('entry_border');
             $data['entry_name'] = $this->language->get('entry_name');
             $data['entry_image_style'] = $this->language->get('entry_image_style');
+            $data['entry_category'] = $this->language->get('entry_category');
+            $data['entry_image_template'] = $this->language->get('entry_image_template');
+            $data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
             $data['tab_general'] = $this->language->get('tab_general');
             $data['tab_design'] = $this->language->get('tab_design');
@@ -687,20 +693,50 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(isset($this->request->post['content'])){
             $content = $this->request->post['content'];
         }
+        
+        if(isset($this->request->post['name'])){
+            $name = $this->request->post['name'];
+        } 
 
-        if(isset($this->request->post['template_description'])){
-            $template_description = $this->request->post['template_description'];
+        if(isset($this->request->post['image'])){
+            $image = $this->request->post['image'];
+        } 
+        
+        if(isset($this->request->post['category'])){
+            $category = $this->request->post['category'];
+        }  
+
+        if(isset($this->request->post['sort_order'])){
+            $sort_order = $this->request->post['sort_order'];
         }
 
-        if(isset($template_description) && isset($content)){
-            $this->{'model_module_'.$this->codename}->addTemplate($template_description+array('content' => $content,'sort_order'=>0));
+        if($this->validateTemplateForm()){
+
+            $template_info = array(
+                'name'=> $name,
+                'image' => $image,
+                'category' => $category,
+                'content' => $content,
+                'sort_order' => $sort_order
+            );
+
+            $this->{'model_module_'.$this->codename}->addTemplate($template_info);
             $json['success'] = 'success';
         }
         else{
-            $json['error'] = 'error';
+            $json['error'] = $this->error;
         }
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+    protected function validateTemplateForm($new = false) {
+        
+        if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 255)) {
+            $this->error['name'] = $this->language->get('error_template_name');
+        }
+        
+        return !$this->error;
+    }
+
 }

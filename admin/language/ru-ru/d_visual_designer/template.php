@@ -12,7 +12,7 @@ $_['column_action']      = 'Действие';
 //entry
 $_['entry_name']         = 'Название';
 $_['entry_image']        = 'Изображение';
-$_['entry_category']     = 'Категория';
+$_['entry_category']     = 'Тег категории';
 $_['entry_content']      = 'Контент';
 $_['entry_sort_order']   = 'Порядковый номер';
 

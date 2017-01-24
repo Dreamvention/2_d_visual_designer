@@ -8,7 +8,7 @@ var d_visual_designer = {
         //Статус наличия изменений
         stateEdit: false
     },
-    
+
     //настройка popup
     setting_popup:{
         moved:0,
@@ -500,7 +500,7 @@ var d_visual_designer = {
     },
     //сохранение настроек блока
     saveBlock:function(block_id,designer_id){
-        this.data[designer_id][block_id]['setting'] =  this.setting.form.find('.popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeObject();
+        this.data[designer_id][block_id]['setting'] =  this.setting.form.find('.popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
         this.setting.form.find('.popup').remove();
         this.setting.form.find('.popup-overlay').remove();
         this.updateValue();
@@ -561,6 +561,19 @@ var d_visual_designer = {
         return level;
         
     },
+    //Вызов окна сохранения блоков в шаблон
+    showSaveTemplate:function(designer_id){
+        var that = this;
+        
+        var data = {
+            'designer_id': designer_id
+        };
+
+        var content = that.templateСompile(that.template.save_template, data);
+        that.setting.form.append(content);
+        that.setting.form.append(that.template.popup_overlay);
+        that.initPopup();   
+    },
     //Вызов окна добавление шаблона
     showAddTemplate:function(designer_id){
         var that = this;
@@ -605,33 +618,43 @@ var d_visual_designer = {
     },
 
     //Сохранения шаблона
-    saveTemplate:function(){
-        var designer_id = this.setting.form.find('.popup input[name=designer_id]').val();
+    saveTemplate:function(designer_id){
+
+        var popup = this.setting.form.find('.popup.save_template');
+
         var content = this.getText(designer_id,'');
-        var template_description = this.setting.form.find('.popup input[name^=\'template_description\']').serializeObject();
         
-        
-        for (var key in template_description['template_description']){
-            
-        }
-        
-        var send_data = {
-            template_description,
-            'content': content
-        }
-        
+        var send_data = popup.find('input').serializeJSON();
+        send_data['content'] = content;
+
         $.ajax({
             type: 'post',
             url: 'index.php?route=d_visual_designer/template/save&token='+getURLVar('token'),
             dataType: 'json',
             data: send_data,
             success: function( json ) {
-                if(json['success']){
-                    that.closePopup();
+                popup.find('.form-group').removeClass('.has-error');
+                popup.find('.text-danger').remove();
+
+                if(json['error']){
+                    delete json['error']['warning'];
+
+                    for (var key in json['error']){
+                        var fg = popup.find('input[name='+key+']').closest('.form-group');
+                        fg.find('.fg-setting').append('<div class="text-danger">'+json['error'][key]+'</div>');
+                        fg.addClass('has-error');
+                    }
                 }
-                
+                if(json['success']){
+                    popup.find('a#saveTemplate').button('loading')
+                    popup.find('a#saveTemplate').addClass('saved');
+                    setTimeout(function(){
+                        that.closePopup();
+                    }, 2000);
+                }
             }
-        });    
+        });  
+         
     },
     //Возвращает массив дочерних блоков
     getChildBlock:function(block_id, designer_id, child=false){

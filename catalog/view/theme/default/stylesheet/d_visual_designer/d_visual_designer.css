@@ -7593,6 +7593,13 @@
     .vd-popup .popup-content .form-group {
       margin: 0px 0px 20px 0px !important;
       font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif; }
+      .vd-popup .popup-content .form-group.has-error > label {
+        color: #f56b6b; }
+      .vd-popup .popup-content .form-group.has-error .form-control {
+        border-color: #f56b6b; }
+      .vd-popup .popup-content .form-group.has-error .text-danger {
+        background-color: white;
+        color: #f56b6b; }
       .vd-popup .popup-content .form-group > label {
         display: inline-block;
         margin: 0 0 4px;

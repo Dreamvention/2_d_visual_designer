@@ -80,20 +80,14 @@
         </div>
     </div>
 </script>
-<script type="text/html" id="template-add-template">
+<script type="text/x-handlebars-template" id="template-add-template">
     <div class="vd vd-popup add_template" style="max-height:75vh;">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_template; ?></h2>
             <a class="close"></a>
         </div>
-        <div class="popup-tabs active">
-            <ul class="vd-nav">
-                <li class="active"><a href="#tab-get-template" data-toggle="tab"><?php echo $tab_templates; ?></a></li>
-                <li><a href="#tab-save-template" data-toggle="tab"><?php echo $tab_save_block; ?></a></li>
-            </ul>
-        </div>
         {{#if categories}}
-        <div class="popup-tabs templates">
+        <div class="popup-tabs">
             <ul class="vd-nav">
                 <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category=""><?php echo $tab_all_blocks; ?></a></li>
                 {{#categories}}
@@ -103,43 +97,61 @@
         </div>
         {{/if}}
         <div class="popup-content">
-            <div class="tab-content body">
-                <div class="tab-pane" id="tab-save-template">
-                    <div class="form-group">
-                        <label class="control-label"><?php echo $entry_name; ?></label>
-                        <div class="fg-setting">
-                            <?php foreach ($languages as $language) { ?>
-                            <div class="input-group pull-left">
-                                <span class="input-group-addon">
-                                    <img src="<?php echo $language['flag']; ?>" title="<?php echo $language['name']; ?>" />
-                                </span>
-                                <input type="text" name="template_description[<?php echo $language['language_id']; ?>][name]" value="" placeholder="<?php echo $entry_name; ?>" class="form-control" />
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <div class="popup-footer">
-                        <a id="saveTemplate" class="vd-btn save"><?php echo $button_save; ?></a>
+            <div class="popup-new-template">
+                {{#templates}}
+                <div class="col-md-3 col-sm-6 col-xs-12 element">
+                    <div class="template">
+                        <a id="add_template" data-id="{{template_id}}" name="type" data-category="{{category}}">
+                            <img src="{{{image}}}"/>
+                            <p class="title">{{{name}}}</p>
+                        </a>
                     </div>
                 </div>
-                <div class="tab-pane active" id="tab-get-template">
-                    <div class="popup-new-template">
-                        {{#templates}}
-                        <div class="col-md-3 col-sm-6 col-xs-12 element">
-                            <div class="template">
-                                <a id="add_template" data-id="{{template_id}}" name="type" data-category="{{category}}">
-                                    <img src="{{{image}}}"/>
-                                    <p class="title">{{{name}}}</p>
-                                </a>
-                            </div>
-                        </div>
-                        {{/templates}}
-                    </div>
-                </div>
+                {{/templates}}
             </div>
         </div>
         <input type="hidden" name="target" value=''/>
         <input type="hidden" name="designer_id" value='{{designer_id}}'/>
+    </div>
+</script>
+<script type="text/x-handlebars-template" id="template-save-template">
+    <div class="vd vd-popup save_template" style="max-height:75vh;">
+        <div class="popup-header">
+            <h2 class="title"><?php echo $text_save_template; ?></h2>
+            <a class="close"></a>
+        </div>
+        <div class="popup-content">
+            <div class="form-group">
+                <label class="control-label"><?php echo $entry_name; ?></label>
+                <div class="fg-setting">
+                    <input type="text" name="name" value="" placeholder="<?php echo $entry_name; ?>" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label"><?php echo $entry_category; ?></label>
+                <div class="fg-setting">
+                    <input type="text" name="category" value="" placeholder="<?php echo $entry_category; ?>" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label"><?php echo $entry_image_template; ?></label>
+                <div class="fg-setting">
+                    <a href="" id="thumb-vd-image" data-toggle="image" class="img-thumbnail">
+                        <img src="<?php echo $placeholder; ?>" alt="" title="" data-placeholder="<?php echo $placeholder; ?>"/>
+                    </a>
+                    <input type="hidden" name="image" value="" id="input-vd-image" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label"><?php echo $entry_sort_order; ?></label>
+                <div class="fg-setting">
+                    <input type="text" name="sort_order" value="" placeholder="<?php echo $entry_sort_order; ?>" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <a id="saveTemplate" class="vd-btn save" data-designer-id="{{designer_id}}" data-loading-text="<?php echo $button_saved; ?>"><?php echo $button_save; ?></a>
+        </div>
     </div>
 </script>
 
@@ -444,6 +456,7 @@ var teplate = {
     add_block:$('script#template-add-block:first'),
     edit_block:$('script#template-edit-block:first'),
     add_template:$('script#template-add-template:first'),
+    save_template:$('script#template-save-template:first'),
     helper:$('script#template-helper-sortable:first')
 };
 d_visual_designer.initTemplate(teplate);
@@ -478,6 +491,9 @@ $(document).on('click','#layoutSet',function(){
 $('body').on('designerSave',function(){
     d_visual_designer.saveContent('<?php echo $designer_id; ?>');
 });
+$('body').on('designerSaveTemplate',function(){
+    d_visual_designer.showSaveTemplate('<?php echo $designer_id; ?>');
+});
 $('body').on('designerAddBlock',function(){
     d_visual_designer.showAddBlock('<?php echo $designer_id; ?>');
     return false;
@@ -490,22 +506,12 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
     var block_id = $(this).closest('.block-container').attr('id');
     d_visual_designer.cloneBlock('<?php echo $designer_id; ?>', block_id);
 });
-$(document).off('click', '.vd-popup.add_template > .popup-tabs:not(.templates) > .vd-nav > li > a');
-$(document).on('click', '.vd-popup.add_template > .popup-tabs:not(.templates) > .vd-nav > li > a', function(){
-    var url = $(this).attr('href');
-    if(url == '#tab-get-template'){
-        $(this).closest('.popup-tabs').addClass('active');
-    }
-    else{
-        $(this).closest('.popup-tabs').removeClass('active');
-    } 
-});
 $(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
 $(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
     d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
 });
-$(document).off('click', '.vd-popup.add_template > .popup-tabs.templates > .vd-nav > li > a');
-$(document).on('click', '.vd-popup.add_template > .popup-tabs.templates > .vd-nav > li > a', function(){
+$(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
+$(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
     d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
 });
 $(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');

@@ -94,7 +94,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $this->scripts[] = 'view/javascript/d_visual_designer/library/handlebars-v4.0.5.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery-ui.js';
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery.serialize-object.js';
+            $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery.serializejson.js';
 
             //summernote
             $this->styles[] = 'view/javascript/summernote/summernote.css';
@@ -104,6 +104,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['button_add'] = $this->language->get('button_add');
             $data['button_close'] = $this->language->get('button_close');
             $data['button_save'] = $this->language->get('button_save');
+            $data['button_saved'] = $this->language->get('button_saved');
             //text
             $data['text_add_block'] = $this->language->get('text_add_block');
             $data['text_edit_block'] = $this->language->get('text_edit_block');
@@ -116,6 +117,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_add_block'] = $this->language->get('text_add_block');
             $data['text_add_text_block'] = $this->language->get('text_add_text_block');
             $data['text_add_template'] = $this->language->get('text_add_template');
+            $data['text_save_template'] = $this->language->get('text_save_template');
             $data['text_search'] = $this->language->get('text_search');
             $data['text_layout'] = $this->language->get('text_layout');
             $data['text_set_custom'] = $this->language->get('text_set_custom');
@@ -133,9 +135,12 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['entry_padding'] = $this->language->get('entry_padding');
             $data['entry_border'] = $this->language->get('entry_border');
             $data['entry_name'] = $this->language->get('entry_name');
+            $data['entry_category'] = $this->language->get('entry_category');
             $data['entry_image'] = $this->language->get('entry_image');
             $data['entry_image_style'] = $this->language->get('entry_image_style');
             $data['entry_size'] = $this->language->get('entry_size');
+            $data['entry_image_template'] = $this->language->get('entry_image_template');
+            $data['entry_sort_order'] = $this->language->get('entry_sort_order');
 
             $data['tab_general'] = $this->language->get('tab_general');
             $data['tab_design'] = $this->language->get('tab_design');
@@ -151,6 +156,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_right'] = $this->language->get('text_right');
             $data['text_bottom'] = $this->language->get('text_bottom');
             $data['text_left'] = $this->language->get('text_left');
+
+            $data['error_name'] = $this->language->get('error_name');
 
             //error
             $data['error_size'] = $this->language->get('error_size');

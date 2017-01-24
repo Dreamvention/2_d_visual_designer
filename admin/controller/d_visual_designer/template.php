@@ -343,7 +343,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
 		if (isset($this->error['name'])) {
 			$data['error_name'] = $this->error['name'];
 		} else {
-			$data['error_name'] = array();
+			$data['error_name'] = '';
 		}
 
 		$url = '';
@@ -390,19 +390,6 @@ class ControllerDVisualDesignerTemplate extends Controller {
 
     	if (!empty($this->request->get['template_id'])) {
             $template_info = $this->{'model_'.$this->codename.'_template'}->getTemplate($this->request->get['template_id']);
-        }
-
-
-		$this->load->model('localisation/language');
-
-		$data['languages'] = $this->model_localisation_language->getLanguages();
-
-        foreach ($data['languages'] as $key =>  $language){
-            if(VERSION >= '2.2.0.0'){
-                $data['languages'][$key]['flag'] = 'language/'.$language['code'].'/'.$language['code'].'.png';
-            }else{
-                $data['languages'][$key]['flag'] = 'view/image/flags/'.$language['image'];
-            }
         }
 
 		if (isset($this->request->post['name'])) {
@@ -456,14 +443,6 @@ class ControllerDVisualDesignerTemplate extends Controller {
 			$data['content'] = '';
 		}
 
-        if (isset($this->request->post['template_description'])) {
-            $data['template_description'] = $this->request->post['template_description'];
-        } elseif (isset($this->request->get['template_id'])) {
-            $data['template_description'] = $this->{'model_'.$this->codename.'_template'}->getTemplateDescriptions($this->request->get['template_id']);
-        } else {
-            $data['template_description'] = array();
-        }
-
 		if (isset($this->request->post['store_id'])) {
 			$data['store_id'] = $this->request->post['store_id'];
 		} elseif (!empty($subscriber_info)) {
@@ -484,12 +463,11 @@ class ControllerDVisualDesignerTemplate extends Controller {
         if (!$this->user->hasPermission('modify', 'd_visual_designer/template')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
-        foreach ($this->request->post['template_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['name']) < 1) || (utf8_strlen($value['name']) > 64)) {
-                $this->error['name'][$language_id] = $this->language->get('error_name');
-            }
-        }
-
+        
+    	if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 255)) {
+    		$this->error['name'] = $this->language->get('error_name');
+    	}
+        
         if ($this->error && !isset($this->error['warning'])) {
             $this->error['warning'] = $this->language->get('error_warning');
         }
@@ -581,16 +559,31 @@ class ControllerDVisualDesignerTemplate extends Controller {
             $content = $this->request->post['content'];
         }
 
-        if(isset($this->request->post['template_description'])){
-            $template_description = $this->request->post['template_description'];
+        if(isset($this->request->post['name'])){
+            $name = $this->request->post['name'];
+        } 
+
+        if(isset($this->request->post['image'])){
+            $image = $this->request->post['image'];
+        } 
+
+        if(isset($this->request->post['category'])){
+            $category = $this->request->post['category'];
         }
 
-        if(isset($template_description) && isset($content)){
-        	$this->{'model_'.$this->codename.'_template'}->addTemplate($template_description+array('content' => $content,'image'=>'', 'sort_order'=>0));
+        if($this->validateForm()){
+        	$template_info = array(
+        		'name' => $name,
+        		'image' => $image,
+        		'category' => $category,
+        		'content' => $content,
+        		'sort_order' => '0'
+        	);
+        	$this->{'model_'.$this->codename.'_template'}->addTemplate($template_info);
         	$json['success'] = 'success';
         }
         else{
-        	$json['error'] = 'error';
+        	$json['error'] = $this->error;
         }
 
         $this->response->addHeader('Content-Type: application/json');

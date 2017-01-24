@@ -419,6 +419,20 @@
             // margin-bottom: 0px;
 
             font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif;
+
+            &.has-error{
+                > label{
+                    color: #f56b6b;
+                }
+                .form-control{
+                    border-color: #f56b6b;
+                }
+                .text-danger{
+                    background-color: white;
+                    color: #f56b6b;
+                }
+            }
+
             > label{
                 display: inline-block;
 

@@ -53,6 +53,9 @@
         $(document).on('click','#button-save', function (){
             $('iframe')[0].contentWindow.$('body').trigger('designerSave');
             $(this).html('<div class="la-line-spin-clockwise-fade"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
+        }); 
+        $(document).on('click','#button-save-template', function (){
+            $('iframe')[0].contentWindow.$('body').trigger('designerSaveTemplate');
         });
         
         $(document).on('click','#button-add', function (){
@@ -128,6 +131,7 @@
                 <a id="button-reload" class="" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_reload;?>">
                     <i class="fa fa-refresh fa-2x" aria-hidden="true"></i>
                 </a>
+                <a id="button-save-template" class=""><i class="fa fa-clone fa-2x" aria-hidden="true"></i></a>
                 <a id="button-save" class=""><i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i></a>
                 <a id="button-close" class=""></a>
             </div>

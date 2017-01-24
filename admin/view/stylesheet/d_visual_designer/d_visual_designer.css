@@ -1236,6 +1236,8 @@
       margin: 0px 0px 20px 0px;
       margin-bottom: 0px;
       font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif; }
+      .popup .popup-content .form-group.has-error > label {
+        color: #f56b6b; }
       .popup .popup-content .form-group > label {
         display: block;
         margin: 0 0 4px;

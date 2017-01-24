@@ -1115,6 +1115,11 @@
             margin-bottom: 0px;
 
             font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif;
+            &.has-error{
+                > label{
+                    color: #f56b6b;
+                }
+            }
             > label{
                 display: block;
 

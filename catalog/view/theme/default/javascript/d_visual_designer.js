@@ -38,8 +38,10 @@ var d_visual_designer = {
         add_block:'',
         //Шаблон каркаса popup окна
         edit_block:'',
-        //Шаблон добавления нового шаблона
+        //Шаблон добавления шаблона
         add_template:'',
+        //Шаблон сохранения шаблона
+        save_template:''
     },
     //Инициализация начальных значений
     init: function(setting){
@@ -350,6 +352,7 @@ var d_visual_designer = {
                     data['level'] = level;
                     
                     var content = that.templateСompile(that.template.add_block, json);
+                    that.closePopup();
                     that.initPopup(content);
                 }
             }
@@ -556,7 +559,8 @@ var d_visual_designer = {
         };
         
         var content = this.templateСompile(this.template.row_layout, data);
-        
+
+        this.closePopup();
         this.initPopup(content);
     },
     //Редактирование layout
@@ -594,6 +598,19 @@ var d_visual_designer = {
             }
         });
     },
+    //Вызов окна сохранения блоков в шаблон
+    showSaveTemplate:function(designer_id){
+        var that = this;
+        
+        var data = {
+            'designer_id': designer_id
+        };
+
+        var content = that.templateСompile(that.template.save_template, data);
+
+        that.closePopup();
+        that.initPopup(content);   
+    },
     //Вызов окна добавление шаблона
     showAddTemplate:function(designer_id){
         var that = this;
@@ -608,6 +625,8 @@ var d_visual_designer = {
                     
                     data['designer_id'] = designer_id;
                     var content = that.templateСompile(that.template.add_template, data);
+
+                    that.closePopup();
                     that.initPopup(content);
                 }
             }
@@ -624,10 +643,10 @@ var d_visual_designer = {
             data:{'template_id':template_id},
             success: function( json ) {
                 if(json['success']){
-                     that.settings[designer_id].form.find('.vd').html(json['content']);
-                     that.data[designer_id] = json['setting'];
-                     that.initSortable();
-                     that.closePopup();
+                    that.data[designer_id] = json['setting'];
+                    that.settings[designer_id].form.find('.vd').html(json['content']);
+                    that.initSortable();
+                    that.closePopup();
                     that.setting.stateEdit = true;
                 }
             }
@@ -635,27 +654,39 @@ var d_visual_designer = {
     },
 
     //Сохранения шаблона
-    saveTemplate:function(){
-        var designer_id = this.popup.find('input[name=designer_id]').val();
+    saveTemplate:function(designer_id){
+        var that = this;
         var content = this.getText(designer_id,'');
-        var template_description = this.popup.find('input[name^=\'template_description\']').serializeJSON();
         
-        var send_data = {
-            template_description,
-            'content': content
-        }
-        
+        var send_data = this.popup.find('input').serializeJSON();
+        send_data['content'] = content;
+
         $.ajax({
             type: 'post',
             url: 'index.php?route=module/d_visual_designer/saveTemplate',
             dataType: 'json',
             data: send_data,
             success: function( json ) {
-                if(json['success']){
-                    that.closePopup();
-                    $('body').trigger('save_template_success')
+                that.popup.find('.form-group').removeClass('.has-error');
+                that.popup.find('.text-danger').remove();
+
+                if(json['error']){
+                    delete json['error']['warning'];
+
+                    for (var key in json['error']){
+                        var fg = that.popup.find('input[name='+key+']').closest('.form-group');
+                        fg.find('.fg-setting').append('<div class="text-danger">'+json['error'][key]+'</div>');
+                        fg.addClass('has-error');
+                    }
                 }
-                
+                if(json['success']){
+                    $('body').trigger('save_template_success')
+                    that.popup.find('a#saveTemplate').button('loading')
+                    that.popup.find('a#saveTemplate').addClass('saved');
+                    setTimeout(function(){
+                        that.closePopup();
+                    }, 2000);
+                }
             }
         });    
     },
