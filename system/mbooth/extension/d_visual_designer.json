@@ -153,7 +153,7 @@
     "changelog": [
         {
             "version":"1.0.3",
-            "change":"1.Fix bugs 2.Redesigned popup window for editing layout.3.Redesigned popup window for template selection."
+            "change":"1.Fix bugs. \r\n2.Redesigned popup window for editing layout. \r\n3.Redesigned popup window for template selection. \r\n4. Divided adding and saving a template. \n\r5. Redesign save template."
         }, 
         {
             "version":"1.0.2",
