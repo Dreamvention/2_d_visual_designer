@@ -267,8 +267,8 @@ class ModelModuleDVisualDesigner extends Model {
 
         $type=str_replace('vd_','',$tag);
 
-        $attr = $this->getSetting($this->shortcode_parse_atts( $m[3]), $type);
-        $attrd = $this->getSetting($this->shortcode_parse_atts( $m[3], false ), $type);
+        $attr = $this->shortcode_parse_atts( $m[3]);
+        $attrd = $this->shortcode_parse_atts( $m[3], false );
 
         
 
