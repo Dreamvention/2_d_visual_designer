@@ -592,6 +592,9 @@
     height: 100%;
     background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==") repeat; }
 
+.modal-backdrop {
+  display: none; }
+
 .content {
   position: relative;
   min-width: 155px;
