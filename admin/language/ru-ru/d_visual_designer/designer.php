@@ -52,13 +52,16 @@ $_['tab_css']                      = 'CSS';
 
 //Button
 $_['button_add_block']             = 'Добавить новый блок';
-$_['button_templates']             = 'Шаблоны';
+$_['button_add_template']          = 'Выбрать шаблон';
+$_['button_save_template']         = 'Сохранить шаблон';
 $_['button_mobile']                = 'Mobile mode';
 $_['button_tablet']                = 'Tablet mode';
 $_['button_desktop']               = 'Desktop mode';
 $_['button_reload']                = 'Перезагрузить страницу';
 $_['button_save']                  = 'Сохранить';
 $_['button_saved']                 = 'Сохранено';
+$_['button_publish']               = 'Опубликовать';
+$_['button_backend_editor']        = 'Backend Редактор';
 
 //help
 $_['help_add_child']               = 'Добавить %s';

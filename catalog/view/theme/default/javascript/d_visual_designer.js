@@ -271,7 +271,7 @@ var d_visual_designer = {
 
         this.popup.css({visibility:'visible', opacity:1});
     },
-    //Прикрепить окно к леому краю
+    //Прикрепить окно к левому краю
     stickPopup:function(){
         var that = this;
         if(!this.popup.hasClass('stick-left')){
@@ -281,11 +281,13 @@ var d_visual_designer = {
             $('body').attr('style', 'width:'+body_width+'px; margin-left:auto');
             this.popup.addClass('stick-left'); 
             this.popup_setting.stick = true;
+            $('body').trigger('popup_left_active');
         }
         else{
             $('body').removeAttr('style');
             this.popup.removeClass('stick-left'); 
             this.popup_setting.stick = false;
+            $('body').trigger('popup_left_noactive');
         }
        
     },
@@ -294,6 +296,7 @@ var d_visual_designer = {
         if(this.popup != ''){
             if(this.popup.hasClass('stick-left')){
                 $('body').removeAttr('style');
+                $('body').trigger('popup_left_noactive');
             }
             this.popup.remove();
         }

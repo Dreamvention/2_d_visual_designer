@@ -25,6 +25,7 @@ class ControllerModuleDVisualDesigner extends Controller {
         $this->load->model($this->route);
 
         $status = $this->config->get($this->codename.'_status');
+        
         if(VERSION >= '2.2.0.0'){
             $this->user = new Cart\User($this->registry);
         }

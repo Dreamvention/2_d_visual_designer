@@ -8,7 +8,7 @@ html,body{
 span.notify{
     position: absolute;
     z-index: 123;
-    top: 60px;
+    top: 0px;
     left: 0;
 
     display: none;
@@ -25,59 +25,183 @@ span.notify{
     line-height: 30px;
 }
 .vd-navbar{
-    position: relative;
-    z-index: 22;
-
-    height:60px;
-
-    background-color: #308CD7;
-		box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.4);
-    > div{
-        display: flex;
-
-        height: 60px;
-
-        align-items: center;
-        > button{
-            &:hover, &:active, &:focus, &:active:hover, &:active:focus{
-            }
-        }
+    &.left-bar{
+        position: fixed;
+        left: 5%;
+        top: 5%;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
         > a{
-            display: flex;
-            float: left;
-            flex-direction: row;
-
-            width: 61px;
-            height: 60px;
-            margin: 0;
-
-            border: 0;
-            border-right: 1px solid #469EE8;
-            background-color: #308CD7;
-
-            justify-content: center;
-            align-items: center;
-            &:first{
-                border-left:1px solid #308CD7;
+            &:first-child{
+                border-top-left-radius:3px;
+                border-bottom-left-radius:3px;
+            }    
+        }
+        .vd-dropdown{
+            > a{
+                border-top-right-radius:3px;
+                
             }
-            &:hover{
-                cursor:pointer;
-
-                background-color: #56a6e6;
+            &:not(:hover) > a{
+                border-bottom-right-radius:3px;
             }
-            &#button-close{
-                background: url('../../image/d_visual_designer/cross.svg') no-repeat center;
-                &:hover{
-                    cursor:pointer;
-    
-                    background-color: #56a6e6;
+            > .vd-dropdown-list{
+                > li:last-child{
+                    > a{
+                        border-bottom-left-radius: 3px;
+                        border-bottom-right-radius: 3px;
+                    }
                 }
             }
-            > i{
-                color: #fff;
+            
+        }
+        .vd-btn{
+            display: inline-block;
+            cursor: pointer;
+            width:40px;
+            height:40px;
+            background-color: #308cd6;
+            
+            float:left;
+            
+            &:hover{
+                background-color: #56a6e6;
             }
         }
     }
+    
+    &.right-bar{
+        position: fixed;
+        top: 5%;
+        right: 5%;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 3px;
+        > a{
+            display: block;
+            float:left;
+            height: 40px;
+            cursor: pointer;
+            color:#fff;
+            line-height: 30px;
+            padding: 5px 13px;
+            font-size: 13px;
+            font-weight: bold;
+            &#button-backend{
+                background-color: #308cd6;
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+                &:hover{
+                    background-color: #56a6e6;
+                }
+            }
+            &#button-save{
+                background-color: #72b338;
+                &:hover{
+                    background-color: #84c24d;
+                }
+            }
+            &#button-close{
+                background-color: #b33838;
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+                &:hover{
+                    background-color: #c34a4a;
+                }
+            }
+        }
+    }
+    .vd-dropdown{
+        position: relative;
+        float: left;
+        .vd-dropdown-list{
+            position: absolute;
+            top: 40px;
+            left: 0;
+            padding: 0;
+            list-style: none;
+            visibility: hidden;
+            transition: 1ms;
+            
+        }
+    }
+    .vd-btn-add-block{
+        background-image:url('../../image/d_visual_designer/add-block.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .vd-btn-add-template{
+        background-image:url('../../image/d_visual_designer/template-add.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .vd-btn-mobile{
+        background-image:url('../../image/d_visual_designer/phone.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .vd-btn-tablet{
+        background-image:url('../../image/d_visual_designer/tablet.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .vd-btn-desktop{
+        background-image:url('../../image/d_visual_designer/desktop.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .vd-btn-save-template{
+        background-image:url('../../image/d_visual_designer/template-save.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    // > div{
+    //     display: flex;
+    // 
+    //     height: 60px;
+    // 
+    //     align-items: center;
+    //     > button{
+    //         &:hover, &:active, &:focus, &:active:hover, &:active:focus{
+    //         }
+    //     }
+    //     > a{
+    //         display: flex;
+    //         float: left;
+    //         flex-direction: row;
+    // 
+    //         width: 61px;
+    //         height: 60px;
+    //         margin: 0;
+    // 
+    //         border: 0;
+    //         border-right: 1px solid #469EE8;
+    //         background-color: #308CD7;
+    // 
+    //         justify-content: center;
+    //         align-items: center;
+    //         &:first{
+    //             border-left:1px solid #308CD7;
+    //         }
+    //         &:hover{
+    //             cursor:pointer;
+    // 
+    //             background-color: #56a6e6;
+    //         }
+    //         &#button-close{
+    //             background: url('../../image/d_visual_designer/cross.svg') no-repeat center;
+    //             &:hover{
+    //                 cursor:pointer;
+    // 
+    //                 background-color: #56a6e6;
+    //             }
+    //         }
+    //         > i{
+    //             color: #fff;
+    //         }
+    //     }
+    // }
 }
 
 iframe{

@@ -383,21 +383,21 @@ class ModelDVisualDesignerDesigner extends Model {
 
 
 
-        if(!empty($setting_block['custom_template'])){
-            return $this->load->view('d_visual_designer_template/'.$setting_block['custom_template'].'.tpl',$data);
+        if(!empty($setting_block['custom_layout'])){
+            return $this->load->view('d_visual_designer_layout/'.$setting_block['custom_layout'].'.tpl',$data);
         }
         else{
             if($inner_blocks == 1){
-                return $this->load->view('d_visual_designer_template/medium.tpl',$data);
+                return $this->load->view('d_visual_designer_layout/medium.tpl',$data);
             }
             else if($inner_blocks == 2){
-                return $this->load->view('d_visual_designer_template/main.tpl',$data);
+                return $this->load->view('d_visual_designer_layout/main.tpl',$data);
             }
             elseif ($setting_block['child_blocks'] && $inner_blocks == 0) {
-                return $this->load->view('d_visual_designer_template/medium.tpl',$data);
+                return $this->load->view('d_visual_designer_layout/medium.tpl',$data);
             }
             else{
-                return $this->load->view('d_visual_designer_template/children.tpl',$data);
+                return $this->load->view('d_visual_designer_layout/children.tpl',$data);
             }
         }
     }

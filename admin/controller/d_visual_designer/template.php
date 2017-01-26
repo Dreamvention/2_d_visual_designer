@@ -486,7 +486,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
     public function getTemplates(){
         $json = array();
 
-        $templates = $this->model_d_visual_designer_template->getTemplates();
+        $templates = $this->model_d_visual_designer_layout->getTemplates();
 
         $json['templates'] = array();
         $json['categories'] = array();
@@ -527,7 +527,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
         }
         if(isset($template_id)){
 
-            $template_info = $this->model_d_visual_designer_template->getTemplate($template_id);
+            $template_info = $this->model_d_visual_designer_layout->getTemplate($template_id);
 
             if(!empty($template_info)){
                 $this->load->model('d_visual_designer/designer');

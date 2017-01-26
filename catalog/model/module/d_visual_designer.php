@@ -501,21 +501,21 @@ class ModelModuleDVisualDesigner extends Model {
             }
         }
 
-        if(!empty($setting_block['custom_template'])){
-            return $this->loadView('d_visual_designer_template/'.$setting_block['custom_template'], $data);
+        if(!empty($setting_block['custom_layout'])){
+            return $this->loadView('d_visual_designer_layout/'.$setting_block['custom_layout'], $data);
         }
         else{
             if($inner_blocks == 1){
-                return $this->loadView('d_visual_designer_template/medium', $data);
+                return $this->loadView('d_visual_designer_layout/medium', $data);
             }
             else if($inner_blocks == 2){
-                return $this->loadView('d_visual_designer_template/main', $data);
+                return $this->loadView('d_visual_designer_layout/main', $data);
             }
             elseif ($setting_block['child_blocks'] && $inner_blocks == 0) {
-                return $this->loadView('d_visual_designer_template/medium', $data);
+                return $this->loadView('d_visual_designer_layout/medium', $data);
             }
             else{
-                return $this->loadView('d_visual_designer_template/children', $data);
+                return $this->loadView('d_visual_designer_layout/children', $data);
             }
         }
     }
