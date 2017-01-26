@@ -232,7 +232,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 
-    		$data['templates'] = $this->model_d_visual_designer_layout->getTemplates();
+    		$data['templates'] = $this->model_d_visual_designer_template->getTemplates();
 
             $data['scripts'] = $this->scripts;
             $data['styles'] = $this->styles;
