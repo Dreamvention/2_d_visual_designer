@@ -636,14 +636,14 @@ var d_visual_designer = {
         });    
     },
     //Добавление шаблона
-    addTemplate:function(template_id, designer_id){
+    addTemplate:function(template_id, config, designer_id){
         var that = this;
         
         $.ajax({
             type: 'post',
             url: 'index.php?route=module/d_visual_designer/getTemplate',
             dataType: 'json',
-            data:{'template_id':template_id},
+            data:{'template_id':template_id, 'config': config},
             success: function( json ) {
                 if(json['success']){
                     that.data[designer_id] = json['setting'];

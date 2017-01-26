@@ -134,7 +134,7 @@
                 {{#templates}}
                 <div class="col-md-3 col-sm-6 col-xs-12 element">
                     <div class="template">
-                        <a id="add_template" data-id="{{template_id}}" name="type" data-category="{{category}}">
+                        <a id="add_template" data-id="{{template_id}}" data-config="{{config}}" name="type" data-category="{{category}}">
                             <img src="{{{image}}}"/>
                             <p class="title">{{{name}}}</p>
                         </a>
@@ -652,8 +652,9 @@ $(document).on('click','#button_vd', function(){
 $(document).off('click','#add_template');
 $(document).on('click','#add_template', function(){
     var template_id = $(this).data('id');
+    var config = $(this).data('config');
     var designer_id = $('.popup').find('input[name=designer_id]').val();
-    d_visual_designer.addTemplate(template_id, designer_id);
+    d_visual_designer.addTemplate(template_id, config, designer_id);
 });
 $(document).off('click','#add_block');
 $(document).on('click','#add_block', function(){

@@ -44,6 +44,8 @@
         "system/mbooth/install/d_visual_designer.sql",
         "system/config/d_visual_designer.php",
         
+        "system/config/d_visual_designer_template/default.php",
+        
         "system/config/d_visual_designer/column.php",
         "system/config/d_visual_designer/row.php",
         "system/config/d_visual_designer/text.php",

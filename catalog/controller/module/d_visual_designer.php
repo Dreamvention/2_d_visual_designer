@@ -551,7 +551,10 @@ class ControllerModuleDVisualDesigner extends Controller {
         $json = array();
 
         $templates = $this->model_module_d_visual_designer->getTemplates();
+        $templates_config = $this->model_module_d_visual_designer->getConfigTemplates();
 
+        $templates = array_merge($templates, $templates_config);
+        
         $json['templates'] = array();
         $json['categories'] = array();
 
@@ -571,6 +574,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 
             $json['templates'][] = array(
                 'template_id' => $template['template_id'],
+                'config' => $template['config'],
                 'image' => $thumb,
                 'category' => ucfirst($template['category']),
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
@@ -586,12 +590,20 @@ class ControllerModuleDVisualDesigner extends Controller {
     public function getTemplate(){
         $json = array();
 
-        if(!empty($this->request->post['template_id'])){
+        if(isset($this->request->post['template_id'])){
             $template_id = $this->request->post['template_id'];
         }
-        if(isset($template_id)){
-
-            $template_info = $this->model_module_d_visual_designer->getTemplate($template_id);
+        if(isset($this->request->post['config'])){
+            $config = $this->request->post['config'];
+        }
+        if(isset($template_id)&&isset($config)){
+            if(!empty($config)){
+                $template_info = $this->model_module_d_visual_designer->getConfigTemplate($template_id, $config);
+            }
+            else{
+                $template_info = $this->model_module_d_visual_designer->getTemplate($template_id);
+            }
+            
 
             if(!empty($template_info)){
                 $this->load->model('module/d_visual_designer');

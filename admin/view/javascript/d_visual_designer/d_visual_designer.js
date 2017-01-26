@@ -597,14 +597,14 @@ var d_visual_designer = {
         });    
     },
     //Добавление шаблона
-    addTemplate:function(template_id, designer_id){
+    addTemplate:function(template_id, config, designer_id){
         var that = this;
         
         $.ajax({
             type: 'post',
             url: 'index.php?route=d_visual_designer/template/getTemplate&token='+getURLVar('token'),
             dataType: 'json',
-            data:{'template_id':template_id},
+            data:{'template_id':template_id, 'config':config},
             success: function( json ) {
                 if(json['success']){
                      that.setting.form.find('#'+designer_id).parents('.form-group').find('.d_visual_designer').text(json['text']);
