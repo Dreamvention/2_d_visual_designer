@@ -499,10 +499,10 @@ class ControllerDVisualDesignerTemplate extends Controller {
             $this->load->model('tool/image');
             
             if(file_exists(DIR_IMAGE.$template['image'])){
-                $thumb = $this->model_tool_image->resize($template['image'], 156, 171);
+                $thumb = $this->model_tool_image->resize($template['image'], 160, 205);
             }
             else{
-                $thumb = $this->model_tool_image->resize('no_image.png', 156, 171);
+                $thumb = $this->model_tool_image->resize('no_image.png', 160, 205);
             }
 
             if(!empty($template['category']) && !in_array(ucfirst($template['category']), $json['categories'])){

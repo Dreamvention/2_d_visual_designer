@@ -628,14 +628,17 @@
     > .element{
 
         margin: 0 !important;
-        padding: 5px !important;
+        padding: 30px !important;
 
         list-style: none;
 
         -webkit-transition: border-color .2s;
         transition: border-color .2s;
         &:hover > .template > a > img{
-            border:10px solid #98dfaa;
+			border-width: 1px;
+			border-color: rgb(48, 140, 214);
+			border-style: solid;
+			box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 			cursor:pointer;
         }
         > .template{
@@ -644,13 +647,14 @@
                 font-weight: 600;
                 line-height: 14px;
 				> img{
-					border:10px solid transparent;
-					border-radius: 5px;
+					border-width: 1px;
+					border-color: rgb(226, 225, 225);
+					border-style: solid
 				}
 				
 				> p.title{
+					padding-top: 20px;
 					color: #000;
-					font-weight: bold;
 					font-size: 16px;
 				}
             }

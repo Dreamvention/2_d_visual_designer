@@ -935,12 +935,15 @@
   padding: 5px; }
   .popup-new-template > .element {
     margin: 0 !important;
-    padding: 5px !important;
+    padding: 30px !important;
     list-style: none;
     -webkit-transition: border-color .2s;
     transition: border-color .2s; }
     .popup-new-template > .element:hover > .template > a > img {
-      border: 10px solid #98dfaa;
+      border-width: 1px;
+      border-color: #308cd6;
+      border-style: solid;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
       cursor: pointer; }
     .popup-new-template > .element > .template {
       text-align: center; }
@@ -948,11 +951,12 @@
         font-weight: 600;
         line-height: 14px; }
         .popup-new-template > .element > .template > a > img {
-          border: 10px solid transparent;
-          border-radius: 5px; }
+          border-width: 1px;
+          border-color: #e2e1e1;
+          border-style: solid; }
         .popup-new-template > .element > .template > a > p.title {
+          padding-top: 20px;
           color: #000;
-          font-weight: bold;
           font-size: 16px; }
   .popup-new-template > .title {
     margin: 0 1em 0 0;
