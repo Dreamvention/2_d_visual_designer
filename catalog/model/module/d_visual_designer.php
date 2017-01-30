@@ -373,7 +373,7 @@ class ModelModuleDVisualDesigner extends Model {
     }
 
     public function getContent($type, $setting, $key, $level, $inner_blocks = 0, $permission = 0){
-
+        
         $data = array();
 
         $this->load->language('d_visual_designer/'.$type);
@@ -409,7 +409,7 @@ class ModelModuleDVisualDesigner extends Model {
         else{
             $data['level'] = 0;
         }
-
+        
         if($this->validateEdit($this->config_name)){
             $data['permission'] = true;
         }
@@ -521,10 +521,6 @@ class ModelModuleDVisualDesigner extends Model {
             }
         }
 
-        if($edit && !isset($this->request->get['edit'])||(!empty($route) && in_array($route, $routes))){
-            $this->error['warning'] = $this->language->get('error_permission');
-        }
-
         $this->load->model('setting/setting');
 
         $setting = $this->model_setting_setting->getSetting('d_visual_designer');
@@ -532,7 +528,6 @@ class ModelModuleDVisualDesigner extends Model {
         if(!$setting['d_visual_designer_status']){
             $this->error['status'] = $this->language->get('error_status');
         }
-
         return !$this->error;
     }
 
