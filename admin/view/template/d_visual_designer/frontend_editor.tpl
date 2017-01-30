@@ -12,7 +12,7 @@
     <link type="text/css" href="view/stylesheet/d_visual_designer/frontend.css" rel="stylesheet" media="all" />
     <script type="text/javascript">
         function resize_iframe(){
-            $('iframe').height(window.innerHeight-60);
+            $('iframe').height(window.innerHeight);
         }
         $(document).ready(function(){
             $('iframe').load(function(){
@@ -102,7 +102,7 @@
         
         $(window).on('resize',function(){
             $('iframe').removeAttr('style');
-            $('iframe').attr('style','height:'+(window.innerHeight-60)+'px');
+            $('iframe').attr('style','height:'+(window.innerHeight)+'px');
         });
         $(document).ready(function(){
             resize_iframe();
