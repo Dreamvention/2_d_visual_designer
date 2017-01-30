@@ -30,9 +30,9 @@ var d_visual_designer = {
         //шаблон блока
         block:'',
         //шаблон popup окна
-        popup:'<div class="popup" style="max-height:75vh;"></div>',
+        popup:'<div class="vd vd-popup" style="max-height:75vh;"></div>',
         //шаблона фона при popup окне
-        popup_overlay:'<div class="popup-overlay"></div>',
+        popup_overlay:'<div class="vd vd-popup-overlay"></div>',
         //Шаблон добавления нового блока
         add_block:'',
         //Шаблон каркаса popup окна
@@ -249,15 +249,15 @@ var d_visual_designer = {
     },
     //Инициализация popup окна
     initPopup:function(element){
-        this.setting.form.find('.popup').resizable({
+        this.setting.form.find('.vd-popup').resizable({
             resize:function(event,ui){
-              if(!that.setting.form.find('.popup').hasClass('drag')){
-                  that.setting.form.find('.popup').addClass('drag');
+              if(!that.setting.form.find('.vd-popup').hasClass('drag')){
+                  that.setting.form.find('.vd-popup').addClass('drag');
               }
-                that.setting.form.find('.popup').css({'max-height':''});
+                that.setting.form.find('.vd-popup').css({'max-height':''});
             }
         });
-        this.setting.form.find('.popup').draggable({
+        this.setting.form.find('.vd-popup').draggable({
             handle:'.popup-header',
             drag: function( event, ui ) {
                 if(!ui.helper.hasClass('drag')){
@@ -274,12 +274,12 @@ var d_visual_designer = {
                 }
             }
         });
-        this.setting.form.find('.popup').css({visibility:'visible', opacity:1});
+        this.setting.form.find('.vd-popup').css({visibility:'visible', opacity:1});
     },
     //закрыть все popup окна
     closePopup:function(){
-        this.setting.form.find('.popup').remove();
-        this.setting.form.find('.popup-overlay').remove();
+        this.setting.form.find('.vd-popup').remove();
+        this.setting.form.find('.vd-popup-overlay').remove();
     },
     //Включение дизайнера
     enable:function(element){
@@ -482,16 +482,16 @@ var d_visual_designer = {
                     data = Object.assign(data,block_info['setting']);
                     var html = that.templateСompile(that.template.edit_block,data);
                     that.setting.form.append(that.template.popup);
-                    that.setting.form.find('.popup').html(html);
+                    that.setting.form.find('.vd-popup').html(html);
                     if(block_info['parent'] == ''){
-                        that.setting.form.find('.popup').addClass('main');
+                        that.setting.form.find('.vd-popup').addClass('main');
                     }else if (block_info['child']) {
-                        that.setting.form.find('.popup').addClass('inner')
+                        that.setting.form.find('.vd-popup').addClass('inner')
                     }else{
-                        that.setting.form.find('.popup').addClass('child')
+                        that.setting.form.find('.vd-popup').addClass('child')
                     }
                     that.setting.form.append(that.template.popup_overlay);
-                    that.initColorpicker(that.setting.form.find('.popup'));
+                    that.initColorpicker(that.setting.form.find('.vd-popup'));
                     that.updateValue();
                     that.initPopup();
                 }
@@ -500,9 +500,9 @@ var d_visual_designer = {
     },
     //сохранение настроек блока
     saveBlock:function(block_id,designer_id){
-        this.data[designer_id][block_id]['setting'] =  this.setting.form.find('.popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
-        this.setting.form.find('.popup').remove();
-        this.setting.form.find('.popup-overlay').remove();
+        this.data[designer_id][block_id]['setting'] =  this.setting.form.find('.vd-popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
+        this.setting.form.find('.vd-popup').remove();
+        this.setting.form.find('.vd-popup-overlay').remove();
         this.updateValue();
         this.updateContentBlock(block_id, designer_id);
         this.setting.stateEdit = true;
@@ -620,7 +620,7 @@ var d_visual_designer = {
     //Сохранения шаблона
     saveTemplate:function(designer_id){
 
-        var popup = this.setting.form.find('.popup.save_template');
+        var popup = this.setting.form.find('.vd-popup.save_template');
 
         var content = this.getText(designer_id,'');
         

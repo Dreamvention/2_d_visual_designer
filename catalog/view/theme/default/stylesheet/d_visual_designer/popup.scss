@@ -44,6 +44,13 @@
         }
         > .popup-content{
             border-radius:0!important;
+            .form-group{
+                > .fg-setting{
+                    > .fg-color{
+                        width: 55%;
+                    }
+                }
+            }
         }
         > .popup-footer{
             border-radius:0!important;
@@ -51,6 +58,8 @@
                 border-radius:0!important;
             }
         }
+
+
     }
     &.ui-draggable-dragging{
         > .popup-header{

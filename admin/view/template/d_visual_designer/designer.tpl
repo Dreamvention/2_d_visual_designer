@@ -71,7 +71,7 @@
     </div>
 </script>
 <script type="text/html" id="template-add-block">
-    <div class="popup add_block">
+    <div class="vd vd-popup add_block">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_block; ?></h2>
             <!-- <div class="search">
@@ -114,7 +114,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="template-add-template">
-    <div class="popup add_template" style="max-height:75vh;">
+    <div class="vd vd-popup add_template" style="max-height:75vh;">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_template; ?></h2>
             <a class="close"></a>
@@ -148,7 +148,7 @@
     </div>
 </script>
 <script type="text/x-handlebars-template" id="template-save-template">
-    <div class="popup save_template" style="max-height:75vh;">
+    <div class="vd vd-popup save_template" style="max-height:75vh;">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_save_template; ?></h2>
             <a class="close"></a>
@@ -359,7 +359,7 @@
     </div>
 </script>
 <script type="text/html" id="template-row-layout">
-    <div class="popup edit-layout">
+    <div class="vd vd-popup edit-layout">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_layout; ?></h2>
             <a class="close"></a>
@@ -495,8 +495,8 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
 $(document).off('click','a[id=edit-layout]');
 $(document).on('click','a[id=edit-layout]',function(){
     var size = $(this).data('layout');
-    var target = $('.popup').find('input[name=target]').val();
-    var designer_id = $('.popup').find('input[name=designer_id]').val();
+    var target = $('.vd-popup').find('input[name=target]').val();
+    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
     d_visual_designer.editLayout({'size': size}, target, designer_id);
 });
 
@@ -507,29 +507,29 @@ $(document).on('click','a[id=button_frontend]',function(){
 });
 $(document).off('click','#layoutSet');
 $(document).on('click','#layoutSet',function(){
-    var setting = $('.popup').find('input, select, textarea').serializeJSON();
-    var target = $('.popup').find('input[name=target]').val();
-    var designer_id = $('.popup').find('input[name=designer_id]').val();
+    var setting = $('.vd-popup').find('input, select, textarea').serializeJSON();
+    var target = $('.vd-popup').find('input[name=target]').val();
+    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
     d_visual_designer.editLayout(setting, target, designer_id);
 });
 $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
     var block_id = $(this).parent().data('control')
     d_visual_designer.cloneBlock(block_id, '<?php echo $designer_id; ?>');
 });
-$(document).off('click', '.popup.add_block > .popup-tabs > .vd-nav > li > a');
-$(document).on('click', '.popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
+$(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
+$(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
     d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
 });
-$(document).off('click', '.popup.add_template > .popup-tabs > .vd-nav > li > a');
-$(document).on('click', '.popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
+$(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
+$(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
     d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
 });
-$(document).off('keyup', '.popup.add_block > .popup-header input[name=search]');
-$(document).on('keyup', '.popup.add_block > .popup-header input[name=search]', function(){
+$(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
+$(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
     d_visual_designer.search($(this).val(), '.popup > .popup-content .popup-new-block > .element', 'a')
 });
-$(document).off('keyup', '.popup.add_template > .popup-header input[name=search]');
-$(document).on('keyup', '.popup.add_template > .popup-header input[name=search]', function(){
+$(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
+$(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
     d_visual_designer.search($(this).val(), '.popup > .popup-content .popup-new-template > .element', 'a')
 });
 $('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function(){
@@ -538,12 +538,12 @@ $('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function()
 $('#<?php echo $designer_id; ?>').on('mouseout', '.block-container', function(){
     $(this).removeClass('active-control');
 });
-$(document).off('click','.popup-overlay');
+$(document).off('click','.vd-popup-overlay');
 $(document).on('click','.popup-overlay',function(){
     d_visual_designer.closePopup();
 });
-$(document).off('click','.popup .close');
-$(document).on('click','.popup .close',function(){
+$(document).off('click','.vd-popup .close');
+$(document).on('click','.vd-popup .close',function(){
     d_visual_designer.closePopup();
 });
 $(document).off('click','a[id=cancel]');
@@ -653,16 +653,16 @@ $(document).off('click','#add_template');
 $(document).on('click','#add_template', function(){
     var template_id = $(this).data('id');
     var config = $(this).data('config');
-    var designer_id = $('.popup').find('input[name=designer_id]').val();
+    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
     d_visual_designer.addTemplate(template_id, config, designer_id);
 });
 $(document).off('click','#add_block');
 $(document).on('click','#add_block', function(){
     var type = $(this).data('type');
     var title = $(this).data('title');
-    var target = $('.popup').find('input[name=target]').val();
-    var designer_id = $('.popup').find('input[name=designer_id]').val();
-    var level = $('.popup').find('input[name=level]').val();
+    var target = $('.vd-popup').find('input[name=target]').val();
+    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+    var level = $('.vd-popup').find('input[name=level]').val();
     d_visual_designer.addBlock(type,title, target, designer_id, level);
 });
 $(document).off('click','#button_full_screen');
