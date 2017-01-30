@@ -8,6 +8,8 @@ class ControllerModuleDVisualDesigner extends Controller {
     private $theme = 'default';
 
     private $error = array();
+    
+    private $store_url = '';
 
     public function __construct($registry)
     {
@@ -19,6 +21,13 @@ class ControllerModuleDVisualDesigner extends Controller {
         $this->theme = $this->config->get('config_template');
         if(empty($this->theme)&& VERSION=='2.2.0.0'){
             $this->theme = $this->config->get('theme_default_directory');
+        }
+        
+        if($this->request->server['HTTPS']){
+            $this->store_url = HTTPS_SERVER;
+        }
+        else{
+            $this->store_url = HTTP_SERVER;
         }
     }
 
@@ -177,9 +186,9 @@ class ControllerModuleDVisualDesigner extends Controller {
 
             $data['settings'] = $setting['setting'];
 
-            $data['base'] = $this->request->server['HTTPS'] ? HTTPS_SERVER.'catalog/view/theme/default/' : HTTP_SERVER.'catalog/view/theme/default/';
-
-            $data['filemanager_url'] = $this->config->get('config_url').'index.php?route=common/filemanager&token='.$this->session->data['token'].'';
+            $data['base'] = $this->store_url.'catalog/view/theme/default/';
+                
+            $data['filemanager_url'] = $this->store_url.'index.php?route=common/filemanager&token='.$this->session->data['token'].'';
 
             $this->load->model('tool/image');
 
@@ -221,16 +230,10 @@ class ControllerModuleDVisualDesigner extends Controller {
             } else {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
             }
-                    
-            if($this->request->server['HTTPS']){
-                $frontend_url = htmlentities(urlencode(HTTPS_SERVER.'index.php?route='.
-                $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
-            }
-            else{
-                $frontend_url = htmlentities(urlencode(HTTP_SERVER.'index.php?route='.
-                $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
-            }
-            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
+                
+            
+            $frontend_url = htmlentities(urlencode($this->store_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
+            $edit_url = $this->store_url.'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
            
             $setting['content'] = '<div class="btn-group-xs btn-edit" ><a class="btn btn-default " href="'.$edit_url.'" target="_blank"><i class="fa fa-pencil"></i> '.$this->language->get('text_edit').'</a><br/><br/></div>'.$setting['content'];
             return $setting['content'];
@@ -305,7 +308,7 @@ class ControllerModuleDVisualDesigner extends Controller {
                 $setting = $this->{'model_module_'.$this->codename}->getSettingBlock($block);
 
                 if (is_file(DIR_IMAGE .'data/d_visual_designer/'.$block.'.svg')) {
-                    $image = $this->config->get('config_url').'image/data/d_visual_designer/'.$block.'.svg';
+                    $image = $this->store_url.'image/data/d_visual_designer/'.$block.'.svg';
                 } else {
                     $image = $this->model_tool_image->resize('no_image.png', 40, 40);
                 }

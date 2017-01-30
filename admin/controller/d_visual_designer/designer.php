@@ -8,6 +8,10 @@ class ControllerDVisualDesignerDesigner extends Controller {
     private $styles = array();
     private $error = array();
     private $input = array();
+    
+    private $store_url = '';
+    
+    private $catalog_url = '';
 
     public function __construct($registry)
     {
@@ -25,7 +29,16 @@ class ControllerDVisualDesignerDesigner extends Controller {
         }
         
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
-
+        
+        if($this->request->server['HTTPS']){
+            $this->store_url = HTTPS_SERVER;
+            $this->catalog_url = HTTPS_CATALOG;
+        }
+        else{
+            $this->store_url = HTTP_SERVER;
+            $this->catalog_url = HTTP_CATALOG;
+        }
+        
     }
 
     public function index(){
@@ -178,12 +191,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
                     $frontend_param = '';
                 }
                 
-                if($this->request->server['HTTPS']){
-                    $frontend_url = htmlentities(urlencode(HTTPS_CATALOG.'index.php?route='.$route_info['frontend_route'].$params));
-                }
-                else{
-                    $frontend_url = htmlentities(urlencode(HTTP_CATALOG.'index.php?route='.$route_info['frontend_route'].$params));
-                }
+                $frontend_url = htmlentities(urlencode($this->catalog_url.'index.php?route='.$route_info['frontend_route'].$params));
+        
                 
                 $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
             }
@@ -204,7 +213,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $json['rows'] = json_encode($blocks['setting']);
 
-    		$data['base'] = $this->request->server['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER;
+    		$data['base'] = $this->store_url;
 
             $data['border_styles'] = array(
                 ''       => $this->language->get('text_default'),
@@ -263,8 +272,6 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
         if(!empty($url)&& !empty($route_config)){
 
-            $this->load->model($this->codename.'/route');
-
             $data['button_add_block'] = $this->language->get('button_add_block');
             $data['button_add_template'] = $this->language->get('button_add_template');
             $data['button_save_template'] = $this->language->get('button_save_template');
@@ -297,7 +304,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['backend_url'] = $this->url->link($route_info['backend_route'], $param.'&token='.$this->session->data['token']);
             $data['direction'] = $this->language->get('direction');
             $data['lang'] = $this->language->get('code');
-            $data['base'] = $this->request->server['HTTPS'] ? HTTPS_SERVER : HTTP_SERVER;
+            $data['base'] = $this->store_url;
             $data['text_frontend_title'] = $this->language->get('text_frontend_title');
             $this->response->setOutput($this->load->view('d_visual_designer/frontend_editor.tpl',$data));
         }
