@@ -146,7 +146,6 @@ class ControllerDVisualDesignerSetting extends Controller {
         $data['text_no_results'] = $this->language->get('text_no_results');
 
         $data['text_templates'] = $this->language->get('text_templates');
-        $data['text_routes'] = $this->language->get('text_routes');
         $data['text_setting'] = $this->language->get('text_setting');
         $data['text_instructions'] = $this->language->get('text_instructions');
 
@@ -156,7 +155,6 @@ class ControllerDVisualDesignerSetting extends Controller {
 
 
         $data['href_templates'] = $this->url->link($this->codename.'/template','token='.$this->session->data['token'], 'SSL');
-        $data['href_routes'] = $this->url->link($this->codename.'/route','token='.$this->session->data['token'], 'SSL');
         $data['href_setting'] = $this->url->link($this->codename.'/setting','token='.$this->session->data['token'], 'SSL');
         $data['href_instruction'] = $this->url->link($this->codename.'/instruction','token='.$this->session->data['token'], 'SSL');
 

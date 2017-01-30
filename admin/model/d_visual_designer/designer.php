@@ -565,4 +565,50 @@ class ModelDVisualDesignerDesigner extends Model {
 
         return $results;
     }
+    
+    public function getRouteByBackendRoute($backend_route){
+        $routes = $this->getRoutes();
+        foreach ($routes as $config => $route) {
+            if($route['backend_route'] == $backend_route){
+                $route['config_name'] = $config;
+                return $route;
+            }
+        }
+        return array();
+    }
+    
+    public function getRoutes(){
+        $dir = DIR_CONFIG.'d_visual_designer_route/*.php';
+        
+        $files = glob($dir);
+
+        $route_data = array();
+        
+        foreach($files as $file){
+    
+                $name = basename($file, '.php');
+                $route_info = $this->getRoute($name);
+                $route_data[$name] = $route_info;
+
+        }
+
+        return $route_data;
+    }
+        
+    public function getRoute($name){
+    
+        $results = array();
+
+        $file = DIR_CONFIG.'d_visual_designer_route/'.$name.'.php';
+        
+        if (file_exists($file)) {
+            $_ = array();
+
+            require($file);
+            
+            $results = array_merge($results, $_);
+        }
+
+        return $results;
+    }
 }

@@ -12,8 +12,10 @@ class ControllerModuleDVisualDesigner extends Controller {
     public function __construct($registry)
     {
         parent::__construct($registry);
+
         $this->load->language($this->route);
         $this->load->model($this->route);
+
         $this->theme = $this->config->get('config_template');
         if(empty($this->theme)&& VERSION=='2.2.0.0'){
             $this->theme = $this->config->get('theme_default_directory');
@@ -22,45 +24,13 @@ class ControllerModuleDVisualDesigner extends Controller {
 
     public function index($setting) {
 
-        $this->load->model($this->route);
-
-        $status = $this->config->get($this->codename.'_status');
-        
-        if(VERSION >= '2.2.0.0'){
-            $this->user = new Cart\User($this->registry);
-        }
-        else{
-            $this->user = new User($this->registry);
-        }
-        
-        if(!empty($setting['token'])){
-            $route_info = $this->model_module_d_visual_designer->getRoute($setting['token']);
+        if(!empty($setting['config'])){
+            $route_info = $this->model_module_d_visual_designer->getRoute($setting['config']);
         }
         else{
             $route_info = array();
         }
 
-        $edit_status = true;
-
-        if(!$status){
-            $edit_status = false;
-        }
-
-        if(!$this->user->isLogged()){
-            $edit_status = false;
-        }
-        
-        if(empty($route_info)){
-            $edit_status = false;
-        }
-        elseif (!$route_info['status']) {
-            $edit_status = false;
-        }
-        
-        if(!empty($this->request->get['route']) && $this->request->get['route'] != $route_info['frontend_route']){
-            $edit_status = false;
-        }
-        
         //sharrre
         $this->document->addScript('catalog/view/javascript/d_visual_designer/library/sharrre/jquery.sharrre.min.js');
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/sharrre/style.css');
@@ -82,8 +52,8 @@ class ControllerModuleDVisualDesigner extends Controller {
         } else {
             $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/animate.css');
         }
-        
-        if($edit_status&&isset($this->request->get['edit'])){
+
+        if($this->model_module_d_visual_designer->validateEdit($setting['config'])){
 
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css')) {
                 $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css');
@@ -244,7 +214,7 @@ class ControllerModuleDVisualDesigner extends Controller {
                 }
             }
         }
-        elseif($edit_status&&!empty($setting['id'])){
+        elseif($this->model_module_d_visual_designer->validateEdit($setting['config'], false)&&!empty($setting['id'])){
 
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/frontend.css')) {
                 $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/frontend.css');
@@ -260,7 +230,7 @@ class ControllerModuleDVisualDesigner extends Controller {
                 $frontend_url = htmlentities(urlencode(HTTP_SERVER.'index.php?route='.
                 $route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
             }
-            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].'&id='.$setting['id'];
+            $edit_url = $this->config->get('config_url').'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
            
             $setting['content'] = '<div class="btn-group-xs btn-edit" ><a class="btn btn-default " href="'.$edit_url.'" target="_blank"><i class="fa fa-pencil"></i> '.$this->language->get('text_edit').'</a><br/><br/></div>'.$setting['content'];
             return $setting['content'];
@@ -628,6 +598,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 
     public function saveProduct(){
         $json = array();
+
 
         if(!empty($this->request->post['product_description'])){
             $product_description = $this->request->post['product_description'];

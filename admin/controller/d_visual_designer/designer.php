@@ -47,16 +47,15 @@ class ControllerDVisualDesignerDesigner extends Controller {
         }
 
         if(!empty($url)){
-            $this->load->model('d_visual_designer/route');
 
             $url_info = parse_url(str_replace('&amp;', '&', $url));
 
             $url_params = array();
 
             parse_str($url_info['query'], $url_params);
-
-            $route_info = $this->model_d_visual_designer_route->checkPermission($url_params['route']);
-
+            
+            $route_info = $this->{'model_'.$this->codename.'_designer'}->getRouteByBackendRoute($url_params['route']);
+            
             if(!empty($route_info)){
                 $permission_status = true;
             }
@@ -186,7 +185,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
                     $frontend_url = htmlentities(urlencode(HTTP_CATALOG.'index.php?route='.$route_info['frontend_route'].$params));
                 }
                 
-                $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_id='.$route_info['route_id'].$frontend_param);
+                $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
             }
 
             $this->load->model('localisation/language');
@@ -254,15 +253,15 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $url = html_entity_decode($this->request->get['url']);
         }
 
-        if(!empty($this->request->get['route_id'])){
-            $route_id = html_entity_decode($this->request->get['route_id']);
+        if(!empty($this->request->get['route_config'])){
+            $route_config = html_entity_decode($this->request->get['route_config']);
         }
 
         if(!empty($this->request->get['id'])){
             $id = html_entity_decode($this->request->get['id']);
         }
 
-        if(!empty($url)&& !empty($route_id)){
+        if(!empty($url)&& !empty($route_config)){
 
             $this->load->model($this->codename.'/route');
 
@@ -285,7 +284,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_success_remove_block'] = $this->language->get('text_success_remove_block');
 
             $data['url'] = $url;
-            $route_info = $this->{'model_'.$this->codename.'_route'}->getRoute($route_id);
+            
+            $route_info = $this->{'model_'.$this->codename.'_designer'}->getRoute($route_config);
 
             if(!empty($route_info['backend_param'])&!empty($id)){
                 $param = $route_info['backend_param'].'='.$id;

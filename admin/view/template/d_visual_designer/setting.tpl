@@ -47,8 +47,7 @@
 				<h3 class="panel-title">
 				<ul class="nav menu">
 					<li class="active"><a href="<?php echo $href_setting; ?>" class="htab-item"><i class="fa fa-cog fa-fw"></i> <?php echo $text_setting; ?></a></li>
-					<li><a href="<?php echo $href_templates; ?>" class="htab-item"><i class="fa fa-envelope"></i> <?php echo $text_templates; ?></a></li>
-					<li><a href="<?php echo $href_routes; ?>" class="htab-item"><i class="fa fa-user"></i> <?php echo $text_routes; ?></a></li>
+					<li><a href="<?php echo $href_templates; ?>" class="htab-item"><i class="fa fa-list"></i> <?php echo $text_templates; ?></a></li>
 					<li><a href="<?php echo $href_instruction; ?>" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> <?php echo $text_instructions; ?></a></li>
 				</ul>
 				</h3>

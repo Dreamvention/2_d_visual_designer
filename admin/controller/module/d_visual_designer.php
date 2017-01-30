@@ -58,8 +58,6 @@ class ControllerModuleDVisualDesigner extends Controller {
 
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'access', $this->codename.'/designer');
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'modify', $this->codename.'/designer');
-		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'access', $this->codename.'/route');
-		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'modify', $this->codename.'/route');
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'access', $this->codename.'/setting');
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'modify', $this->codename.'/setting');
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'access', $this->codename.'/template');

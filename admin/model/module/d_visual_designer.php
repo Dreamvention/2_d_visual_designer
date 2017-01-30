@@ -6,20 +6,6 @@
 class ModelModuleDVisualDesigner extends Model {
 	
 	public function createDatabase(){
-		$this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_route (
-			`route_id` INT(11) NOT NULL AUTO_INCREMENT,
-			`name` VARCHAR(256) NOT NULL,
-			`token` VARCHAR(64) NOT NULL,
-			`backend_route` VARCHAR(256) NOT NULL,
-			`frontend_status` INT(11) NOT NULL,
-			`status` INT(11) NOT NULL,
-			`frontend_route` VARCHAR(256) NOT NULL,
-			`backend_param` VARCHAR(256) NOT NULL,
-			`frontend_param` VARCHAR(256) NOT NULL,
-			`edit_url` VARCHAR(256) NOT NULL,
-			PRIMARY KEY (`route_id`)
-		)
-		COLLATE='utf8_general_ci' ENGINE=MyISAM;");
 		
 		$this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_template (
 			`template_id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -31,27 +17,9 @@ class ModelModuleDVisualDesigner extends Model {
 			PRIMARY KEY (`template_id`)
 		)
 		COLLATE='utf8_general_ci' ENGINE=MyISAM;");
-		
-		if (!file_exists(DIR_SYSTEM.'/mbooth/install/d_visual_designer.sql')) {
-            exit('Could not load sql file: ' . DIR_SYSTEM.'/mbooth/install/d_visual_designer.sql');
-        }
-
-        $lines = file(DIR_SYSTEM.'/mbooth/install/d_visual_designer.sql');
-        if ($lines) {
-            foreach($lines as $line) {
-                if ($line) {
-                    if (preg_match('/;\s*$/', $line)) {				
-						$sql = str_replace("INSERT INTO `oc_", "INSERT INTO `" . DB_PREFIX, $line);
-						$sql = str_replace("TRUNCATE TABLE `oc_", "TRUNCATE TABLE `" . DB_PREFIX, $line);
-						$this->db->query($sql);
-					}
-				}
-			}
-		}
 	}
 	
 	public function dropDatabase(){
-		$this->db->query("DROP TABLE IF EXISTS ".DB_PREFIX."visual_designer_route");
 		$this->db->query("DROP TABLE IF EXISTS ".DB_PREFIX."visual_designer_template");
 	}
 	
