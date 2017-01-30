@@ -518,19 +518,19 @@ $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
 });
 $(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
 $(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
-    d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
+    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
 });
 $(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
 $(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
-    d_visual_designer.search($(this).data('category'), '.popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
+    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
 });
 $(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
 $(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.popup > .popup-content .popup-new-block > .element', 'a')
+    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')
 });
 $(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
 $(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.popup > .popup-content .popup-new-template > .element', 'a')
+    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
 });
 $('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function(){
     $(this).addClass('active-control');
@@ -539,7 +539,7 @@ $('#<?php echo $designer_id; ?>').on('mouseout', '.block-container', function(){
     $(this).removeClass('active-control');
 });
 $(document).off('click','.vd-popup-overlay');
-$(document).on('click','.popup-overlay',function(){
+$(document).on('click','.vd-popup-overlay',function(){
     d_visual_designer.closePopup();
 });
 $(document).off('click','.vd-popup .close');
