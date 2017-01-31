@@ -59,7 +59,6 @@
             }
         }
 
-
     }
     &.ui-draggable-dragging{
         > .popup-header{
@@ -195,6 +194,7 @@
     
     &.add_template{
         left: 20%;
+        top: 13%;
 
         width: 60%;
         > .popup-tabs {

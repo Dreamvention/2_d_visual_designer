@@ -29,6 +29,7 @@ class ControllerModuleDVisualDesigner extends Controller {
         else{
             $this->store_url = HTTP_SERVER;
         }
+        
     }
 
     public function index($setting) {
@@ -231,7 +232,6 @@ class ControllerModuleDVisualDesigner extends Controller {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
             }
                 
-            
             $frontend_url = htmlentities(urlencode($this->store_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
             $edit_url = $this->store_url.'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
            
@@ -579,7 +579,6 @@ class ControllerModuleDVisualDesigner extends Controller {
             
 
             if(!empty($template_info)){
-                $this->load->model('module/d_visual_designer');
 
                 $result = $this->model_module_d_visual_designer->parseDescriptionWithoutDesigner($template_info['content']);
                 $json['content'] = $result['content'];
@@ -601,8 +600,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 
     public function saveProduct(){
         $json = array();
-
-
+        
         if(!empty($this->request->post['product_description'])){
             $product_description = $this->request->post['product_description'];
         }

@@ -269,8 +269,8 @@ class ModelModuleDVisualDesigner extends Model {
 
         $type=str_replace('vd_','',$tag);
 
-        $attr = $this->shortcode_parse_atts( $m[3]);
-        $attrd = $this->shortcode_parse_atts( $m[3], false );
+        $attr = $this->getSetting($this->shortcode_parse_atts( $m[3]), $type);
+        $attrd = $this->getSetting($this->shortcode_parse_atts( $m[3], false ), $type);
 
         
 
@@ -707,6 +707,7 @@ class ModelModuleDVisualDesigner extends Model {
     
         return $results;
     }
+    
     public function getConfigTemplates(){
         
         $dir = DIR_CONFIG.'d_visual_designer_template/';

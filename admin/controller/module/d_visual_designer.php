@@ -9,11 +9,12 @@ class ControllerModuleDVisualDesigner extends Controller {
 	private $extension = '';
 	private $config_file = '';
 	private $store_id = 0;
+	
 	private $error = array();
 
 	public function __construct($registry) {
 		parent::__construct($registry);
-		$this->load->model('module/d_visual_designer');
+		$this->load->model($this->route);
 
 		$this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
 	}
@@ -54,6 +55,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 			$this->load->model('d_shopunity/mbooth');
 			$this->model_d_shopunity_mbooth->installDependencies($this->codename);
 		}
+		
 		$this->load->model('user/user_group');
 
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'access', $this->codename.'/designer');

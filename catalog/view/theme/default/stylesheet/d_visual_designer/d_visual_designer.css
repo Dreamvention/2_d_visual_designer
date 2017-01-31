@@ -7450,6 +7450,7 @@
       padding: 0px 30px 30px 30px; }
   .vd-popup.add_template {
     left: 20%;
+    top: 13%;
     width: 60%; }
     .vd-popup.add_template > .popup-tabs li > a {
       cursor: pointer; }

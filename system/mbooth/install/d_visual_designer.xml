@@ -177,7 +177,7 @@
                 
                 $designer_data = array(
                     'config' => 'edit_category',
-                    'content' => $query->row['description'],
+                    'content' => !empty($query->row['description'])?$query->row['description']:'',
                     'field_name' => 'category_description['.(int)$this->config->get('config_language_id').'][description]',
                     'id' => $category_id
                 );
