@@ -30,7 +30,12 @@ class ControllerDVisualDesignerModuleColumn extends Controller {
     }
     public function setting($setting){
 
-        $data['entry_size'] = $this->language->get('entry_size');
+		$data['entry_size'] = $this->language->get('entry_size');
+		$data['entry_float'] = $this->language->get('entry_float');
+		$data['entry_align'] = $this->language->get('entry_align');
+		$data['text_enabled'] = $this->language->get('text_enabled');
+		$data['text_yes'] = $this->language->get('text_yes');
+		$data['text_no'] = $this->language->get('text_no');
 		
 		$data['setting'] = $this->model_d_visual_designer_designer->getSetting($setting, $this->codename);
 		
@@ -48,6 +53,17 @@ class ControllerDVisualDesignerModuleColumn extends Controller {
 			'11' => '11/12',
 			'12' => '12/12',
 		);
+		
+		$data['floats'] = array(
+			'' => $this->language->get('text_none'),
+			 'left' => $this->language->get('text_left'),
+			 'right' => $this->language->get('text_right')
+		 );
+		$data['aligns'] = array(
+			 'left' => $this->language->get('text_left'),
+			 'center' => $this->language->get('text_center'),
+			 'right' => $this->language->get('text_right')
+		 );
 		
         return $this->load->view($this->route.'_setting.tpl', $data);
     }

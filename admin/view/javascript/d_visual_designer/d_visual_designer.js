@@ -294,7 +294,7 @@ var d_visual_designer = {
         this.setting.form.find('#'+designer_id).parents('.form-group').find('.note-editor').css('display','block');
     },
     //Синхронизация изменений с полем ввода
-    updateValue: function(){
+    updateValue: function(callback = null){
         var that = this;
         console.log('d_visual_designer:update_value');
         this.setting.form.find('.d_visual_designer').each(function() {
@@ -310,6 +310,10 @@ var d_visual_designer = {
             }
             
 
+        }).promise().done(function(){
+            if(callback != null){
+                callback();
+            }
         });
     },
     //Компиляция шаблона
@@ -611,6 +615,7 @@ var d_visual_designer = {
                      that.setting.form.find('#'+designer_id+' > .vd.container-fluid').html(json['content']);
                      that.data[designer_id] = json['setting'];
                      that.closePopup();
+                     that.initSortable();
                     that.setting.stateEdit = true;
                 }
             }
@@ -720,14 +725,16 @@ var d_visual_designer = {
         
         var that = this;
         
-        $.ajax({
-            type: 'post',
-            url: that.setting.form.attr('action'),
-            data: that.setting.form.serialize(),
-            success: function (response) {
-                that.setting.stateEdit = false;
-                callback();
-            }
+        this.updateValue(function(){
+            $.ajax({
+                type: 'post',
+                url: that.setting.form.attr('action'),
+                data: that.setting.form.serialize(),
+                success: function (response) {
+                    that.setting.stateEdit = false;
+                    callback();
+                }
+            });
         });
     },
     //Открытие Frontend Редактора
@@ -804,6 +811,7 @@ var d_visual_designer = {
                     Object.assign(that.data[designer_id],that.tmpSetting['items']);
                     that.setting.form.find('#'+block_id).after(json['content']);
                     that.initSortable();
+                    that.setting.stateEdit = true;
                 }
             }
         });    

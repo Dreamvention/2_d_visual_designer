@@ -8,16 +8,16 @@ class ControllerModuleDVisualDesigner extends Controller {
     private $theme = 'default';
 
     private $error = array();
-    
-    private $store_url = '';
 
+    private $store_url = '';
+    
     public function __construct($registry)
     {
         parent::__construct($registry);
-
+        
         $this->load->language($this->route);
         $this->load->model($this->route);
-
+        
         $this->theme = $this->config->get('config_template');
         if(empty($this->theme)&& VERSION=='2.2.0.0'){
             $this->theme = $this->config->get('theme_default_directory');
@@ -33,14 +33,14 @@ class ControllerModuleDVisualDesigner extends Controller {
     }
 
     public function index($setting) {
-
+    
         if(!empty($setting['config'])){
-            $route_info = $this->model_module_d_visual_designer->getRoute($setting['config']);
+            $route_info = $this->{'model_module_'.$this->codename}->getRoute($setting['config']);
         }
         else{
             $route_info = array();
         }
-
+        
         //sharrre
         $this->document->addScript('catalog/view/javascript/d_visual_designer/library/sharrre/jquery.sharrre.min.js');
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/sharrre/style.css');
@@ -54,6 +54,15 @@ class ControllerModuleDVisualDesigner extends Controller {
         //Carousel
         $this->document->addScript('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.carousel.min.js');
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.carousel.css');
+        //Fonts icon
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/ionicons-1.5.2/css/ionicons.min.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/map-icons-2.1.0/css/map-icons.min.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/material-design-1.1.1/css/material-design-iconic-font.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/typicons-2.0.6/css/typicons.min.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/elusive-icons-2.0.0/css/elusive-icons.min.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/octicons-2.1.2/css/octicons.min.css');   
+        $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/icon-fonts/weather-icons-1.2.0/css/weather-icons.min.css');   
         
         $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/owl-carousel/owl.transitions.css');
                 
@@ -62,9 +71,8 @@ class ControllerModuleDVisualDesigner extends Controller {
         } else {
             $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/animate.css');
         }
-
-        if($this->model_module_d_visual_designer->validateEdit($setting['config'])){
-
+        
+        if($this->{'model_module_'.$this->codename}->validateEdit($setting['config'])){
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css')) {
                 $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/d_visual_designer.css');
             } else {
@@ -81,13 +89,15 @@ class ControllerModuleDVisualDesigner extends Controller {
             $this->document->addScript('catalog/view/javascript/d_visual_designer/library/bootstrap-switch/bootstrap-switch.js');
             $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/bootstrap-switch/bootstrap-switch.min.css');
 
-            //bootstrap-colorpicker
+            //Font Icon Picker
+            $this->document->addScript('catalog/view/javascript/d_visual_designer/library/fontIconPicker/iconset.js');
+            $this->document->addScript('catalog/view/javascript/d_visual_designer/library/fontIconPicker/jquery.fonticonpicker.min.js');
+            $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/fontIconPicker/jquery.fonticonpicker.css');        
+            $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/fontIconPicker/jquery.fonticonpicker.grey.min.css'); 
+
+             //bootstrap-colorpicker
             $this->document->addScript('catalog/view/javascript/d_visual_designer/library/bootstrap-colorpicker/bootstrap-colorpicker.min.js');
             $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/bootstrap-colorpicker/bootstrap-colorpicker.min.css');
-
-            //fontawesome
-            $this->document->addScript('catalog/view/javascript/d_visual_designer/library/fontawesome-iconpicker/fontawesome-iconpicker.min.js');
-            $this->document->addStyle('catalog/view/javascript/d_visual_designer/library/fontawesome-iconpicker/fontawesome-iconpicker.min.css');
 
             //summernote
             $this->document->addScript('catalog/view/javascript/d_visual_designer/library/summernote/summernote.min.js');
@@ -188,7 +198,7 @@ class ControllerModuleDVisualDesigner extends Controller {
             $data['settings'] = $setting['setting'];
 
             $data['base'] = $this->store_url.'catalog/view/theme/default/';
-                
+
             $data['filemanager_url'] = $this->store_url.'index.php?route=common/filemanager&token='.$this->session->data['token'].'';
 
             $this->load->model('tool/image');
@@ -224,16 +234,16 @@ class ControllerModuleDVisualDesigner extends Controller {
                 }
             }
         }
-        elseif($this->model_module_d_visual_designer->validateEdit($setting['config'], false)&&!empty($setting['id'])){
+        elseif($this->{'model_module_'.$this->codename}->validateEdit($setting['config'], false)&&!empty($setting['id'])){
 
             if (file_exists(DIR_TEMPLATE . $this->theme . '/stylesheet/d_visual_designer/frontend.css')) {
                 $this->document->addStyle('catalog/view/theme/' . $this->theme . '/stylesheet/d_visual_designer/frontend.css');
             } else {
                 $this->document->addStyle('catalog/view/theme/default/stylesheet/d_visual_designer/frontend.css');
             }
-                
-            $frontend_url = htmlentities(urlencode($this->store_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
-            $edit_url = $this->store_url.'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
+                            
+                $frontend_url = htmlentities(urlencode($this->store_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
+                $edit_url = $this->store_url.'admin/index.php?route=d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
            
             $setting['content'] = '<div class="btn-group-xs btn-edit" ><a class="btn btn-default " href="'.$edit_url.'" target="_blank"><i class="fa fa-pencil"></i> '.$this->language->get('text_edit').'</a><br/><br/></div>'.$setting['content'];
             return $setting['content'];
@@ -445,20 +455,6 @@ class ControllerModuleDVisualDesigner extends Controller {
             $level = $this->request->post['level'];
         }
 
-        if(isset($this->request->post['setting'])){
-            $setting = $this->request->post['setting'];
-        }
-        else{
-            $setting = array();
-        }
-
-        if(isset($this->request->post['blocks'])){
-            $blocks = $this->request->post['blocks'];
-        }
-        else{
-            $blocks = array();
-        }
-
         if(isset($this->request->post['block_id'])){
             $block_id = $this->request->post['block_id'];
         }
@@ -469,17 +465,17 @@ class ControllerModuleDVisualDesigner extends Controller {
         $json = array();
 
         if(isset($type)&isset($parent)&isset($level)){
-            if(empty($setting)){
-                $setting_block = $this->{'model_module_'.$this->codename}->getSettingBlock($type);
-                $setting = $setting_block['setting'];
-            }
+
+            $setting = $this->{'model_module_'.$this->codename}->getSettingBlock($type);
+
             $block_info = array(
                 'type' => $type,
                 'parent' => $parent,
-                'setting' => $setting,
+                'setting' => isset($setting['setting'])?$setting['setting']:array(),
                 'block_id' => $block_id
             );
             $result = $this->{'model_module_'.$this->codename}->getFullContent($block_info, $level);
+   
             $json['content'] = $result['content'];
             $json['target'] = $block_id;
             $json['setting'] = json_encode($result['setting']);
@@ -600,7 +596,7 @@ class ControllerModuleDVisualDesigner extends Controller {
 
     public function saveProduct(){
         $json = array();
-        
+
         if(!empty($this->request->post['product_description'])){
             $product_description = $this->request->post['product_description'];
         }
@@ -715,8 +711,8 @@ class ControllerModuleDVisualDesigner extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-    protected function validateTemplateForm($new = false) {
-        
+    protected function validateTemplateForm() {
+
         if ((utf8_strlen($this->request->post['name']) < 1) || (utf8_strlen($this->request->post['name']) > 255)) {
             $this->error['name'] = $this->language->get('error_template_name');
         }

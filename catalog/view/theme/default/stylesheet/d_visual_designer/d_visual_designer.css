@@ -306,8 +306,8 @@
 @font-face {
   .vd, .block-container, #modal-image {
     font-family: 'Glyphicons Halflings';
-    src: url("../fonts/glyphicons-halflings-regular.eot");
-    src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); } }
+    src: url("fonts/glyphicons-halflings-regular.eot");
+    src: url("fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"), url("fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); } }
   .vd .glyphicon, .block-container .glyphicon, #modal-image .glyphicon {
     position: relative;
     top: 1px;
@@ -7593,6 +7593,16 @@
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto; }
+    .vd-popup .popup-content .icons-selector {
+      width: 100%; }
+      .vd-popup .popup-content .icons-selector .selector-popup {
+        position: relative;
+        min-width: 100%;
+        max-height: 100%;
+        overflow: hidden; }
+        .vd-popup .popup-content .icons-selector .selector-popup > .fip-icons-container {
+          max-height: 300px;
+          overflow: auto; }
     .vd-popup .popup-content .form-group {
       margin: 0px 0px 20px 0px !important;
       font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif; }
@@ -8461,6 +8471,9 @@
     height: 100%;
     margin: 0; }
 
+@font-face {
+  font-family: 'Glyph';
+  src: url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"); }
 #tab-description {
   overflow: visible; }
   #tab-description .vd div, #tab-description .vd p {
@@ -8502,6 +8515,8 @@
     margin-top: -20px;
     font-size: 14px;
     line-height: 40px; }
+.content.vd .glyphicon {
+  font-family: 'Glyph'; }
 .content.vd:empty {
   display: none; }
   .content.vd:empty + .vd-helper {
@@ -8688,7 +8703,7 @@
   .content.vd .block-section.accordion {
     display: block;
     margin-top: 0px;
-    margin-bottom: 2px;
+    margin-bottom: 2px !important;
     color: #333333;
     background: #ffffff; }
     .content.vd .block-section.accordion:not(.active) {

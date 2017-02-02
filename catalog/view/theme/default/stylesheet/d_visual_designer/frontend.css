@@ -627,8 +627,8 @@
 @font-face {
   .vd, .block-container, #modal-image {
     font-family: 'Glyphicons Halflings';
-    src: url("../fonts/glyphicons-halflings-regular.eot");
-    src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); } }
+    src: url("fonts/glyphicons-halflings-regular.eot");
+    src: url("fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"), url("fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); } }
   .vd .glyphicon, .block-container .glyphicon, #modal-image .glyphicon {
     position: relative;
     top: 1px;
@@ -7667,14 +7667,21 @@
     .vd .hidden-print, .block-container .hidden-print, #modal-image .hidden-print {
       display: none !important; } }
 
+@font-face {
+  font-family: 'Glyph';
+  src: url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"); }
 #tab-description {
   overflow: visible; }
+  #tab-description .vd .glyphicon {
+    font-family: 'Glyph'; }
   #tab-description .vd div, #tab-description .vd p {
     margin-bottom: 0; }
 
 .block-container {
   padding: 0px;
   z-index: 1; }
+  .block-container .glyphicon {
+    font-family: 'Glyph'; }
   .block-container.video {
     position: relative; }
     .block-container.video > .block-content > .video-background {
@@ -7726,12 +7733,12 @@
     text-align: left;
     border: solid transparent;
     border-width: 0;
-    border-radius: 5px; }
-    .block-section.accordion > .vd-panel-heading > .control {
-      visibility: visible;
-      opacity: 1; }
+    border-radius: 5px;
+    height: 43px;
+    margin-bottom: 0px !important; }
     .block-section.accordion > .vd-panel-heading > h4.vd-panel-title {
       margin: 0;
+      padding: 0;
       line-height: 1; }
       .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading {
         position: relative;
@@ -7741,12 +7748,16 @@
         -webkit-transition: color .2s ease-in-out;
         transition: color .2s ease-in-out;
         text-decoration: none;
+        line-height: 1;
         color: #fff;
         border: none;
         background: 0 0; }
-        .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading > span.title {
+        .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading > .title {
           padding-left: 20px;
-          color: #fff; }
+          color: #fff;
+          font-size: 15px;
+          line-height: 15px;
+          margin: 0; }
         .block-section.accordion > .vd-panel-heading > h4.vd-panel-title > a.section-heading > i {
           color: #fff;
           position: absolute;
@@ -7760,6 +7771,10 @@
     border: 1px solid #4c5866;
     display: none;
     min-height: 65px; }
+    .block-section.accordion > .vd-panel-body:after {
+      display: table;
+      content: '';
+      clear: both; }
     .block-section.accordion > .vd-panel-body > top {
       right: 0;
       left: auto; }

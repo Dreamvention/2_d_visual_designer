@@ -45,9 +45,6 @@ $_['text_repeat']                  = 'Repeat';
 $_['tab_save_block']               = 'Save Template';
 $_['tab_templates']                = 'Templates';
 $_['tab_all_blocks']               = 'All';
-$_['tab_category_content']         = 'Content';
-$_['tab_category_social']          = 'Social';
-$_['tab_category_structure']       = 'Structure';
 $_['tab_css']                      = 'CSS';
 
 //Button
@@ -87,9 +84,9 @@ $_['entry_border']                 = 'Border';
 $_['entry_image']                  = 'Background image';
 $_['entry_image_style']            = 'Style background image';
 $_['entry_size']                   = 'Size';
-$_['entry_category']			   = 'Tag of category';
-$_['entry_image_template']		   = 'Image of template';
-$_['entry_sort_order']			   = 'Sort order';
+$_['entry_category']               = 'Tag of category';
+$_['entry_image_template']         = 'Image of template';
+$_['entry_sort_order']             = 'Sort order';
 
 //error
 $_['error_name']                   = 'Template Name must be greater than 3 and less than 255 characters!';

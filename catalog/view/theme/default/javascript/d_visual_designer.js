@@ -745,15 +745,20 @@ var d_visual_designer = {
             dataType: 'json',
             data: setting,
             success: function( json ) {
-                if(json['success']){                
-                    that.popup.find('a#save').button('loading')
-                    that.popup.find('a#save').addClass('saved');
+                if(json['success']){
+                    if(that.popup !== ''){
+                        that.popup.find('a#save').button('loading');
+                        that.popup.find('a#save').addClass('saved');
+                    }
+
                     console.log('d_visual_designer:update_content_block');
                     that.settings[designer_id].form.find('#'+block_id).replaceWith(json['content']);
                     that.initSortable();
                     setTimeout(function(){
-                        that.popup.find('a#save').button('reset')
-                        that.popup.find('a#save').removeClass('saved');
+                        if(that.popup !== '') {
+                            that.popup.find('a#save').button('reset');
+                            that.popup.find('a#save').removeClass('saved');
+                        }
                         
                     },2000);
                 }

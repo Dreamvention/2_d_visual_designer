@@ -6,10 +6,6 @@ class ModelModuleDVisualDesigner extends Model {
 
     private $settingChild;
 
-    private $current_row;
-
-    private $curent_column;
-
     private $level= 0;
 
     private $parents = array();
@@ -23,7 +19,7 @@ class ModelModuleDVisualDesigner extends Model {
     private $config_name = '';
 
     private $parent_clear = false;
-
+    
     private $error = array();
 
     public function parseDescription($data){
@@ -104,7 +100,6 @@ class ModelModuleDVisualDesigner extends Model {
         else{
             return array();
         }
-
     }
 
     public function escape($text){
@@ -270,9 +265,6 @@ class ModelModuleDVisualDesigner extends Model {
         $type=str_replace('vd_','',$tag);
 
         $attr = $this->getSetting($this->shortcode_parse_atts( $m[3]), $type);
-        $attrd = $this->getSetting($this->shortcode_parse_atts( $m[3], false ), $type);
-
-        
 
         if ( !empty( $m[5] ) ) {
             $current_block = $type.'_'.$this->getRandomString();
@@ -372,9 +364,7 @@ class ModelModuleDVisualDesigner extends Model {
         return $settings;
     }
 
-    public function getContent($type, $setting, $key, $level, $inner_blocks = 0, $permission = 0){
-        
-        $data = array();
+    public function getContent($type, $setting, $key, $level, $inner_blocks = 0){
 
         $this->load->language('d_visual_designer/'.$type);
 
@@ -416,7 +406,7 @@ class ModelModuleDVisualDesigner extends Model {
         else{
             $data['permission'] = false;
         }
-
+        
         $this->load->language('d_visual_designer_module/'.$type);
 
         $data['title'] = $this->language->get('text_title');
@@ -459,16 +449,8 @@ class ModelModuleDVisualDesigner extends Model {
 
     public function loadView($route, $data){
         $route = rtrim($route, ".tpl");
-        if(VERSION>='2.2.0.0') {
-            return $this->load->view($route, $data);
-        }
-        else {
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$route.'.tpl')) {
-                return $this->load->view($this->config->get('config_template') . '/template/'.$route.'.tpl', $data);
-            } else {
-                return $this->load->view('default/template/'.$route.'.tpl', $data);
-            }
-        }
+        
+        return $this->load->view($route, $data);
     }
 
     public function parseDescriptionHelper($description){
@@ -477,7 +459,7 @@ class ModelModuleDVisualDesigner extends Model {
         $this->level--;
         return $content;
     }
-
+    
     public function validateEdit($config_name, $edit = true){
 
         $this->error = array();
@@ -511,6 +493,7 @@ class ModelModuleDVisualDesigner extends Model {
             if($edit&&!isset($this->request->get['edit'])){
                 $this->error['warning'] = $this->language->get('error_permission');
             }
+            
             $route_info = $this->getRoute($config_name);
             if(empty($route_info)){
                 $this->error['route'] = $this->language->get('error_route');
@@ -528,9 +511,10 @@ class ModelModuleDVisualDesigner extends Model {
         if(!$setting['d_visual_designer_status']){
             $this->error['status'] = $this->language->get('error_status');
         }
+        
         return !$this->error;
     }
-
+    
     public function getSettingBlock($type){
 
         $results = array();
@@ -568,21 +552,21 @@ class ModelModuleDVisualDesigner extends Model {
                 $setting = array('setting_child'=>$setting_block);
             }
 
-            $content_main = $this->getContent($block_info['type'], $setting, $block_info['block_id'], ($block_info['level']), ($block_info['level'] == 0)?2:1, 1);
+            $content_main = $this->getContent($block_info['type'], $setting, $block_info['block_id'], ($block_info['level']), ($block_info['level'] == 0)?2:1);
             $content = str_replace('{{{inner-block}}}', $content_child, $content_main);
 
         }
         else{
 
             $setting_block = $this->getSettingBlock($block_info['type']);
-            $content = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $block_info['level'],$setting_block['child_blocks']?1:0, 1);
+            $content = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $block_info['level'],$setting_block['child_blocks']?1:0);
             $content = str_replace('{{{inner-block}}}', '', $content);
         }
 
         return $content;
     }
 
-    public function getFullContent($block_info, $level, $settingJS = array(), $parent=false){
+    public function getFullContent($block_info, $level, $settingJS = array()){
         $content = '';
 
         $setting_block = $this->getSettingBlock($block_info['type']);
@@ -597,12 +581,12 @@ class ModelModuleDVisualDesigner extends Model {
                 'setting' => $setting_main_block['setting'],
                 'block_id' => 'row_'.$this->getRandomString()
             );
-            $result_main = $this->getFullContent($child_block, ($level), $settingJS, true);
+            $result_main = $this->getFullContent($child_block, ($level), $settingJS);
 
             $content_child = $result_main['content'];
             $settingJS = $result_main['setting'];
 
-            $block_info['setting']['setting_child'] = $result_main['setting_child'];
+            // $block_info['setting']['setting_child'] = $result_main['setting_child'];
 
             $block_info['parent'] = $this->parent;
             $this->parent_clear = false;
@@ -633,7 +617,7 @@ class ModelModuleDVisualDesigner extends Model {
             $content_child = $result['content'];
             $settingJS = $settingJS+$result['setting'];
             $block_info['setting']['setting_child'] = $result['setting_child'];
-            $content_main = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, ($level == 0)?2:1, 1);
+            $content_main = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, ($level == 0)?2:1);
             $content = str_replace('{{{inner-block}}}', $content_child, $content_main);
         }
         else{
@@ -651,7 +635,7 @@ class ModelModuleDVisualDesigner extends Model {
                 }
             }
 
-            $content = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, $setting_block['child_blocks']?1:0, 1);
+            $content = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, $setting_block['child_blocks']?1:0);
             if(!$this->parent_clear){
                 $content = str_replace('{{{inner-block}}}', '', $content);
             }
@@ -677,7 +661,7 @@ class ModelModuleDVisualDesigner extends Model {
         $dir = DIR_CONFIG.'d_visual_designer_route/*.php';
         
         $files = glob($dir);
-
+    
         $route_data = array();
         
         foreach($files as $file){
@@ -685,9 +669,9 @@ class ModelModuleDVisualDesigner extends Model {
                 $name = basename($file, '.php');
                 $route_info = $this->getRoute($name);
                 $route_data[$name] = $route_info;
-
+    
         }
-
+    
         return $route_data;
     }
         
@@ -741,7 +725,7 @@ class ModelModuleDVisualDesigner extends Model {
         return $template_data;
     }
     
-    public function getTemplates($data=array()){
+    public function getTemplates(){
 
         $sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t";
 

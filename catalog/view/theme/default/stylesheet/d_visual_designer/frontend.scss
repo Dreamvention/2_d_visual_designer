@@ -1,16 +1,29 @@
 @import "component.scss";
 @import "bootstrap.scss";
+
+@font-face {
+  font-family: 'Glyph';
+  src:  url('fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+  url('fonts/glyphicons-halflings-regular.woff') format('woff');
+}
+
 #tab-description{
-    overflow: visible;
-    .vd{
-        div,p{
-            margin-bottom: 0;
-        }
+  overflow: visible;
+  .vd{
+    .glyphicon {
+      font-family: 'Glyph';
     }
+    div,p{
+      margin-bottom: 0;
+    }
+  }
 }
 .block-container{
-    padding: 0px;
-    z-index:1;
+  padding: 0px;
+  z-index:1;
+  .glyphicon {
+        font-family: 'Glyph';
+    }
     &.video{
         position: relative;
         > .block-content{
@@ -49,16 +62,16 @@
     }
 }
 
-.block-section{
-    
-    &:not(.accordion){
+.block-section {
+
+    &:not(.accordion) {
         display: none;
-        &.active{
-          display: block;
+        &.active {
+            display: block;
         }
     }
-    
-    &.accordion{
+
+    &.accordion {
 
         display: block;
 
@@ -66,21 +79,19 @@
         margin-bottom: 2px;
 
         color: #333333;
-        // border: 1px solid #dddddd;
         background: #ffffff;
-        &:not(.active){
-          max-height: 43px;
-          min-height: 43px;
+        &:not(.active) {
+            max-height: 43px;
+            min-height: 43px;
         }
-        &.active{
-          > .vd-panel-heading{
-            border-bottom-left-radius: 0px;
-            border-bottom-right-radius: 0px;
-          }
+        &.active {
+            > .vd-panel-heading {
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+            }
         }
-        > .vd-panel-heading{
+        > .vd-panel-heading {
             box-sizing: border-box;
-            // margin-top: 2px;
 
             cursor: pointer;
             -webkit-transition: background .2s ease-in-out;
@@ -91,19 +102,16 @@
             border: solid transparent;
             border-width: 0;
             border-radius: 5px;
+            height: 43px;
+            margin-bottom: 0px !important;
 
-            > .control{
-              visibility: visible;
-              opacity: 1;
-            }
-
-            > h4.vd-panel-title{
+            > h4.vd-panel-title {
                 margin: 0;
+                padding: 0;
 
                 line-height: 1;
 
-
-                > a.section-heading{
+                > a.section-heading {
                     position: relative;
 
                     display: block;
@@ -115,17 +123,21 @@
                     transition: color .2s ease-in-out;
                     text-decoration: none;
 
+                    line-height: 1;
                     color: #fff;
                     border: none;
                     background: 0 0;
 
-                    > span.title{
+                    > .title {
                         padding-left: 20px;
 
                         color: #fff;
+                        font-size: 15px;
+                        line-height: 15px;
+                        margin: 0;
                     }
-                    >i{
-                      color:#fff;
+                    > i {
+                        color: #fff;
                         position: absolute;
                         top: 50%;
                         left: 20px;
@@ -136,23 +148,31 @@
                 }
             }
         }
-        &.active{
-            > .vd-panel-body{
+        &.active {
+            > .vd-panel-body {
                 display: block;
             }
         }
-        > .vd-panel-body{
-            border:1px solid #4c5866;
+        > .vd-panel-body {
+            border: 1px solid #4c5866;
             display: none;
 
             min-height: 65px;
-            & > top{
+
+            &:after{
+                display: table;
+                content: '';
+                clear: both;
+            }
+
+            & > top {
                 right: 0;
-                left:auto;
+                left: auto;
             }
         }
     }
 }
+
 .pie{
     display: inline-block;
     position: relative;

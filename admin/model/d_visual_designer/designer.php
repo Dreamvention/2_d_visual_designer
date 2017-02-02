@@ -4,21 +4,13 @@
 */
 
 class ModelDVisualDesignerDesigner extends Model {
-    private $setting;
-
     private $settingJS;
 
     private $settingChild;
 
-    private $current_row;
-
     private $parent = '';
 
-    private $child = false;
-
     private $parents = array();
-
-    private $curent_column;
 
     private $level = 0;
 
@@ -199,9 +191,9 @@ class ModelDVisualDesignerDesigner extends Model {
 
         $tag = $m[2];
         $attr = $this->shortcode_parse_atts( $m[3] );
-        $attrd = $this->shortcode_parse_atts( $m[3], false );
+
         $type=str_replace('vd_','',$tag);
-        $setting_block = $this->getSettingBlock($type);
+
         if ( !empty( $m[5] ) ) {
             $current_block = $type.'_'.$this->getRandomString();
 
@@ -301,7 +293,6 @@ class ModelDVisualDesignerDesigner extends Model {
 
     public function getContent($type, $setting, $key, $level, $inner_blocks = 0){
 
-        $data = array();
         $this->load->language('d_visual_designer_module/'.$type);
 
         $setting_block = $this->getSettingBlock($type);
@@ -403,7 +394,7 @@ class ModelDVisualDesignerDesigner extends Model {
     }
 
     public function getContentBySetting($blocks, $block_id){
-        $content = '';
+
         $block_info = $blocks['items'][$block_id];
 
         if(!empty($blocks['relateds'][$block_id])){
@@ -412,7 +403,12 @@ class ModelDVisualDesignerDesigner extends Model {
             foreach ($blocks['relateds'][$block_id] as $parent_id => $child_id) {
                 $result = $this->getContentBySetting($blocks, $child_id);
                 $content_child .= $result;
-                $setting_block[$child_id] = $blocks['items'][$child_id]['setting'];
+                if(!empty($blocks['items'][$child_id]['setting'])){
+                     $setting_block[$child_id] = $blocks['items'][$child_id]['setting'];
+                }
+                else{
+                    $setting_block[$child_id] = array();
+                }
             }
 
             if(!empty($block_info['setting']))
@@ -445,10 +441,10 @@ class ModelDVisualDesignerDesigner extends Model {
         return $content;
     }
 
-    public function getFullContent($block_info, $level, $settingJS = array(), $parent=false){
-        $content = '';
+    public function getFullContent($block_info, $level, $settingJS = array()){
 
         $setting_block = $this->getSettingBlock($block_info['type']);
+
         $settingChild = array();
         if($level == 0 && $setting_block['level_min'] == 2){
             $this->parent_clear = true;
@@ -460,12 +456,9 @@ class ModelDVisualDesignerDesigner extends Model {
                 'setting' => $setting_main_block['setting'],
                 'block_id' => 'row_'.$this->getRandomString()
             );
-            $result_main = $this->getFullContent($child_block, ($level), $settingJS, true);
+            $result_main = $this->getFullContent($child_block, ($level), $settingJS);
 
-            $content_child = $result_main['content'];
             $settingJS = $result_main['setting'];
-
-            $block_info['setting']['setting_child'] = $result_main['setting_child'];
 
             $block_info['parent'] = $this->parent;
             $this->parent_clear = false;
@@ -496,6 +489,7 @@ class ModelDVisualDesignerDesigner extends Model {
             $content_child = $result['content'];
             $settingJS = $settingJS+$result['setting'];
             $block_info['setting']['setting_child'] = $result['setting_child'];
+            
             $content_main = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, ($level == 0)?2:1, 1);
             $content = str_replace('{{{inner-block}}}', $content_child, $content_main);
         }

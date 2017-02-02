@@ -58,7 +58,7 @@
                 border-radius:0!important;
             }
         }
-
+        
     }
     &.ui-draggable-dragging{
         > .popup-header{
@@ -423,6 +423,20 @@
         -webkit-box-flex: 1;
         -ms-flex: 1 1 auto;
         flex: 1 1 auto;
+        .icons-selector{
+            width:100%;
+            .selector-popup{
+                position: relative;
+                min-width: 100%;
+                max-height: 100%;
+                overflow: hidden;
+                > .fip-icons-container{
+                    max-height: 300px;
+                    overflow: auto;
+                }
+                
+            }
+        }
         .form-group{
             margin: 0px 0px 20px 0px!important;
             // margin-bottom: 0px;
@@ -604,8 +618,8 @@
                     			border-style: solid;
                     			box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
                     			cursor:pointer;
-                            }
         				}
+                    }
         				
         				> p.title{
                             padding-top: 20px;

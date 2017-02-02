@@ -1,6 +1,6 @@
 <div class="block-inner block-container col-md-<?php echo $size; ?> level<?php echo $level; ?> 
-    <?php echo !empty($setting['additional_css_class'])?$setting['additional_css_class']:''; ?>" id="<?php echo $key; ?>" data-title="<?php echo $title; ?>"
-        data-image="<?php echo $image; ?>">
+    <?php echo !empty($setting['additional_css_class'])?$setting['additional_css_class']:''; ?>" 
+    id="<?php echo $key; ?>" data-title="<?php echo $title; ?>" data-image="<?php echo $image; ?>">
     <?php if($permission && $display_control) {?>
     <div class="block-mouse-toggle"></div>
     <div class="control control-<?php echo $control_position; ?>"  data-control="<?php echo $key; ?>">
@@ -93,16 +93,35 @@
         <?php echo $setting['additional_css_content']; ?>
     <?php } ?>
 }
-#<?php echo $key; ?>.block-parent.block-container:before{
+#<?php echo $key; ?>.block-inner.block-container:before{
     <?php if(!empty($setting['additional_css_before'])) {?>
         <?php echo $setting['additional_css_before']; ?>
     <?php } ?>
 }
-#<?php echo $key; ?>.block-parent.block-container:after{
+#<?php echo $key; ?>.block-inner.block-container:after{
     <?php if(!empty($setting['additional_css_after'])) {?>
         <?php echo $setting['additional_css_after']; ?>
     <?php } ?>
 }
+<?php if(!empty($setting['float'])) {?>
+    #<?php echo $key; ?>.block-inner.block-container > .block-content > .block-child{
+        float:left;
+        width:auto;
+    }
+    #<?php echo $key; ?>.block-inner.block-container > .block-content{
+        display: flex;
+        <?php if($setting['align'] == 'left') { ?>
+            justify-content: flex-start;
+        <?php }?>
+        <?php if($setting['align'] == 'center') { ?>
+            justify-content: center;
+        <?php }?>
+        <?php if($setting['align'] == 'right') { ?>
+            justify-content: flex-end;
+        <?php }?>
+        
+    }
+<?php } ?>
 </style>
     <div class="block-content <?php echo isset($child)?'child':'';?>" data-id="<?php echo $key; ?>"><?php echo $content; ?></div>
 </div>

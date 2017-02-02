@@ -2,6 +2,13 @@
 @import "popup.scss";
 @import "control.scss";
 @import "component.scss";
+
+@font-face {
+  font-family: 'Glyph';
+  src:  url('fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+  url('fonts/glyphicons-halflings-regular.woff') format('woff');
+}
+
 #tab-description{
     overflow: visible;
     .vd{
@@ -71,6 +78,9 @@
         }
     }
     &.vd{
+        .glyphicon {
+            font-family: 'Glyph';
+        }
         &:empty{
             display: none;
             &+.vd-helper{
@@ -382,7 +392,7 @@
                 display: block;
                 
                 margin-top: 0px;
-                margin-bottom: 2px;
+                margin-bottom: 2px!important;
                 
                 color: #333333;
                 background: #ffffff;

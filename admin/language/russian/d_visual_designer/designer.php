@@ -45,6 +45,9 @@ $_['text_repeaе']                  = 'Repeat';
 $_['tab_save_block']               = 'Сохранить шаблон';
 $_['tab_templates']                = 'Шаблоны';
 $_['tab_all_blocks']               = 'Все';
+$_['tab_category_content']         = 'Содержимое';
+$_['tab_category_social']          = 'Социальные';
+$_['tab_category_structure']       = 'Структура';
 $_['tab_css']                      = 'CSS';
 
 //Button
@@ -87,6 +90,7 @@ $_['entry_size']                   = 'Размер колонок';
 $_['entry_category']               = 'Тег категории';
 $_['entry_image_template']         = 'Изображение шаблона';
 $_['entry_sort_order']			   = 'Порядковый номер';
+
 
 //error
 $_['error_name']                   = 'Название Шаблона должно быть от 3 до 255 символов!';

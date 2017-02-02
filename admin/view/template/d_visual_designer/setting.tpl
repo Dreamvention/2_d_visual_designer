@@ -87,29 +87,29 @@
 </div>
 <script type="text/javascript"><!--
 	$(document).ready(function(){
-
-		$(".switcher[type='checkbox']").bootstrapSwitch({
-			'onColor': 'success',
-			'onText': '<?php echo $text_yes; ?>',
-			'offText': '<?php echo $text_no; ?>',
-		});
-	
-		$('body').on('click', '#save_and_stay', function(){
-			$.ajax( {
-				type: 'post',
-				url: $('#form').attr('action') + '&save',
-				data: $('#form').serialize(),
-				beforeSend: function() {
-					$('#form').fadeTo('slow', 0.5);
-				},
-				complete: function() {
-					$('#form').fadeTo('slow', 1);
-				},
-				success: function( response ) {
-					console.log( response );
-				}
-			});
-		});
+ 
+ 	$(".switcher[type='checkbox']").bootstrapSwitch({
+		'onColor': 'success',
+		'onText': '<?php echo $text_yes; ?>',
+		'offText': '<?php echo $text_no; ?>',
 	});
+
+	$('body').on('click', '#save_and_stay', function(){
+		$.ajax( {
+			type: 'post',
+			url: $('#form').attr('action') + '&save',
+			data: $('#form').serialize(),
+			beforeSend: function() {
+				$('#form').fadeTo('slow', 0.5);
+			},
+			complete: function() {
+				$('#form').fadeTo('slow', 1);   
+			},
+			success: function( response ) {
+				console.log( response );
+			}
+		});  
+	});
+});
 //--></script>
 <?php echo $footer; ?>
