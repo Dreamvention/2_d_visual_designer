@@ -11,6 +11,8 @@ class ModelModuleDVisualDesigner extends Model {
     private $parents = array();
 
     private $sort_order = 0;
+    
+    private $sort_orders = array();
 
     private $text = '';
 
@@ -268,6 +270,13 @@ class ModelModuleDVisualDesigner extends Model {
 
         if ( !empty( $m[5] ) ) {
             $current_block = $type.'_'.$this->getRandomString();
+            
+            if(!isset($this->sort_orders[$this->level])){
+                $this->sort_orders[$this->level] = 0;
+            }
+            else{
+                $this->sort_orders[$this->level]++;
+            }
 
             $attr_tmp = $attr;
 
@@ -290,7 +299,7 @@ class ModelModuleDVisualDesigner extends Model {
             $this->settingJS[$current_block] = array(
                 'setting' => $attr,
                 'parent' => $parent_id,
-                'sort_order' => 0,
+                'sort_order' => $this->sort_orders[$this->level],
                 'type' => $type
             );
 
@@ -454,6 +463,7 @@ class ModelModuleDVisualDesigner extends Model {
     }
 
     public function parseDescriptionHelper($description){
+        $this->sort_orders[$this->level] = -1;
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $description);
         array_pop($this->parents);
         $this->level--;

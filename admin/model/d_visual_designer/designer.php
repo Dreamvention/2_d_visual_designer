@@ -15,6 +15,8 @@ class ModelDVisualDesignerDesigner extends Model {
     private $level = 0;
 
     private $sort_order = 0;
+    
+    private $sort_orders = array();
 
     private $parent_clear = false;
 
@@ -138,6 +140,7 @@ class ModelDVisualDesignerDesigner extends Model {
     public function parseDescriptionHelper($description){
         $this->sort_order = 0;
         $this->level++;
+        $this->sort_orders[$this->level] = -1;
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelDVisualDesignerDesigner::do_shortcode_tag', $description);
         array_pop($this->parents);
         $this->level--;
@@ -196,7 +199,14 @@ class ModelDVisualDesignerDesigner extends Model {
 
         if ( !empty( $m[5] ) ) {
             $current_block = $type.'_'.$this->getRandomString();
-
+            
+            if(!isset($this->sort_orders[$this->level])){
+                $this->sort_orders[$this->level] = 0;
+            }
+            else{
+                $this->sort_orders[$this->level]++;
+            }
+            
             $attr_tmp = $attr;
             $attr_tmp['setting_child'] = $this->getChildSetting($m[5], $type);
 
@@ -218,7 +228,7 @@ class ModelDVisualDesignerDesigner extends Model {
             $this->settingJS[$current_block] = array(
                 'setting' => $attr,
                 'parent' => $parent_id,
-                'sort_order' => 0,
+                'sort_order' => $this->sort_orders[$this->level],
                 'type' => $type
             );
 
