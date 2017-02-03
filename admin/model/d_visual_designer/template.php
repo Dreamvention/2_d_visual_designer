@@ -5,6 +5,10 @@
 
 class ModelDVisualDesignerTemplate extends Model {
     
+    private $sort = 'name';
+    
+    private $order = 'ASC';
+    
     public function addTemplate($data){
         $this->db->query("INSERT INTO ".DB_PREFIX."visual_designer_template SET 
             content='".$this->db->escape($data['content'])."', 
@@ -38,35 +42,6 @@ class ModelDVisualDesignerTemplate extends Model {
 
         $sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t ";
 
-        $sort_data = array(
-            'name',
-            'sort_order'
-        );
-
-        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-            $sql .= " ORDER BY " . $data['sort'];
-        } else {
-            $sql .= " ORDER BY sort_order";
-        }
-
-        if (isset($data['order']) && ($data['order'] == 'DESC')) {
-            $sql .= " DESC";
-        } else {
-            $sql .= " ASC";
-        }
-
-        if (isset($data['start']) || isset($data['limit'])) {
-            if ($data['start'] < 0) {
-                $data['start'] = 0;
-            }
-
-            if ($data['limit'] < 1) {
-                $data['limit'] = 20;
-            }
-
-            $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-        }
-
         $query = $this->db->query($sql);
         
         $template_data = array();
@@ -85,7 +60,53 @@ class ModelDVisualDesignerTemplate extends Model {
             }
         }
         
+        $templates_config = $this->getConfigTemplates();
+            
+        $template_data = array_merge($template_data, $templates_config);
+        
+        $sort_data = array(
+            'name',
+            'sort_order'
+        );
+        
+        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+            $this->sort = $data['sort'];
+        }
+        
+        
+        if (isset($data['order']) && ($data['order'] == 'DESC')) {
+            $this->order = "DESC";
+        } else {
+            $this->order = "ASC";
+        }
+        
+        uasort($template_data, 'ModelDVisualDesignerTemplate::sort');
+
+        if (isset($data['start']) || isset($data['limit'])) {
+            if ($data['start'] < 0) {
+                $data['start'] = 0;
+            }
+        
+            if ($data['limit'] < 1) {
+                $data['limit'] = 20;
+            }
+            $template_data = array_slice($template_data, $data['start'], $data['limit']);        
+        }
+        
         return $template_data;
+    }
+    
+    public function sort($a, $b){
+        if($a[$this->sort] < $b[$this->sort]){
+            return $this->order=='ASC'?-1:1;
+        }
+        else{
+            return $this->order=='ASC'?1:-1;
+        }
+        
+        if($a[$this->sort] == $b[$this->sort]){
+            return 0;
+        }
     }
     
     public function getConfigTemplates(){
@@ -146,9 +167,11 @@ class ModelDVisualDesignerTemplate extends Model {
         return array();
     }
        
-    public function getTotalTemplates($data = array()){
+    public function getTotalTemplates(){
         $query = $this->db->query("SELECT count(*) as total FROM ".DB_PREFIX."visual_designer_template t ");
+
+        $templates_config = $this->getConfigTemplates();
         
-        return $query->row['total'];
+        return $query->row['total']+count($templates_config);
     }
 }

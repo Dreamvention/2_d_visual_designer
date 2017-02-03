@@ -239,16 +239,16 @@ class ControllerDVisualDesignerTemplate extends Controller {
 			);
 
 		$template_total = $this->{'model_'.$this->codename.'_template'}->getTotalTemplates($filter_data);
-
+        
 		$results = $this->{'model_'.$this->codename.'_template'}->getTemplates($filter_data);
-
+        
 		foreach ($results as $result) {
-
 			$data['templates'][] = array(
 				'template_id' => $result['template_id'],
 				'name'   => $result['name'],
+                'config' => $result['config'],
 				'sort_order'   => $result['sort_order'],
-				'edit'       => $this->url->link($this->route.'/edit', 'token=' . $this->session->data['token'] . '&template_id=' . $result['template_id'] . $url, 'SSL')
+				'edit'       => $this->url->link($this->route.'/edit', 'token=' . $this->session->data['token'] . '&config='.$result['config'].'&template_id=' . $result['template_id'] . $url, 'SSL')
 				);
 		}
 
@@ -385,9 +385,14 @@ class ControllerDVisualDesignerTemplate extends Controller {
 		}
 
 		$data['cancel'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL');
-
-    	if (!empty($this->request->get['template_id'])) {
+        
+        $data['config'] = false;
+        
+    	if (!empty($this->request->get['template_id'])&&empty($this->request->get['config'])) {
             $template_info = $this->{'model_'.$this->codename.'_template'}->getTemplate($this->request->get['template_id']);
+        }elseif (isset($this->request->get['template_id'])&&!empty($this->request->get['config'])) {
+            $template_info = $this->{'model_'.$this->codename.'_template'}->getConfigTemplate($this->request->get['template_id'], $this->request->get['config']);
+            $data['config'] = true;
         }
 
 		if (isset($this->request->post['name'])) {
@@ -485,9 +490,6 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $json = array();
 
         $templates = $this->model_d_visual_designer_template->getTemplates();
-        $templates_config = $this->model_d_visual_designer_template->getConfigTemplates();
-
-        $templates = array_merge($templates, $templates_config);
 
         $json['templates'] = array();
         $json['categories'] = array();
@@ -598,54 +600,6 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
-    public function autocomplete() {
-		$json = array();
-
-		if (isset($this->request->get['filter_name'])) {
-			if (isset($this->request->get['filter_name'])) {
-				$filter_name = $this->request->get['filter_name'];
-			} else {
-				$filter_name = '';
-			}
-
-			$this->load->model('d_visual_designer/template');
-
-			$filter_data = array(
-				'filter_name'  => $filter_name,
-				'filter_email' => $filter_email,
-				'start'        => 0,
-				'limit'        => 5
-				);
-
-			$results = $this->{'model_module_'.$this->codename}->getSubscribers($filter_data);
-
-			foreach ($results as $result) {
-				$json[] = array(
-					'subscriber_id'       => $result['subscriber_id'],
-					'name'                => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8')),
-					'subscriber_group'    => $result['subscriber_group'],
-					'firstname'           => $result['firstname'],
-					'lastname'            => $result['lastname'],
-					'email'               => $result['email'],
-					'subscribed'          => $result['subscribed'],
-					'language_id'         => $result['language_id'],
-					'store_id'            => $result['store_id']
-					);
-			}
-		}
-
-		$sort_order = array();
-
-		foreach ($json as $key => $value) {
-			$sort_order[$key] = $value['name'];
-		}
-
-		array_multisort($sort_order, SORT_ASC, $json);
-
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
-	}
     public function getFileManager() {
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
             $data['base'] = HTTPS_CATALOG;

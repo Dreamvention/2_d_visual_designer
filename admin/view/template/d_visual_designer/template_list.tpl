@@ -60,11 +60,16 @@
                 <?php if ($templates) { ?>
                 <?php foreach ($templates as $template) { ?>
                 <tr>
-                  <td class="text-center"><?php if (in_array($template['template_id'], $selected)) { ?>
-                    <input class="form-control" type="checkbox" name="selected[]" value="<?php echo $template['template_id']; ?>" checked="checked" />
-                    <?php } else { ?>
-                    <input class="form-control" type="checkbox" name="selected[]" value="<?php echo $template['template_id']; ?>" />
-                    <?php } ?>
+                  <td class="text-center">
+	                  <?php if (empty($template['config'])) { ?>
+		                  <?php if (in_array($template['template_id'], $selected)) { ?>
+                              <input class="form-control" type="checkbox" name="selected[]"
+                                     value="<?php echo $template['template_id']; ?>" checked="checked"/>
+		                  <?php } else { ?>
+                              <input class="form-control" type="checkbox" name="selected[]"
+                                     value="<?php echo $template['template_id']; ?>"/>
+		                  <?php } ?>
+	                  <?php } ?>
                   </td>
                   <td class="text-center"><?php echo $template['name']; ?></td>
                   <td class="text-center"><?php echo $template['sort_order']; ?></td>
