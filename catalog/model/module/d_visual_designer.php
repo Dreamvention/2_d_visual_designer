@@ -780,7 +780,7 @@ class ModelModuleDVisualDesigner extends Model {
 			$this->order = "ASC";
 		}
 
-		uasort($template_data, 'ModelExtensionModuleDVisualDesigner::sort');
+		uasort($template_data, 'ModelModuleDVisualDesigner::sort');
 
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
