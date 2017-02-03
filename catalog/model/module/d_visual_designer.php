@@ -23,6 +23,10 @@ class ModelModuleDVisualDesigner extends Model {
     private $parent_clear = false;
     
     private $error = array();
+    
+    private $sort = 'name';
+    
+    private $order = 'ASC';
 
     public function parseDescription($data){
         $this->setting = array();
