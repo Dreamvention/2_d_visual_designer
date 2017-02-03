@@ -7716,7 +7716,8 @@
             .vd-popup .popup-content .popup-new-template > .element > .template > a > p.title {
               padding-top: 20px;
               color: #000;
-              font-size: 16px; }
+              font-size: 16px;
+              line-height: 18px; }
       .vd-popup .popup-content .popup-new-template > .title {
         margin: 0 1em 0 0;
         color: inherit;
