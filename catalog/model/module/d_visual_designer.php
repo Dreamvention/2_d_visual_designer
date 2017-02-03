@@ -734,31 +734,76 @@ class ModelModuleDVisualDesigner extends Model {
         }
         return $template_data;
     }
-    
-    public function getTemplates(){
 
-        $sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t";
+	public function getTemplates(){
+		$sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t ";
 
-        $query = $this->db->query($sql);
+		$query = $this->db->query($sql);
 
-        $template_data = array();
+		$template_data = array();
 
-        if($query->num_rows){
-            foreach ($query->rows as $row) {
-                $template_data[] = array(
-                    'template_id' => $row['template_id'],
-                    'config' => '',
-                    'content' => $row['content'],
-                    'image' => $row['image'],
-                    'category' => $row['category'],
-                    'sort_order' => $row['sort_order'],
-                    'name' => $row['name']
-                );
-            }
-        }
+		if($query->num_rows){
+			foreach ($query->rows as $row) {
+				$template_data[] = array(
+					'template_id' => $row['template_id'],
+					'content' => $row['content'],
+					'sort_order' => $row['sort_order'],
+					'name' => $row['name'],
+					'config' => '',
+					'image' => $row['image'],
+					'category' => $row['category']
+				);
+			}
+		}
 
-        return $template_data;
-    }
+		$templates_config = $this->getConfigTemplates();
+
+		$template_data = array_merge($template_data, $templates_config);
+
+		$sort_data = array(
+			'name',
+			'sort_order'
+		);
+
+		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+			$this->sort = $data['sort'];
+		}
+
+
+		if (isset($data['order']) && ($data['order'] == 'DESC')) {
+			$this->order = "DESC";
+		} else {
+			$this->order = "ASC";
+		}
+
+		uasort($template_data, 'ModelExtensionModuleDVisualDesigner::sort');
+
+		if (isset($data['start']) || isset($data['limit'])) {
+			if ($data['start'] < 0) {
+				$data['start'] = 0;
+			}
+
+			if ($data['limit'] < 1) {
+				$data['limit'] = 20;
+			}
+			$template_data = array_slice($template_data, $data['start'], $data['limit']);
+		}
+
+		return $template_data;
+	}
+
+	public function sort($a, $b){
+		if($a[$this->sort] < $b[$this->sort]){
+			return $this->order=='ASC'?-1:1;
+		}
+		else{
+			return $this->order=='ASC'?1:-1;
+		}
+
+		if($a[$this->sort] == $b[$this->sort]){
+			return 0;
+		}
+	}
 
     public function getTemplate($template_id){
         $query = $this->db->query("SELECT * FROM ".DB_PREFIX."visual_designer_template t WHERE t.template_id='".$template_id."'");
