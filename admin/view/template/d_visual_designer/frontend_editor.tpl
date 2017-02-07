@@ -12,12 +12,16 @@
     <link type="text/css" href="view/stylesheet/d_visual_designer/frontend.css" rel="stylesheet" media="all" />
     <script type="text/javascript">
         function resize_iframe(){
-            $('iframe').height(window.innerHeight);
+            var $w_height = $( window ).height(),
+            $b_height = $( '.vd-navbar-container' ).height(),
+            $i_height = $w_height - $b_height - 2;
+            $('iframe').height($i_height);
         }
         $(document).ready(function(){
             $('iframe').load(function(){
+                $('#visual-designer-preloader').hide();
+                $('#visual-designer-preloader-icon').hide();
                 $('iframe').contents().find('body').get(0).onsave_content_success = function() {
-                    $('a[id=button-save]').empty();
                     $('a[id=button-save]').button('reset');
                     $('span.notify').html('<?php echo $text_success_update; ?>');
                     $('span.notify').fadeIn('slow');
@@ -25,12 +29,6 @@
                         $('span.notify').fadeOut('slow');
                     }, 2000);
                };
-               $('iframe').contents().find('body').get(0).onpopup_left_active = function() {
-                   $('.vd-navbar.left-bar').css({'left':'calc(5% + 340px)'});
-                };
-               $('iframe').contents().find('body').get(0).onpopup_left_noactive = function() {
-                   $('.vd-navbar.left-bar').css({'left':'5%'});
-                };
                 $('iframe').contents().find('body').get(0).onsave_template_success = function() {
                     $('span.notify').html('<?php echo $text_success_template_save; ?>');
                     $('span.notify').fadeIn('slow');
@@ -84,25 +82,23 @@
         });
         
         $(document).on('click', '[id=mobile-size]', function() {
-            $('iframe').animate({width:'320px'}, 500);
+            $('iframe').animate({width:'320px'});
             return 0;
         });
         
         $(document).on('click', '[id=tablet-size]', function() {
-            $('iframe').animate({width:'768px'}, 500);
+            $('iframe').animate({width:'768px'});
             return 0;
         });
         
         $(document).on('click', '[id=desctop-size]', function() {
-            percent = 1;
-            add_width = (percent*$(window).width())+'px';
-            $('iframe').animate({width:add_width}, 500);
+            $('iframe').animate({width:$(window).width()});
             return 0;
         });
-        
         $(window).on('resize',function(){
-            $('iframe').removeAttr('style');
-            $('iframe').attr('style','height:'+(window.innerHeight)+'px');
+            resize_iframe();
+            // $('iframe').removeAttr('style');
+            // $('iframe').attr('style','height:'+(window.innerHeight)+'px');
         });
         $(document).ready(function(){
             resize_iframe();
@@ -124,30 +120,25 @@
     </script>
 </head>
 <body>
-    <div class="">
+    <div class="vd-navbar-container">
         <span class="notify"></span>
             <div class="vd-navbar left-bar">
                 <a id="button-add" class="vd-btn vd-btn-add-block" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_add_block;?>"></a>
                 <a id="button-add-template" class="vd-btn vd-btn-add-template" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_add_template;?>"></a>
                 <a id="button-save-template" class=" vd-btn vd-btn-save-template" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_save_template;?>"></a>
-                <div class="vd-dropdown">
-                    <a class="vd-btn vd-btn-desktop" id="switch-view" data-mode="desktop"></a>
-                    <ul class="vd-dropdown-list">
-                        <li><a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="right" title="<?php echo $button_mobile;?>"></a></li>
-                        <li><a id="tablet-size" class="vd-btn vd-btn-tablet" data-mode="tablet" data-toggle="tooltip" data-placement="right" title="<?php echo $button_tablet;?>"></a></li>
-                        <li><a id="desctop-size" class="vd-btn vd-btn-desktop" data-mode="desktop" data-toggle="tooltip" data-placement="right" title="<?php echo $button_desktop;?>"></a></li>
-                    </ul>
-                </div>
-                
-                
-                
+               <a id="desctop-size" class="vd-btn vd-btn-desktop" data-mode="desktop" data-toggle="tooltip" data-placement="right" title="<?php echo $button_desktop;?>"></a>
+                <a id="tablet-size" class="vd-btn vd-btn-tablet" data-mode="tablet" data-toggle="tooltip" data-placement="right" title="<?php echo $button_tablet;?>"></a>
+                <a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="right" title="<?php echo $button_mobile;?>"></a>
             </div>
             <div class="vd-navbar right-bar">
                 <a id="button-backend" data-url="<?php echo $backend_url; ?>"><?php echo $button_backend_editor; ?></a>
                 <a id="button-save" data-loading-text="Loading..."><?php echo $button_publish; ?></a>
                 <a id="button-close"><?php echo $button_cancel; ?></a>
             </div>
-        <iframe src="<?php echo $url.'&edit'; ?>" onload="resize_iframe()" frameborder="0" border="0"/>
     </div>
+    <div id="visual-designer-preloader"></div>
+    <div id="visual-designer-preloader-icon" class="la-ball-scale-ripple-multiple la-2x"><div></div><div></div><div></div></div>
+    <iframe src="<?php echo $url.'&edit'; ?>" onload="resize_iframe()" frameborder="0" border="0"/>
+
 </body>
 </html>

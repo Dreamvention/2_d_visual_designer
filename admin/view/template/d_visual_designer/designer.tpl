@@ -6,31 +6,22 @@
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
 <?php } ?>
 
-<div class="vd mode_switch btn-group"  role="group" >
+<div class="vd mode_switch btn-group"  role="group" style="display:none;" >
     <a id="button_classic" data-id="<?php echo $designer_id; ?>" class="btn btn-default"><?php echo $text_classic_mode; ?></a>
     <a id="button_vd" data-id="<?php echo $designer_id; ?>" class="btn btn-default hidden"><?php echo $text_backend_editor; ?></a>
     <?php if(!empty($frontend_route)){ ?>
     <a id="button_frontend"  data-href="<?php echo $frontend_route; ?>" class="btn btn-default"><?php echo $text_frontend_editor; ?></a>
     <?php } ?>
 </div>
-<div class="content vd" id="<?php echo $designer_id; ?>">
-    <div class="title"><?php echo $text_designer; ?></div>
+<div class="content vd" id="<?php echo $designer_id; ?>" style="display:none">
     <div class="row" id="d_visual_designer_nav">
         <div class="pull-left">
-            <a id="button_add" class="btn btn-default">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </a>
-            <a id="button_template" class="btn btn-default">
-                <i class="fa fa-file-text-o" aria-hidden="true"></i>
-            </a>
+            <a id="button_add" class="btn btn-default"></a>
+            <a id="button_template" class="btn btn-default"></a>
+            <a id="button_save_template" class="btn btn-default"></a>
         </div>
         <div class="pull-right">
-            <a id="button_save_template" class="btn btn-default">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-            </a>
-            <a id="button_full_screen" class="btn btn-default">
-                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-            </a>
+            <a id="button_full_screen" class="btn btn-default"></a>
         </div>
     </div>
     <div class="vd-notify">Successfully updated!</div>

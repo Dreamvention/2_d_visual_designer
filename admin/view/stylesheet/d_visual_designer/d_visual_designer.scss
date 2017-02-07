@@ -1,6 +1,13 @@
-@import "loader.scss";
+@import "loader.css";
 @import "control.scss";
 @import "component.scss";
+
+@font-face {
+  font-family: 'Glyph';
+  src:  url('fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+  url('fonts/glyphicons-halflings-regular.woff') format('woff');
+}
+
 .animate-speed{
 	-webkit-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
@@ -55,6 +62,7 @@
 }
 
 .content {
+
     position: relative;
 
     min-width: 155px;
@@ -62,6 +70,11 @@
     border: 1px solid #e5e5e5;
     background: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
+
+    .glyphicon {
+        font-family: 'Glyph';
+    }
+
     &.fullscreen {
         position: fixed;
         z-index: 1000;
@@ -111,26 +124,63 @@
         margin: 0;
 
         border: 0;
-        border-bottom: 1px solid #f5f5f5;
-        background-color: #fcfcfc;
+        background-color: #1F7DC7;
+
 
         & a:hover {
             background-color: #f5f5f5;
         }
 
         & a {
-            display: flex;
-            float: left;
-            flex-direction: row;
+             display: inline-block;
+            cursor: pointer;
+            width:60px;
+            height:60px;
+            background-color: #308cd6;
+            border: none;
+            float:left;
+            margin-right:1px;
+            border-radius:0px;
+            box-shadow: none;
 
-            width: 61px;
-            height: 56px;
-            margin: 0;
+            &#button_add{
+                background-color:#F5C000;
+                &:hover{
+                    background-color:#f7cd32;
+                }
+            }    
 
-            border: 0;
+            &#button_add{
+                background-image:url('../../image/d_visual_designer/add-block.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+            }
 
-            justify-content: center;
-            align-items: center;
+            &#button_template{
+               background-image:url('../../image/d_visual_designer/template-add.svg');
+               background-repeat: no-repeat;
+               background-position: center;
+            }
+
+            &#button_save_template{
+               background-image:url('../../image/d_visual_designer/template-save.svg');
+               background-repeat: no-repeat;
+               background-position: center;
+            }
+            &#button_full_screen{
+               background-image:url('../../image/d_visual_designer/resize-full.svg');
+               background-repeat: no-repeat;
+               background-position: center;
+               &.active{
+                background-image:url('../../image/d_visual_designer/resize-small.svg');
+                background-repeat: no-repeat;
+                background-position: center;
+               }
+            }
+            
+            &:hover{
+                background-color: #56a6e6;
+            }
 
             & > i {
                 font-size: 35px;
@@ -656,7 +706,7 @@
 					padding-top: 20px;
 					color: #000;
 					font-size: 16px;
-					line-height: 18px;
+                    line-height: 20px;
 				}
             }
         }
@@ -814,7 +864,7 @@
     width: 50%;
     min-width: 400px;
     height: auto;
-    max-height: 50%;
+    max-height: 75%;
 
     -webkit-box-align: stretch;
         -ms-flex-align: stretch;
@@ -825,6 +875,10 @@
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
 
+
+    .glyphicon {
+        font-family: 'Glyph';
+    }
 
 
     &:not(.drag){
@@ -1119,6 +1173,21 @@
         -webkit-box-flex: 1;
             -ms-flex: 1 1 auto;
                 flex: 1 1 auto;
+
+        .icons-selector{
+            width:100%;
+            .selector-popup{
+                position: relative;
+                min-width: 100%;
+                max-height: 100%;
+                overflow: hidden;
+                > .fip-icons-container{
+                    max-height: 300px;
+                    overflow: auto;
+                }
+                
+            }
+        }
 
         .form-group{
             margin: 0px 0px 20px 0px;

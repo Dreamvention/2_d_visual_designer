@@ -39,6 +39,8 @@ var d_visual_designer = {
         edit_block:'',
         //Шаблон добавления нового шаблона
         add_template:'',
+        //Шаблон Лоадера
+        loader:'<div id="visual-designer-loader" class="la-ball-scale-ripple-multiple la-dark la-2x"><div></div><div></div><div></div></div>' 
     },
     //Инициализация начальных значений
     init: function(setting){
@@ -57,6 +59,16 @@ var d_visual_designer = {
                 dataType: 'json',
                 data:send_data,
                 type:'post',
+                beforeSend:function(){
+                    $(element).before('<link rel="stylesheet" href="view/stylesheet/d_visual_designer/loader.css">');
+                    $(element).closest('div').append(that.template.loader);
+                    if($(element).next().hasClass('note-editor')){
+                        $(element).next().fadeTo('slow', 0.5);
+                    }
+                    else{
+                        $(element).fadeTo('slow', 0.5);
+                    }
+                },
                 success: function(json) {
                     if(json['success']){
                         var designer_id = $('<div>'+json['content']+'</div>').find('.vd.content').attr('id');
@@ -71,12 +83,28 @@ var d_visual_designer = {
                         var button_vd = $(json['content']).find('#button_vd');
                         
                         that.setting.form.find('#'.designer_id).tooltip();
+                        setTimeout(function(){
+                            $(element).closest('div').find('div#visual-designer-loader').remove();
+                            if($(element).next().hasClass('note-editor')){
+                                $(element).next().fadeTo('slow', 1);
+                            }
+                            else{
+                                $(element).fadeTo('slow', 1);
+                            }
+                            that.enable(button_vd);
+                        }, 1000)
                         
-                        that.enable(button_vd);
                         that.initSortable();
                         that.initPartial();
                     }
                     if(json['error']){
+                        $(element).closest('div').find('div#visual-designer-loader').remove();
+                        if($(element).next().hasClass('note-editor')){
+                            $(element).next().fadeTo('slow', 1);
+                        }
+                        else{
+                            $(element).fadeTo('slow', 1);
+                        }
                         console.log(json['error']);
                     }
                 }
@@ -284,6 +312,7 @@ var d_visual_designer = {
     //Включение дизайнера
     enable:function(element){
         var designer_id = $(element).data('id');
+        this.setting.form.find('#'+designer_id).prev().removeAttr('style');
         this.setting.form.find('#'+designer_id).removeAttr('style');
         this.setting.form.find('#'+designer_id).parents('.form-group').find('.note-editor').css('display','none');
     },
@@ -337,10 +366,12 @@ var d_visual_designer = {
     fullscreen:function(designer_id){
         if(this.setting.form.find('#'+designer_id).hasClass('fullscreen')){
             this.setting.form.find('#'+designer_id).removeClass('fullscreen');
+            this.setting.form.find('#'+designer_id).find('#d_visual_designer_nav').find('#button_full_screen').removeClass('active');
             $('body').removeAttr('style');
         }
         else{
             this.setting.form.find('#'+designer_id).addClass('fullscreen');
+             this.setting.form.find('#'+designer_id).find('#d_visual_designer_nav').find('#button_full_screen').addClass('active');
             $('body').attr('style','overflow:hidden');
         }
     },
@@ -1032,7 +1063,7 @@ var d_visual_designer = {
         return collector;
     },
 };
-$(document).ready(function() {
+$(window).load(function() {
     var setting = {
         form: $('.d_visual_designer:first').parents('form'),
     };

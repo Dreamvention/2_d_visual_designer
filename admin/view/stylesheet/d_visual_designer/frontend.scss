@@ -1,4 +1,4 @@
-@import "loader.scss";
+@import "loader.css";
 
 html,body{
     overflow: hidden;
@@ -8,7 +8,7 @@ html,body{
 span.notify{
     position: absolute;
     z-index: 123;
-    top: 0px;
+    top: 60px;
     left: 0;
 
     display: none;
@@ -24,18 +24,44 @@ span.notify{
 
     line-height: 30px;
 }
+.vd-navbar-container{
+    position:relative;
+    height:60px;
+    background-color:#1F7DC7;
+    box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+    z-index: 3;
+}
+[id=visual-designer-preloader]{
+    background: #000;
+    bottom: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    opacity: .5;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+[id=visual-designer-preloader-icon]{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -32px 0 0 -32px;
+    z-index: 2;
+}
+
 .vd-navbar{
     &.left-bar{
-        position: fixed;
-        left: 5%;
-        top: 5%;
-        background-color: rgb(255, 255, 255);
-        box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+        float:left;
+        
         border-radius: 3px;
         > a{
+            margin-right:1px;
             &:first-child{
-                border-top-left-radius:3px;
-                border-bottom-left-radius:3px;
+                background-color:#F5C000;
+                &:hover{
+                    background-color:#f7cd32;
+                }
             }    
         }
         .vd-dropdown{
@@ -59,8 +85,8 @@ span.notify{
         .vd-btn{
             display: inline-block;
             cursor: pointer;
-            width:40px;
-            height:40px;
+            width:60px;
+            height:60px;
             background-color: #308cd6;
             
             float:left;
@@ -72,19 +98,17 @@ span.notify{
     }
     
     &.right-bar{
-        position: fixed;
-        top: 5%;
-        right: 5%;
+        float:right;
         background-color: rgb(255, 255, 255);
         box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
         border-radius: 3px;
         > a{
             display: block;
             float:left;
-            height: 40px;
+            height: 60px;
             cursor: pointer;
             color:#fff;
-            line-height: 30px;
+            line-height: 50px;
             padding: 5px 13px;
             font-size: 13px;
             font-weight: bold;
@@ -156,52 +180,6 @@ span.notify{
         background-repeat: no-repeat;
         background-position: center;
     }
-    // > div{
-    //     display: flex;
-    // 
-    //     height: 60px;
-    // 
-    //     align-items: center;
-    //     > button{
-    //         &:hover, &:active, &:focus, &:active:hover, &:active:focus{
-    //         }
-    //     }
-    //     > a{
-    //         display: flex;
-    //         float: left;
-    //         flex-direction: row;
-    // 
-    //         width: 61px;
-    //         height: 60px;
-    //         margin: 0;
-    // 
-    //         border: 0;
-    //         border-right: 1px solid #469EE8;
-    //         background-color: #308CD7;
-    // 
-    //         justify-content: center;
-    //         align-items: center;
-    //         &:first{
-    //             border-left:1px solid #308CD7;
-    //         }
-    //         &:hover{
-    //             cursor:pointer;
-    // 
-    //             background-color: #56a6e6;
-    //         }
-    //         &#button-close{
-    //             background: url('../../image/d_visual_designer/cross.svg') no-repeat center;
-    //             &:hover{
-    //                 cursor:pointer;
-    // 
-    //                 background-color: #56a6e6;
-    //             }
-    //         }
-    //         > i{
-    //             color: #fff;
-    //         }
-    //     }
-    // }
 }
 
 iframe{
