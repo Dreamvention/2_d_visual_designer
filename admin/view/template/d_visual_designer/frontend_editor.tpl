@@ -97,8 +97,6 @@
         });
         $(window).on('resize',function(){
             resize_iframe();
-            // $('iframe').removeAttr('style');
-            // $('iframe').attr('style','height:'+(window.innerHeight)+'px');
         });
         $(document).ready(function(){
             resize_iframe();
@@ -126,9 +124,9 @@
                 <a id="button-add" class="vd-btn vd-btn-add-block" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_add_block;?>"></a>
                 <a id="button-add-template" class="vd-btn vd-btn-add-template" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_add_template;?>"></a>
                 <a id="button-save-template" class=" vd-btn vd-btn-save-template" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_save_template;?>"></a>
-               <a id="desctop-size" class="vd-btn vd-btn-desktop" data-mode="desktop" data-toggle="tooltip" data-placement="right" title="<?php echo $button_desktop;?>"></a>
-                <a id="tablet-size" class="vd-btn vd-btn-tablet" data-mode="tablet" data-toggle="tooltip" data-placement="right" title="<?php echo $button_tablet;?>"></a>
-                <a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="right" title="<?php echo $button_mobile;?>"></a>
+               <a id="desctop-size" class="vd-btn vd-btn-desktop" data-mode="desktop" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_desktop;?>"></a>
+                <a id="tablet-size" class="vd-btn vd-btn-tablet" data-mode="tablet" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_tablet;?>"></a>
+                <a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="bottom" title="<?php echo $button_mobile;?>"></a>
             </div>
             <div class="vd-navbar right-bar">
                 <a id="button-backend" data-url="<?php echo $backend_url; ?>"><?php echo $button_backend_editor; ?></a>
