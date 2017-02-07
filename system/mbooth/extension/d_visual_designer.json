@@ -156,7 +156,8 @@
         "catalog/view/theme/default/image/d_visual_designer",
         "catalog/view/javascript/d_visual_designer",
         
-        "image/catalog/d_visual_designer"
+        "image/catalog/d_visual_designer",
+        "image/catalog/d_visual_designer_template/default"
     ],
     "changelog": [
         {
