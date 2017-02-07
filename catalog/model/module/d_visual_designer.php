@@ -462,8 +462,19 @@ class ModelModuleDVisualDesigner extends Model {
 
     public function loadView($route, $data){
         $route = rtrim($route, ".tpl");
-        
-        return $this->load->view($route, $data);
+     
+        if(VERSION>='2.2.0.0')
+        {
+            return $this->load->view($route, $data);
+        }
+        else
+        {
+            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$route.'.tpl')) {
+                return $this->load->view($this->config->get('config_template') . '/template/'.$route.'.tpl', $data);
+            } else {
+                return $this->load->view('default/template/'.$route.'.tpl', $data);
+            }
+        }
     }
 
     public function parseDescriptionHelper($description){
