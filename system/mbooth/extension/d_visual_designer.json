@@ -42,9 +42,7 @@
         "system/mbooth/extension/d_visual_designer.json",
         "system/mbooth/install/d_visual_designer.xml",
         "system/config/d_visual_designer.php",
-        
-        "system/config/d_visual_designer_template/default.php",
-        
+                
         "system/config/d_visual_designer_route/add_category.php",
         "system/config/d_visual_designer_route/add_information.php",
         "system/config/d_visual_designer_route/add_product.php",
@@ -156,8 +154,7 @@
         "catalog/view/theme/default/image/d_visual_designer",
         "catalog/view/javascript/d_visual_designer",
         
-        "image/catalog/d_visual_designer",
-        "image/catalog/d_visual_designer_template/default"
+        "image/catalog/d_visual_designer"
     ],
     "changelog": [
         {
