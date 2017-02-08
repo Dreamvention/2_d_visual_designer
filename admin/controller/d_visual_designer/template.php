@@ -200,7 +200,8 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $data['text_templates'] = $this->language->get('text_templates');
         $data['text_setting'] = $this->language->get('text_setting');
         $data['text_instructions'] = $this->language->get('text_instructions');
-
+        
+        $data['column_image'] = $this->language->get('column_image');
     	$data['column_name'] = $this->language->get('column_name');
 		$data['column_sort_order'] = $this->language->get('column_sort_order');
 		$data['column_action'] = $this->language->get('column_action');
@@ -242,9 +243,21 @@ class ControllerDVisualDesignerTemplate extends Controller {
         
 		$results = $this->{'model_'.$this->codename.'_template'}->getTemplates($filter_data);
         
+        $this->load->model('tool/image');
+        
 		foreach ($results as $result) {
+            
+            if(file_exists(DIR_IMAGE.$result['image'])){
+                $image = $this->model_tool_image->resize($result['image'], 50,50);
+            }
+            else{
+                $image = $this->model_tool_image->resize('no_image.png', 50,50);
+                
+            }
+            
 			$data['templates'][] = array(
 				'template_id' => $result['template_id'],
+                'image' => $image,
 				'name'   => $result['name'],
                 'config' => $result['config'],
 				'sort_order'   => $result['sort_order'],

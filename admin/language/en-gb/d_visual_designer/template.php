@@ -9,6 +9,7 @@ $_['text_file_manager']  = 'File Manager';
 
 //column
 $_['column_name']        = 'Name';
+$_['column_image']       = 'Image';
 $_['column_sort_order']  = 'Sort Order';
 $_['column_action']      = 'Action';
 

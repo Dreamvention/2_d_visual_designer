@@ -6,6 +6,7 @@ $_['text_file_manager']  = 'Файловый менеджер';
 
 //column
 $_['column_name']        = 'Название';
+$_['column_image']       = 'Изображение';
 $_['column_sort_order']  = 'Порядковый номер';
 $_['column_action']      = 'Действие';
 
