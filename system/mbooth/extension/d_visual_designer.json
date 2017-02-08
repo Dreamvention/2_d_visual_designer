@@ -152,9 +152,7 @@
         "catalog/view/theme/default/template/d_visual_designer",
         "catalog/view/theme/default/stylesheet/d_visual_designer",
         "catalog/view/theme/default/image/d_visual_designer",
-        "catalog/view/javascript/d_visual_designer",
-        
-        "image/catalog/d_visual_designer"
+        "catalog/view/javascript/d_visual_designer"
     ],
     "changelog": [
         {
