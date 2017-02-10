@@ -7,6 +7,7 @@
 <script>
     $('textarea[name=text]').summernote({
         height:'200px',
+        disableDragAndDrop: true,
         onChange: function(contents, $editable) {
             if('<?php echo VERSION; ?>' >= '2.2.0.0')
             {

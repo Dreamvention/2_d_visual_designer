@@ -5,5 +5,8 @@
     </div>
 </div>
 <script>
-    $('textarea[name=text]').summernote({height:'200px'});
+$('textarea[name=text]').summernote({
+    height:'200px',
+    disableDragAndDrop: true
+});
 </script>
