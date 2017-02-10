@@ -720,7 +720,12 @@ class ModelModuleDVisualDesigner extends Model {
     public function getConfigTemplates(){
         
         $dir = DIR_CONFIG.'d_visual_designer_template/';
-        $files = scandir($dir);
+        if(is_dir($dir)){
+            $files = scandir($dir);
+        }
+        else{
+            $files = array();
+        }
         $template_data = array();
         
         foreach($files as $file){
