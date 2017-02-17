@@ -23,6 +23,10 @@ span.notify{
     background: #D8EDC7;
 
     line-height: 30px;
+    &.error{
+        background: #f2dede;
+        color:#333;
+    }
 }
 .vd-navbar-container{
     position:relative;

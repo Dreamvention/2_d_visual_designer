@@ -447,18 +447,6 @@
         </div>
     </div>
 </script>
-<script type="text/html" id="template-loader">
-    <div class="la-line-spin-clockwise-fade la-dark">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</script>
 <script>
 var teplate = {
     row_layout:$('script#template-row-layout:first'),
@@ -466,8 +454,7 @@ var teplate = {
     edit_block:$('script#template-edit-block:first'),
     add_template:$('script#template-add-template:first'),
     save_template:$('script#template-save-template:first'),
-    helper:$('script#template-helper-sortable:first'),
-    loader:$('script#template-loader:first')
+    helper:$('script#template-helper-sortable:first')
 
 };
 d_visual_designer.initTemplate(teplate);

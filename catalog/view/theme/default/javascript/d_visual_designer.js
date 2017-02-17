@@ -843,18 +843,21 @@ var d_visual_designer = {
         var send_data = {};
         send_data[setting.field_name] = text;
         
-        this.settings[designer_id].form.find('input[type=hidden][name=status_save]').val(1);
-        
         $.ajax({
             type: 'post',
             url:setting.edit_url+'&id='+setting.id,
             dataType:'json',
             data: send_data,
             success:function(json){
-                that.settings[designer_id].form.find('input[type=hidden][name=status_save]').val(0);
                 console.log(json);
-                that.setting.stateEdit = false;
-                $('body').trigger('save_content_success');
+                if(json['success']){
+                    that.setting.stateEdit = false;
+                    $('body').trigger('save_content_success');
+                }
+                else{
+                    that.setting.stateEdit = false;
+                    $('body').trigger('save_content_permission');
+                }
             }
         });
     },

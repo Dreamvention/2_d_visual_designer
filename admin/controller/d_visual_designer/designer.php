@@ -266,6 +266,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             
             $data['text_save_template'] = $this->language->get('text_save_template');
             $data['text_success_update'] = $this->language->get('text_success_update');
+            $data['error_permission'] = $this->language->get('error_permission');
             $data['text_success_template_save'] = $this->language->get('text_success_template_save');
             $data['text_success_clone_block'] = $this->language->get('text_success_clone_block');
             $data['text_success_remove_block'] = $this->language->get('text_success_remove_block');

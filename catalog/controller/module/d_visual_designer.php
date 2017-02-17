@@ -520,7 +520,7 @@ class ControllerModuleDVisualDesigner extends Controller {
         $json = array();
 
         $templates = $this->model_module_d_visual_designer->getTemplates();
-
+        
         $json['templates'] = array();
         $json['categories'] = array();
 
@@ -601,8 +601,22 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(!empty($this->request->get['id'])){
             $product_id = $this->request->get['id'];
         }
+        
+        if(VERSION >= '2.2.0.0'){
+            $this->user = new Cart\User($this->registry);
+        }
+        else{
+            $this->user = new User($this->registry);
+        }
+        
+        if (!$this->user->hasPermission('modify', 'catalog/product')) {
+			$permission = false;
+		}
+        else{
+            $permission = true;
+        }
 
-        if(isset($product_description)&&isset($product_id)){
+        if(isset($product_description)&&isset($product_id)&&$permission){
 
             $this->{'model_module_'.$this->codename}->editProduct($product_id, array('product_description' => $product_description));
 
@@ -625,8 +639,22 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(!empty($this->request->get['id'])){
             $category_id = $this->request->get['id'];
         }
+        
+        if(VERSION >= '2.2.0.0'){
+            $this->user = new Cart\User($this->registry);
+        }
+        else{
+            $this->user = new User($this->registry);
+        }
+        
+        if (!$this->user->hasPermission('modify', 'catalog/category')) {
+		    $permission = false;
+		}
+        else{
+            $permission = true;
+        }
 
-        if(isset($category_description)&&isset($category_id)){
+        if(isset($category_description)&&isset($category_id)&&$permission){
 
             $this->{'model_module_'.$this->codename}->editCaregory($category_id, array('category_description' => $category_description));
 
@@ -649,8 +677,22 @@ class ControllerModuleDVisualDesigner extends Controller {
         if(!empty($this->request->get['id'])){
             $information_id = $this->request->get['id'];
         }
+        
+        if(VERSION >= '2.2.0.0'){
+            $this->user = new Cart\User($this->registry);
+        }
+        else{
+            $this->user = new User($this->registry);
+        }
+        
+        if (!$this->user->hasPermission('modify', 'catalog/information')) {
+		          $permission = false;
+		}
+        else{
+            $permission = true;
+        }
 
-        if(isset($information_description)&&isset($information_id)){
+        if(isset($information_description)&&isset($information_id)&&$permission){
 
             $this->{'model_module_'.$this->codename}->editInformation($information_id, array('information_description' => $information_description));
 
