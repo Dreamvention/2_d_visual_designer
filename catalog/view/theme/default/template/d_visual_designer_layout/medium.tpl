@@ -1,4 +1,4 @@
-<div class="block-inner block-container col-md-<?php echo $size; ?> level<?php echo $level; ?> 
+<div class="block-inner block-container col-md-offset-<?php echo $offset; ?> col-md-<?php echo $size; ?> level<?php echo $level; ?> 
     <?php echo !empty($setting['additional_css_class'])?$setting['additional_css_class']:''; ?>" 
     id="<?php echo $key; ?>" data-title="<?php echo $title; ?>" data-image="<?php echo $image; ?>">
     <?php if($permission && $display_control) {?>
@@ -72,15 +72,16 @@
     <?php } ?>
     <?php if(!empty($setting['design_background_image'])) {?>
         background-image: url( <?php echo $setting['design_background_image']; ?>) ;
+        <?php if(!empty($setting['design_background_image_position_vertical'] && !empty($setting['design_background_image_position_horizontal']))) {?>
+                background-position: <?php echo $setting['design_background_image_position_horizontal']; ?> <?php echo $setting['design_background_image_position_vertical']; ?>;
+            <?php } ?> 
         <?php if($setting['design_background_image_style'] == 'cover') { ?>
             background-size: cover;
-            background-repeat: no-repeat;
-
+            background-repeat: no-repeat;      
         <?php } ?>
         <?php if($setting['design_background_image_style'] == 'contain') { ?>
             background-size: contain;
             background-repeat: no-repeat;
-            background-position: center;
         <?php } ?>
         <?php if($setting['design_background_image_style'] == 'repeat') { ?>
             background-repeat: repeat;

@@ -30,6 +30,16 @@ $_['text_right']                   = 'Справа';
 $_['text_top']                     = 'Вверху';
 $_['text_bottom']                  = 'Низ';
 
+//positions
+$_['text_position_left']           = 'Слева';
+$_['text_position_right']          = 'Справа';
+$_['text_position_top']            = 'Вверху';
+$_['text_position_bottom']         = 'Внизу';
+$_['text_position_center']         = 'По центру';
+
+$_['text_horizontal']              = 'По горизонтали';
+$_['text_vertical']                = 'По вертикали';
+
 //tab
 $_['tab_save_block']               = 'Сохранить шаблон';
 $_['tab_templates']                = 'Шаблоны';
@@ -38,7 +48,7 @@ $_['tab_design']                   = 'Дизайн';
 $_['tab_css']                      = 'CSS';
 $_['tab_all_blocks']               = 'Все';
 $_['tab_category_content']         = 'Содержимое';
-$_['tab_content_social']           = 'Социальные';
+$_['tab_category_social']          = 'Социальные';
 $_['tab_category_structure']       = 'Структура';
 $_['tab_css']                      = 'CSS';
 
@@ -70,11 +80,12 @@ $_['entry_margin']                 = 'Внешний отступ';
 $_['entry_padding']                = 'Внутренний отступ';
 $_['entry_border']                 = 'Размер рамки';
 $_['entry_image']                  = 'Фон';
-$_['entry_image_style']            = 'Положение фона';
+$_['entry_image_style']            = 'Размер фона';
+$_['entry_image_position']         = 'Положение фона';
 $_['entry_size']                   = 'Задать вручную';
 $_['entry_category']               = 'Тег категории';
 $_['entry_sort_order']             = 'Порядковый номер';
 $_['entry_image_template']         = 'Изображение шаблона';
 
 //error
-$_['error_template_name']         = 'Название Шаблона должно быть от 3 до 255 символов!';
+$_['error_template_name']          = 'Название Шаблона должно быть от 3 до 255 символов!';

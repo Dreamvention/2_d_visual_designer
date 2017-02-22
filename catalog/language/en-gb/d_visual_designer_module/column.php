@@ -16,3 +16,4 @@ $_['text_right']       = 'Right';
 $_['entry_size']       = 'Size column';
 $_['entry_float']      = 'Float';
 $_['entry_align']      = 'Align';
+$_['entry_offset']     = 'Offset';

@@ -69,7 +69,7 @@
 							<input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>"id="input_checkbox" name="<?php echo $id;?>_setting[save_change]" <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
 						</div>
 					</div>
-					
+				
 					<div class="form-group">
 						<label class="col-sm-2 control-label" for="button_support_email"><?php echo $entry_support; ?></label>
 						<div class="col-sm-2">
@@ -87,7 +87,7 @@
 </div>
 <script type="text/javascript"><!--
 	$(document).ready(function(){
- 
+
  	$(".switcher[type='checkbox']").bootstrapSwitch({
 		'onColor': 'success',
 		'onText': '<?php echo $text_yes; ?>',

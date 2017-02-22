@@ -1,12 +1,14 @@
 <?php
-class ControllerDVisualDesignerSetting extends Controller {
+class ControllerDVisualDesignerSetting extends Controller
+{
     private $codename = 'd_visual_designer';
     private $route = 'd_visual_designer/setting';
     private $extension = '';
     private $store_id = 0;
     private $error = array();
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         parent::__construct($registry);
 
         $this->load->language('module/d_visual_designer');
@@ -14,21 +16,20 @@ class ControllerDVisualDesignerSetting extends Controller {
         $this->load->model('module/d_visual_designer');
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
-		if($this->d_shopunity){
+        if ($this->d_shopunity) {
             $this->load->model('d_shopunity/mbooth');
             $this->extension = $this->model_d_shopunity_mbooth->getExtension($this->codename);
         }
-		$this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
+        $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
     }
 
-    public function index(){
-
+    public function index()
+    {
         $this->load->model('setting/setting');
         $this->load->model('d_shopunity/setting');
 
         //save post
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-      
             $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -42,15 +43,13 @@ class ControllerDVisualDesignerSetting extends Controller {
         $this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
         $this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
 
-        // Add more styles, links or scripts to the project is necessary
         $url_params = array();
-        $url = '';
 
-        if(isset($this->response->get['store_id'])){
+        if (isset($this->response->get['store_id'])) {
             $url_params['store_id'] = $this->store_id;
         }
 
-        $url = ((!empty($url_params)) ? '&' : '' ) . http_build_query($url_params);
+        $url = ((!empty($url_params)) ? '&' : '') . http_build_query($url_params);
 
         // Breadcrumbs
         $data['breadcrumbs'] = array();
@@ -70,7 +69,7 @@ class ControllerDVisualDesignerSetting extends Controller {
         );
 
         // Notification
-        foreach($this->error as $key => $error){
+        foreach ($this->error as $key => $error) {
             $data['error'][$key] = $error;
         }
 
@@ -109,14 +108,14 @@ class ControllerDVisualDesignerSetting extends Controller {
         $data['button_save_and_stay'] = $this->language->get('button_save_and_stay');
         $data['button_cancel'] = $this->language->get('button_cancel');
         $data['button_remove'] = $this->language->get('button_remove');
-
+   
         // Entry
         $data['entry_status'] = $this->language->get('entry_status');
-
+    
         // Text
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_disabled'] = $this->language->get('text_disabled');
-
+    
         //column
         $data['column_action'] = $this->language->get('column_action');
         $data['column_status'] = $this->language->get('column_status');
@@ -129,9 +128,10 @@ class ControllerDVisualDesignerSetting extends Controller {
 
         $data['tab_routes'] = $this->language->get('tab_routes');
         $data['tab_templates'] = $this->language->get('tab_templates');
+        
         //action
-
         $data['module_link'] = $this->url->link($this->route, 'token=' . $this->session->data['token'], 'SSL');
+        
         $data['action'] = $this->url->link($this->codename.'/setting', 'token=' . $this->session->data['token'] . $url, 'SSL');
         
         $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
@@ -154,16 +154,16 @@ class ControllerDVisualDesignerSetting extends Controller {
         $data['text_instruction'] = $this->language->get('text_instruction');
 
 
-        $data['href_templates'] = $this->url->link($this->codename.'/template','token='.$this->session->data['token'], 'SSL');
-        $data['href_setting'] = $this->url->link($this->codename.'/setting','token='.$this->session->data['token'], 'SSL');
-        $data['href_instruction'] = $this->url->link($this->codename.'/instruction','token='.$this->session->data['token'], 'SSL');
+        $data['href_templates'] = $this->url->link($this->codename.'/template', 'token='.$this->session->data['token'], 'SSL');
+        $data['href_setting'] = $this->url->link($this->codename.'/setting', 'token='.$this->session->data['token'], 'SSL');
+        $data['href_instruction'] = $this->url->link($this->codename.'/instruction', 'token='.$this->session->data['token'], 'SSL');
 
         if (isset($this->request->post[$this->codename.'_status'])) {
             $data[$this->codename.'_status'] = $this->request->post[$this->codename.'_status'];
         } else {
             $data[$this->codename.'_status'] = $this->config->get($this->codename.'_status');
         }
-
+        
         //get setting
         $data['setting'] = $this->model_d_shopunity_setting->getSetting($this->codename);
 
@@ -172,11 +172,12 @@ class ControllerDVisualDesignerSetting extends Controller {
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-
+        
         $this->response->setOutput($this->load->view('d_visual_designer/setting.tpl', $data));
     }
-    private function validate($permission = 'modify') {
 
+    private function validate($permission = 'modify')
+    {
         $this->language->load($this->route);
 
         if (!$this->user->hasPermission($permission, $this->route)) {

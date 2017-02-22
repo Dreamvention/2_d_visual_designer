@@ -8,6 +8,17 @@
     $('textarea[name=text]').summernote({
         height:'200px',
         disableDragAndDrop: true,
+        toolbar: [
+            ['style', ['style']],
+            ['style', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['font', ['strikethrough', 'superscript', 'subscript']],
+            ['fontsize', ['fontsize']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['height', ['height']]
+        ]
         onChange: function(contents, $editable) {
             if('<?php echo VERSION; ?>' >= '2.2.0.0')
             {

@@ -7,6 +7,17 @@
 <script>
 $('textarea[name=text]').summernote({
     height:'200px',
-    disableDragAndDrop: true
+    disableDragAndDrop: true,
+    toolbar: [
+        ['style', ['style']],
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['font', ['strikethrough', 'superscript', 'subscript']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['height', ['height']]
+    ]
 });
 </script>

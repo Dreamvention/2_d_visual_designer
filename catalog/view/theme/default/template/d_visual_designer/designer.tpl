@@ -294,6 +294,31 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label"><?php echo $entry_image_position; ?></label>
+                        <div class="fg-setting">
+                            <div class="wrap-setting wrap-50">
+                                <select name="design_background_image_position_horizontal" class="form-control">
+                                    {{#select design_background_image_position_horizontal}}
+                                    <?php foreach($image_horizontal_positions as $key => $value){ ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                    <?php } ?>
+                                    {{/select}}
+                                </select>
+                                <span class="label-helper"><?php echo $text_horizontal; ?></span>
+                            </div>
+                            <div class="wrap-setting wrap-50">
+                                <select name="design_background_image_position_vertical" class="form-control">
+                                    {{#select design_background_image_position_vertical}}
+                                    <?php foreach($image_vertical_positions as $key => $value){ ?>
+                                    <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+                                    <?php } ?>
+                                    {{/select}}
+                                </select>
+                                <span class="label-helper"><?php echo $text_vertical; ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label"><?php echo $entry_background; ?></label>
                         <div class="fg-setting">
                             <div id="color-input" class="input-group colorpicker-component fg-color">

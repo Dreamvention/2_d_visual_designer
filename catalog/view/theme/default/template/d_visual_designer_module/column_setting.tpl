@@ -13,6 +13,21 @@
     </div>
 </div>
 <div class="form-group">
+    <label class="control-label"><?php echo $entry_offset; ?></label>
+    <div class="fg-setting">
+        <select name="offset" class="form-control">
+            <option class="0" <?php echo $setting['offset'] == '0'?'selected="selected"':''; ?>>0/12</option>
+            <?php foreach($sizes as $key => $value) {?>
+            <?php if($key == $setting['offset']) { ?>
+            <option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
+            <?php }  else {?>
+            <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
+            <?php } ?>
+            <?php } ?>
+        </select>
+    </div>
+</div>
+<div class="form-group">
     <label class="control-label"><?php echo $entry_float; ?></label>
     <div class="fg-setting">
         <input type="hidden" name="float" value="0" />

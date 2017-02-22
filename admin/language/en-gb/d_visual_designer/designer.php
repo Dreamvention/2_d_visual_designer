@@ -26,6 +26,16 @@ $_['text_right']                   = 'Right';
 $_['text_top']                     = 'Top';
 $_['text_bottom']                  = 'Bottom';
 
+$_['text_horizontal']              = 'Horizontal';
+$_['text_vertical']                = 'Vertical';
+
+//positions
+$_['text_position_left']           = 'Left';
+$_['text_position_right']          = 'Right';
+$_['text_position_top']            = 'Top';
+$_['text_position_bottom']         = 'Bottom';
+$_['text_position_center']         = 'Center';
+
 $_['text_success_update']          = 'Successfully updated!';
 $_['text_success_template_save']   = 'Successfully saved!';
 $_['text_success_clone_block']     = ' cloned.';
@@ -83,6 +93,7 @@ $_['entry_padding']                = 'Padding';
 $_['entry_border']                 = 'Border';
 $_['entry_image']                  = 'Background image';
 $_['entry_image_style']            = 'Style background image';
+$_['entry_image_position']         = 'Background position';
 $_['entry_size']                   = 'Size';
 $_['entry_category']               = 'Tag of category';
 $_['entry_image_template']         = 'Image of template';
@@ -90,3 +101,4 @@ $_['entry_sort_order']             = 'Sort order';
 
 //error
 $_['error_name']                   = 'Template Name must be greater than 3 and less than 255 characters!';
+$_['error_permission']             = 'Warning: You do not have permission to modify!';

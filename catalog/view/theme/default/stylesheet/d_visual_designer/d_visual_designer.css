@@ -7605,7 +7605,7 @@
           overflow: auto; }
     .vd-popup .popup-content .form-group {
       margin: 0px 0px 20px 0px !important;
-      font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif; }
+      font-family: Open Sans, Helvetica, Roboto, Arial, sans-serif; }
       .vd-popup .popup-content .form-group.has-error > label {
         color: #f56b6b; }
       .vd-popup .popup-content .form-group.has-error .form-control {
@@ -7629,6 +7629,10 @@
           width: 20%;
           margin: 0 5% 0 0;
           text-align: center; }
+          .vd-popup .popup-content .form-group > .fg-setting .wrap-setting.wrap-50 {
+            width: 50%;
+            padding: 0 5% 0 0;
+            margin: 0; }
         .vd-popup .popup-content .form-group > .fg-setting > .fg-color {
           width: 30%; }
     .vd-popup .popup-content .tab-content {
@@ -7839,10 +7843,10 @@
       transition-timing-function: ease-in-out;
       -webkit-transition-duration: .2s;
       transition-duration: .2s;
-      -webkit-transition-property: color,background,border,opacity,-webkit-transform;
-      transition-property: color,background,border,opacity,-webkit-transform;
-      transition-property: color,background,border,opacity,transform;
-      transition-property: color,background,border,opacity,transform,-webkit-transform;
+      -webkit-transition-property: color, background, border, opacity, -webkit-transform;
+      transition-property: color, background, border, opacity, -webkit-transform;
+      transition-property: color, background, border, opacity, transform;
+      transition-property: color, background, border, opacity, transform, -webkit-transform;
       text-align: center;
       vertical-align: middle;
       text-decoration: none;
@@ -8477,7 +8481,8 @@
   src: url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"); }
 #tab-description {
   overflow: visible; }
-  #tab-description .vd div, #tab-description .vd p {
+  #tab-description .vd div,
+  #tab-description .vd p {
     margin-bottom: 0; }
 
 #modal-image {
@@ -8634,7 +8639,9 @@
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat; }
 .content.vd .block-container {
   position: relative;
-  margin: 0;
+  margin-bottom: 0;
+  margin-right: 0;
+  margin-top: 0;
   padding: 0; }
   .content.vd .block-container:after {
     display: table;
@@ -8970,10 +8977,10 @@ span.module_name {
       transition-timing-function: ease-in-out;
       -webkit-transition-duration: .2s;
       transition-duration: .2s;
-      -webkit-transition-property: color,background,border,opacity,-webkit-transform;
-      transition-property: color,background,border,opacity,-webkit-transform;
-      transition-property: color,background,border,opacity,transform;
-      transition-property: color,background,border,opacity,transform,-webkit-transform;
+      -webkit-transition-property: color, background, border, opacity, -webkit-transform;
+      transition-property: color, background, border, opacity, -webkit-transform;
+      transition-property: color, background, border, opacity, transform;
+      transition-property: color, background, border, opacity, transform, -webkit-transform;
       text-align: center;
       vertical-align: middle;
       text-decoration: none;

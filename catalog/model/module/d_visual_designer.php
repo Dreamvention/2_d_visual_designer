@@ -406,6 +406,13 @@ class ModelModuleDVisualDesigner extends Model {
             $data['size'] = '12';
         }
 
+        if(!empty($setting['offset']) && is_numeric($setting['offset'])){
+            $data['offset'] = $setting['offset'];
+        }
+        else{
+            $data['offset'] = '0';
+        }
+
         if($level%2){
             $data['level'] = 1;
         }

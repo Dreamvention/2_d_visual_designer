@@ -33,6 +33,7 @@ class ControllerDVisualDesignerModuleColumn extends Controller {
 		$data['entry_size'] = $this->language->get('entry_size');
 		$data['entry_float'] = $this->language->get('entry_float');
 		$data['entry_align'] = $this->language->get('entry_align');
+		$data['entry_offset'] = $this->language->get('entry_offset');
 		$data['text_enabled'] = $this->language->get('text_enabled');
 		$data['text_yes'] = $this->language->get('text_yes');
 		$data['text_no'] = $this->language->get('text_no');

@@ -35,6 +35,17 @@ $_['text_right']                   = 'Справа';
 $_['text_top']                     = 'Вверху';
 $_['text_bottom']                  = 'Низ';
 
+
+//positions
+$_['text_position_left']           = 'Слева';
+$_['text_position_right']          = 'Справа';
+$_['text_position_top']            = 'Вверху';
+$_['text_position_bottom']         = 'Внизу';
+$_['text_position_center']         = 'По центру';
+
+$_['text_horizontal']              = 'По горизонтали';
+$_['text_vertical']                = 'По вертикали';
+
 $_['text_search']                  = 'Поиск';
 $_['text_cover']                   = 'Cover';
 $_['text_contain']                 = 'Contain';
@@ -85,7 +96,8 @@ $_['entry_margin']                 = 'Внешний отступ';
 $_['entry_padding']                = 'Внутренний отступ';
 $_['entry_border']                 = 'Размер рамки';
 $_['entry_image']                  = 'Фон';
-$_['entry_image_style']            = 'Положение фона';
+$_['entry_image_style']            = 'Размер фона';
+$_['entry_image_position']         = 'Положение фона';
 $_['entry_size']                   = 'Размер колонок';
 $_['entry_category']               = 'Тег категории';
 $_['entry_image_template']         = 'Изображение шаблона';
@@ -94,3 +106,4 @@ $_['entry_sort_order']			   = 'Порядковый номер';
 
 //error
 $_['error_name']                   = 'Название Шаблона должно быть от 3 до 255 символов!';
+$_['error_permission']  = 'У вас нет прав для редактирования';

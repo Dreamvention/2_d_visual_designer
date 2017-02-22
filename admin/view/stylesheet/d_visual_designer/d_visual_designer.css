@@ -418,7 +418,7 @@
   .content > .title {
     padding: 8px 12px 12px 8px;
     border-bottom: 1px solid #eee;
-    font-family: "Open Sans",sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 14px;
     font-weight: 600;
     line-height: 19.6px; }
@@ -488,8 +488,18 @@
     text-align: center;
     border-radius: 4px;
     font-family: "Open Sans"; }
-    .content .vd .col-sm-1, .content .vd .col-sm-2, .content .vd .col-sm-3, .content .vd .col-sm-4, .content .vd .col-sm-5, .content .vd .col-sm-6, .content .vd .col-sm-7,
-    .content .vd .col-sm-8, .content .vd .col-sm-9, .content .vd .col-sm-10, .content .vd .col-sm-11, .content .vd .col-sm-12 {
+    .content .vd .col-sm-1,
+    .content .vd .col-sm-2,
+    .content .vd .col-sm-3,
+    .content .vd .col-sm-4,
+    .content .vd .col-sm-5,
+    .content .vd .col-sm-6,
+    .content .vd .col-sm-7,
+    .content .vd .col-sm-8,
+    .content .vd .col-sm-9,
+    .content .vd .col-sm-10,
+    .content .vd .col-sm-11,
+    .content .vd .col-sm-12 {
       padding: 0px; }
     .content .vd .vd-border {
       position: absolute;
@@ -1087,7 +1097,7 @@
     .vd-popup .popup-content .form-group {
       margin: 0px 0px 20px 0px;
       margin-bottom: 0px;
-      font-family: Open Sans,Helvetica,Roboto,Arial,sans-serif; }
+      font-family: Open Sans, Helvetica, Roboto, Arial, sans-serif; }
       .vd-popup .popup-content .form-group.has-error > label {
         color: #f56b6b; }
       .vd-popup .popup-content .form-group > label {
@@ -1104,6 +1114,10 @@
           width: 20%;
           margin: 0 5% 0 0;
           text-align: center; }
+          .vd-popup .popup-content .form-group > .fg-setting .wrap-setting.wrap-50 {
+            width: 50%;
+            padding: 0 5% 0 0;
+            margin: 0; }
         .vd-popup .popup-content .form-group > .fg-setting > .fg-color {
           width: 30%; }
   .vd-popup .popup-footer {
@@ -1131,10 +1145,10 @@
       transition-timing-function: ease-in-out;
       -webkit-transition-duration: .2s;
       transition-duration: .2s;
-      -webkit-transition-property: color,background,border,opacity,-webkit-transform;
-      transition-property: color,background,border,opacity,-webkit-transform;
-      transition-property: color,background,border,opacity,transform;
-      transition-property: color,background,border,opacity,transform,-webkit-transform;
+      -webkit-transition-property: color, background, border, opacity, -webkit-transform;
+      transition-property: color, background, border, opacity, -webkit-transform;
+      transition-property: color, background, border, opacity, transform;
+      transition-property: color, background, border, opacity, transform, -webkit-transform;
       text-align: center;
       vertical-align: middle;
       text-decoration: none;
@@ -1401,7 +1415,7 @@ span.module_name {
       user-select: none;
       transition-timing-function: ease-in-out;
       transition-duration: 0.2s;
-      transition-property: color,background,border,opacity,transform;
+      transition-property: color, background, border, opacity, transform;
       text-align: center;
       vertical-align: middle;
       text-decoration: none;

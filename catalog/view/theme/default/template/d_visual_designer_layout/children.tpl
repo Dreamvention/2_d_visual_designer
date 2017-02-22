@@ -66,6 +66,26 @@
     <?php if(!empty($setting['design_background'])) {?>
         background-color: <?php echo $setting['design_background']; ?>;
     <?php } ?>
+    <?php if(!empty($setting['design_background_image'])) {?>
+        background-image: url( <?php echo $setting['design_background_image']; ?>) ;
+        <?php if(!empty($setting['design_background_image_position_vertical'] && !empty($setting['design_background_image_position_horizontal']))) {?>
+                background-position: <?php echo $setting['design_background_image_position_horizontal']; ?> <?php echo $setting['design_background_image_position_vertical']; ?>;
+            <?php } ?> 
+        <?php if($setting['design_background_image_style'] == 'cover') { ?>
+            background-size: cover;
+            background-repeat: no-repeat;      
+        <?php } ?>
+        <?php if($setting['design_background_image_style'] == 'contain') { ?>
+            background-size: contain;
+            background-repeat: no-repeat;
+        <?php } ?>
+        <?php if($setting['design_background_image_style'] == 'repeat') { ?>
+            background-repeat: repeat;
+        <?php } ?>
+        <?php if($setting['design_background_image_style'] == 'no-repeat') { ?>
+            background-repeat: no-repeat;
+        <?php } ?>
+    <?php } ?>
     <?php if(!empty($setting['additional_css_content'])) {?>
         <?php echo $setting['additional_css_content']; ?>
     <?php } ?>

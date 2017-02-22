@@ -28,7 +28,8 @@ $_['button_collapse']  = true;
 $_['button_remove']    = true;
 //Настройки по умолчанию
 $_['setting']          = array(
-    'size'    => 12,
-    'float'   => '',
-    'align'   => 'center'
+    'size'   => 12,
+    'offset' => 0,
+    'float'  => '',
+    'align'  => 'center'
 );

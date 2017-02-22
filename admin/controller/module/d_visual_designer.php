@@ -68,6 +68,8 @@ class ControllerModuleDVisualDesigner extends Controller {
 		$this->model_user_user_group->addPermission($this->model_module_d_visual_designer->getGroupId(), 'modify', $this->codename.'/instruction');
 
 		$this->model_module_d_visual_designer->createDatabase();
+
+		$this->model_module_d_visual_designer->increaseFields();
 	}
 
 	public function uninstall() {

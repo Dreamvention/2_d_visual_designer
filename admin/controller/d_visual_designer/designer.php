@@ -129,6 +129,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['entry_category'] = $this->language->get('entry_category');
             $data['entry_image'] = $this->language->get('entry_image');
             $data['entry_image_style'] = $this->language->get('entry_image_style');
+            $data['entry_image_position'] = $this->language->get('entry_image_position');
             $data['entry_size'] = $this->language->get('entry_size');
             $data['entry_image_template'] = $this->language->get('entry_image_template');
             $data['entry_sort_order'] = $this->language->get('entry_sort_order');
@@ -147,6 +148,9 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_right'] = $this->language->get('text_right');
             $data['text_bottom'] = $this->language->get('text_bottom');
             $data['text_left'] = $this->language->get('text_left');
+
+            $data['text_horizontal'] = $this->language->get('text_horizontal');
+            $data['text_vertical'] = $this->language->get('text_vertical');
 
             $data['error_name'] = $this->language->get('error_name');
 
@@ -216,6 +220,18 @@ class ControllerDVisualDesignerDesigner extends Controller {
                 'contain' => $this->language->get('text_contain'),
                 'no-repeat'  => $this->language->get('text_no_repeat'),
                 'repeat' => $this->language->get('text_repeat')
+            );
+
+            $data['image_horizontal_positions'] = array(
+                'left' => $this->language->get('text_position_left'),
+                'center' => $this->language->get('text_position_center'),
+                'right' => $this->language->get('text_position_right')
+            );
+
+            $data['image_vertical_positions'] = array(
+                'top' => $this->language->get('text_position_top'),
+                'center' => $this->language->get('text_position_center'),
+                'bottom' => $this->language->get('text_position_bottom')
             );
 
     	    $this->load->model('tool/image');
