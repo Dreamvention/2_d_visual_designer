@@ -963,9 +963,9 @@ var d_visual_designer = {
                 var array_values = this.convert(name, value);
                 
                 for (var key2 in array_values){
-                    name = key2.replace('][',':');
-                    name = name.replace('[','::');
-                    name = name.replace(']','');
+                    name = key2.replace(/\]\[/g, ':');
+                    name = name.replace(/\[/g, '::');
+                    name = name.replace(/\]/g, '');
                     shortcode+= ' '+name+'=\''+this.escape(array_values[key2])+'\''+' ';
                 }
             }
