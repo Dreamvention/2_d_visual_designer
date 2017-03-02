@@ -18,7 +18,7 @@
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
             ['height', ['height']]
-        ]
+        ],
         onChange: function(contents, $editable) {
             if('<?php echo VERSION; ?>' >= '2.2.0.0')
             {

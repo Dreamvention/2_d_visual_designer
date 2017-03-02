@@ -30,6 +30,5 @@ $_['button_remove']   = true;
 $_['text']            = 'text';
 //Настройки по умолчанию
 $_['setting'] = array(
-    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in erat eu lacus varius venenatis ut ac urna.',
-    'design_margin_bottom' => '15px'
+    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in erat eu lacus varius venenatis ut ac urna.'
 );
