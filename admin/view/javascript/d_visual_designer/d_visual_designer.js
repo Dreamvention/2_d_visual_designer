@@ -444,6 +444,7 @@ var d_visual_designer = {
                     }
                     that.editBlock(block.attr('id'), designer_id);
                 }
+                that.updateSortOrderRow(designer_id);
                 that.updateValue();
                 that.initSortable();
                 that.closePopup();
@@ -911,6 +912,7 @@ var d_visual_designer = {
                 result += shortcode;
             } else {
                 var childBlock = this.getText(designer_id, key);
+                childBlock = childBlock.replace(/\$/g,'$$$$');
                 parentBlock = shortcode.replace('][', ']' + childBlock + '[');
                 result += parentBlock;
             }

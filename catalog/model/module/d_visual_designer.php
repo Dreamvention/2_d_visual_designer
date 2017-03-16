@@ -596,6 +596,7 @@ class ModelModuleDVisualDesigner extends Model
                 'type' => 'row',
                 'parent' => '',
                 'setting' => $this->getSetting(array(), 'row'),
+                'sort_order' => 0,
                 'block_id' => 'row_'.$this->getRandomString(),
             );
             $result_main = $this->getFullContent($child_block, ($level), $settingJS);
@@ -615,6 +616,7 @@ class ModelModuleDVisualDesigner extends Model
             $settingJS[$block_info['block_id']] = array(
                 'type' => $block_info['type'],
                 'parent' => $block_info['parent'],
+                'sort_order' => 0,
                 'setting' => $block_info['setting'],
             );
             $this->parent = $block_info['block_id'];
@@ -624,6 +626,7 @@ class ModelModuleDVisualDesigner extends Model
                 'type' => $setting_block['child'],
                 'parent' => $block_info['block_id'],
                 'setting' => $this->getSetting(array(), $setting_block['child']),
+                'sort_order' => 0,
                 'block_id' => $setting_block['child'].'_'.$this->getRandomString(),
             );
             $this->parent = $block_info['block_id'];
@@ -639,6 +642,7 @@ class ModelModuleDVisualDesigner extends Model
             $settingJS[$block_info['block_id']] = array(
                 'type' => $block_info['type'],
                 'parent' => $block_info['parent'],
+                'sort_order' => 0,
                 'setting' => $block_info['setting'],
             );
             $settingChild = $block_info['setting'];

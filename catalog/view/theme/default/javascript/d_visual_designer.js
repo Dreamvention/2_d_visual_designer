@@ -392,6 +392,7 @@ var d_visual_designer = {
                     that.setting.stateEdit = true;
 
                 }
+                that.updateSortOrderRow(designer_id);
                 that.initSortable();
                 that.closePopup();
             }
@@ -881,7 +882,8 @@ var d_visual_designer = {
             }
             else{
                 var childBlock = this.getText(designer_id, key);
-                parentBlock = shortcode.replace('][',']'+childBlock+'[');
+                childBlock = childBlock.replace(/\$/g,'$$$$');
+                parentBlock = shortcode.replace('][', ']' + childBlock + '[');
                 result+=parentBlock;
             }
         }

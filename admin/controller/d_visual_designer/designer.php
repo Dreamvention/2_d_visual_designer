@@ -530,7 +530,8 @@ class ControllerDVisualDesignerDesigner extends Controller {
                 'type' => $type,
                 'parent' => $parent,
                 'setting' => $setting,
-                'block_id' => $block_id
+                'block_id' => $block_id,
+                'sort_order' => 0
                 );
 
             $result = $this->{'model_'.$this->codename.'_designer'}->getFullContent($block_info, $level);
