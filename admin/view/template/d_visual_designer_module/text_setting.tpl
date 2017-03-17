@@ -17,7 +17,8 @@
             ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
-            ['height', ['height']]
+            ['height', ['height']],
+            ['view', ['fullscreen', 'codeview', 'help']]
         ],
         onChange: function(contents, $editable) {
             if('<?php echo VERSION; ?>' >= '2.2.0.0')
