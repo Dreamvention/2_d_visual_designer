@@ -173,16 +173,18 @@
         <operation>
             <search><![CDATA[return $query->row;]]></search>
             <add position="before"><![CDATA[
-                $this->load->model('module/d_visual_designer');
-                
-                $designer_data = array(
-                    'config' => 'edit_category',
-                    'content' => !empty($query->row['description'])?$query->row['description']:'',
-                    'field_name' => 'category_description['.(int)$this->config->get('config_language_id').'][description]',
-                    'id' => $category_id
-                );
-                
-                $query->row['description'] = $this->model_module_d_visual_designer->parseDescription($designer_data);
+                if($query->num_rows){
+                    $this->load->model('module/d_visual_designer');
+                    
+                    $designer_data = array(
+                        'config' => 'edit_category',
+                        'content' => !empty($query->row['description'])?$query->row['description']:'',
+                        'field_name' => 'category_description['.(int)$this->config->get('config_language_id').'][description]',
+                        'id' => $category_id
+                    );
+                    
+                    $query->row['description'] = $this->model_module_d_visual_designer->parseDescription($designer_data);
+                }
                 ]]>
                 </add>
         </operation>
@@ -191,16 +193,18 @@
         <operation>
             <search><![CDATA[return $query->row;]]></search>
             <add position="before"><![CDATA[
-                $this->load->model('module/d_visual_designer');
-                
-                $designer_data = array(
-                    'config' => 'edit_information',
-                    'content' => $query->row['description'],
-                    'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
-                    'id' => $information_id
-                );
-                
-                $query->row['description'] = $this->model_module_d_visual_designer->parseDescription($designer_data);
+                if($query->num_rows){
+                    $this->load->model('module/d_visual_designer');
+                    
+                    $designer_data = array(
+                        'config' => 'edit_information',
+                        'content' => $query->row['description'],
+                        'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
+                        'id' => $information_id
+                    );
+                    
+                    $query->row['description'] = $this->model_module_d_visual_designer->parseDescription($designer_data);
+                }
                 ]]>
                 </add>
         </operation>

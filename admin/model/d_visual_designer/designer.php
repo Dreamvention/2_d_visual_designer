@@ -57,9 +57,9 @@ class ModelDVisualDesignerDesigner extends Model {
         return $text;
     }
 
-    public function shortcode_parse_atts($text, $parse_name = true) {
+    public function shortcode_parse_atts($text) {
 
-        $atts = array();
+        $attr = array();
         $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|([a-zA-Z:0-9_]+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
         $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
 
@@ -67,35 +67,40 @@ class ModelDVisualDesignerDesigner extends Model {
             $params = '';
             foreach ($match as $m) {
                 if (!empty($m[1])) {
-                    $params .= strtolower($m[1]).'='.stripcslashes($m[2]).'&';
+                    $attr[strtolower($m[1])] = stripcslashes($m[2]);
                 } elseif (!empty($m[3])) {
-                    $params .= $this->parseName($m[3], $m[4], $parse_name);
+                    $this->parseName($m[3], $m[4], $attr);
                 }
             }
-            parse_str($params, $atts);
         } else {
-            $atts = ltrim($text);
+            $attr = ltrim($text);
         }
-        return $atts;
 
+        return $attr;
+        
     }
 
-    public function parseName($name,$value,$parse_name){
+    public function parseName($name, $value, &$attr){
         $pos = strpos($name, '::');
         if($pos === false){
 
             $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
             $value = $this->unescape($value);
+            $attr[$name] = $value;
         }
         else{
-            $name = str_replace('::','[',$name);
-            $name = str_replace(':','][',$name);
-            $name .= ']';
-
+            $name = str_replace('::',',',$name);
+            $name = str_replace(':',',',$name);
             $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
             $value = $this->unescape($value);
+
+            $exploded = explode(',', $name);
+            $temp = &$attr;
+            foreach($exploded as $key) {
+                $temp = &$temp[$key];
+            }
+            $temp = $value;
         }
-        return $name.'='.$value.'&';
     }
 
     public function getRandomString(){
