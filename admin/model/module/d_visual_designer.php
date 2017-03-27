@@ -26,22 +26,22 @@ class ModelModuleDVisualDesigner extends Model {
 
     public function increaseFields()
     {
-        $query = $this->db->query("SHOW COLUMNS FROM `oc_product_description` WHERE field LIKE 'description' AND type = 'text';");
+        $query = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX."product_description` WHERE field LIKE 'description' AND type = 'text';");
 
         if ($query->num_rows) {
-            $this->db->query("ALTER TABLE `oc_product_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
+            $this->db->query("ALTER TABLE `".DB_PREFIX."product_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
         }
 
-        $query = $this->db->query("SHOW COLUMNS FROM `oc_category_description` WHERE field LIKE 'description' AND type = 'text';");
+        $query = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX."category_description` WHERE field LIKE 'description' AND type = 'text';");
 
         if ($query->num_rows) {
-            $this->db->query("ALTER TABLE `oc_category_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
+            $this->db->query("ALTER TABLE `".DB_PREFIX."category_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
         }
 
-        $query = $this->db->query("SHOW COLUMNS FROM `oc_information_description` WHERE field LIKE 'description' AND type = 'text';");
+        $query = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX."information_description` WHERE field LIKE 'description' AND type = 'text';");
 
         if ($query->num_rows) {
-            $this->db->query("ALTER TABLE `oc_information_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
+            $this->db->query("ALTER TABLE `".DB_PREFIX."information_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
         }
     }
     
