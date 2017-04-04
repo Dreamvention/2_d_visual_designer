@@ -293,7 +293,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" {{#ifCond design_background_image_style 'parallax'}} style="display:none;" {{/ifCond}}>
                         <label class="control-label"><?php echo $entry_image_position; ?></label>
                         <div class="fg-setting">
                             <div class="wrap-setting wrap-50">
@@ -673,6 +673,16 @@ $(document).on('change', 'input.pixels-procent', function(){
         $(this).val('');
     }
 });
+$(document).off('change', 'select[name=design_background_image_style]');
+$(document).on('change', 'select[name=design_background_image_style]', function(){
+    var style = $(this).val();
+    if(style!= 'parallax'){
+        $('select[name=design_background_image_position_horizontal]').closest('.form-group').show();
+    }
+    else{
+        $('select[name=design_background_image_position_horizontal]').closest('.form-group').hide();
+    }
+});
 $(document).on('click', 'a[data-toggle=\'image\']', function(e){
     e.preventDefault();
 
@@ -717,7 +727,17 @@ $(document).on('click', 'a[data-toggle=\'image\']', function(e){
         $(element).popover('hide', function() {
             $('.popover').remove();
         });
+        $('.block-container').hover(function(){
+            console.log('hover');
+            var block_id = $(this).data('id');
+
+            $('.control[data-control='+block_id+'] a').effect('bounce');
+        },function(){
+            
+        });
     });
+
+
 
     $('#button-clear').on('click', function() {
         $(element).find('img').attr('src', $(element).find('img').attr('data-placeholder'));

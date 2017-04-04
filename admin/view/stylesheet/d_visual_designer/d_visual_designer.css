@@ -470,6 +470,10 @@
         background-image: url("../../image/d_visual_designer/template-save.svg");
         background-repeat: no-repeat;
         background-position: center; }
+      .content #d_visual_designer_nav a#button_code_view {
+        background-image: url("../../image/d_visual_designer/code-editor.svg");
+        background-repeat: no-repeat;
+        background-position: center; }
       .content #d_visual_designer_nav a#button_full_screen {
         background-image: url("../../image/d_visual_designer/resize-full.svg");
         background-repeat: no-repeat;
@@ -772,6 +776,14 @@
             padding-right: 10px; }
         .content .vd .block-child > .block-content > .container-child {
           margin: 0 !important; }
+
+.popup-codeview {
+  padding: 10px; }
+  .popup-codeview > textarea.text-codeview {
+    width: 100%;
+    min-height: 200px;
+    border-radius: 4px;
+    border-color: #c3c2c2; }
 
 .popup-new-template {
   padding: 5px; }

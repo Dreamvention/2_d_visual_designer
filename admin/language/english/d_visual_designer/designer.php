@@ -6,6 +6,7 @@ $_['text_classic_mode']            = 'Classic Mode';
 $_['text_backend_editor']          = 'Backend Editor';
 $_['text_frontend_editor']         = 'Frontend Editor';
 $_['text_add_template']            = 'Templates';
+$_['text_codeview']                = 'Code View';
 $_['text_frontend_title']          = 'Frontend Editor';
 $_['text_designer']                = 'Visual Designer';
 $_['text_layout']                  = 'Edit layout';
@@ -49,6 +50,7 @@ $_['text_search']                  = 'Search';
 $_['text_cover']                   = 'Cover';
 $_['text_contain']                 = 'Contain';
 $_['text_no_repeat']               = 'No repeat';
+$_['text_parallax']                = 'Parallax';
 $_['text_repeat']                  = 'Repeat';
 
 //tab

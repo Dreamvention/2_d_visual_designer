@@ -21,6 +21,7 @@
             <a id="button_save_template" class="btn btn-default"></a>
         </div>
         <div class="pull-right">
+            <a id="button_code_view" class="btn btn-default"></a>
             <a id="button_full_screen" class="btn btn-default"></a>
         </div>
     </div>
@@ -90,7 +91,7 @@
                             <span><img src="{{{image}}}" class="image"></span>
                             {{{title}}}
                             <i class="description">
-                            {{{description}}}
+                                {{{description}}}
                             </i>
                         </a>
                     </div>
@@ -103,7 +104,23 @@
         </div>
     </div>
 </script>
-
+<script type="text/x-handlebars-template" id="template-codeview">
+    <div class="vd vd-popup add_template" style="max-height:75vh;">
+        <div class="popup-header">
+            <h2 class="title"><?php echo $text_codeview; ?></h2>
+            <a class="close"></a>
+        </div>
+        <div class="popup-content">
+            <div class="popup-codeview">
+                <textarea name="codeview" class="text-codeview">{{content}}</textarea>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <a id="save-codeview" class="vd-btn save" data-id="{{{block_id}}}" data-designer_id="{{{designer_id}}}" data-type="{{{type}}}"><?php echo $button_save; ?></a>
+        </div>
+        <input type="hidden" name="designer_id" value='{{designer_id}}'/>
+    </div>
+</script>
 <script type="text/x-handlebars-template" id="template-add-template">
     <div class="vd vd-popup add_template" style="max-height:75vh;">
         <div class="popup-header">
@@ -307,7 +324,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" {{#ifCond design_background_image_style 'parallax'}} style="display:none;" {{/ifCond}}>
                     <label class="control-label"><?php echo $entry_image_position; ?></label>
                     <div class="fg-setting">
                         <div class="wrap-setting wrap-50">
@@ -473,243 +490,278 @@
     </div>
 </script>
 <script>
-var teplate = {
-    row_layout:$('script#template-row-layout:first'),
-    add_block:$('script#template-add-block:first'),
-    edit_block:$('script#template-edit-block:first'),
-    add_template:$('script#template-add-template:first'),
-    save_template:$('script#template-save-template:first'),
-    helper:$('script#template-helper-sortable:first')
+    var teplate = {
+        row_layout:$('script#template-row-layout:first'),
+        add_block:$('script#template-add-block:first'),
+        edit_block:$('script#template-edit-block:first'),
+        add_template:$('script#template-add-template:first'),
+        save_template:$('script#template-save-template:first'),
+        codeview:$('script#template-codeview:first'),
+        helper:$('script#template-helper-sortable:first')
 
-};
-d_visual_designer.initTemplate(teplate);
+    };
+    d_visual_designer.initTemplate(teplate);
 
-var designer_id = '#<?php echo $designer_id; ?>';
+    var designer_id = '#<?php echo $designer_id; ?>';
 
-$('#<?php echo $designer_id; ?>').on('click','a[id=button_edit]',function(){
-    var block_id = $(this).parent().data('control');
-    d_visual_designer.editBlock(block_id, '<?php echo $designer_id; ?>');
-});
-$('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
-    var block_id = $(this).parent().data('control');
-    d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
-});
+    $('#<?php echo $designer_id; ?>').on('click','a[id=button_edit]',function(){
+        var block_id = $(this).parent().data('control');
+        d_visual_designer.editBlock(block_id, '<?php echo $designer_id; ?>');
+    });
+    $('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
+        var block_id = $(this).parent().data('control');
+        d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
+    });
 
-$(document).off('click','a[id=edit-layout]');
-$(document).on('click','a[id=edit-layout]',function(){
-    var size = $(this).data('layout');
-    var target = $('.vd-popup').find('input[name=target]').val();
-    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
-    d_visual_designer.editLayout({'size': size}, target, designer_id);
-});
+    $(document).off('click','a[id=edit-layout]');
+    $(document).on('click','a[id=edit-layout]',function(){
+        var size = $(this).data('layout');
+        var target = $('.vd-popup').find('input[name=target]').val();
+        var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+        d_visual_designer.editLayout({'size': size}, target, designer_id);
+    });
 
-$(document).off('click','a[id=button_frontend]');
-$(document).on('click','a[id=button_frontend]',function(){
-    var href = $(this).data('href');
-    d_visual_designer.openFrontend(href);
-});
-$(document).off('click','#layoutSet');
-$(document).on('click','#layoutSet',function(){
-    var setting = $('.vd-popup').find('input, select, textarea').serializeJSON();
-    var target = $('.vd-popup').find('input[name=target]').val();
-    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
-    d_visual_designer.editLayout(setting, target, designer_id);
-});
-$('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
-    var block_id = $(this).parent().data('control')
-    d_visual_designer.cloneBlock(block_id, '<?php echo $designer_id; ?>');
-});
-$(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
-$(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
-    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
-});
-$(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
-$(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
-    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
-});
-$(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
-$(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')
-});
-$(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
-$(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
-});
-$('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function(){
-    $(this).addClass('active-control');
-});
-$('#<?php echo $designer_id; ?>').on('mouseout', '.block-container', function(){
-    $(this).removeClass('active-control');
-});
-$(document).off('click','.vd-popup-overlay');
-$(document).on('click','.vd-popup-overlay',function(){
-    d_visual_designer.closePopup();
-});
-$(document).off('click','.vd-popup .close');
-$(document).on('click','.vd-popup .close',function(){
-    d_visual_designer.closePopup();
-});
-$(document).off('click','a[id=cancel]');
-$(document).on('click','a[id=cancel]',function(){
-    d_visual_designer.closePopup();
-});
-$(document).off('click','a[id=save]');
-$(document).on('click','a[id=save]',function(){
-    var block_id = $(this).data('id');
-    var designer_id = $(this).data('designer_id');
-    d_visual_designer.saveBlock(block_id, designer_id);
-});
-$(document).off('click','a[id=saveTemplate]');
-$(document).on('click','a[id=saveTemplate]',function(){
-    var designer_id = $(this).data('designer-id');
-    d_visual_designer.saveTemplate(designer_id);
-});
+    $(document).off('click','a[id=button_frontend]');
+    $(document).on('click','a[id=button_frontend]',function(){
+        var href = $(this).data('href');
+        d_visual_designer.openFrontend(href);
+    });
+    $(document).off('click','#layoutSet');
+    $(document).on('click','#layoutSet',function(){
+        var setting = $('.vd-popup').find('input, select, textarea').serializeJSON();
+        var target = $('.vd-popup').find('input[name=target]').val();
+        var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+        d_visual_designer.editLayout(setting, target, designer_id);
+    });
+    $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
+        var block_id = $(this).parent().data('control')
+        d_visual_designer.cloneBlock(block_id, '<?php echo $designer_id; ?>');
+    });
+    $(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
+    $(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
+        d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
+    });
+    $(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
+    $(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
+        d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
+    });
+    $(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
+    $(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
+        d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')
+    });
+    $(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
+    $(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
+        d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
+    });
+    $('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function(){
+        $(this).addClass('active-control');
+    });
+    $('#<?php echo $designer_id; ?>').on('mouseout', '.block-container', function(){
+        $(this).removeClass('active-control');
+    });
+    $(document).off('click','.vd-popup-overlay');
+    $(document).on('click','.vd-popup-overlay',function(){
+        d_visual_designer.closePopup();
+    });
+    $(document).off('click','.vd-popup .close');
+    $(document).on('click','.vd-popup .close',function(){
+        d_visual_designer.closePopup();
+    });
+    $(document).off('click','a[id=cancel]');
+    $(document).on('click','a[id=cancel]',function(){
+        d_visual_designer.closePopup();
+    });
+    $(document).off('click','a[id=save]');
+    $(document).on('click','a[id=save]',function(){
+        var block_id = $(this).data('id');
+        var designer_id = $(this).data('designer_id');
+        d_visual_designer.saveBlock(block_id, designer_id);
+    });
+    $(document).off('click','a[id=saveTemplate]');
+    $(document).on('click','a[id=saveTemplate]',function(){
+        var designer_id = $(this).data('designer-id');
+        d_visual_designer.saveTemplate(designer_id);
+    });
 
-$(document).off('click','#button_add');
-$(document).on('click','#button_add',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddBlock(designer_id);
-    return false;
-});
-$('#<?php echo $designer_id; ?>').off('click','#vd-add-button');
-$('#<?php echo $designer_id; ?>').on('click','#vd-add-button',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddBlock(designer_id);
-    return false;
-});
+    $(document).off('click','#button_add');
+    $(document).on('click','#button_add',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddBlock(designer_id);
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').off('click','#vd-add-button');
+    $('#<?php echo $designer_id; ?>').on('click','#vd-add-button',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddBlock(designer_id);
+        return false;
+    });
 
-$(document).off('click','#button_template');
-$(document).on('click','#button_template',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddTemplate(designer_id);
-    return false;
-});
+    $(document).off('click','#button_template');
+    $(document).on('click','#button_template',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddTemplate(designer_id);
+        return false;
+    });
 
-$(document).off('click','#button_save_template');
-$(document).on('click','#button_save_template',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showSaveTemplate(designer_id);
-    return false;
-});
+    $(document).off('click','#button_save_template');
+    $(document).on('click','#button_save_template',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showSaveTemplate(designer_id);
+        return false;
+    });
 
-$('#<?php echo $designer_id; ?>').off('click','[id=vd-add-text-block]');
-$('#<?php echo $designer_id; ?>').on('click','[id=vd-add-text-block]',function(){
-    d_visual_designer.addBlock('text','', '', '<?php echo $designer_id; ?>', 0);
-    return false;
-});
-$('#<?php echo $designer_id; ?>').off('click','#vd-add-template');
-$('#<?php echo $designer_id; ?>').on('click','#vd-add-template',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddTemplate(designer_id);
-    return false;
-});
+    $('#<?php echo $designer_id; ?>').off('click','[id=vd-add-text-block]');
+    $('#<?php echo $designer_id; ?>').on('click','[id=vd-add-text-block]',function(){
+        d_visual_designer.addBlock('text','', '', '<?php echo $designer_id; ?>', 0);
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').off('click','#vd-add-template');
+    $('#<?php echo $designer_id; ?>').on('click','#vd-add-template',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddTemplate(designer_id);
+        return false;
+    });
 
-$(document).off('click','#button_add_child');
-$(document).on('click','#button_add_child',function(){
-    var block_id = $(this).closest('.block-container').attr('id');
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.addChildBlock(block_id, designer_id);
-});
-$('#<?php echo $designer_id; ?>').on('click','.block-content:empty',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddBlock(designer_id, $(this).closest('.block-container').attr('id'));
-    return false;
-});
-$('#<?php echo $designer_id; ?>').on('click','#button_add_block',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    var block_id = $(this).closest('.block-inner, .block-section').attr('id');
-    d_visual_designer.showAddBlock(designer_id, block_id);
-    return false;
-});
-$(document).off('click','#button_classic');
-$(document).on('click','#button_classic', function(){
-    $(this).addClass('hidden');
-    $(this).parent().find('#button_vd').removeClass('hidden');
-    d_visual_designer.updateValue();
-    d_visual_designer.disable(this);
-});
-$(document).off('click','#button_collapse');
-$(document).on('click','#button_collapse', function(){
-    var mode = $(this).attr('data-mode');
-    var block_id = $(this).parents('.block-container').data('id');
-    if(mode=="all"){
-        $(this).attr('data-mode','hidden');
-        $(this).closest('.block-container').find('.block-content[data-id=\''+block_id+'\']').attr('style','display:none;');
-        $(this).find('i').attr('class','fa fa-arrow-down');
-    }
-    else{
-        $(this).attr('data-mode','all');
-        $(this).closest('.block-container').find('.block-content[data-id=\''+block_id+'\']').removeAttr('style');
-        $(this).find('i').attr('class','fa fa-arrow-up');
-    }
-});
-
-$(document).off('click','#button_vd');
-$(document).on('click','#button_vd', function(){
-    $(this).addClass('hidden');
-    $(this).parent().find('#button_classic').removeClass('hidden');
-    d_visual_designer.updateValue();
-    d_visual_designer.enable(this);
-});
-
-$(document).off('click','#add_template');
-$(document).on('click','#add_template', function(){
-    var template_id = $(this).data('id');
-    var config = $(this).data('config');
-    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
-    d_visual_designer.addTemplate(template_id, config, designer_id);
-});
-$(document).off('click','#add_block');
-$(document).on('click','#add_block', function(){
-    var type = $(this).data('type');
-    var title = $(this).data('title');
-    var target = $('.vd-popup').find('input[name=target]').val();
-    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
-    var level = $('.vd-popup').find('input[name=level]').val();
-    d_visual_designer.addBlock(type,title, target, designer_id, level);
-});
-$(document).off('click','#button_full_screen');
-$(document).on('click','#button_full_screen', function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.fullscreen(designer_id);
-});
-
-$('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
-
-    var block_id = $(this).closest('.block-container').attr('id');
-
-    var designer_id =  $(this).parents('.vd.content').attr('id');
-
-    d_visual_designer.removeBlock(block_id, designer_id);
-});
-$(document).off('change','input.percents');
-$(document).on('change', 'input.percents', function(){
-    var value = $(this).val();
-    var er = /^-?[0-9]+$/;
-
-    if(er.test(value)){
-        if(value.indexOf() == -1){
-            $(this).val(value+'%');
+    $(document).off('click','#button_add_child');
+    $(document).on('click','#button_add_child',function(){
+        var block_id = $(this).closest('.block-container').attr('id');
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.addChildBlock(block_id, designer_id);
+    });
+    $('#<?php echo $designer_id; ?>').on('click','.block-content:empty',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddBlock(designer_id, $(this).closest('.block-container').attr('id'));
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').on('click','#button_add_block',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        var block_id = $(this).closest('.block-inner, .block-section').attr('id');
+        d_visual_designer.showAddBlock(designer_id, block_id);
+        return false;
+    });
+    $(document).off('click','#button_classic');
+    $(document).on('click','#button_classic', function(){
+        $(this).addClass('hidden');
+        $(this).parent().find('#button_vd').removeClass('hidden');
+        d_visual_designer.updateValue();
+        d_visual_designer.disable(this);
+    });
+    $(document).off('click','#button_collapse');
+    $(document).on('click','#button_collapse', function(){
+        var mode = $(this).attr('data-mode');
+        var block_id = $(this).parents('.block-container').data('id');
+        if(mode=="all"){
+            $(this).attr('data-mode','hidden');
+            $(this).closest('.block-container').find('.block-content[data-id=\''+block_id+'\']').attr('style','display:none;');
+            $(this).find('i').attr('class','fa fa-arrow-down');
         }
-    }
-    else{
-        $(this).val('');
-    }
-});
-$(document).off('change','input.pixels');
-$(document).on('change', 'input.pixels', function(){
-    var value = $(this).val();
-    console.log(value)
-    var er = /^-?[0-9]+$/;
+        else{
+            $(this).attr('data-mode','all');
+            $(this).closest('.block-container').find('.block-content[data-id=\''+block_id+'\']').removeAttr('style');
+            $(this).find('i').attr('class','fa fa-arrow-up');
+        }
+    });
 
-    if(er.test(value)){
-        if(value.indexOf() == -1){
+    $(document).off('click','#button_vd');
+    $(document).on('click','#button_vd', function(){
+        $(this).addClass('hidden');
+        $(this).parent().find('#button_classic').removeClass('hidden');
+        d_visual_designer.updateValue();
+        d_visual_designer.enable(this);
+    });
+
+    $(document).off('click','#add_template');
+    $(document).on('click','#add_template', function(){
+        var template_id = $(this).data('id');
+        var config = $(this).data('config');
+        var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+        d_visual_designer.addTemplate(template_id, config, designer_id);
+    });
+    $(document).off('click','#add_block');
+    $(document).on('click','#add_block', function(){
+        var type = $(this).data('type');
+        var title = $(this).data('title');
+        var target = $('.vd-popup').find('input[name=target]').val();
+        var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+        var level = $('.vd-popup').find('input[name=level]').val();
+        d_visual_designer.addBlock(type,title, target, designer_id, level);
+    });
+
+    $(document).off('click', '[id=save-codeview]');
+    $(document).on('click', '[id=save-codeview]', function(){
+        var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+        d_visual_designer.saveCodeview(designer_id);
+    });
+
+    $(document).off('click','#button_code_view');
+    $(document).on('click','#button_code_view', function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.codeview(designer_id);
+    });
+    $(document).off('click','#button_full_screen');
+    $(document).on('click','#button_full_screen', function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.fullscreen(designer_id);
+    });
+
+    $('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
+
+        var block_id = $(this).closest('.block-container').attr('id');
+
+        var designer_id =  $(this).parents('.vd.content').attr('id');
+
+        d_visual_designer.removeBlock(block_id, designer_id);
+    });
+    $(document).off('change','input.percents');
+    $(document).on('change', 'input.percents', function(){
+        var value = $(this).val();
+        var er = /^-?[0-9]+$/;
+
+        if(er.test(value)){
+            if(value.indexOf() == -1){
+                $(this).val(value+'%');
+            }
+        }
+        else{
+            $(this).val('');
+        }
+    });
+    $(document).off('change','input.pixels');
+    $(document).on('change', 'input.pixels', function(){
+        var value = $(this).val();
+        console.log(value)
+        var er = /^-?[0-9]+$/;
+
+        if(er.test(value)){
+            if(value.indexOf() == -1){
+                $(this).val(value+'px');
+            }
+        }
+        else{
+            $(this).val('');
+        }
+    });
+    $(document).off('change',  'input.pixels-procent');
+    $(document).on('change', 'input.pixels-procent', function(){
+        var value = $(this).val();
+        var er = /^-?[0-9]+$/;
+        var er2 = /^-?[0-9]+(px|%)$/;
+
+        if(er.test(value)){
             $(this).val(value+'px');
         }
-    }
-    else{
-        $(this).val('');
-    }
-});
-
+        else if(!er2.test(value)){
+            $(this).val('');
+        }
+    });
+    $(document).off('change', 'select[name=design_background_image_style]');
+    $(document).on('change', 'select[name=design_background_image_style]', function(){
+        var style = $(this).val();
+        if(style!= 'parallax'){
+            $('select[name=design_background_image_position_horizontal]').closest('.form-group').show();
+        }
+        else{
+            $('select[name=design_background_image_position_horizontal]').closest('.form-group').hide();
+        }
+    });
 </script>

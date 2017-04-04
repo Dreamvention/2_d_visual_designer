@@ -89,6 +89,13 @@
         <?php if($setting['design_background_image_style'] == 'no-repeat') { ?>
             background-repeat: no-repeat;
         <?php } ?>
+        <?php if($setting['design_background_image_style'] == 'parallax') { ?>
+            display: block;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        <?php } ?>
     <?php } ?>
     <?php if(!empty($setting['additional_css_content'])) {?>
         <?php echo $setting['additional_css_content']; ?>

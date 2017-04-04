@@ -6,6 +6,7 @@ $_['text_classic_mode']            = 'Классический режим';
 $_['text_backend_editor']          = 'Backend Редактор';
 $_['text_frontend_editor']         = 'Frontend Редактор';
 $_['text_add_template']            = 'Шаблоны';
+$_['text_codeview']                = 'Просмотр кода';
 $_['text_frontend_title']          = 'Frontend Editor';
 $_['text_designer']                = 'Visual Designer';
 $_['text_layout']                  = 'Редактирование макета';
@@ -51,6 +52,7 @@ $_['text_cover']                   = 'Cover';
 $_['text_contain']                 = 'Contain';
 $_['text_no_repeat']               = 'No repeat';
 $_['text_repeaе']                  = 'Repeat';
+$_['text_parallax']                = 'Parallax';
 
 //tab
 $_['tab_save_block']               = 'Сохранить шаблон';

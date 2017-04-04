@@ -23,6 +23,7 @@ $_['text_cover']                   = 'Cover';
 $_['text_contain']                 = 'Contain';
 $_['text_no_repeat']               = 'No repeat';
 $_['text_repeaе']                  = 'Repeat';
+$_['text_parallax']                = 'Parallax';
 $_['text_set_custom']              = 'Задать';
 
 $_['text_left']                    = 'Слева';
