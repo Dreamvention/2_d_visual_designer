@@ -59,38 +59,9 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
         if($this->validate()){
 
-            $this->styles[] = 'view/stylesheet/d_visual_designer/d_visual_designer.css';
-
-            //FontIconPicker
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/fontIconPicker/iconset.js';
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/fontIconPicker/jquery.fonticonpicker.min.js';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/fontIconPicker/jquery.fonticonpicker.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/fontIconPicker/jquery.fonticonpicker.grey.min.css';
-
-            //Fonts icon
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/ionicons-1.5.2/css/ionicons.min.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/font-awesome-4.2.0/css/font-awesome.min.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/map-icons-2.1.0/css/map-icons.min.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/material-design-1.1.1/css/material-design-iconic-font.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/typicons-2.0.6/css/typicons.min.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/elusive-icons-2.0.0/css/elusive-icons.min.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/octicons-2.1.2/css/octicons.min.css';
-            $this->styles[] = 'view/javascript/d_visual_designer/library/icon-fonts/weather-icons-1.2.0/css/weather-icons.min.css';
-
-            //Bootstrap colorpicker
-            $this->styles[] = 'view/stylesheet/shopunity/bootstrap-colorpicker/bootstrap-colorpicker.min.css';
-            $this->scripts[] = 'view/javascript/shopunity/bootstrap-colorpicker/bootstrap-colorpicker.min.js';
-            //Bootstrap Switch
-            $this->styles[] = 'view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.min.css';
-            $this->scripts[] = 'view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js';
-
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/handlebars-v4.0.5.js';
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery-ui.js';
-            $this->scripts[] = 'view/javascript/d_visual_designer/library/jquery.serializejson.js';
-
-            //summernote
-            $this->styles[] = 'view/javascript/summernote/summernote.css';
-            $this->scripts[] = 'view/javascript/summernote/summernote.js';
+            $this->styles[] = 'view/stylesheet/d_visual_designer/d_visual_designer.css?'.$this->extension['version'];
+            $this->styles[] = 'view/javascript/d_visual_designer/vd-libraries.min.css';
+            $this->scripts[] = 'view/javascript/d_visual_designer/vd-libraries.min.js';
 
             //button
             $data['button_add'] = $this->language->get('button_add');
@@ -101,6 +72,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_add_block'] = $this->language->get('text_add_block');
             $data['text_edit_block'] = $this->language->get('text_edit_block');
             $data['text_add_template'] = $this->language->get('text_add_template');
+            $data['text_codeview'] = $this->language->get('text_codeview');
             $data['text_classic_mode'] = $this->language->get('text_classic_mode');
             $data['text_backend_editor'] = $this->language->get('text_backend_editor');
             $data['text_frontend_editor'] = $this->language->get('text_frontend_editor');
@@ -109,7 +81,6 @@ class ControllerDVisualDesignerDesigner extends Controller {
             $data['text_add_block'] = $this->language->get('text_add_block');
             $data['text_add_text_block'] = $this->language->get('text_add_text_block');
             $data['text_add_template'] = $this->language->get('text_add_template');
-            $data['text_codeview'] = $this->language->get('text_codeview');
             $data['text_save_template'] = $this->language->get('text_save_template');
             $data['text_search'] = $this->language->get('text_search');
             $data['text_layout'] = $this->language->get('text_layout');
@@ -174,16 +145,13 @@ class ControllerDVisualDesignerDesigner extends Controller {
                 if(!empty($route_info['backend_param']) && !empty($url_params[$route_info['backend_param']])){
                     $params = '&'.$route_info['frontend_param'].'='.$url_params[$route_info['backend_param']];
                     $frontend_param = '&id='.$url_params[$route_info['backend_param']];
+                    $frontend_url = htmlentities(urlencode($this->catalog_url.'index.php?route='.$route_info['frontend_route'].$params));
+                    $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
                 }
-                else{
-                    $params = '';
-                    $frontend_param = '';
+                if(!isset($route_info['backend_param'])){
+                    $frontend_url = htmlentities(urlencode($this->catalog_url.'index.php?route='.$route_info['frontend_route']));
+                    $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
                 }
-
-                $frontend_url = htmlentities(urlencode($this->catalog_url.'index.php?route='.$route_info['frontend_route'].$params));
-
-
-                $data['frontend_route'] = $this->url->link('d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
             }
 
             $this->load->model('localisation/language');
@@ -242,7 +210,6 @@ class ControllerDVisualDesignerDesigner extends Controller {
 
             $data['scripts'] = $this->scripts;
             $data['styles'] = $this->styles;
-
             $json['content'] = $this->load->view('d_visual_designer/designer.tpl', $data);
 
             $json['success'] = 'success';
@@ -452,7 +419,7 @@ class ControllerDVisualDesignerDesigner extends Controller {
                             'sort_order' => $setting['sort_order'],
                             'title' => $this->language->get('text_title'),
                             'category' => ucfirst($setting['category']),
-                            'type'  => $block,
+                            'type'	=> $block,
                             'description' => $this->language->get('text_description'),
                             'image' => $image
                             );
@@ -618,6 +585,24 @@ class ControllerDVisualDesignerDesigner extends Controller {
         if(empty($this->request->post['url'])) {
             $this->error['url'] = $this->language->get('error_url');
         }
+
+        if(!empty($setting['d_visual_designer_setting']['limit_access_user'])){
+            if(!empty($setting['d_visual_designer_setting']['access_user']) && !in_array($this->user->getId(), $setting['d_visual_designer_setting']['access_user'])){
+                $this->error['warning'] = $this->language->get('error_permission');
+            }
+            elseif($setting['d_visual_designer_setting']['access_user']){
+                $this->error['warning'] = $this->language->get('error_permission');
+            }
+        }
+        if(!empty($setting['d_visual_designer_setting']['limit_access_user_group'])){
+            if(!empty($setting['d_visual_designer_setting']['access_user_group']) && !in_array($this->user->getGroupId(), $setting['d_visual_designer_setting']['access_user_group'])){
+                $this->error['warning'] = $this->language->get('error_permission');
+            }
+            elseif(empty($setting['d_visual_designer_setting']['access_user_group'])){
+                $this->error['warning'] = $this->language->get('error_permission');
+            }
+        }
+
         else {
             $url_info = parse_url(str_replace('&amp;', '&', $this->request->post['url']));
             $url_params = array();

@@ -1,6 +1,6 @@
 {
     "codename": "d_visual_designer",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "name": "Visual Designer",
     "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
     "index": "module/d_visual_designer",
@@ -27,39 +27,41 @@
         "url": "https://shopunity.net/licenses/commercial"
     },
     "install": {
-        "url": "extension/module/install&extension=d_visual_designer",
-        "xml": "system/mbooth/install/d_visual_designer.xml"
+        "url": "extension/module/install&extension=d_visual_designer"
     },
     "support": {
         "email": "support@dreamvention.com",
         "url": "https://dreamvention.com/support"
     },
     "required": {
-        "d_shopunity": ">= 3.0.0",
+        "d_shopunity": ">= 3.0.41",
+        "d_event_manager": ">= 1.1.2",
+        "d_simple_html_dom": ">= 1.0.4",
         "d_elfinder": ">= 1.0.0"
     },
     "files": [
         "system/mbooth/extension/d_visual_designer.json",
-        "system/mbooth/install/d_visual_designer.xml",
         "system/config/d_visual_designer.php",
                 
-        "system/config/d_visual_designer_route/add_category.php",
-        "system/config/d_visual_designer_route/add_information.php",
-        "system/config/d_visual_designer_route/add_product.php",
-        "system/config/d_visual_designer_route/edit_category.php",
-        "system/config/d_visual_designer_route/edit_information.php",
-        "system/config/d_visual_designer_route/edit_product.php",
+        "system/config/d_visual_designer_route/category.php",
+        "system/config/d_visual_designer_route/information.php",
+        "system/config/d_visual_designer_route/product.php",
+        "system/config/d_visual_designer_route/template.php",
         
         "system/config/d_visual_designer/column.php",
         "system/config/d_visual_designer/row.php",
         "system/config/d_visual_designer/text.php",
 
         "admin/controller/module/d_visual_designer.php",
+        "admin/controller/event/d_visual_designer.php",
         "admin/language/en-gb/module/d_visual_designer.php",
         "admin/language/english/module/d_visual_designer.php",
         "admin/language/ru-ru/module/d_visual_designer.php",
         "admin/language/russian/module/d_visual_designer.php",
         "admin/model/module/d_visual_designer.php",
+        "admin/view/javascript/d_visual_designer/d_visual_designer.js",
+        "admin/view/javascript/d_visual_designer/vd-libraries.min.js",
+        "admin/view/javascript/d_visual_designer/vd-libraries.min.css",
         
         "catalog/controller/common/filemanager.php",
         "catalog/language/en-gb/common/filemanager.php",
@@ -74,7 +76,12 @@
         "catalog/language/ru-ru/module/d_visual_designer.php",
         "catalog/language/russian/module/d_visual_designer.php",
         "catalog/model/module/d_visual_designer.php",
+        "catalog/model/extension/module/d_visual_designer.php",
         "catalog/view/theme/default/javascript/d_visual_designer.js",
+        "catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.js",
+        "catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.js",
+        "catalog/view/stylesheet/d_visual_designer/vd-basic-libraries.min.css",
+        "catalog/view/stylesheet/d_visual_designer/vd-secondary-libraries.min.css",
 
         "admin/view/template/d_visual_designer_layout/main.tpl",
         "admin/view/template/d_visual_designer_layout/medium.tpl",
@@ -146,15 +153,25 @@
         "admin/model/d_visual_designer",
         "admin/view/template/d_visual_designer",
         "admin/view/stylesheet/d_visual_designer",
-        "admin/view/javascript/d_visual_designer",
         "admin/view/image/d_visual_designer",
+        "admin/view/javascript/d_visual_designer/library/bootstrap-colorpicker/img",
+        "admin/view/javascript/d_visual_designer/library/icon-fonts/fonts",
+        "admin/view/javascript/d_visual_designer/library/fontIconPicker/fonts",
+        "admin/view/javascript/d_visual_designer/library/summernote/font",
         
         "catalog/view/theme/default/template/d_visual_designer",
         "catalog/view/theme/default/stylesheet/d_visual_designer",
         "catalog/view/theme/default/image/d_visual_designer",
-        "catalog/view/javascript/d_visual_designer"
+        "catalog/view/stylesheet/d_visual_designer/bootstrap-colorpicker/img",
+        "catalog/view/stylesheet/d_visual_designer/icon-fonts/fonts",
+        "catalog/view/stylesheet/d_visual_designer/fontIconPicker/fonts",
+        "catalog/view/stylesheet/d_visual_designer/summernote/font"
     ],
     "changelog": [
+        {
+            "version":"1.1.0",
+            "change":"1.Added parallax. \r\n2.Added Code Viewer. \r\n3.Fix bugs. \r\n4.Added animate for control button. \r\n5.OCMOD replaced to Events \r\n6.Added the ability to disable the Visual Designer separately on the pages of goods, categories, information. \r\n7.Added the ability to restrict access to Visual Designer for selected users or groups of users."
+        },
         {
             "version":"1.0.6",
             "change":"1.Fix Bugs."

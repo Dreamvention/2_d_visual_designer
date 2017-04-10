@@ -1,3 +1,10 @@
+<?php foreach ($styles as $style) { ?>
+<link href="<?php echo $style; ?>" rel="stylesheet" />
+<?php } ?>
+
+<?php foreach ($scripts as $script) { ?>
+<script type="text/javascript" src="<?php echo $script; ?>"></script>
+<?php } ?>
 <form id="form-vd-<?php echo $designer_id; ?>">
     <div class="content vd" id="<?php echo $designer_id; ?>">
         <div class="vd" id="sortable"><?php echo $content; ?></div>
@@ -620,12 +627,6 @@ $(document).on('click','.vd-popup a.stick-left',function(){
 $('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
     var block_id = $(this).parent().data('control');
     d_visual_designer.removeBlock(block_id, '<?php echo $designer_id; ?>');
-});
-$('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function(){
-    $(this).addClass('active-control');
-});
-$('#<?php echo $designer_id; ?>').on('mouseout', '.block-container', function(){
-    $(this).removeClass('active-control');
 });
 $('#<?php echo $designer_id; ?>').on('mouseover', '.block-button', function(){
     $(this).closest('.block-container').addClass('active-border');

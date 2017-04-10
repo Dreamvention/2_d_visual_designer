@@ -118,6 +118,7 @@ class ModelDVisualDesignerTemplate extends Model {
         else{
             $files = array();
         }
+    
         $template_data = array();
         
         foreach($files as $file){

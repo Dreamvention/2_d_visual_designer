@@ -21,12 +21,19 @@
             ['view', ['fullscreen', 'codeview', 'help']]
         ],
         onChange: function(contents, $editable) {
-            if('<?php echo VERSION; ?>' >= '2.2.0.0')
-            {
+            <?php if(VERSION >= '2.2.0.0') { ?>
                 $(this).val(contents);
-            }
-            else{
-                $editable.parents('.form-group').find('textarea').val(contents);
+            <?php } else { ?>
+                $editable.parents('.form-group').find('textarea[name=\'text\']').text(contents);
+            <?php } ?>
+        },
+        callbacks : {
+            onChange: function(contents, $editable) {
+                <?php if(VERSION >= '2.2.0.0') { ?>
+                    $(this).val(contents);
+                <?php } else { ?>
+                    $editable.parents('.form-group').find('textarea[name=\'text\']').text(contents);
+                <?php } ?>
             }
         }
     });

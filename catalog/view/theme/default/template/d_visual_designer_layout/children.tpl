@@ -16,10 +16,9 @@
         <?php if(!empty($button_remove)) { ?>
             <a id="button_remove" class="vd-btn vd-btn-small vd-btn-remove"></a>
         <?php } ?>
-
-    </div>
-    <div class="block-button <?php echo isset($child)?'hidden':'';?>">
-    <a id="button_add_block"  class="vd-btn vd-btn-add button-add-bottom"></a>
+        <div class="block-button <?php echo isset($child)?'hidden':'';?>">
+            <a id="button_add_block"  class="vd-btn vd-btn-add button-add-bottom"></a>
+        </div>
     </div>
     <?php } ?>
 <style>

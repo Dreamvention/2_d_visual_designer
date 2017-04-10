@@ -1,0 +1,8 @@
+// @koala-append "library/bootstrap-switch/bootstrap-switch.js"
+// @koala-append "library/fontIconPicker/iconset.js"
+// @koala-append "library/fontIconPicker/jquery.fonticonpicker.min.js"
+// @koala-append "library/bootstrap-colorpicker/bootstrap-colorpicker.min.js"
+// @koala-append "library/summernote/summernote.min.js"
+// @koala-append "library/jquery-ui.js"
+// @koala-append "library/handlebars-v4.0.5.js"
+// @koala-append "library/jquery.serializejson.js"

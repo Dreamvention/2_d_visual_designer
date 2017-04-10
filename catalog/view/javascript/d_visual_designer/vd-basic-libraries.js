@@ -1,0 +1,6 @@
+// @koala-append "library/sharrre/jquery.sharrre.min.js"
+// @koala-append "library/magnific/jquery.magnific-popup.min.js"
+// @koala-append "library/chart/Chart.min.js"
+// @koala-append "library/pie-chart.js"
+// @koala-append "library/circle-progress.js"
+// @koala-append "library/owl-carousel/owl.carousel.min.js"

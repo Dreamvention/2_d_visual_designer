@@ -30,17 +30,17 @@
                         $('span.notify').fadeOut('slow');
                     }, 2000);
                };
-               $('iframe').contents().find('body').get(0).onsave_content_permission = function() {
-                   $('a[id=button-save]').button('reset');
-                   $('span.notify').html('<?php echo $error_permission; ?>');
-                   $('span.notify').addClass('error');
-                   $('span.notify').fadeIn('slow');
-                   setTimeout(function(){
-                       $('span.notify').fadeOut('slow');
-                       
-                       
-                   }, 2000);
-              };
+                $('iframe').contents().find('body').get(0).onsave_content_permission = function() {
+                    $('a[id=button-save]').button('reset');
+                    $('span.notify').html('<?php echo $error_permission; ?>');
+                    $('span.notify').addClass('error');
+                    $('span.notify').fadeIn('slow');
+                    setTimeout(function(){
+                        $('span.notify').fadeOut('slow');
+                        
+                        
+                    }, 2000);
+               };
                 $('iframe').contents().find('body').get(0).onsave_template_success = function() {
                     $('span.notify').html('<?php echo $text_success_template_save; ?>');
                     $('span.notify').fadeIn('slow');

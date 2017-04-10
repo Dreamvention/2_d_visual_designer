@@ -1,6 +1,7 @@
 @import "loader.css";
 @import "control.scss";
 @import "component.scss";
+@import "animation.css";
 @font-face {
     font-family: 'Glyph';
     src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
@@ -290,6 +291,7 @@
                 visibility: visible;
                 opacity: 1;
             }
+
             >.control:hover~.block-mouse-toggle {
                 background: rgba(48, 140, 214, 0.1);
                 opacity: 1;
@@ -303,6 +305,16 @@
                 >.control {
                     visibility: visible;
                     opacity: 1;
+                    -webkit-animation: bounce-bottom 0.9s  both;
+                    -moz-animation: bounce-bottom 0.9s  both;
+                    animation: bounce-bottom 0.9s  both;
+                }
+            }
+            &.deactive-control{
+                > .control{
+                    -webkit-animation: slide-out-bottom 0.25s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    -moz-animation: slide-out-bottom 0.25s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    animation: slide-out-bottom 0.25s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                 }
             }
             &>.block-content {
@@ -327,11 +339,22 @@
                 >.control {
                     visibility: visible;
                     opacity: 1;
+                    animation-play-state: running;
+                    -webkit-animation: bounce-bottom 0.9s 0.18s both;
+                    -moz-animation: bounce-bottom 0.9s 0.18s both;
+                    animation: bounce-bottom 0.9s 0.18s both;
                 }
                 >.control-top-bordered {
                     display: -webkit-box;
                     display: -ms-flexbox;
                     display: flex;
+                }
+            }
+            &.deactive-control{
+                > .control{
+                    -webkit-animation: slide-out-bottom 0.25s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    -moz-animation: slide-out-bottom 0.25s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    animation: slide-out-bottom 0.25s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                 }
             }
             // padding: 0 15px;
@@ -477,48 +500,36 @@
         .block-child {
             position: relative;
             min-height: 33px;
-            // margin-top: 5px;
+
             padding: 15px 10px;
-            // padding: 0px 15px;
-            // z-index: 3;
+
             text-align: left;
             border-radius: 2px;
             background-repeat: no-repeat;
             background-position: 10px 10px;
-            &>.block-button {
-                position: absolute;
-                z-index: 1002;
-                top: calc(50% + 35px);
-                left: 50%;
-                visibility: hidden;
-                padding-top: 20px;
-                -webkit-transition: visibility 0s, opacity 0.5s linear;
-                transition: visibility 0s, opacity 0.5s linear;
-                -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%);
-                opacity: 0;
-                &>a {
-                    display: block;
-                    width: 28px;
-                    height: 28px;
-                    cursor: pointer;
-                    border-radius: 50%;
-                    background-color: #72b338;
-                    &:hover {
-                        background-color: #84c24d;
-                    }
+
+            &.active-control{
+                > .control{
+                    -webkit-animation: bounce-bottom 0.9s 0.36s both;
+                    -moz-animation: bounce-bottom 0.9s 0.36s both;
+                    animation: bounce-bottom 0.9s 0.36s both;
                 }
             }
+            &.deactive-control{
+                > .control{
+                    -webkit-animation: slide-out-bottom 0.25s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    -moz-animation: slide-out-bottom 0.25s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                }
+            }
+
             &:hover {
                 background: rgba(0, 255, 0, 0.1);
                 >.control {
                     visibility: visible;
                     opacity: 1;
                 }
-                >.block-button {
-                    visibility: visible;
-                    opacity: 1;
-                }
+
             }
             &>.block-content {
                 min-height: 35px;
@@ -542,8 +553,6 @@
     > textarea.text-codeview{
         width: 100%;
         min-height: 200px;
-        border-radius: 4px;
-        border-color: #c3c2c2;
     }
 }
 .popup-new-template {
@@ -634,20 +643,21 @@
         padding: 0px;
         float: left;
         overflow: hidden;
-        height: 75px;
+        height: 100px;
         list-style: none;
         -webkit-transition: border-color .2s;
         transition: border-color .2s;
         .block {
             display: table;
             width: 100%;
-            height: 69px;
+            height: 94px;
             border: 0;
             background: #fff;
+            border-radius: 5px;
             a {
                 position: relative;
                 display: table-cell;
-                padding: 2px 4px 2px 57px;
+                padding: 2px 20px 2px 93px;
                 vertical-align: middle;
                 white-space: normal;
                 text-decoration: none;
@@ -658,13 +668,13 @@
                 >span {
                     position: absolute;
                     top: 50%;
-                    left: 10px;
+                    left: 20px;
                     display: block;
                     display: -webkit-box;
                     display: -ms-flexbox;
                     display: flex;
-                    width: 40px;
-                    height: 40px;
+                    width: 54px;
+                    height: 54px;
                     -webkit-transform: translateY(-50%);
                     transform: translateY(-50%);
                     -webkit-box-align: center;
@@ -673,6 +683,10 @@
                     -webkit-box-pack: center;
                     -ms-flex-pack: center;
                     justify-content: center;
+                    > img{
+                        width: 54px;
+                        height: 54px;
+                    }
                 }
                 .description {
                     position: relative;

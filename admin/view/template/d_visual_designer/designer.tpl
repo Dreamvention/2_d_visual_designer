@@ -112,7 +112,7 @@
         </div>
         <div class="popup-content">
             <div class="popup-codeview">
-                <textarea name="codeview" class="text-codeview">{{content}}</textarea>
+                <textarea name="codeview" class="text-codeview form-control">{{content}}</textarea>
             </div>
         </div>
         <div class="popup-footer">
@@ -553,12 +553,7 @@
     $(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
         d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
     });
-    $('#<?php echo $designer_id; ?>').on('mouseover', '.block-container', function(){
-        $(this).addClass('active-control');
-    });
-    $('#<?php echo $designer_id; ?>').on('mouseout', '.block-container', function(){
-        $(this).removeClass('active-control');
-    });
+
     $(document).off('click','.vd-popup-overlay');
     $(document).on('click','.vd-popup-overlay',function(){
         d_visual_designer.closePopup();

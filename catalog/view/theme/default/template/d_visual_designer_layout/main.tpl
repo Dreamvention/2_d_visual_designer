@@ -1,6 +1,4 @@
-<div class="block-parent block-container col-md-<?php echo $size; ?>
-    <?php echo !empty($setting['background_video'])?'video':''; ?>
-     <?php echo !empty($setting['additional_css_class'])?$setting['additional_css_class']:''; ?>" id="<?php echo $key; ?>"  data-title="<?php echo $title; ?>"
+<div class="block-parent block-container <?php echo !empty($setting['background_video'])?'video':''; ?> <?php echo !empty($setting['additional_css_class'])?$setting['additional_css_class']:''; ?>" id="<?php echo $key; ?>"  data-title="<?php echo $title; ?>"
          data-image="<?php echo $image; ?>">
     <?php if($permission && $display_control) {?>
         <div class="block-mouse-toggle"></div>

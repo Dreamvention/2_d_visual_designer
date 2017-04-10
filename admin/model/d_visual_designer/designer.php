@@ -15,7 +15,7 @@ class ModelDVisualDesignerDesigner extends Model {
     private $level = 0;
 
     private $sort_order = 0;
-
+    
     private $sort_orders = array();
 
     private $parent_clear = false;
@@ -58,7 +58,6 @@ class ModelDVisualDesignerDesigner extends Model {
     }
 
     public function shortcode_parse_atts($text) {
-
         $attr = array();
         $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|([a-zA-Z:0-9_]+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
         $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
@@ -189,7 +188,7 @@ class ModelDVisualDesignerDesigner extends Model {
 
         $type=str_replace('vd_','',$tag);
 
-        $attr = $this->getSetting($this->shortcode_parse_atts( $m[3] ), $type);
+        $attr = $this->getSetting($this->shortcode_parse_atts( $m[3]), $type);
 
         if ( !empty( $m[5] ) ) {
             $current_block = $type.'_'.$this->getRandomString();
@@ -457,8 +456,8 @@ class ModelDVisualDesignerDesigner extends Model {
             $child_block =array(
                 'type' => 'row',
                 'parent'=> '',
-                'setting' => $this->getSetting(array(), 'row'),
                 'sort_order' => 0,
+                'setting' => $this->getSetting(array(), 'row'),
                 'block_id' => 'row_'.$this->getRandomString()
                 );
             $result_main = $this->getFullContent($child_block, ($level), $settingJS);
@@ -496,7 +495,7 @@ class ModelDVisualDesignerDesigner extends Model {
             $content_child = $result['content'];
             $settingJS = $settingJS+$result['setting'];
             $block_info['setting']['setting_child'] = $result['setting_child'];
-            
+
             $content_main = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, ($level == 0)?2:1, 1);
             $content = str_replace('{{{inner-block}}}', $content_child, $content_main);
         }
@@ -532,7 +531,7 @@ class ModelDVisualDesignerDesigner extends Model {
         $this->config->load('d_visual_designer');
 
         $setting_main = $this->config->get('d_visual_designer_default_block_setting');
-        
+
         $setting_default = $this->getSettingBlock($type);
 
         $result = $setting_main;
@@ -548,6 +547,7 @@ class ModelDVisualDesignerDesigner extends Model {
                 $result[$key] = $value;
             }
         }
+
         return $result;
     }
 
@@ -580,11 +580,25 @@ class ModelDVisualDesignerDesigner extends Model {
     }
 
     public function getRouteByBackendRoute($backend_route){
-        $routes = $this->getRoutes();
-        foreach ($routes as $config => $route) {
-            if($route['backend_route'] == $backend_route){
-                $route['config_name'] = $config;
-                return $route;
+        $this->load->model('setting/setting');
+        $setting = $this->model_setting_setting->getSetting('d_visual_designer');
+        if(isset($setting['d_visual_designer_setting']['use'])){
+            $routes = $setting['d_visual_designer_setting']['use'];
+        }
+        else{
+            $routes = array();
+        }
+        foreach ($routes as $route) {
+            $route_info = $this->getRoute($route);
+            if(isset($route_info['backend_route_regex'])){
+                $pattern = $route_info['backend_route_regex'];
+            }
+            else{
+                $pattern = $route_info['backend_route'];
+            }
+            if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($pattern, '/')) . '/', $backend_route)) {
+                $route_info['config_name'] = $route;
+                return $route_info;
             }
         }
         return array();
@@ -592,11 +606,11 @@ class ModelDVisualDesignerDesigner extends Model {
 
     public function getRoutes(){
         $dir = DIR_CONFIG.'d_visual_designer_route/*.php';
-        
+
         $files = glob($dir);
 
         $route_data = array();
-        
+
         foreach($files as $file){
 
             $name = basename($file, '.php');
@@ -604,7 +618,7 @@ class ModelDVisualDesignerDesigner extends Model {
             $route_data[$name] = $route_info;
 
         }
-
+        arsort($route_data);
         return $route_data;
     }
 
@@ -613,12 +627,12 @@ class ModelDVisualDesignerDesigner extends Model {
         $results = array();
 
         $file = DIR_CONFIG.'d_visual_designer_route/'.$name.'.php';
-        
+
         if (file_exists($file)) {
             $_ = array();
 
             require($file);
-            
+
             $results = array_merge($results, $_);
         }
 

@@ -10,7 +10,7 @@
 #tab-description {
     overflow: visible;
     .vd {
-        div,
+        div:not(.form-group),
         p {
             margin-bottom: 0;
         }
@@ -247,6 +247,16 @@
                 >.control {
                     visibility: visible;
                     opacity: 1;
+                    -webkit-animation: bounce-bottom 0.9s  both;
+                    -moz-animation: bounce-bottom 0.9s  both;
+                    animation: bounce-bottom 0.9s  both;
+                }
+            }
+            &.deactive-control{
+                > .control{
+                    -webkit-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    -moz-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                 }
             }
             &.video {
@@ -269,6 +279,9 @@
                 >.control {
                     visibility: visible;
                     opacity: 1;
+                    -webkit-animation: bounce-bottom 0.9s 0.18s  both;
+                    -moz-animation: bounce-bottom 0.9s 0.18s both;
+                    animation: bounce-bottom 0.9s 0.18s both;
                 }
                 >.control-top-bordered {
                     display: -webkit-box;
@@ -281,6 +294,13 @@
                             z-index: 1003;
                         }
                     }
+                }
+            }
+            &.deactive-control{
+                > .control{
+                    -webkit-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    -moz-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                 }
             }
             &.col-sm-1,
@@ -319,6 +339,7 @@
                     opacity: 1;
                 }
             }
+
             &:not(.accordion) {
                 display: none;
             }
@@ -444,6 +465,20 @@
                     }
                 }
             }
+            &.active-control{
+                > .control{
+                    -webkit-animation: bounce-bottom 0.9s 0.36s both;
+                    -moz-animation: bounce-bottom 0.9s 0.36s both;
+                    animation: bounce-bottom 0.9s 0.36s both;
+                }
+            }
+            &.deactive-control{
+                > .control{
+                    -webkit-animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    -moz-animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                    animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+                }
+            }
             &>.block-content {
                 min-height: 35px;
                 word-break: break-word;
@@ -453,10 +488,6 @@
             }
             &:hover {
                 >.control {
-                    visibility: visible;
-                    opacity: 1;
-                }
-                >.block-button {
                     visibility: visible;
                     opacity: 1;
                 }

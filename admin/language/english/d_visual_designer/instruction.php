@@ -1,6 +1,6 @@
 <?php
 
-$_['text_instruction_full']			= '
+$_['text_instruction_full']         = '
 <div class="row">
 <div class="col-md-2">
 
@@ -12,7 +12,7 @@ $_['text_instruction_full']			= '
 </div>
 <div class="col-md-10">
 <div class="tab-content">
-	<div id="in_install" class="tab-pane active">
+    <div id="in_install" class="tab-pane active">
         <h3>Installation</h3>
             <ol>
                 <li>Unzip distribution file</li>
@@ -34,11 +34,7 @@ $_['text_instruction_full']			= '
             <h4>Warning!</h4>
             <p>If you have made custom corrections to the code, your code will be rewritten and lost once you update the module. </p>
             </div>
-            <div class="bs-callout bs-callout-info">
-                <h4>Vqmod Required!</h4>
-                <p>Vqmod is required. be sure to have it installed</p>
-            </div>
-			
+            
         </div>
     <div id="in_setup" class="tab-pane">
         <div class="tab-body">
