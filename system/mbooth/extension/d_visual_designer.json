@@ -76,7 +76,6 @@
         "catalog/language/ru-ru/module/d_visual_designer.php",
         "catalog/language/russian/module/d_visual_designer.php",
         "catalog/model/module/d_visual_designer.php",
-        "catalog/model/extension/module/d_visual_designer.php",
         "catalog/view/theme/default/javascript/d_visual_designer.js",
         "catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.js",
         "catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.js",
