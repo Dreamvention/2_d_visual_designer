@@ -71,6 +71,7 @@
         "catalog/view/theme/default/template/d_visual_designer/filemanager.tpl",
         
         "catalog/controller/module/d_visual_designer.php",
+        "catalog/controller/event/d_visual_designer.php",
         "catalog/language/en-gb/module/d_visual_designer.php",
         "catalog/language/english/module/d_visual_designer.php",
         "catalog/language/ru-ru/module/d_visual_designer.php",
