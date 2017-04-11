@@ -275,10 +275,10 @@ class ControllerDVisualDesignerSetting extends Controller
             $this->session->data['error'] = $this->language->get('error_permission');
             $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
         }
-        $files = array('edit_category','edit_product','edit_information','edit_template','add_category','add_product','add_information','add_template');
+        $files = array('edit_template', 'edit_category','edit_product','edit_information','add_template','add_category','add_product','add_information');
         foreach ($files as $file) {
-            if(file_exists(DIR_CONFIG.$file.'.php')){
-                @unlink(DIR_CONFIG.$file.'.php');
+            if(file_exists(DIR_CONFIG.'d_visual_designer_route/'.$file.'.php')){
+                @unlink(DIR_CONFIG.'d_visual_designer_route/'.$file.'.php');
             }
         }
         $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
