@@ -67,7 +67,7 @@
                             <?php } ?>
                             <input type="hidden" name="<?php echo $id;?>_status" value="0" />
                             <?php if ($event_support) {?>
-                            <input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_status" name="<?php echo $id;?>_status" <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
+                            <input type="checkbox" name="<?php echo $id;?>_status" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_status"  <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
                             <?php } ?>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                         <label class="col-sm-2 control-label" for="input_save_change"><?php echo $entry_save_change; ?></label>
                         <div class="col-sm-10">
                             <input type="hidden" name="<?php echo $id;?>_setting[save_change]" value="0" />
-                            <input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_save_change" name="<?php echo $id;?>_setting[save_change]" <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
+                            <input type="checkbox" name="<?php echo $id;?>_setting[save_change]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_save_change"  <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
                         </div>
                     </div>
 
@@ -107,7 +107,7 @@
                         <label class="col-sm-2 control-label" for="input-limit-access-user"><?php echo $entry_limit_access_user; ?></label>
                         <div class="col-sm-10">
                             <input type="hidden" name="<?php echo $id;?>_setting[limit_access_user]" value="0" />
-                            <input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user" name="<?php echo $id;?>_setting[limit_access_user]" <?php echo ($setting['limit_access_user'])? 'checked="checked"':'';?> value="1" />
+                            <input type="checkbox" name="<?php echo $id;?>_setting[limit_access_user]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user"  <?php echo ($setting['limit_access_user'])? 'checked="checked"':'';?> value="1" />
                         </div>
                     </div>
                     <div class="form-group" id="users">
@@ -129,7 +129,7 @@
                         <label class="col-sm-2 control-label" for="input-limit-access-user-group"><?php echo $entry_limit_access_user_group; ?></label>
                         <div class="col-sm-10">
                             <input type="hidden" name="<?php echo $id;?>_setting[limit_access_user_group]" value="0" />
-                            <input type="checkbox" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user-group" name="<?php echo $id;?>_setting[limit_access_user_group]" <?php echo ($setting['limit_access_user_group'])? 'checked="checked"':'';?> value="1" />
+                            <input type="checkbox" name="<?php echo $id;?>_setting[limit_access_user_group]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user-group"  <?php echo ($setting['limit_access_user_group'])? 'checked="checked"':'';?> value="1" />
                         </div>
                     </div>
 

@@ -270,6 +270,20 @@ class ControllerDVisualDesignerSetting extends Controller
         return true;
     }
 
+    public function deleteDeprecated(){
+        if (!$this->user->hasPermission('modify', $this->route)) {
+            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+        }
+        $files = array('edit_category','edit_product','edit_information','edit_template','add_category','add_product','add_information','add_template');
+        foreach ($files as $file) {
+            if(file_exists(DIR_CONFIG.$file.'.php')){
+                @unlink(DIR_CONFIG.$file.'.php');
+            }
+        }
+        $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+    }
+
     public function install_event_support(){
         if (!$this->user->hasPermission('modify', $this->route)) {
             $this->session->data['error'] = $this->language->get('error_permission');
