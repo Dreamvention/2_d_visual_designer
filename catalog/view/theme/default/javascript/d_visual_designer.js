@@ -902,7 +902,6 @@ var d_visual_designer = {
     },
     //Поиск блоков
     search: function(text, items, target, attr = 'text') {
-        text = text.toLowerCase();
         $(items).addClass('hide');
         $(items).each(function() {
             if (attr == 'text') {
