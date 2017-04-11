@@ -5,3 +5,4 @@
 // @koala-append "library/handlebars-v4.0.5.js"
 // @koala-append "library/bootstrap-colorpicker/bootstrap-colorpicker.min.js"
 // @koala-append "library/bootstrap-switch/bootstrap-switch.min.js"
+// @koala-append "library/summernote/summernote-cleaner.js"

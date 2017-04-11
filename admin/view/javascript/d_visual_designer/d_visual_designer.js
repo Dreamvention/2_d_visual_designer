@@ -1028,6 +1028,7 @@ var d_visual_designer = {
     },
     //Поиск блоков
     search: function(text, items, target, attr = 'text') {
+        console.log(text);
         $(items).addClass('hide');
         $(items).each(function() {
             if (attr == 'text') {
