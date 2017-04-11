@@ -956,6 +956,8 @@
   .vd-popup.add_template {
     width: 60%;
     left: 20%; }
+    .vd-popup.add_template > .popup-header > div.search {
+      top: 8px; }
     .vd-popup.add_template > .popup-tabs li > a {
       cursor: pointer; }
     .vd-popup.add_template > .popup-tabs.active + .popup-tabs.templates {
@@ -1051,7 +1053,7 @@
       font-size: 20px; }
     .vd-popup .popup-header > div.search {
       position: absolute;
-      top: 15px;
+      top: 11px;
       right: 55px; }
       .vd-popup .popup-header > div.search > i {
         position: absolute;
@@ -1447,16 +1449,17 @@ span.module_name {
       background-color: #00aeee;
       font-size: 14px;
       font-weight: 400; }
-      .vd-welcome .vd-button-group .vd-button > i {
-        padding-right: 0.5em; }
-        .vd-welcome .vd-button-group .vd-button > i:before {
-          width: 19px;
-          height: 19px;
-          font-size: 19px; }
+      .vd-welcome .vd-button-group .vd-button#vd-add-button {
+        background-image: url("../../image/d_visual_designer/add-block.svg");
+        background-repeat: no-repeat;
+        background-position: 25% center; }
       .vd-welcome .vd-button-group .vd-button.vd-add-text-block {
         background-color: #73C02A; }
       .vd-welcome .vd-button-group .vd-button.vd-add-template {
-        background-color: #FEB710; }
+        background-color: #FEB710;
+        background-image: url("../../image/d_visual_designer/template-add.svg");
+        background-repeat: no-repeat;
+        background-position: 15% center; }
 
 .helper-sortable {
   position: absolute;

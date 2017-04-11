@@ -7452,6 +7452,8 @@
     left: 20%;
     top: 13%;
     width: 60%; }
+    .vd-popup.add_template > .popup-header > div.search {
+      top: 8px; }
     .vd-popup.add_template > .popup-tabs li > a {
       cursor: pointer; }
     .vd-popup.add_template > .popup-tabs.active + .popup-tabs.templates {
@@ -7541,7 +7543,7 @@
       line-height: 29px; }
     .vd-popup .popup-header > div.search {
       position: absolute;
-      top: 15px;
+      top: 11px;
       right: 55px; }
       .vd-popup .popup-header > div.search > i {
         position: absolute;
@@ -8130,7 +8132,8 @@
   border-radius: 3px;
   font-size: 0 !important; }
   .vd .control-popup > .block-button {
-    padding-top: 10px; }
+    padding-top: 10px;
+    margin: 0px; }
     .vd .control-popup > .block-button > a {
       display: block;
       width: 28px;
@@ -8529,11 +8532,11 @@
     line-height: 40px; }
 .content.vd .glyphicon {
   font-family: 'Glyph'; }
-.content.vd:empty {
+.content.vd > .vd#sortable:empty {
   display: none; }
-  .content.vd:empty + .vd-helper {
+  .content.vd > .vd#sortable:empty + .vd-helper {
     display: none; }
-    .content.vd:empty + .vd-helper + .vd-welcome {
+    .content.vd > .vd#sortable:empty + .vd-helper + .vd-welcome {
       display: block; }
 .content.vd .sharrre .buttons {
   margin: 0;
@@ -9017,15 +9020,16 @@ span.module_name {
       background-color: #00aeee;
       font-size: 14px;
       font-weight: 400; }
-      .vd-welcome .vd-button-group .vd-button > i {
-        padding-right: .5em; }
-        .vd-welcome .vd-button-group .vd-button > i:before {
-          width: 19px;
-          height: 19px;
-          font-size: 19px; }
+      .vd-welcome .vd-button-group .vd-button#vd-add-button {
+        background-image: url(../../image/d_visual_designer/add-block.svg);
+        background-repeat: no-repeat;
+        background-position: 25% center; }
       .vd-welcome .vd-button-group .vd-button.vd-add-text-block {
         background-color: #73C02A; }
       .vd-welcome .vd-button-group .vd-button.vd-add-template {
-        background-color: #FEB710; }
+        background-color: #FEB710;
+        background-image: url(../../image/d_visual_designer/template-add.svg);
+        background-repeat: no-repeat;
+        background-position: 15% center; }
 
 /*# sourceMappingURL=d_visual_designer.css.map */

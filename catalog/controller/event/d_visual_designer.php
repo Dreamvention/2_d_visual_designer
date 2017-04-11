@@ -15,7 +15,7 @@ class ControllerEventDVisualDesigner extends Controller
 
     public function view_product_before(&$view, &$data, &$output)
     {
-        if(!empty($data['description'])){
+        if(isset($data['description'])){
             $designer_data = array(
                 'config' => 'product',
                 'content' => $data['description'],
@@ -34,7 +34,7 @@ class ControllerEventDVisualDesigner extends Controller
 
         $category_id = (int)array_pop($parts);
 
-        if (!empty($data['description'])) {
+        if (isset($data['description'])) {
             $designer_data = array(
                 'config' => 'category',
                 'content' => $data['description'],

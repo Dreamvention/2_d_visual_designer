@@ -34,12 +34,11 @@ class ModelModuleDVisualDesigner extends Model {
         $this->settingJS = array();
         
         if(!empty($data['config'])){
-            $this->config_name = $data['config'];    
+            $this->config_name = $data['config'];
         }
         else{
             $this->config_name = '';
         }
-        
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelModuleDVisualDesigner::do_shortcode_tag', $data['content']);
 
         if(empty($this->settingJS) && !empty($content)){
@@ -56,7 +55,7 @@ class ModelModuleDVisualDesigner extends Model {
             'config' => $data['config'],
             'description' => $data['content']
             );
-
+            
         $content = $this->load->controller('module/d_visual_designer', $data);
 
         if(!empty($content)){
@@ -467,7 +466,15 @@ class ModelModuleDVisualDesigner extends Model {
     public function loadView($route, $data){
         $route = rtrim($route, ".tpl");
 
-        return $this->load->view($route, $data);
+        if (VERSION >= '2.2.0.0') {
+            return $this->load->view($route, $data);
+        } else {
+            if (file_exists(DIR_TEMPLATE.$this->config->get('config_template').'/template/'.$route.'.tpl')) {
+                return $this->load->view($this->config->get('config_template').'/template/'.$route.'.tpl', $data);
+            } else {
+                return $this->load->view('default/template/'.$route.'.tpl', $data);
+            }
+        }
     }
 
     public function parseDescriptionHelper($description){

@@ -14,11 +14,9 @@ $_['backend_param']     = 'product_id';
 //GET параметр содержащий id страницы на Frontend
 $_['frontend_param']    = 'product_id';
 //Путь для сохранения описания на Frontend
-$_['edit_url']          = 'index.php?route=extension/module/d_visual_designer/saveProduct';
+$_['edit_url']          = 'index.php?route=module/d_visual_designer/saveProduct';
 //События
 $_['events']            = array(
-    'admin/controller/catalog/product/add/before' => 'event/d_visual_designer/controller_before',
-    'admin/controller/catalog/product/edit/before' => 'event/d_visual_designer/controller_before',
     'admin/view/catalog/product_form/after' => 'event/d_visual_designer/view_product_after',
     'catalog/view/product/product/before' => 'event/d_visual_designer/view_product_before',
     'catalog/view/extension/module/featured/before' => 'event/d_visual_designer/view_module_feautured_before',

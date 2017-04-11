@@ -251,7 +251,16 @@ class ControllerModuleDVisualDesigner extends Controller {
             $data['styles'] = $this->styles;
             $data['scripts'] = $this->scripts;
             $data['content'] = $setting['content'];
-            return $this->load->view('d_visual_designer/frontend', $data);
+            if(VERSION>='2.2.0.0') {
+                return $this->load->view('d_visual_designer/frontend', $data);
+            }
+            else {
+                if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/d_visual_designer/frontend.tpl')) {
+                    return $this->load->view($this->config->get('config_template') . '/template/d_visual_designer/frontend.tpl', $data);
+                } else {
+                    return $this->load->view('default/template/d_visual_designer/frontend.tpl', $data);
+                }
+            }
         }
     }
 

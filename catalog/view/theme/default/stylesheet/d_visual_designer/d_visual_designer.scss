@@ -68,15 +68,18 @@
         .glyphicon {
             font-family: 'Glyph';
         }
-        &:empty {
-            display: none;
-            &+.vd-helper {
+        > .vd#sortable{
+            &:empty {
                 display: none;
-                &+.vd-welcome {
-                    display: block;
+                &+.vd-helper {
+                    display: none;
+                    &+.vd-welcome {
+                        display: block;
+                    }
                 }
             }
         }
+        
         .sharrre {
             .buttons {
                 margin: 0;
@@ -697,19 +700,20 @@ span.module_name {
             background-color: #00aeee;
             font-size: 14px;
             font-weight: 400;
-            >i {
-                padding-right: .5em;
-                &:before {
-                    width: 19px;
-                    height: 19px;
-                    font-size: 19px;
-                }
+            &#vd-add-button{
+                background-image: url(../../image/d_visual_designer/add-block.svg);
+                background-repeat: no-repeat;
+                background-position: 25% center;
             }
+            
             &.vd-add-text-block {
                 background-color: #73C02A;
             }
             &.vd-add-template {
                 background-color: #FEB710;
+                background-image: url(../../image/d_visual_designer/template-add.svg);
+                background-repeat: no-repeat;
+                background-position: 15% center;
             }
         }
     }

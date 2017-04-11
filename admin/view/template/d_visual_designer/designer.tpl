@@ -37,19 +37,12 @@
             <?php echo $text_welcome_header; ?>
         </div>
         <div class="vd-button-group">
-            <a id="vd-add-button" class="vd-button vd-add-block" title="Add Element">
-                <i class="fa fa-plus"></i>
-                <?php echo $text_add_block; ?>
-            </a>
+            <a id="vd-add-button" class="vd-button vd-add-block" title="Add Element"><?php echo $text_add_block; ?></a>
             <a id="vd-add-text-block" class="vd-button vd-add-text-block" title="Add text block">
-                <i class="fa fa-pencil-square-o">
-                </i>
+                <i class="fa fa-pencil-square-o"></i>
                 <?php echo $text_add_text_block; ?>
             </a>
-            <a id="vd-add-template" class="vd-button vd-add-template">
-                <i class="fa fa-list"></i>
-                <?php echo $text_add_template; ?>
-            </a>
+            <a id="vd-add-template" class="vd-button vd-add-template"><?php echo $text_add_template; ?></a>
         </div>
         <div class="vc_welcome-visible-ne">
             <a id="vc_not-empty-add-element" class="vc_add-element-not-empty-button" title="Add Element" data-vc-element="add-element-action">
@@ -66,10 +59,10 @@
     <div class="vd vd-popup add_block">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_block; ?></h2>
-            <!-- <div class="search">
+            <div class="search">
                 <i class="fa fa-search" aria-hidden="true"></i>
                 <input type="text" name="search" placeholder="<?php echo $text_search; ?>" value=""/>
-            </div> -->
+            </div>
             <a class="close"></a>
         </div>
         {{#if categories}}
@@ -125,6 +118,10 @@
     <div class="vd vd-popup add_template" style="max-height:75vh;">
         <div class="popup-header">
             <h2 class="title"><?php echo $text_add_template; ?></h2>
+            <div class="search">
+                <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" name="search" placeholder="<?php echo $text_search; ?>" value=""/>
+            </div>
             <a class="close"></a>
         </div>
         {{#if categories}}

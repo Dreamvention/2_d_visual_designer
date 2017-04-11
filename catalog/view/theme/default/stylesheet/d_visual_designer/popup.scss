@@ -182,6 +182,11 @@
         left: 20%;
         top: 13%;
         width: 60%;
+        > .popup-header{
+            > div.search{
+                top:8px;
+            }
+        }
         >.popup-tabs {
             li {
                 >a {
@@ -303,7 +308,7 @@
         }
         >div.search {
             position: absolute;
-            top: 15px;
+            top: 11px;
             right: 55px;
             >i {
                 position: absolute;

@@ -3,28 +3,6 @@ class ControllerEventDVisualDesigner extends Controller {
 
     public $codename = 'd_visual_designer';
 
-    public function controller_before(&$route, &$data){
-        $setting = $this->config->get($this->codename.'_setting');
-        if(!empty($setting)){
-            if(!empty($setting['limit_access_user'])){
-                if(!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])){
-                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
-                }
-            }
-            elseif(!empty($setting['limit_access_user_group'])){
-                if(!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])){
-                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
-                }
-            }
-            else{
-                $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
-            }
-        }
-        else{
-            $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
-        }
-    }
-
     public function view_product_after(&$route, &$data, &$output){
 
         $html_dom = new d_simple_html_dom();
@@ -37,6 +15,8 @@ class ControllerEventDVisualDesigner extends Controller {
         foreach ($languages as $language) {
             $html_dom->find('textarea[name^="product_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
+
+        $html_dom->find('head', 0)->innertext  .= $this->addScript();
 
         $output = (string)$html_dom;
     }
@@ -53,6 +33,8 @@ class ControllerEventDVisualDesigner extends Controller {
             $html_dom->find('textarea[name^="category_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
+        $html_dom->find('head', 0)->innertext  .= $this->addScript();
+
         $output = (string)$html_dom;
     }
 
@@ -68,8 +50,11 @@ class ControllerEventDVisualDesigner extends Controller {
             $html_dom->find('textarea[name^="information_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
+        $html_dom->find('head', 0)->innertext  .= $this->addScript();
+
         $output = (string)$html_dom;
     }
+
     public function model_imageResize_before(&$route, &$data, &$output)
     {
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
@@ -86,5 +71,33 @@ class ControllerEventDVisualDesigner extends Controller {
         } else {
             $data[0] = "no_image.png";
         }
+    }
+
+    private function addScript(){
+        $setting = $this->config->get($this->codename.'_setting');
+        $status = false;
+        if(!empty($setting)){
+            if(!empty($setting['limit_access_user'])){
+                if(!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])){
+                    $status = true;
+                }
+            }
+            elseif(!empty($setting['limit_access_user_group'])){
+                if(!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])){
+                    $status = true;
+                }
+            }
+            else{
+                $status = true;
+            }
+        }
+        else{
+            $status = true;
+        }
+
+        if($status){
+            return '<script src="view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10).'" type="text/javascript"></script>';
+        }
+        return '';
     }
 }
