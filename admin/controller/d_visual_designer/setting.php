@@ -211,13 +211,7 @@ class ControllerDVisualDesignerSetting extends Controller
         $results = $this->{'model_'.$this->codename.'_designer'}->getRoutes();
         
         foreach ($results as $key => $value) {
-            if(!empty($value['name'])){
-                $name = $value['name'];
-            }
-            else{
-                $name = ucfirst(strtolower($key));
-            }
-            $data['routes'][$key] = $name;
+            $data['routes'][$key] = $value['name'];
         }
         
         $this->load->model('setting/store');

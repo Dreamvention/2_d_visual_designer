@@ -618,8 +618,21 @@ class ModelDVisualDesignerDesigner extends Model {
             $route_data[$name] = $route_info;
 
         }
-        arsort($route_data);
+        uasort($route_data, 'ModelDVisualDesignerDesigner::compareRoute');
         return $route_data;
+    }
+
+
+    public function compareRoute($a, $b){
+        if($a['name'] > $b['name']){
+            return 1;
+        }
+        elseif($a['name'] < $b['name']){
+            return -1;
+        }
+        else{
+            return 0;
+        }
     }
 
     public function getRoute($name){
@@ -635,7 +648,9 @@ class ModelDVisualDesignerDesigner extends Model {
 
             $results = array_merge($results, $_);
         }
-
+        if(!empty($results) && !isset($results['name'])){
+            $results['name'] = ucfirst(strtolower($name));
+        }
         return $results;
     }
 }

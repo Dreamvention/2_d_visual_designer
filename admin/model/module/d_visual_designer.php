@@ -1,22 +1,22 @@
 <?php
 /*
-*	location: admin/model
+*   location: admin/model
 */
 
 class ModelModuleDVisualDesigner extends Model {
-	
-	public function createDatabase(){
-		
-		$this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_template (
-			`template_id` INT(11) NOT NULL AUTO_INCREMENT,
-			`name` VARCHAR(256) NOT NULL,
-			`image` VARCHAR(256) NOT NULL,
-			`category` VARCHAR(64) NOT NULL,
-			`content` MEDIUMTEXT NULL,
-			`sort_order` INT(11) NULL DEFAULT NULL,
-			PRIMARY KEY (`template_id`)
-		)
-		COLLATE='utf8_general_ci' ENGINE=MyISAM;");
+    
+    public function createDatabase(){
+        
+        $this->db->query("CREATE TABLE IF NOT EXISTS ".DB_PREFIX."visual_designer_template (
+            `template_id` INT(11) NOT NULL AUTO_INCREMENT,
+            `name` VARCHAR(256) NOT NULL,
+            `image` VARCHAR(256) NOT NULL,
+            `category` VARCHAR(64) NOT NULL,
+            `content` MEDIUMTEXT NULL,
+            `sort_order` INT(11) NULL DEFAULT NULL,
+            PRIMARY KEY (`template_id`)
+            )
+            COLLATE='utf8_general_ci' ENGINE=MyISAM;");
     }
     
     public function dropDatabase()
