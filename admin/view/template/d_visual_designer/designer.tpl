@@ -704,6 +704,22 @@
 
         d_visual_designer.removeBlock(block_id, designer_id);
     });
+    $(document).off('change','input[type=range]');
+    $(document).on('input', 'input[type=range]', function () {
+        var id = $(this).data('input');
+        if (id != 'undefined') {
+            $('#' + id).val($(this).val() + 'px');
+        }
+    });
+    $(document).off('change','input[type=range]+input[type=text]');
+    $(document).on('change', 'input[type=range]+input[type=text]', function () {
+        var id = $(this).attr('id');
+        if (id != 'undefined') {
+            var value = $(this).val();
+            value = value.replace('px', '');
+            $('input[data-input=' + id + ']').val(value);
+        }
+    });
     $(document).off('change','input.percents');
     $(document).on('change', 'input.percents', function(){
         var value = $(this).val();

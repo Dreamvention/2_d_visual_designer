@@ -180,7 +180,7 @@ class ControllerModuleDVisualDesigner extends Controller {
                 'bottom' => $this->language->get('text_position_bottom')
                 );
 
-            $data['styles'] = array(
+            $data['border_styles'] = array(
                 'dotted' => $this->language->get('text_dotted'),
                 'dashed' => $this->language->get('text_dashed'),
                 'solid'  => $this->language->get('text_solid'),

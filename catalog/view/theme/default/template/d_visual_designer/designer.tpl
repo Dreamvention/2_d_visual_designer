@@ -68,7 +68,7 @@
                             <span><img src="{{{image}}}" class="image"></span>
                             {{{title}}}
                             <i class="description">
-                            {{{description}}}
+                                {{{description}}}
                             </i>
                         </a>
                     </div>
@@ -264,7 +264,7 @@
                         <div class="fg-setting">
                             <select name="design_border_style" class="form-control">
                                 {{#select design_border_style}}
-                                <?php foreach($styles as $key => $value){ ?>
+                                <?php foreach($border_styles as $key => $value){ ?>
                                 <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
                                 <?php } ?>
                                 {{/select}}
@@ -470,283 +470,297 @@
     <button type="button" id="button-clear" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
 </script>
 <script>
-var setting = {
-    form: $('#<?php echo $designer_id; ?>'),
-    designer_id: '<?php echo $designer_id; ?>',
-    edit_url: '<?php echo $edit_url ?>',
-    field_name:'<?php echo $field_name; ?>',
-    id:'<?php echo $id; ?>',
-    save_change: <?php echo $save_change; ?>
-};
-d_visual_designer = d_visual_designer||{};
-d_visual_designer.init(setting);
+    var setting = {
+        form: $('#<?php echo $designer_id; ?>'),
+        designer_id: '<?php echo $designer_id; ?>',
+        edit_url: '<?php echo $edit_url ?>',
+        field_name:'<?php echo $field_name; ?>',
+        id:'<?php echo $id; ?>',
+        save_change: <?php echo $save_change; ?>
+    };
+    d_visual_designer = d_visual_designer||{};
+    d_visual_designer.init(setting);
 
-var teplate = {
-    row_layout:$('script#template-row-layout:first'),
-    add_block:$('script#template-add-block:first'),
-    edit_block:$('script#template-edit-block:first'),
-    add_template:$('script#template-add-template:first'),
-    save_template:$('script#template-save-template:first'),
-    helper:$('script#template-helper-sortable:first')
-};
-d_visual_designer.initTemplate(teplate);
+    var teplate = {
+        row_layout:$('script#template-row-layout:first'),
+        add_block:$('script#template-add-block:first'),
+        edit_block:$('script#template-edit-block:first'),
+        add_template:$('script#template-add-template:first'),
+        save_template:$('script#template-save-template:first'),
+        helper:$('script#template-helper-sortable:first')
+    };
+    d_visual_designer.initTemplate(teplate);
 
-var data = <?php echo htmlentities(json_encode($settings)); ?>;
+    var data = <?php echo htmlentities(json_encode($settings)); ?>;
 
-d_visual_designer.initData(data,'<?php echo $designer_id ?>');
+    d_visual_designer.initData(data,'<?php echo $designer_id ?>');
 
-var designer_id = '#<?php echo $designer_id; ?>';
+    var designer_id = '#<?php echo $designer_id; ?>';
 
-$('#<?php echo $designer_id; ?>').on('click','a[id=button_edit]',function(){
-    var block_id = $(this).parent().data('control');
-    d_visual_designer.editBlock(block_id, '<?php echo $designer_id; ?>');
-});
-$('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
-    var block_id = $(this).closest('.block-container').attr('id');
-    d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
-});
-$(document).off('click','a[id=edit-layout]');
-$(document).on('click','a[id=edit-layout]',function(){
-    var size = $(this).data('layout');
-    var target = $('.vd-popup').find('input[name=target]').val();
-    d_visual_designer.editLayout({'size': size}, target, '<?php echo $designer_id; ?>');
-});
-$(document).off('click','#layoutSet');
-$(document).on('click','#layoutSet',function(){
-    var setting = $('.vd-popup').find('input, select, textarea').serializeJSON();
-    var target = $('.vd-popup').find('input[name=target]').val();
-    d_visual_designer.editLayout(setting, target, '<?php echo $designer_id; ?>');
-});
-
-$('body').on('designerSave',function(){
-    d_visual_designer.saveContent('<?php echo $designer_id; ?>');
-});
-$('body').on('designerSaveTemplate',function(){
-    d_visual_designer.showSaveTemplate('<?php echo $designer_id; ?>');
-});
-$('body').on('designerAddBlock',function(){
-    d_visual_designer.showAddBlock('<?php echo $designer_id; ?>');
-    return false;
-});
-$('body').on('designerTemplate',function(){
-    d_visual_designer.showAddTemplate('<?php echo $designer_id; ?>');
-    return false;
-});
-$('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
-    var block_id = $(this).closest('.block-container').attr('id');
-    d_visual_designer.cloneBlock('<?php echo $designer_id; ?>', block_id);
-});
-$(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
-$(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
-    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
-});
-$(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
-$(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
-    d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
-});
-$(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
-$(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')
-});
-$(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
-$(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
-    d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
-});
-
-$(document).off('click','a[id=save]');
-$(document).on('click','a[id=save]',function(){
-    var block_id = $(this).data('id');
-    var designer_id = $('.vd-popup input[type=hidden][name=designer_id]').val();
-    d_visual_designer.saveBlock(block_id, designer_id);
-});
-$(document).off('click','a[id=saveTemplate]');
-$(document).on('click','a[id=saveTemplate]',function(){
-    d_visual_designer.saveTemplate('<?php echo $designer_id; ?>');
-});
-
-$('#<?php echo $designer_id; ?>').on('click','#button_add_child',function(){
-    var block_id = $(this).parents('.block-container').attr('id');
-    d_visual_designer.addChildBlock(block_id, '<?php echo $designer_id; ?>');
-});
-$('#<?php echo $designer_id; ?>').on('click','#button_add_block',function(){
-    var block_id = $(this).closest('.block-inner, .block-section').attr('id');
-    d_visual_designer.showAddBlock('<?php echo $designer_id; ?>', block_id);
-    return false;
-});
-$('#<?php echo $designer_id; ?>').off('click','#vd-add-button');
-$('#<?php echo $designer_id; ?>').on('click','#vd-add-button',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddBlock(designer_id);
-    return false;
-});
-$('#<?php echo $designer_id; ?>').off('click','[id=vd-add-text-block]');
-$('#<?php echo $designer_id; ?>').on('click','[id=vd-add-text-block]',function(){
-    d_visual_designer.addBlock('text','', '', '<?php echo $designer_id; ?>', 0);
-    return false;
-});
-$('#<?php echo $designer_id; ?>').off('click','#vd-add-template');
-$('#<?php echo $designer_id; ?>').on('click','#vd-add-template',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddTemplate(designer_id);
-    return false;
-});
-
-$('#<?php echo $designer_id; ?>').on('click','.block-content:empty',function(){
-    var designer_id = $(this).parents('.vd.content').attr('id');
-    d_visual_designer.showAddBlock(designer_id, $(this).closest('.block-container').attr('id'));
-    return false;
-});
-
-$(document).off('click','#add_template');
-$(document).on('click','#add_template', function(){
-    var template_id = $(this).data('id');
-    var config = $(this).data('config');
-    d_visual_designer.addTemplate(template_id, config, '<?php echo $designer_id; ?>');
-});
-$(document).off('click','#add_block');
-$(document).on('click','#add_block', function(){
-    var type = $(this).data('type');
-    var title = $(this).data('title');
-    var target = $('.vd-popup').find('input[name=target]').val();
-    var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
-    var level = $('.vd-popup').find('input[name=level]').val();
-    d_visual_designer.addBlock(type,title, target, designer_id, level);
-});
-$(document).off('click','.vd-popup a.close');
-$(document).on('click','.vd-popup a.close',function(){
-    d_visual_designer.closePopup();
-});
-$(document).off('click','.vd-popup a.stick-left');
-$(document).on('click','.vd-popup a.stick-left',function(){
-    d_visual_designer.stickPopup();
-});
-
-
-$('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
-    var block_id = $(this).parent().data('control');
-    d_visual_designer.removeBlock(block_id, '<?php echo $designer_id; ?>');
-});
-$('#<?php echo $designer_id; ?>').on('mouseover', '.block-button', function(){
-    $(this).closest('.block-container').addClass('active-border');
-});
-$('#<?php echo $designer_id; ?>').on('mouseout', '.block-button', function(){
-    $(this).closest('.block-container').removeClass('active-border');
-});
-$(document).off('change',  'input.percents');
-$(document).on('change', 'input.percents', function(){
-    var value = $(this).val();
-    var er = /^-?[0-9]+$/;
-    var er2 = /^-?[0-9]+%$/;
-
-    if(er.test(value)){
-        $(this).val(value+'%');
-    }
-    else if(!er2.test(value)){
-        $(this).val('');
-    }
-});
-$(document).off('change',  'input.pixels');
-$(document).on('change', 'input.pixels', function(){
-    var value = $(this).val();
-    var er = /^-?[0-9]+$/;
-    var er2 = /^-?[0-9]+px$/;
-
-    if(er.test(value)){
-        $(this).val(value+'px');
-    }
-    else if(!er2.test(value)){
-        $(this).val('');
-  
-    }
-});
-$(document).off('change',  'input.pixels-procent');
-$(document).on('change', 'input.pixels-procent', function(){
-    var value = $(this).val();
-    var er = /^-?[0-9]+$/;
-    var er2 = /^-?[0-9]+(px|%)$/;
-
-    if(er.test(value)){
-        $(this).val(value+'px');
-    }
-    else if(!er2.test(value)){
-        $(this).val('');
-    }
-});
-$(document).off('change', 'select[name=design_background_image_style]');
-$(document).on('change', 'select[name=design_background_image_style]', function(){
-    var style = $(this).val();
-    if(style!= 'parallax'){
-        $('select[name=design_background_image_position_horizontal]').closest('.form-group').show();
-    }
-    else{
-        $('select[name=design_background_image_position_horizontal]').closest('.form-group').hide();
-    }
-});
-$(document).on('click', 'a[data-toggle=\'image\']', function(e){
-    e.preventDefault();
-
-    $('.popover').popover('hide', function() {
-        $('.popover').remove();
+    $('#<?php echo $designer_id; ?>').on('click','a[id=button_edit]',function(){
+        var block_id = $(this).parent().data('control');
+        d_visual_designer.editBlock(block_id, '<?php echo $designer_id; ?>');
+    });
+    $('#<?php echo $designer_id; ?>').on('click','a[id=button_layout]',function(){
+        var block_id = $(this).closest('.block-container').attr('id');
+        d_visual_designer.showEditLayout(block_id, '<?php echo $designer_id; ?>');
+    });
+    $(document).off('click','a[id=edit-layout]');
+    $(document).on('click','a[id=edit-layout]',function(){
+        var size = $(this).data('layout');
+        var target = $('.vd-popup').find('input[name=target]').val();
+        d_visual_designer.editLayout({'size': size}, target, '<?php echo $designer_id; ?>');
+    });
+    $(document).off('click','#layoutSet');
+    $(document).on('click','#layoutSet',function(){
+        var setting = $('.vd-popup').find('input, select, textarea').serializeJSON();
+        var target = $('.vd-popup').find('input[name=target]').val();
+        d_visual_designer.editLayout(setting, target, '<?php echo $designer_id; ?>');
     });
 
-    var element = this;
+    $('body').on('designerSave',function(){
+        d_visual_designer.saveContent('<?php echo $designer_id; ?>');
+    });
+    $('body').on('designerSaveTemplate',function(){
+        d_visual_designer.showSaveTemplate('<?php echo $designer_id; ?>');
+    });
+    $('body').on('designerAddBlock',function(){
+        d_visual_designer.showAddBlock('<?php echo $designer_id; ?>');
+        return false;
+    });
+    $('body').on('designerTemplate',function(){
+        d_visual_designer.showAddTemplate('<?php echo $designer_id; ?>');
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').on('click','a[id=button_copy]',function(){
+        var block_id = $(this).closest('.block-container').attr('id');
+        d_visual_designer.cloneBlock('<?php echo $designer_id; ?>', block_id);
+    });
+    $(document).off('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a');
+    $(document).on('click', '.vd-popup.add_block > .popup-tabs > .vd-nav > li > a', function(){
+        d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-block > .element', 'a', 'data-category');
+    });
+    $(document).off('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a');
+    $(document).on('click', '.vd-popup.add_template > .popup-tabs > .vd-nav > li > a', function(){
+        d_visual_designer.search($(this).data('category'), '.vd-popup > .popup-content .popup-new-template > .element', 'a', 'data-category');
+    });
+    $(document).off('keyup', '.vd-popup.add_block > .popup-header input[name=search]');
+    $(document).on('keyup', '.vd-popup.add_block > .popup-header input[name=search]', function(){
+        d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-block > .element', 'a')
+    });
+    $(document).off('keyup', '.vd-popup.add_template > .popup-header input[name=search]');
+    $(document).on('keyup', '.vd-popup.add_template > .popup-header input[name=search]', function(){
+        d_visual_designer.search($(this).val(), '.vd-popup > .popup-content .popup-new-template > .element', 'a')
+    });
 
-    $(element).popover({
-        html: true,
-        placement: 'right',
-        trigger: 'manual',
-        content: function() {
-            return $('script#template-popover').html();
+    $(document).off('click','a[id=save]');
+    $(document).on('click','a[id=save]',function(){
+        var block_id = $(this).data('id');
+        var designer_id = $('.vd-popup input[type=hidden][name=designer_id]').val();
+        d_visual_designer.saveBlock(block_id, designer_id);
+    });
+    $(document).off('click','a[id=saveTemplate]');
+    $(document).on('click','a[id=saveTemplate]',function(){
+        d_visual_designer.saveTemplate('<?php echo $designer_id; ?>');
+    });
+
+    $('#<?php echo $designer_id; ?>').on('click','#button_add_child',function(){
+        var block_id = $(this).parents('.block-container').attr('id');
+        d_visual_designer.addChildBlock(block_id, '<?php echo $designer_id; ?>');
+    });
+    $('#<?php echo $designer_id; ?>').on('click','#button_add_block',function(){
+        var block_id = $(this).closest('.block-inner, .block-section').attr('id');
+        d_visual_designer.showAddBlock('<?php echo $designer_id; ?>', block_id);
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').off('click','#vd-add-button');
+    $('#<?php echo $designer_id; ?>').on('click','#vd-add-button',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddBlock(designer_id);
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').off('click','[id=vd-add-text-block]');
+    $('#<?php echo $designer_id; ?>').on('click','[id=vd-add-text-block]',function(){
+        d_visual_designer.addBlock('text','', '', '<?php echo $designer_id; ?>', 0);
+        return false;
+    });
+    $('#<?php echo $designer_id; ?>').off('click','#vd-add-template');
+    $('#<?php echo $designer_id; ?>').on('click','#vd-add-template',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddTemplate(designer_id);
+        return false;
+    });
+
+    $('#<?php echo $designer_id; ?>').on('click','.block-content:empty',function(){
+        var designer_id = $(this).parents('.vd.content').attr('id');
+        d_visual_designer.showAddBlock(designer_id, $(this).closest('.block-container').attr('id'));
+        return false;
+    });
+
+    $(document).off('click','#add_template');
+    $(document).on('click','#add_template', function(){
+        var template_id = $(this).data('id');
+        var config = $(this).data('config');
+        d_visual_designer.addTemplate(template_id, config, '<?php echo $designer_id; ?>');
+    });
+    $(document).off('click','#add_block');
+    $(document).on('click','#add_block', function(){
+        var type = $(this).data('type');
+        var title = $(this).data('title');
+        var target = $('.vd-popup').find('input[name=target]').val();
+        var designer_id = $('.vd-popup').find('input[name=designer_id]').val();
+        var level = $('.vd-popup').find('input[name=level]').val();
+        d_visual_designer.addBlock(type,title, target, designer_id, level);
+    });
+    $(document).off('click','.vd-popup a.close');
+    $(document).on('click','.vd-popup a.close',function(){
+        d_visual_designer.closePopup();
+    });
+    $(document).off('click','.vd-popup a.stick-left');
+    $(document).on('click','.vd-popup a.stick-left',function(){
+        d_visual_designer.stickPopup();
+    });
+
+
+    $('#<?php echo $designer_id; ?>').on('click','#button_remove',function(){
+        var block_id = $(this).parent().data('control');
+        d_visual_designer.removeBlock(block_id, '<?php echo $designer_id; ?>');
+    });
+    $('#<?php echo $designer_id; ?>').on('mouseover', '.block-button', function(){
+        $(this).closest('.block-container').addClass('active-border');
+    });
+    $('#<?php echo $designer_id; ?>').on('mouseout', '.block-button', function(){
+        $(this).closest('.block-container').removeClass('active-border');
+    });
+    $(document).off('change',  'input.percents');
+    $(document).on('change', 'input.percents', function(){
+        var value = $(this).val();
+        var er = /^-?[0-9]+$/;
+        var er2 = /^-?[0-9]+%$/;
+
+        if(er.test(value)){
+            $(this).val(value+'%');
+        }
+        else if(!er2.test(value)){
+            $(this).val('');
         }
     });
+    $(document).off('change',  'input.pixels');
+    $(document).on('change', 'input.pixels', function(){
+        var value = $(this).val();
+        var er = /^-?[0-9]+$/;
+        var er2 = /^-?[0-9]+px$/;
 
-    $(element).popover('show');
+        if(er.test(value)){
+            $(this).val(value+'px');
+        }
+        else if(!er2.test(value)){
+            $(this).val('');
 
-    $('#button-image').on('click', function() {
-        $('#modal-image').remove();
+        }
+    });
+    $(document).off('change',  'input.pixels-procent');
+    $(document).on('change', 'input.pixels-procent', function(){
+        var value = $(this).val();
+        var er = /^-?[0-9]+$/;
+        var er2 = /^-?[0-9]+(px|%)$/;
 
-        $.ajax({
-            url: '<?php echo $filemanager_url; ?>' + '&target=' + $(element).parent().find('input').attr('id') + '&thumb=' + $(element).attr('id'),
-            dataType: 'html',
-            beforeSend: function() {
-                $('#button-image i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
-                $('#button-image').prop('disabled', true);
-            },
-            complete: function() {
-                $('#button-image i').replaceWith('<i class="fa fa-pencil"></i>');
-                $('#button-image').prop('disabled', false);
-            },
-            success: function(html) {
-                $('body').append('<div id="modal-image" class="modal">' + html + '</div>');
+        if(er.test(value)){
+            $(this).val(value+'px');
+        }
+        else if(!er2.test(value)){
+            $(this).val('');
+        }
+    });
+    $(document).on('input', 'input[type=range]', function () {
+        var id = $(this).data('input');
+        if (id != 'undefined') {
+            $('#' + id).val($(this).val() + 'px');
+        }
+    });
+    $(document).on('change', 'input[type=range]+input[type=text]', function () {
+        var id = $(this).attr('id');
+        if (id != 'undefined') {
+            var value = $(this).val();
+            value = value.replace('px', '');
+            $('input[data-input=' + id + ']').val(value);
+        }
+    });
+    $(document).off('change', 'select[name=design_background_image_style]');
+    $(document).on('change', 'select[name=design_background_image_style]', function(){
+        var style = $(this).val();
+        if(style!= 'parallax'){
+            $('select[name=design_background_image_position_horizontal]').closest('.form-group').show();
+        }
+        else{
+            $('select[name=design_background_image_position_horizontal]').closest('.form-group').hide();
+        }
+    });
+    $(document).on('click', 'a[data-toggle=\'image\']', function(e){
+        e.preventDefault();
 
-                $('#modal-image').modal('show');
+        $('.popover').popover('hide', function() {
+            $('.popover').remove();
+        });
+
+        var element = this;
+
+        $(element).popover({
+            html: true,
+            placement: 'right',
+            trigger: 'manual',
+            content: function() {
+                return $('script#template-popover').html();
             }
         });
 
-        $(element).popover('hide', function() {
-            $('.popover').remove();
-        });
-        $('.block-container').hover(function(){
-            console.log('hover');
-            var block_id = $(this).data('id');
+        $(element).popover('show');
 
-            $('.control[data-control='+block_id+'] a').effect('bounce');
-        },function(){
-            
+        $('#button-image').on('click', function() {
+            $('#modal-image').remove();
+
+            $.ajax({
+                url: '<?php echo $filemanager_url; ?>' + '&target=' + $(element).parent().find('input').attr('id') + '&thumb=' + $(element).attr('id'),
+                dataType: 'html',
+                beforeSend: function() {
+                    $('#button-image i').replaceWith('<i class="fa fa-circle-o-notch fa-spin"></i>');
+                    $('#button-image').prop('disabled', true);
+                },
+                complete: function() {
+                    $('#button-image i').replaceWith('<i class="fa fa-pencil"></i>');
+                    $('#button-image').prop('disabled', false);
+                },
+                success: function(html) {
+                    $('body').append('<div id="modal-image" class="modal">' + html + '</div>');
+
+                    $('#modal-image').modal('show');
+                }
+            });
+
+            $(element).popover('hide', function() {
+                $('.popover').remove();
+            });
+            $('.block-container').hover(function(){
+                console.log('hover');
+                var block_id = $(this).data('id');
+
+                $('.control[data-control='+block_id+'] a').effect('bounce');
+            },function(){
+
+            });
+        });
+
+
+
+        $('#button-clear').on('click', function() {
+            $(element).find('img').attr('src', $(element).find('img').attr('data-placeholder'));
+
+            $(element).parent().find('input').attr('value', '');
+
+            $(element).popover('hide', function() {
+                $('.popover').remove();
+            });
         });
     });
-
-
-
-    $('#button-clear').on('click', function() {
-        $(element).find('img').attr('src', $(element).find('img').attr('data-placeholder'));
-
-        $(element).parent().find('input').attr('value', '');
-
-        $(element).popover('hide', function() {
-            $('.popover').remove();
-        });
-    });
-});
 
 </script>
