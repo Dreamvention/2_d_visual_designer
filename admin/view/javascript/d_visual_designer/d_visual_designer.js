@@ -402,6 +402,10 @@ var d_visual_designer = {
             if ($(element).hasClass('summernote')) {
                 $(element).summernote('code', content)
             }
+            
+            if($(element).next().hasClass('note-editor')){
+                $(element).next().find('.note-editable').html(content);
+            }
 
             if(typeof CKEDITOR != "undefined"){
                 CKEDITOR.instances[$(element).attr('id')].setData(content);

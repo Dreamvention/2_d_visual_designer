@@ -1,6 +1,6 @@
 <?php
 /*
- *	location: admin/controller
+ *  location: admin/controller
  */
 
 class ControllerDVisualDesignerModuleImage extends Controller
@@ -49,7 +49,15 @@ class ControllerDVisualDesignerModuleImage extends Controller
         
         $data['thumb'] = $this->model_tool_image->resize($image, $width, $height);
         
-        $data['popup'] = $this->model_tool_image->resize($image, $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+        if(VERSION>='2.2.0.0')
+        {
+            $data['popup'] = $this->model_tool_image->resize($image, $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
+        }
+        else
+        {
+            $data['popup'] = $this->model_tool_image->resize($image, $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
+        }
+        
         
         $data['unique_id'] = uniqid();
 
