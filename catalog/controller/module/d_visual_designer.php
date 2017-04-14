@@ -485,7 +485,6 @@ class ControllerModuleDVisualDesigner extends Controller {
                 'sort_order' => 0
                 );
             $result = $this->{'model_module_'.$this->codename}->getFullContent($block_info, $level);
-
             $json['content'] = $result['content'];
             $json['target'] = $block_id;
             $json['setting'] = json_encode($result['setting']);

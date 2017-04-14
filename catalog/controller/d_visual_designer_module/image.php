@@ -30,8 +30,17 @@ class ControllerDVisualDesignerModuleImage extends Controller
         if ($data['setting']['size'] == 'original' || $data['setting']['size'] == 'responsive') {
             list($width, $height) = getimagesize(DIR_IMAGE . $image);
         } elseif ($data['setting']['size'] == 'small') {
-            $width = $this->config->get($this->config->get('config_theme') . '_image_category_width').'px';
-            $height = $this->config->get($this->config->get('config_theme') . '_image_category_height').'px';
+            if(VERSION>='2.2.0.0')
+            {
+                $width = $this->config->get($this->config->get('config_theme') . '_image_category_width').'px';
+                $height = $this->config->get($this->config->get('config_theme') . '_image_category_height').'px';
+            }
+            else
+            {
+                $width = $this->config->get('config_image_category_width').'px';
+                $height = $this->config->get('config_image_category_height').'px';
+            }
+            
         } elseif ($data['setting']['size'] == 'medium') {
             $width = '300px';
             $height = '94px';
@@ -51,19 +60,19 @@ class ControllerDVisualDesignerModuleImage extends Controller
         
         if(VERSION>='2.2.0.0')
         {
-            $data['popup'] = $this->model_tool_image->resize($image, $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
+            $data['popup'] = $this->model_tool_image->resize($image, $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
         }
         else
         {
             $data['popup'] = $this->model_tool_image->resize($image, $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
         }
-        
-        
         $data['unique_id'] = uniqid();
 
         if (VERSION>='2.2.0.0') {
+
             return $this->load->view($this->route, $data);
         } else {
+
             if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$this->route.'.tpl')) {
                 return $this->load->view($this->config->get('config_template') . '/template/'.$this->route.'.tpl', $data);
             } else {
@@ -128,14 +137,14 @@ class ControllerDVisualDesignerModuleImage extends Controller
             'outline_circle' => $this->language->get('text_style_outline_circle'),
             'shadow_circle' => $this->language->get('text_style_shadow_circle'),
             'shadow_border_circle' => $this->language->get('text_style_shadow_border_circle'),
-        );
+            );
         
         
         $data['aligns'] = array(
             'left' => $this->language->get('text_left'),
             'center' => $this->language->get('text_center'),
             'right' => $this->language->get('text_right')
-        );
+            );
         
         $data['animates'] = array(
             '' => $this->language->get('text_no'),
@@ -144,7 +153,7 @@ class ControllerDVisualDesignerModuleImage extends Controller
             'fadeInLeft' => $this->language->get('text_left_to_right'),
             'fadeInRight' => $this->language->get('text_right_to_left'),
             'fadeIn' =>  $this->language->get('text_apear')
-        );
+            );
         
         $data['sizes'] = array(
             'original' => $this->language->get('text_original'),
@@ -153,13 +162,13 @@ class ControllerDVisualDesignerModuleImage extends Controller
             'medium' => $this->language->get('text_medium'),
             'large' => $this->language->get('text_large'),
             'custom' => $this->language->get('text_custom')
-        );
+            );
         
         $data['actions'] = array(
             '' => $this->language->get('text_none'),
             'link' => $this->language->get('text_link'),
             'popup' => $this->language->get('text_popup')
-        );
+            );
         
         if (VERSION>='2.2.0.0') {
             return $this->load->view($this->route.'_setting', $data);
