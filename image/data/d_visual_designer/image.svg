@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="72" height="72" viewBox="0 0 72 72">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fdeedc;
+      }
+
+      .cls-2 {
+        fill: #ecd9c1;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #db841b;
+      }
+
+      .cls-5 {
+        fill: #2d1d04;
+        fill-rule: evenodd;
+      }
+
+      .cls-6 {
+        fill: #fae7a4;
+      }
+    </style>
+  </defs>
+  <g>
+    <rect width="72" height="72" rx="12" ry="12" class="cls-1"/>
+    <g>
+      <rect x="18.25" y="24.25" width="40" height="30" class="cls-2"/>
+      <rect x="15.25" y="21.25" width="40" height="30" class="cls-3"/>
+      <rect x="16.75" y="22.75" width="36" height="26" class="cls-4"/>
+      <path d="M26.000,42.000 C34.500,42.000 35.595,38.999 42.000,38.999 C48.076,38.999 51.689,41.226 53.000,42.000 L53.000,48.999 L17.000,48.999 L17.000,35.999 C18.186,36.993 22.053,42.000 26.000,42.000 Z" class="cls-5"/>
+      <circle cx="27.25" cy="31.25" r="3.5" class="cls-6"/>
+    </g>
+  </g>
+</svg>
