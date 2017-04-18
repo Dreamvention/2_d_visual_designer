@@ -1,7 +1,22 @@
 <?php
 class ControllerEventDVisualDesigner extends Controller {
 
-    public $codename = 'd_visual_designer';
+    private $codename = 'd_visual_designer';
+    private $route = 'module/d_visual_designer';
+    private $extension = '';
+
+    public function __construct($registry)
+    {
+        parent::__construct($registry);
+        $this->load->model($this->route);
+        $this->load->model($this->codename.'/designer');
+
+        $this->d_shopunity = (file_exists(DIR_SYSTEM.'mbooth/extension/d_shopunity.json'));
+        if ($this->d_shopunity) {
+            $this->load->model('d_shopunity/mbooth');
+            $this->extension = $this->model_d_shopunity_mbooth->getExtension($this->codename);
+        }
+    }
 
     public function view_product_after(&$route, &$data, &$output){
 
@@ -16,7 +31,9 @@ class ControllerEventDVisualDesigner extends Controller {
             $html_dom->find('textarea[name^="product_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
-        $html_dom->find('head', 0)->innertext  .= $this->addScript();
+        if($this->{'model_'.$this->codename.'_designer'}->checkPermission()){
+            $html_dom->find('head', 0)->innertext  .= '<script src="view/javascript/d_visual_designer/d_visual_designer.js?'.$this->extension['version'].'" type="text/javascript"></script>';
+        }
 
         $output = (string)$html_dom;
     }
@@ -33,7 +50,9 @@ class ControllerEventDVisualDesigner extends Controller {
             $html_dom->find('textarea[name^="category_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
-        $html_dom->find('head', 0)->innertext  .= $this->addScript();
+        if($this->{'model_'.$this->codename.'_designer'}->checkPermission()){
+            $html_dom->find('head', 0)->innertext  .= '<script src="view/javascript/d_visual_designer/d_visual_designer.js?'.$this->extension['version'].'" type="text/javascript"></script>';
+        }
 
         $output = (string)$html_dom;
     }
@@ -50,11 +69,12 @@ class ControllerEventDVisualDesigner extends Controller {
             $html_dom->find('textarea[name^="information_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
-        $html_dom->find('head', 0)->innertext  .= $this->addScript();
+        if($this->{'model_'.$this->codename.'_designer'}->checkPermission()){
+            $html_dom->find('head', 0)->innertext  .= '<script src="view/javascript/d_visual_designer/d_visual_designer.js?'.$this->extension['version'].'" type="text/javascript"></script>';
+        }
 
         $output = (string)$html_dom;
     }
-
     public function model_imageResize_before(&$route, &$data, &$output)
     {
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
@@ -71,33 +91,5 @@ class ControllerEventDVisualDesigner extends Controller {
         } else {
             $data[0] = "no_image.png";
         }
-    }
-
-    private function addScript(){
-        $setting = $this->config->get($this->codename.'_setting');
-        $status = false;
-        if(!empty($setting)){
-            if(!empty($setting['limit_access_user'])){
-                if(!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])){
-                    $status = true;
-                }
-            }
-            elseif(!empty($setting['limit_access_user_group'])){
-                if(!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])){
-                    $status = true;
-                }
-            }
-            else{
-                $status = true;
-            }
-        }
-        else{
-            $status = true;
-        }
-
-        if($status){
-            return '<script src="view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10).'" type="text/javascript"></script>';
-        }
-        return '';
     }
 }

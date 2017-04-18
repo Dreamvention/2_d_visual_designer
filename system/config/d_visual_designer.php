@@ -3,7 +3,7 @@ $_['d_visual_designer_setting'] = array(
     
     'config' => 'd_visual_designer', 
     'save_change' => 0,
-    'use' => array(),
+    'use' => array('category', 'information', 'product', 'template'),
     'limit_access_user' => 0,
     'limit_access_user_group' => 0,
     'access_user' => array(),

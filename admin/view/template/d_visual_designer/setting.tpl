@@ -53,113 +53,161 @@
                 </h3>
             </div>
             <div class="panel-body">
-                <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input_status"><?php echo $entry_status; ?></label>
-                        <div class="col-sm-10">
-                            <?php if(!$event_support) { ?>
-                            <div class="alert alert-info" style="overflow: inherit;">
-                                <div class="row">
-                                    <div class="col-md-10"><?php echo $help_event_support; ?> </div>
-                                    <div class="col-md-2"><a href="<?php echo $install_event_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_event_support; ?></a></div>
+                <?php if($notify) { ?>
+                <style>
+                    .notify > a{
+                        color:inherit;
+                        padding: 10px;
+                        margin:-10px;
+                        display:block;
+                        font-size: 13px;
+                        font-weight: 700;
+                        text-align: center;
+                    }
+                </style>
+                <div class="notify alert alert-warning"><?php echo $text_complete_version; ?></div>
+                <?php } ?>
+                <div class="row">
+                    <div class="col-md-<?php echo $notify?'9':'12'; ?>">
+                        <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input_status"><?php echo $entry_status; ?></label>
+                                <div class="col-sm-10">
+                                    <?php if(!$event_support) { ?>
+                                    <div class="alert alert-info" style="overflow: inherit;">
+                                        <div class="row">
+                                            <div class="col-md-10"><?php echo $help_event_support; ?> </div>
+                                            <div class="col-md-2"><a href="<?php echo $install_event_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_event_support; ?></a></div>
+                                            <input type="hidden" name="<?php echo $id;?>_status" value="0" />
+                                            <input type="checkbox" name="<?php echo $id;?>_status" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_status"  <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
+                                        </div>
+                                    </div>
+                                    <?php } ?>
+                                    <input type="hidden" name="<?php echo $id;?>_status" value="0" />
+                                    <?php if ($event_support) {?>
+                                    <input type="checkbox" name="<?php echo $id;?>_status" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_status"  <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
+                                    <?php } ?>
                                 </div>
                             </div>
-                            <?php } ?>
-                            <input type="hidden" name="<?php echo $id;?>_status" value="0" />
-                            <?php if ($event_support) {?>
-                            <input type="checkbox" name="<?php echo $id;?>_status" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_status"  <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
-                            <?php } ?>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input_save_change"><?php echo $entry_save_change; ?></label>
-                        <div class="col-sm-10">
-                            <input type="hidden" name="<?php echo $id;?>_setting[save_change]" value="0" />
-                            <input type="checkbox" name="<?php echo $id;?>_setting[save_change]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_save_change"  <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label"><?php echo $entry_use_designer; ?></label>
-                        <div class="col-sm-10">
-                            <div class="well well-sm" style="height: 150px; overflow: auto;">
-                                <?php foreach ($routes as $key => $value) { ?>
-                                <div class="checkbox">
-                                    <label>
-                                        <?php if (in_array($key, $setting['use'])) { ?>
-                                        <input type="checkbox" name="<?php echo $id;?>_setting[use][]" value="<?php echo $key; ?>" checked="checked" />
-                                        <?php echo $value; ?>
-                                        <?php } else { ?>
-                                        <input type="checkbox" name="<?php echo $id;?>_setting[use][]" value="<?php echo $key; ?>" />
-                                        <?php echo $value; ?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input_save_change"><?php echo $entry_save_change; ?></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" name="<?php echo $id;?>_setting[save_change]" value="0" />
+                                    <input type="checkbox" name="<?php echo $id;?>_setting[save_change]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_save_change"  <?php echo ($setting['save_change'])? 'checked="checked"':'';?> value="1" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><?php echo $entry_use_designer; ?></label>
+                                <div class="col-sm-10">
+                                    <div class="well well-sm" style="height: 150px; overflow: auto;">
+                                        <?php foreach ($routes as $key => $value) { ?>
+                                        <div class="checkbox">
+                                            <label>
+                                                <?php if (in_array($key, $setting['use'])) { ?>
+                                                <input type="checkbox" name="<?php echo $id;?>_setting[use][]" value="<?php echo $key; ?>" checked="checked" />
+                                                <?php echo $value; ?>
+                                                <?php } else { ?>
+                                                <input type="checkbox" name="<?php echo $id;?>_setting[use][]" value="<?php echo $key; ?>" />
+                                                <?php echo $value; ?>
+                                                <?php } ?>
+                                            </label>
+                                        </div>
                                         <?php } ?>
-                                    </label>
+                                    </div>
+                                    <a onclick="$(this).parent().find(':checkbox').prop('checked', true);" style="cursor:pointer;"><?php echo $text_select_all; ?></a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);" style="cursor:pointer;"><?php echo $text_unselect_all; ?></a>
+                                    <br/>
                                 </div>
-                                <?php } ?>
                             </div>
-                            <a onclick="$(this).parent().find(':checkbox').prop('checked', true);" style="cursor:pointer;"><?php echo $text_select_all; ?></a> / <a onclick="$(this).parent().find(':checkbox').prop('checked', false);" style="cursor:pointer;"><?php echo $text_unselect_all; ?></a>
-                            <br/>
-                        </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-limit-access-user"><?php echo $entry_limit_access_user; ?></label>
-                        <div class="col-sm-10">
-                            <input type="hidden" name="<?php echo $id;?>_setting[limit_access_user]" value="0" />
-                            <input type="checkbox" name="<?php echo $id;?>_setting[limit_access_user]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user"  <?php echo ($setting['limit_access_user'])? 'checked="checked"':'';?> value="1" />
-                        </div>
-                    </div>
-                    <div class="form-group" id="users">
-                        <label class="col-sm-2 control-label" for="input-user"><?php echo $entry_user; ?></label>
-                        <div class="col-sm-10">
-                            <input type="text" name="user" value="" placeholder="<?php echo $entry_user; ?>" id="input-user" class="form-control" />
-                            <div id="access-user" class="well well-sm" style="height: 150px; overflow: auto;">
-                                <?php foreach ($users as $key => $value) { ?>
-                                <div id="access-user<?php echo $key; ?>">
-                                    <i class="fa fa-minus-circle"></i>
-                                    <?php echo $value; ?>
-                                    <input type="hidden" name="<?php echo $id;?>_setting[access_user][]" value="<?php echo $key; ?>" />
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-limit-access-user"><?php echo $entry_limit_access_user; ?></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" name="<?php echo $id;?>_setting[limit_access_user]" value="0" />
+                                    <input type="checkbox" name="<?php echo $id;?>_setting[limit_access_user]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user"  <?php echo ($setting['limit_access_user'])? 'checked="checked"':'';?> value="1" />
                                 </div>
-                                <?php } ?>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="input-limit-access-user-group"><?php echo $entry_limit_access_user_group; ?></label>
-                        <div class="col-sm-10">
-                            <input type="hidden" name="<?php echo $id;?>_setting[limit_access_user_group]" value="0" />
-                            <input type="checkbox" name="<?php echo $id;?>_setting[limit_access_user_group]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user-group"  <?php echo ($setting['limit_access_user_group'])? 'checked="checked"':'';?> value="1" />
-                        </div>
-                    </div>
-
-                    <div class="form-group" id="user_groups">
-                        <label class="col-sm-2 control-label" for="input-user-group"><?php echo $entry_user_group; ?></label>
-                        <div class="col-sm-10">
-                            <input type="text" name="user_group" value="" placeholder="<?php echo $entry_user_group; ?>" id="input-user-group" class="form-control" />
-                            <div id="access-user-group" class="well well-sm" style="height: 150px; overflow: auto;">
-                                <?php foreach ($user_groups as $key => $value) { ?>
-                                <div id="access-user-group<?php echo $key; ?>">
-                                    <i class="fa fa-minus-circle"></i>
-                                    <?php echo $value; ?>
-                                    <input type="hidden" name="<?php echo $id;?>_setting[access_user_group][]" value="<?php echo $key; ?>" />
+                            <div class="form-group" id="users">
+                                <label class="col-sm-2 control-label" for="input-user"><?php echo $entry_user; ?></label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="user" value="" placeholder="<?php echo $entry_user; ?>" id="input-user" class="form-control" />
+                                    <div id="access-user" class="well well-sm" style="height: 150px; overflow: auto;">
+                                        <?php foreach ($users as $key => $value) { ?>
+                                        <div id="access-user<?php echo $key; ?>">
+                                            <i class="fa fa-minus-circle"></i>
+                                            <?php echo $value; ?>
+                                            <input type="hidden" name="<?php echo $id;?>_setting[access_user][]" value="<?php echo $key; ?>" />
+                                        </div>
+                                        <?php } ?>
+                                    </div>
                                 </div>
-                                <?php } ?>
                             </div>
-                        </div>
-                    </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-limit-access-user-group"><?php echo $entry_limit_access_user_group; ?></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" name="<?php echo $id;?>_setting[limit_access_user_group]" value="0" />
+                                    <input type="checkbox" name="<?php echo $id;?>_setting[limit_access_user_group]" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input-limit-access-user-group"  <?php echo ($setting['limit_access_user_group'])? 'checked="checked"':'';?> value="1" />
+                                </div>
+                            </div>
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="button_support_email"><?php echo $entry_support; ?></label>
-                        <div class="col-sm-2">
-                            <a href="mailto:<?php echo $support_email; ?>?Subject=Request Support: <?php echo $heading_title; ?>&body=Shop: <?php echo HTTP_SERVER; ?>" id="button_support_email" class="btn btn-primary btn-block"><i class="fa fa-support"></i> <?php echo $button_support_email; ?></a>
+                            <div class="form-group" id="user_groups">
+                                <label class="col-sm-2 control-label" for="input-user-group"><?php echo $entry_user_group; ?></label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="user_group" value="" placeholder="<?php echo $entry_user_group; ?>" id="input-user-group" class="form-control" />
+                                    <div id="access-user-group" class="well well-sm" style="height: 150px; overflow: auto;">
+                                        <?php foreach ($user_groups as $key => $value) { ?>
+                                        <div id="access-user-group<?php echo $key; ?>">
+                                            <i class="fa fa-minus-circle"></i>
+                                            <?php echo $value; ?>
+                                            <input type="hidden" name="<?php echo $id;?>_setting[access_user_group][]" value="<?php echo $key; ?>" />
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
 
-                        </div>
-                        <div class="col-sm-8">
-                            <label class="form-control-static"><?php echo $support_email; ?></label>
-                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="button_support_email"><?php echo $entry_support; ?></label>
+                                <div class="col-sm-2">
+                                    <a href="mailto:<?php echo $support_email; ?>?Subject=Request Support: <?php echo $heading_title; ?>&body=Shop: <?php echo HTTP_SERVER; ?>" id="button_support_email" class="btn btn-primary btn-block"><i class="fa fa-support"></i> <?php echo $button_support_email; ?></a>
+
+                                </div>
+                                <div class="col-sm-8">
+                                    <label class="form-control-static"><?php echo $support_email; ?></label>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                    <?php if($notify&&$module_notify) { ?>
+                    <div class="col-md-3">
+                        <div class="d_shopunity_widget_1"></div>
+                        <script src="view/javascript/d_shopunity/d_shopunity_widget.js" type="text/javascript"></script>
+                        <script type="text/javascript">
+                            var d_shopunity_widget_1 = jQuery.extend(true, {}, d_shopunity_widget);
+                            d_shopunity_widget_1.init({
+                                class: '.d_shopunity_widget_1',
+                                token: '<?php echo $_GET['token']; ?>',
+                                extension_id: '99'
+                            })
+                        </script>
+                    </div>
+                    <?php } ?>
+                    <?php if($notify&&!$module_notify&&$landing_notify) { ?>
+                    <div class="col-md-3">
+                        <div class="d_shopunity_widget_2"></div>
+                        <script src="view/javascript/d_shopunity/d_shopunity_widget.js" type="text/javascript"></script>
+                        <script type="text/javascript">
+                            var d_shopunity_widget_2 = jQuery.extend(true, {}, d_shopunity_widget);
+                            d_shopunity_widget_2.init({
+                                class: '.d_shopunity_widget_2',
+                                token: '<?php echo $_GET['token']; ?>',
+                                extension_id: '120'
+                            })
+                        </script>
+                    </div>
+                    <?php } ?>
+                </div>
             </div>
         </div>
     </div>

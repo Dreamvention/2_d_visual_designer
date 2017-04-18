@@ -60,6 +60,11 @@
         </div>
         {{/if}}
         <div class="popup-content">
+            {{#if notify}}
+            <div class="notify alert alert-warning">
+                <?php echo $text_complete_version; ?>
+            </div>
+            {{/if}}
             <div class="row popup-new-block">
                 {{#blocks}}
                 <div class="col-md-3 col-sm-6 col-xs-12 element">
@@ -102,6 +107,11 @@
         </div>
         {{/if}}
         <div class="popup-content">
+            {{#if notify}}
+            <div class="notify alert alert-warning">
+            <?php echo $text_complete_version_template; ?>
+            </div>
+            {{/if}}
             <div class="popup-new-template">
                 {{#templates}}
                 <div class="col-md-3 col-sm-6 col-xs-12 element">

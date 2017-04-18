@@ -200,6 +200,8 @@ class ControllerDVisualDesignerTemplate extends Controller {
         $data['text_templates'] = $this->language->get('text_templates');
         $data['text_setting'] = $this->language->get('text_setting');
         $data['text_instructions'] = $this->language->get('text_instructions');
+
+        $data['text_complete_version'] = $this->language->get('text_complete_version');
         
         $data['column_image'] = $this->language->get('column_image');
         $data['column_name'] = $this->language->get('column_name');
@@ -302,6 +304,10 @@ class ControllerDVisualDesignerTemplate extends Controller {
 
         $data['sort'] = $sort;
         $data['order'] = $order;
+
+        $this->load->model($this->codename.'/designer');
+
+        $data['notify'] = $this->{'model_'.$this->codename.'_designer'}->checkCompleteVersion();
 
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -527,7 +533,11 @@ class ControllerDVisualDesignerTemplate extends Controller {
                 'config' => $template['config'],
                 'category' => ucfirst($template['category']),
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
-                );
+            );
+
+            $this->load->model($this->codename.'/designer');
+
+            $json['notify'] = $this->{'model_'.$this->codename.'_designer'}->checkCompleteVersion();
         }
 
         $json['success'] = 'success';
@@ -602,7 +612,7 @@ class ControllerDVisualDesignerTemplate extends Controller {
                 'category' => $category,
                 'content' => $content,
                 'sort_order' => '0'
-                );
+            );
             $this->{'model_'.$this->codename.'_template'}->addTemplate($template_info);
             $json['success'] = 'success';
         }

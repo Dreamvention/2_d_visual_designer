@@ -7596,6 +7596,17 @@
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto; }
+    .vd-popup .popup-content > .notify {
+      display: block;
+      margin: 20px; }
+      .vd-popup .popup-content > .notify > a {
+        display: block;
+        padding: 10px;
+        margin: -15px;
+        font-weight: 700;
+        color: inherit;
+        font-size: 13px;
+        text-align: center; }
     .vd-popup .popup-content .icons-selector {
       width: 100%; }
       .vd-popup .popup-content .icons-selector .selector-popup {

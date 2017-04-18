@@ -55,7 +55,7 @@ class ModelModuleDVisualDesigner extends Model {
             'config' => $data['config'],
             'description' => $data['content']
             );
-            
+        
         $content = $this->load->controller('module/d_visual_designer', $data);
 
         if(!empty($content)){
@@ -761,14 +761,14 @@ class ModelModuleDVisualDesigner extends Model {
                 $templates = $results['d_visual_designer_templates'];
                 foreach ($templates as $template) {
                     $template_data[] = array(
-                       'template_id' => $template['template_id'],
-                       'content' => $template['content'],
-                       'config' => substr($file, 0, -4),
-                       'image' => $template['image'],
-                       'category' => $template['category'],
-                       'sort_order' => $template['sort_order'],
-                       'name' => $template['name']
-                       );
+                     'template_id' => $template['template_id'],
+                     'content' => $template['content'],
+                     'config' => substr($file, 0, -4),
+                     'image' => $template['image'],
+                     'category' => $template['category'],
+                     'sort_order' => $template['sort_order'],
+                     'name' => $template['name']
+                     );
                 }    
             }
         }
@@ -967,6 +967,18 @@ class ModelModuleDVisualDesigner extends Model {
         }
 
         return $result;
+    }
+
+    public function checkCompleteVersion(){
+        $return = false;
+        if(!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_module.json')){
+            $return = true; 
+        }
+        if(!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_landing.json')){
+            $return = true; 
+        }
+
+        return $return;
     }
 
 }

@@ -107,6 +107,7 @@ class ControllerDVisualDesignerSetting extends Controller
         $data['text_information'] = $this->language->get('text_information');
         $data['text_select_all'] = $this->language->get('text_select_all');
         $data['text_unselect_all'] = $this->language->get('text_unselect_all');
+        $data['text_complete_version'] = $this->language->get('text_complete_version');
         
         $data['button_add'] = $this->language->get('button_add');
         $data['button_delete'] = $this->language->get('button_delete');
@@ -177,6 +178,13 @@ class ControllerDVisualDesignerSetting extends Controller
         $data['href_setting'] = $this->url->link($this->codename.'/setting', 'token='.$this->session->data['token'], 'SSL');
         $data['href_instruction'] = $this->url->link($this->codename.'/instruction', 'token='.$this->session->data['token'], 'SSL');
         
+        $this->load->model($this->codename.'/designer');
+
+        $data['notify'] = $this->{'model_'.$this->codename.'_designer'}->checkCompleteVersion();
+
+        $data['landing_notify'] = (!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_landing.json'));
+        $data['module_notify'] = (!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_module.json'));
+
         if (isset($this->request->post[$this->codename.'_status'])) {
             $data[$this->codename.'_status'] = $this->request->post[$this->codename.'_status'];
         } else {
@@ -263,33 +271,6 @@ class ControllerDVisualDesignerSetting extends Controller
         
         return true;
     }
-
-    public function deleteDeprecated(){
-        if (!$this->user->hasPermission('modify', $this->route)) {
-            $this->session->data['error'] = $this->language->get('error_permission');
-            $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
-        }
-        $files = array('edit_template', 'edit_category','edit_product','edit_information','add_template','add_category','add_product','add_information');
-        foreach ($files as $file) {
-            if(file_exists(DIR_CONFIG.'d_visual_designer_route/'.$file.'.php')){
-                @unlink(DIR_CONFIG.'d_visual_designer_route/'.$file.'.php');
-            }
-        }
-        $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
-    }
-
-    public function install_event_support(){
-        if (!$this->user->hasPermission('modify', $this->route)) {
-            $this->session->data['error'] = $this->language->get('error_permission');
-            $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
-        }
-        if(file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')){
-            $this->load->model('module/d_event_manager');
-            $this->model_module_d_event_manager->installCompatibility();
-        }
-        $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
-    }
-
     public function autocompleteUser() {
         $json = array();
         
@@ -297,18 +278,18 @@ class ControllerDVisualDesignerSetting extends Controller
             $this->load->model('user/user');
             
             $filter_data = array(
-                'filter_name' => $this->request->get['filter_name'],
-                'start'       => 0,
-                'limit'       => 5
-                );
+            'filter_name' => $this->request->get['filter_name'],
+            'start'       => 0,
+            'limit'       => 5
+            );
             
             $results = $this->model_user_user->getUsers($filter_data);
             
             foreach ($results as $result) {
                 $json[] = array(
-                    'user_id' => $result['user_id'],
-                    'username' => strip_tags(html_entity_decode($result['username'], ENT_QUOTES, 'UTF-8'))
-                    );
+                'user_id' => $result['user_id'],
+                'username' => strip_tags(html_entity_decode($result['username'], ENT_QUOTES, 'UTF-8'))
+                );
             }
         }
         
@@ -331,18 +312,18 @@ class ControllerDVisualDesignerSetting extends Controller
             $this->load->model('user/user_group');
             
             $filter_data = array(
-                'filter_name' => $this->request->get['filter_name'],
-                'start'       => 0,
-                'limit'       => 5
-                );
+            'filter_name' => $this->request->get['filter_name'],
+            'start'       => 0,
+            'limit'       => 5
+            );
             
             $results = $this->model_user_user_group->getUserGroups($filter_data);
             
             foreach ($results as $result) {
                 $json[] = array(
-                    'user_group_id' => $result['user_group_id'],
-                    'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
-                    );
+                'user_group_id' => $result['user_group_id'],
+                'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+                );
             }
         }
         
