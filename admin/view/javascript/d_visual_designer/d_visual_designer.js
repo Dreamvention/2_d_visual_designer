@@ -171,7 +171,7 @@ var d_visual_designer = {
                     that.updateSortOrder($(this).closest('.block-container').attr('id'), designer_id);
 
                     that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner, .block-section').attr('id'), $(this).data('id'));
-
+                    that.setting.stateEdit = true;
                     d_visual_designer.updateValue();
                 }
             })
@@ -202,6 +202,7 @@ var d_visual_designer = {
             handle: ' > .control > .drag',
             stop: function(event, ui) {
                 that.updateSortOrderRow($(this).parents('.vd.content').attr('id'));
+                that.setting.stateEdit = true;
                 d_visual_designer.updateValue();
             }
         });
@@ -572,6 +573,7 @@ var d_visual_designer = {
                 that.setting.form.find('#' + designer_id).find('.vd#sortable').find('.block-content[data-id=\'' + block_id + '\']').append(json['content']);
 
                 that.updateContentBlock(block_id, designer_id);
+                that.setting.stateEdit = true;
             }
         });
     },
@@ -620,6 +622,7 @@ var d_visual_designer = {
                     that.initColorpicker(that.setting.form.find('.vd-popup'));
                     that.updateValue();
                     that.initPopup();
+                    that.setting.stateEdit = true;
                 }
             }
         });
@@ -662,6 +665,8 @@ var d_visual_designer = {
         }
 
         this.setting.form.find('#' + designer_id).find('#' + block_id).remove();
+
+        this.setting.stateEdit = true;
 
         this.updateValue();
     },
@@ -989,6 +994,7 @@ var d_visual_designer = {
 
                     that.updateContentBlock(block_id, designer_id);
                     that.closePopup();
+                    that.setting.stateEdit = true;
                 }
                 console.log(json);
             }
@@ -997,6 +1003,7 @@ var d_visual_designer = {
     //Задание параметра для блока
     setValue: function(block_id, designer_id, name, value) {
         this.data[designer_id][block_id]['setting'][name] = value;
+        this.setting.stateEdit = true;
     },
     //Задать новый текст
     setText:function(designer_id, content){

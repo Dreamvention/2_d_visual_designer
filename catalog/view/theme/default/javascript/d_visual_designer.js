@@ -105,6 +105,7 @@ var d_visual_designer = {
                     that.updateSortOrder($(ui.item).closest('.block-inner').attr('id'), designer_id);
                     that.updateSortOrder(designer_id, $(this).parents('.vd.content').attr('id'));
                     that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner, .block-section').attr('id'), $(this).data('id'));
+                    that.setting.stateEdit = true;
                 }
             })
         });
@@ -134,6 +135,7 @@ var d_visual_designer = {
             handle: ' > .control > .drag',
             stop: function(event, ui) {
                 that.updateSortOrderRow($(this).parents('.vd.content').attr('id'));
+                that.setting.stateEdit = true;
             }
         });
     },
@@ -435,6 +437,7 @@ var d_visual_designer = {
                 that.settings[designer_id].form.find('.vd#sortable').find('.block-content[data-id=\'' + block_id + '\']').append(json['content']);
 
                 that.updateContentBlock(block_id, designer_id);
+                that.setting.stateEdit = true;
             }
         });
     },
@@ -482,6 +485,7 @@ var d_visual_designer = {
                     that.closePopup();
                     that.initPopup(content);
                     that.initColorpicker();
+                    that.setting.stateEdit = true;
                 }
             }
         });
@@ -533,6 +537,8 @@ var d_visual_designer = {
         }
 
         this.settings[designer_id].form.find('#' + block_id).remove();
+
+        this.setting.stateEdit = true;
 
         $('body').trigger('remove_block_success', trigger_data);
     },
@@ -608,6 +614,7 @@ var d_visual_designer = {
 
                     that.updateContentBlock(block_id, designer_id);
                     that.closePopup();
+                    that.setting.stateEdit = true;
                 }
                 console.log(json);
             }
@@ -840,6 +847,7 @@ var d_visual_designer = {
                     that.settings[designer_id].form.find('#' + block_id).after(json['content']);
                     that.initSortable();
                     that.initHover(designer_id);
+                    that.setting.stateEdit = true;
                     var trigger_data = {
                         'title': that.settings[designer_id].form.find('#' + new_block_id).data('title')
                     };
@@ -877,6 +885,7 @@ var d_visual_designer = {
     //Задание параметра для блока
     setValue: function(block_id, designer_id, name, value) {
         this.data[designer_id][block_id]['setting'][name] = value;
+        this.setting.stateEdit = true;
     },
     //Получение текста из формы
     getText: function(designer_id, parent = "") {;
