@@ -47,9 +47,9 @@ $_['text_add_text_block']            = 'Add Text block';
 $_['text_add_template']              = 'Add Template';
 $_['text_save_template']             = 'Save Template';
 
-$_['text_complete_version']          = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart" target="_blank">Over 40 building blocks in Complete version. Get it now!</a>';
+$_['text_complete_version']          = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart?utm_source=d_visual_desginer&utm_medium=extension&utm_campaign=popup_block" target="_blank">Over 40 building blocks in Complete version. Get it now!</a>';
 
-$_['text_complete_version_template'] = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart" target="_blank">Over 12 templates in Complete version. Get it now!</a>';
+$_['text_complete_version_template'] = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart?utm_source=d_visual_desginer&utm_medium=extension&utm_campaign=popup_template" target="_blank">Over 12 templates in Complete version. Get it now!</a>';
 
 //tab
 $_['tab_save_block']                 = 'Save Template';

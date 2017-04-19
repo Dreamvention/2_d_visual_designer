@@ -23,4 +23,4 @@ $_['entry_sort_order']      = 'Sort Order';
 $_['error_warning']         = 'Warning: Please check the form carefully for errors!';
 $_['error_name']            = 'Template Name must be greater than 3 and less than 255 characters!';
 
-$_['text_complete_version'] = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart" target="_blank">Over 12 templates in Complete version. Get it now!</a>';
+$_['text_complete_version'] = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart?utm_source=d_visual_desginer&utm_medium=extension&utm_campaign=template" target="_blank">Over 12 templates in Complete version. Get it now!</a>';
