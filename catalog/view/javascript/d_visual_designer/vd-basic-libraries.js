@@ -4,3 +4,4 @@
 // @koala-append "library/pie-chart.js"
 // @koala-append "library/circle-progress.js"
 // @koala-append "library/owl-carousel/owl.carousel.min.js"
+// @koala-append "library/webfont.js"
