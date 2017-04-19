@@ -536,9 +536,10 @@ class ControllerDVisualDesignerTemplate extends Controller {
             );
 
             $this->load->model($this->codename.'/designer');
-
-            $json['notify'] = $this->{'model_'.$this->codename.'_designer'}->checkCompleteVersion();
+            
         }
+
+        $json['notify'] = $this->{'model_'.$this->codename.'_designer'}->checkCompleteVersion();
 
         $json['success'] = 'success';
 
