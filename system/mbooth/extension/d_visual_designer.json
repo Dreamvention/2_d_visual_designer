@@ -34,7 +34,7 @@
         "url": "https://dreamvention.com/support"
     },
     "required": {
-        "d_shopunity": ">= 3.0.41",
+        "d_shopunity": ">= 3.0.52",
         "d_event_manager": ">= 1.1.2",
         "d_simple_html_dom": ">= 1.0.4",
         "d_elfinder": ">= 1.0.0"
