@@ -5,7 +5,6 @@
     </div>
 </div>
 <script>
-    var oc_version = '<?php echo VERSION; ?>'
     $('textarea[name=text]').summernote({
         height:'200px',
         disableDragAndDrop: true,
@@ -34,21 +33,11 @@
             badAttributes: ['style', 'start']
         },
         onChange: function(contents, $editable) {
-            if(oc_version >= '2.2.0.0'){
-                $(this).val(contents);
-            }
-            else{
-                $editable.parents('.form-group').find('textarea[name=\'text\']').text(contents);
-            }
+            $(this).val(contents);
         },
         callbacks : {
             onChange: function(contents, $editable) {
-                if(oc_version >= '2.2.0.0'){
-                    $(this).val(contents);
-                }
-                else{
-                    $editable.parents('.form-group').find('textarea[name=\'text\']').text(contents);
-                }
+                $(this).val(contents);
             }
         }
     });
