@@ -534,11 +534,8 @@ class ControllerDVisualDesignerTemplate extends Controller {
                 'category' => ucfirst($template['category']),
                 'name' => html_entity_decode($template['name'], ENT_QUOTES, "UTF-8")
             );
-
-            $this->load->model($this->codename.'/designer');
-            
         }
-
+        $this->load->model($this->codename.'/designer');
         $json['notify'] = $this->{'model_'.$this->codename.'_designer'}->checkCompleteVersion();
 
         $json['success'] = 'success';
