@@ -14,6 +14,9 @@ $_['text_success']                  = 'Success: You have modified settings!';
 $_['text_product']                  = 'Товаров';
 $_['text_category']                 = 'Категорий';
 $_['text_information']              = 'Информационных страниц';
+
+$_['text_install_event_support']    = 'Install events';
+$_['help_event_support']            = '<h4>Important! Event support required</h4><p>Before you can activate the Visual Designer, you need to install Event manager and activate Event compatibility support.</p>';
 $_['text_complete_version']         = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart" target="_blank">Over 40 building blocks in Complete version. Get it now!</a>';
 
 //button

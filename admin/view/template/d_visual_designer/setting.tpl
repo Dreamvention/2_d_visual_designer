@@ -78,8 +78,6 @@
                                         <div class="row">
                                             <div class="col-md-10"><?php echo $help_event_support; ?> </div>
                                             <div class="col-md-2"><a href="<?php echo $install_event_support; ?>" class="btn btn-info btn-block"><?php echo $text_install_event_support; ?></a></div>
-                                            <input type="hidden" name="<?php echo $id;?>_status" value="0" />
-                                            <input type="checkbox" name="<?php echo $id;?>_status" class="switcher" data-label-text="<?php echo $text_enabled; ?>" id="input_status"  <?php echo (${$id.'_status'})? 'checked="checked"':'';?> value="1" />
                                         </div>
                                     </div>
                                     <?php } ?>

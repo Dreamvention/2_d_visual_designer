@@ -271,6 +271,19 @@ class ControllerDVisualDesignerSetting extends Controller
         
         return true;
     }
+    
+    public function install_event_support(){
+        if (!$this->user->hasPermission('modify', $this->route)) {
+            $this->session->data['error'] = $this->language->get('error_permission');
+            $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+        }
+        if(file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')){
+            $this->load->model('module/d_event_manager');
+            $this->model_module_d_event_manager->installCompatibility();
+        }
+        $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
+    }
+
     public function autocompleteUser() {
         $json = array();
         
@@ -278,18 +291,18 @@ class ControllerDVisualDesignerSetting extends Controller
             $this->load->model('user/user');
             
             $filter_data = array(
-            'filter_name' => $this->request->get['filter_name'],
-            'start'       => 0,
-            'limit'       => 5
-            );
+                'filter_name' => $this->request->get['filter_name'],
+                'start'       => 0,
+                'limit'       => 5
+                );
             
             $results = $this->model_user_user->getUsers($filter_data);
             
             foreach ($results as $result) {
                 $json[] = array(
-                'user_id' => $result['user_id'],
-                'username' => strip_tags(html_entity_decode($result['username'], ENT_QUOTES, 'UTF-8'))
-                );
+                    'user_id' => $result['user_id'],
+                    'username' => strip_tags(html_entity_decode($result['username'], ENT_QUOTES, 'UTF-8'))
+                    );
             }
         }
         
@@ -312,18 +325,18 @@ class ControllerDVisualDesignerSetting extends Controller
             $this->load->model('user/user_group');
             
             $filter_data = array(
-            'filter_name' => $this->request->get['filter_name'],
-            'start'       => 0,
-            'limit'       => 5
-            );
+                'filter_name' => $this->request->get['filter_name'],
+                'start'       => 0,
+                'limit'       => 5
+                );
             
             $results = $this->model_user_user_group->getUserGroups($filter_data);
             
             foreach ($results as $result) {
                 $json[] = array(
-                'user_group_id' => $result['user_group_id'],
-                'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
-                );
+                    'user_group_id' => $result['user_group_id'],
+                    'name' => strip_tags(html_entity_decode($result['name'], ENT_QUOTES, 'UTF-8'))
+                    );
             }
         }
         
