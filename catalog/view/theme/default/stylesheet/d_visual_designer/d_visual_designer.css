@@ -7404,7 +7404,8 @@
     margin-top: 0;
     margin-bottom: 0; }
     .vd-popup .note-editor.note-frame.panel.panel-default .note-btn {
-      color: #333 !important; }
+      color: #333 !important;
+      background: white !important; }
     .vd-popup .note-editor.note-frame.panel.panel-default .modal.in .modal-dialog .modal-content .modal-header h4.modal-title {
       padding: 0;
       margin: 0 20px 0 0;
@@ -7568,7 +7569,8 @@
         border-radius: 5px;
         font-family: inherit;
         font-size: 12px;
-        line-height: normal; }
+        line-height: normal;
+        height: 34px; }
   .vd-popup .popup-tabs .vd-nav {
     overflow: hidden;
     margin: 0;
