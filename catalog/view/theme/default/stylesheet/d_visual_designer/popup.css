@@ -292,6 +292,30 @@
         max-width: 100%; }
       .vd-popup .popup-content .form-group > .fg-setting {
         width: 100%; }
+        .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-default {
+          color: #333 !important;
+          background: #fff !important;
+          border-color: #ccc !important; }
+          .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-default:hover {
+            color: #333 !important;
+            background-color: #e6e6e6 !important;
+            border-color: #adadad !important; }
+        .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-primary {
+          color: #fff !important;
+          background: #337ab7 !important;
+          border-color: #2e6da4 !important; }
+          .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-primary:hover {
+            color: #fff !important;
+            background-color: #1872a2 !important;
+            border-color: #115376 !important; }
+        .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-danger {
+          color: #fff !important;
+          background: #d9534f !important;
+          border-color: #d43f3a !important; }
+          .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-danger:hover {
+            color: #fff !important;
+            background-color: #f23b3b !important;
+            border-color: #ea1010 !important; }
         .vd-popup .popup-content .form-group > .fg-setting.range {
           position: relative; }
         .vd-popup .popup-content .form-group > .fg-setting > input[type=range] {

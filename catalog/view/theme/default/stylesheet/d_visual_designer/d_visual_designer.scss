@@ -27,11 +27,44 @@
         width: 65%;
         .btn-default {
             color: #333!important;
+            background: #fff!important;
+            border-color: #ccc!important;
+            &:hover{
+                color: #333!important;
+                background-color: #e6e6e6!important;
+                border-color: #adadad!important;
+            }
+        }
+        .btn-primary{
+            color: #fff!important;
+            background: #337ab7!important;
+            border-color: #2e6da4!important;
+            &:hover{
+                color: #fff!important;
+                background-color: #1872a2!important;
+                border-color: #115376!important;
+            }
+        }
+        .btn-danger{
+            color: #fff!important;
+            background: #d9534f!important;
+            border-color: #d43f3a!important;
+            &:hover{
+                color: #fff!important;
+                background-color: #f23b3b!important;
+                border-color: #ea1010!important;
+            }
+        }
+        #button-search{
+            height:34px;
         }
         .btn {
             height: auto;
             margin: 0;
             padding: 6px 12px;
+            margin-bottom: 0;
+            font-size: 14px!important;
+            font-weight: normal!important;
             >i {
                 font-size: 14px;
             }
