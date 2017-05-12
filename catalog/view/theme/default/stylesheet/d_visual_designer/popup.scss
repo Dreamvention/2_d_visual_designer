@@ -176,6 +176,19 @@
             border-bottom: 1px solid #c8c8c8;
             >.setting {
                 padding: 0px 30px 30px 30px;
+                 button{
+                    margin:0!important;
+                    &.btn-default {
+                        color: #333!important;
+                        background: #fff!important;
+                        border-color: #ccc!important;
+                        &:hover{
+                            color: #333!important;
+                            background-color: #e6e6e6!important;
+                            border-color: #adadad!important;
+                        }
+                    }
+                }
             }
         }
     }

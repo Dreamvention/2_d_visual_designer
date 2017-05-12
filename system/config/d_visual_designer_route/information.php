@@ -18,5 +18,6 @@ $_['edit_url']          = 'index.php?route=module/d_visual_designer/saveInformat
 //События необходимые для работы данного route
 $_['events']            = array(
     'admin/view/catalog/information_form/after' => 'event/d_visual_designer/view_information_after',
-    'catalog/model/catalog/information/getInformation/after' => 'event/d_visual_designer/model_getInformation_after'
+    'catalog/view/information/information/before' => 'event/d_visual_designer/view_imformation_information_before',
+    'catalog/controller/information/information/agree/after' => 'event/d_visual_designer/controller_information_agree_after'
 );

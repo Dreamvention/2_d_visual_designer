@@ -7449,6 +7449,16 @@
     border-bottom: 1px solid #c8c8c8; }
     .vd-popup.edit-layout > .popup-content > .setting {
       padding: 0px 30px 30px 30px; }
+      .vd-popup.edit-layout > .popup-content > .setting button {
+        margin: 0 !important; }
+        .vd-popup.edit-layout > .popup-content > .setting button.btn-default {
+          color: #333 !important;
+          background: #fff !important;
+          border-color: #ccc !important; }
+          .vd-popup.edit-layout > .popup-content > .setting button.btn-default:hover {
+            color: #333 !important;
+            background-color: #e6e6e6 !important;
+            border-color: #adadad !important; }
   .vd-popup.add_template {
     left: 20%;
     top: 13%;

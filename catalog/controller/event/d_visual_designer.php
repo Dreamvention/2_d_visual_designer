@@ -28,6 +28,30 @@ class ControllerEventDVisualDesigner extends Controller
         }
     }
 
+    public function view_imformation_information_before(&$view, &$data, &$output)
+    {
+        if(isset($data['description'])){
+            $designer_data = array(
+                'config' => 'information',
+                'content' => $data['description'],
+                'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
+                'id' => isset($this->request->get['information_id'])?$this->request->get['information_id']:0
+                );
+
+            $data['description'] = $this->{'model_module_'.$this->codename}->parseDescription($designer_data);
+            $data['description'] = html_entity_decode($data['description'], ENT_QUOTES, 'UTF-8');
+        }
+    }
+
+    public function controller_information_agree_after(&$route, &$data, &$output){
+        $output_res = $this->response->getOutput();
+        if(!empty($output_res)){
+            $output_res = $this->{'model_module_'.$this->codename}->getText($output_res);
+            $output_res = html_entity_decode($output_res, ENT_QUOTES, 'UTF-8');
+            $this->response->setOutput($output_res);
+        }
+    }
+
     public function view_category_before(&$view, &$data, &$output)
     {
         $parts = explode('_', (string)$this->request->get['path']);
@@ -74,34 +98,22 @@ class ControllerEventDVisualDesigner extends Controller
             }
         }
     }
-    public function model_getInformation_after(&$route, &$data, &$output)
-    {
-        if(!empty($output)&&!empty($data[0])){
-            $designer_data = array(
-                'config' => 'information',
-                'content' => $output['description'],
-                'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
-                'id' => $data[0]
-                );
-            $output['description'] = $this->{'model_module_'.$this->codename}->parseDescription($designer_data);
-        }
-    }
 
     public function model_imageResize_before(&$route, &$data, &$output)
     {
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
-                $server = $this->config->get('config_ssl');
-            } else {
-                $server = $this->config->get('config_url');
+            $server = $this->config->get('config_ssl');
+        } else {
+            $server = $this->config->get('config_url');
+        }
+
+        if (!empty($data[0])) {
+            $image_info = @getimagesize(DIR_IMAGE . $data[0]);
+            if (!$image_info) {
+                return $server . 'image/' . $data[0];
             }
-            
-            if (!empty($data[0])) {
-                $image_info = @getimagesize(DIR_IMAGE . $data[0]);
-                if (!$image_info) {
-                    return $server . 'image/' . $data[0];
-                }
-            } else {
-                $data[0] = "no_image.png";
-            }
+        } else {
+            $data[0] = "no_image.png";
+        }
     }
 }
