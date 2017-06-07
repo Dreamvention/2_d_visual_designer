@@ -79,8 +79,13 @@ var d_visual_designer = {
                         if (that.data[designer_id].length == 0) {
                             that.data[designer_id] = {};
                         }
-
-                        $(element).before(json['content']);
+                        if($(element).prevAll('.mce-tinymce').size() > 0){
+                            $(element).prevAll('.mce-tinymce').before(json['content']);
+                        }
+                        else{
+                            $(element).before(json['content']);
+                        }
+                        
 
                         var button_vd = $(json['content']).find('#button_vd');
 
@@ -340,6 +345,8 @@ var d_visual_designer = {
         this.setting.form.find('#' + designer_id).prev().removeAttr('style');
         this.setting.form.find('#' + designer_id).removeAttr('style');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.note-editor').css('display', 'none');
+        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').css('display', 'none');
+        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').nextAll('.wysiwyg ').css('display', 'none');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.cke').css('display', 'none');
     },
     //Выключение дизайнера
@@ -347,6 +354,8 @@ var d_visual_designer = {
         var designer_id = $(element).data('id');
         this.setting.form.find('#' + designer_id).attr('style', 'display:none;');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.note-editor').css('display', 'block');
+        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').css('display', 'block');
+        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').nextAll('.wysiwyg').css('display', 'none');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.cke').css('display', 'block');
     },
     updateDesigner:function(designer_id, content, callback=null){
@@ -413,12 +422,15 @@ var d_visual_designer = {
                 CKEDITOR.instances[$(element).attr('id')].setData(content);
             }
 
+            if(typeof tinyMCE != "undefined"){
+                $(element).parent().children('.mce-tinymce').find('iframe')[0].contentDocument.body.innerHTML = content;
+            }
 
         }).promise().done(function() {
-            if (callback != null) {
-                callback();
-            }
-        });
+           if (callback != null) {
+            callback();
+        }
+    });
 
     },
     //Компиляция шаблона
