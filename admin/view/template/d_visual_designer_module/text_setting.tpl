@@ -6,6 +6,13 @@
 </div>
 <script>
     var oc_version = '<?php echo VERSION; ?>'
+
+    $('textarea[name=text]').next('.note-editor').find('button[data-event=codeview]').on('click', function(){
+        if(oc_version < '2.2.0.0'){
+            contents = $(this).parents('.form-group').find('.note-editable').html();
+            $(this).parents('.form-group').find('textarea[name=\'text\']').text(contents);
+        }
+    });
     $('textarea[name=text]').summernote({
         height:'200px',
         disableDragAndDrop: true,
