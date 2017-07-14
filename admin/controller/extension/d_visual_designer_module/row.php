@@ -19,7 +19,7 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller {
         
         $data['setting'] = $this->model_extension_d_visual_designer_designer->getSetting($setting, $this->codename);
         
-        return $this->load->view($this->route.'', $data);
+        return $this->load->view($this->route.(VERSION < 2.2?'.tpl':''), $data);
     }
     public function setting($setting){
         $data['entry_background_video'] = $this->language->get('entry_background_video');
@@ -39,7 +39,7 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller {
             'stretch_row_content_no_spaces' => $this->language->get('text_stretch_row_content_no_spaces')
             );
         
-        return $this->load->view($this->route.'_setting', $data);
+        return $this->load->view($this->route.'_setting'.(VERSION < 2.2?'.tpl':''), $data);
     }
     
     public function layout($setting){

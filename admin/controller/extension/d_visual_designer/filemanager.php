@@ -244,7 +244,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
 
         $data['pagination'] = $pagination->render();
 
-        $this->response->setOutput($this->load->view($this->route, $data));
+        $this->response->setOutput($this->load->view($this->route.(VERSION < 2.2?'.tpl':''), $data));
     }
 
     public function upload() {

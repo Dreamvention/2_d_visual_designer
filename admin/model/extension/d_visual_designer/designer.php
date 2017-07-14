@@ -379,20 +379,20 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
 
 
         if(!empty($setting_block['custom_layout'])){
-            return $this->load->view('extension/d_visual_designer/layouts/'.$setting_block['custom_layout'],$data);
+            return $this->load->view('extension/d_visual_designer/layouts/'.$setting_block['custom_layout'].(VERSION < 2.2?'.tpl':''), $data);
         }
         else{
             if($inner_blocks == 1){
-                return $this->load->view('extension/d_visual_designer/layouts/medium',$data);
+                return $this->load->view('extension/d_visual_designer/layouts/medium'.(VERSION < 2.2?'.tpl':''), $data);
             }
             else if($inner_blocks == 2){
-                return $this->load->view('extension/d_visual_designer/layouts/main',$data);
+                return $this->load->view('extension/d_visual_designer/layouts/main'.(VERSION < 2.2?'.tpl':''), $data);
             }
             elseif ($setting_block['child_blocks'] && $inner_blocks == 0) {
-                return $this->load->view('extension/d_visual_designer/layouts/medium',$data);
+                return $this->load->view('extension/d_visual_designer/layouts/medium'.(VERSION < 2.2?'.tpl':''), $data);
             }
             else{
-                return $this->load->view('extension/d_visual_designer/layouts/children',$data);
+                return $this->load->view('extension/d_visual_designer/layouts/children'.(VERSION < 2.2?'.tpl':''), $data);
             }
         }
     }

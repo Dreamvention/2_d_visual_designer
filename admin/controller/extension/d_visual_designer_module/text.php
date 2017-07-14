@@ -29,7 +29,7 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller {
         
         $data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
         
-        return $this->load->view($this->route.'', $data);
+        return $this->load->view($this->route.(VERSION < 2.2?'.tpl':''), $data);
     }
     
     /**
@@ -41,6 +41,6 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller {
         $data['setting'] = $this->model_extension_d_visual_designer_designer->getSetting($setting, $this->codename);
         $data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
         
-        return $this->load->view($this->route.'_setting', $data);
+        return $this->load->view($this->route.'_setting'.(VERSION < 2.2?'.tpl':''), $data);
     }
 }

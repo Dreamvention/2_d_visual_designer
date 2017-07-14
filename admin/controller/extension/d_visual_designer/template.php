@@ -315,7 +315,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        $this->response->setOutput($this->load->view('extension/'.$this->codename.'/template_list', $data));
+        $this->response->setOutput($this->load->view('extension/'.$this->codename.'/template_list'.(VERSION < 2.2?'.tpl':''), $data));
 
     }
 
@@ -482,7 +482,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/'.$this->codename.'/template_form', $data));
+        $this->response->setOutput($this->load->view('extension/'.$this->codename.'/template_form'.(VERSION < 2.2?'.tpl':''), $data));
 
     }
 
