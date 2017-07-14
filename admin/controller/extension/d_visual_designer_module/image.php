@@ -40,7 +40,7 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         
         $data['thumb'] = $this->model_tool_image->resize($image, 32, 32);
         
-        return $this->load->view($this->route.'.tpl', $data);
+        return $this->load->view($this->route.'', $data);
     }
     
     public function setting($setting)
@@ -132,6 +132,6 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
             'popup' => $this->language->get('text_popup')
         );
         
-        return $this->load->view($this->route.'_setting.tpl', $data);
+        return $this->load->view($this->route.'_setting', $data);
     }
 }

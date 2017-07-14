@@ -244,16 +244,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
 
         $data['pagination'] = $pagination->render();
 
-        if(VERSION>='2.2.0.0') {
-            $this->response->setOutput($this->load->view($this->route, $data));
-        }
-        else {
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$this->route.'.twig')) {
-                $this->response->setOutput($this->load->view($this->config->get('config_template') . '/template/'.$this->route.'.twig', $data));
-            } else {
-                $this->response->setOutput($this->load->view('default/template/'.$this->route.'.twig', $data));
-            }
-        }
+        $this->response->setOutput($this->load->view($this->route, $data));
     }
 
     public function upload() {

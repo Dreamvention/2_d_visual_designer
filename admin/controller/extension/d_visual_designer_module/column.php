@@ -26,7 +26,7 @@ class ControllerExtensionDVisualDesignerModuleColumn extends Controller {
             $data['unique_id'] = substr(md5(rand()), 0, 7);
         }
 
-        return $this->load->view($this->route.'.tpl', $data);
+        return $this->load->view($this->route.'', $data);
     }
     public function setting($setting){
 
@@ -75,6 +75,6 @@ class ControllerExtensionDVisualDesignerModuleColumn extends Controller {
            'right' => $this->language->get('text_right')
            );
         
-        return $this->load->view($this->route.'_setting.tpl', $data);
+        return $this->load->view($this->route.'_setting', $data);
     }
 }

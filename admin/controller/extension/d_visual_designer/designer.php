@@ -241,7 +241,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
 
             $data['filemanager_url'] = str_replace('&amp;', '&', $this->url->link('extension/'.$this->codename.'/filemanager', 'token='.$this->session->data['token'], 'SSL'));
 
-            $json['content'] = $this->load->view($this->route.'.tpl', $data);
+            $json['content'] = $this->load->view($this->route, $data);
 
             $json['success'] = 'success';
         }
@@ -303,7 +303,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
             $data['lang'] = $this->language->get('code');
             $data['base'] = $this->store_url;
             $data['text_frontend_title'] = $this->language->get('text_frontend_title');
-            $this->response->setOutput($this->load->view('extension/'.$this->codename.'/frontend_editor.tpl',$data));
+            $this->response->setOutput($this->load->view('extension/'.$this->codename.'/frontend_editor',$data));
         }
     }
 
