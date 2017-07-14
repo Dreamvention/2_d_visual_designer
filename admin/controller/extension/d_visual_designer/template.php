@@ -327,9 +327,10 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->document->addScript('view/javascript/d_visual_designer/filemanager.js');
         $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js');
 
-        if(VERSION >= '2.2.0.0'){
+        if(VERSION>='2.3.0.0'){
+            $this->document->addScript('view/javascript/summernote/summernote.js');
+            $this->document->addScript('view/javascript/summernote/opencart.js');
             $this->document->addStyle('view/javascript/summernote/summernote.css');
-            $this->document->addScript('view/javascript/summernote/summernote.min.js');
         }
 
         $this->load->model('setting/setting');

@@ -78,7 +78,11 @@
 </div>
 <script type="text/javascript">
     $('#language a:first').tab('show');
-    $('textarea[name=content]').summernote({height: 300});
+    {% VERSION < '2.2.0.0' %}
+    $('.summernote').summernote({
+        height: 300
+    });
+    {% endif %}
 </script>
 
 {{footer}}
