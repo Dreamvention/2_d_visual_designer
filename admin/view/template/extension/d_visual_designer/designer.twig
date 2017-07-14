@@ -51,7 +51,7 @@
 
 {% for component_name, component_path  in components %}
     <script type="text/html" id="template-{{component_name}}">
-        {{component_path}}
+        {% include component_path %}
     </script>
 {% endfor %}
 

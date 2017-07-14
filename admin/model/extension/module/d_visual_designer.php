@@ -50,7 +50,7 @@ class ModelExtensionModuleDVisualDesigner extends Model
         $files = glob(DIR_APPLICATION . 'view/template/extension/d_visual_designer/component/*.twig', GLOB_BRACE);
 
         foreach($files as $file){
-            $result[basename($file, '.twig')] = $this->load->view('extension/d_visual_designer/component/'.basename($file, '.twig'), $data);
+            $result[basename($file, '.twig')] = 'extension/d_visual_designer/component/'.basename($file);
         }
         
         return $result;

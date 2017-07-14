@@ -235,12 +235,16 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         foreach ($results as $key => $value) {
             $data['routes'][$key] = $value['name'];
         }
-        
-        $event_support = (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json'));
-        $data['event_support'] = false;
-        if($event_support){
-            $this->load->model('extension/d_shopunity/ocmod');
-            $data['event_support'] = $this->model_extension_d_shopunity_ocmod->getModificationByName('d_event_manager');
+        if(VERSION>='2.3.0.0'){
+            $data['event_support'] = true;
+        }
+        else{
+            $event_support = (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json'));
+            $data['event_support'] = false;
+            if($event_support){
+                $this->load->model('extension/d_shopunity/ocmod');
+                $data['event_support'] = $this->model_extension_d_shopunity_ocmod->getModificationByName('d_event_manager');
+            }
         }
         
         $data['header'] = $this->load->controller('common/header');
