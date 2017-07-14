@@ -29,7 +29,11 @@ $_['button_remove']    = true;
 //Настройки по умолчанию
 $_['setting']          = array(
     'size'   => 12,
-    'offset' => 0,
+    'offset' => '',
     'float'  => '',
-    'align'  => 'center'
+    'align'  => 'center',
+    'size_phone' => '',
+    'size_tablet' => '',
+    'offset_phone' => '',
+    'offset_tablet' => ''
 );

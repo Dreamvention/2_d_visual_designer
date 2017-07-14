@@ -1,0 +1,157 @@
+<link rel="stylesheet" href="catalog/view/theme/default/stylesheet/d_visual_designer/blocks/image.css">
+<style>
+    #image-{{unique_id}} .parallax-window{
+        height: {{setting.parallax_height}};
+        background-image: url("{{thumb}}");
+        {% if setting.size != 'responsive' %}
+        width:{{desktop_size.width}};
+        height:{{desktop_size.height}};
+        {% endif %}
+    }
+    {% if phone_size and setting.size_phone not in ['responsive', 'semi_responsive'] %}
+    @media screen and (max-width: 767px){
+        #image-{{unique_id}} img{
+            width:{{phone_size.width}};
+            height:{{phone_size.height}};
+        }
+    }
+    {% elseif setting.size_phone not in ['responsive', 'semi_responsive'] and not tablet_size and setting.size not in ['responsive', 'semi_responsive'] %}
+    @media screen and (max-width: 767px){
+        #image-{{unique_id}} img{
+            width:{{desktop_size.width}};
+            height:{{desktop_size.height}};
+        }
+    }
+    {% endif %}
+
+    {% if tablet_size and  setting.size_tablet not in ['responsive', 'semi_responsive'] %}
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        #image-{{unique_id}} img{
+            width:{{tablet_size.width}};
+            height:{{tablet_size.height}};
+        }
+    }
+    {% elseif setting.size_tablet not in ['responsive', 'semi_responsive'] and phone_size and setting.size not in ['responsive', 'semi_responsive'] %}
+    @media screen and (min-width: 768px) and (max-width: 992px) {
+        #image-{{unique_id}} img{
+            width:{{desktop_size.width}};
+            height:{{desktop_size.height}};
+        }
+    }
+    {% endif %}
+
+    {% if  setting.size not in ['responsive', 'semi_responsive'] %}
+    {% if tablet_size or phone_size %}
+    @media  screen and (min-width: 992px) {
+    {% endif %}
+        #image-{{unique_id}} img{
+            width:{{desktop_size.width}};
+            height:{{desktop_size.height}};
+        }
+    {% if tablet_size or phone_size %}
+    }
+    {% endif %}
+    {% endif %}
+
+</style>
+<div class="vd-image-container vd-image-align-{{setting.align}} {{setting.align_phone ? 'vd-image-align-phone-'~setting.align_phone}} {{setting.align_tablet ? 'vd-image-align-tablet-'~setting.align_tablet}}">
+    {% if setting.title %}
+        <div class="vd-image-title">
+            <h2>{{setting.title}}</h2>
+        </div>
+    {% endif %}
+    <div class="vd-image-wrapper vd-image-size-{{setting.size}} {{setting.size_phone ? 'vd-image-size-phone-' ~ setting.size_phone}} {{setting.size_tablet ? 'vd-image-size-tablet-' ~ setting.size_tablet}}">
+        <div id="image-{{unique_id}}" class="vd-image {{setting.style ? 'vd-image-style-' ~ setting.style}}">
+            {% if setting.onclick == 'popup' %}
+            <a class="image-popup" href="{{popup}}">
+            {% elseif setting.onclick == 'link' %}
+                <a class="image-popup" {{setting.link_target=='new'? 'target="_blank"'}} href="{{setting.link}}">
+            {% endif %}
+            {% if setting.parallax %}
+                <div class="parallax-window"></div>
+            {% else %}
+                <img src="{{thumb}}" alt="{{setting.image_alt}}" title="{{ setting.image_title }}"/>
+            {% endif %}
+            {% if setting.onclick %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        {% if setting.onclick == 'popup' %}
+        $('#image-{{unique_id}}').magnificPopup({
+            type:'image',
+            delegate: 'a',
+            gallery: {
+                enabled:true
+            }
+        });
+        {% endif %}
+
+        {% if setting.size == 'semi_responsive' %}
+        $(window).resize(function(){
+
+            {% if setting.size_phone or setting.size_tablet %}
+            status = window.outerWidth > 992;
+            {% else %}
+            status = true;
+            {% endif %}
+            vd_semi_responsive($('#image-{{unique_id}}'), "{{desktop_size.width|replace({'px':''})}}", status, 'vd-image-size-semi_responsive', 'vd-image-size-responsive')
+        });
+        {% if setting.size_phone or setting.size_tablet %}
+        status = window.outerWidth > 992;
+        {% else %}
+        status = true;
+        {% endif %}
+        vd_semi_responsive($('#image-{{unique_id}}'), "{{desktop_size.width|replace({'px':''})}}", status, 'vd-image-size-semi_responsive', 'vd-image-size-responsive')
+        {% endif %}
+
+        {% if setting.size_phone == 'semi_responsive' %}
+        $(window).resize(function(){
+            status = window.outerWidth < 768;
+            vd_semi_responsive($('#image-{{unique_id}}'), "{{phone_size.width|replace({'px':''})}}", status, 'vd-image-size-phone-semi_responsive', 'vd-image-size-phone-responsive')
+        });
+        status = window.outerWidth < 768;
+        vd_semi_responsive($('#image-{{unique_id}}'), "{{phone_size.width|replace({'px':''})}}", status, 'vd-image-size-phone-semi_responsive', 'vd-image-size-phone-responsive')
+        {% endif %}
+
+
+        {% if setting.size_tablet == 'semi_responsive' %}
+        $(window).resize(function(){
+            status = window.outerWidth < 992 & window.outerWidth > 768;
+            vd_semi_responsive($('#image-{{unique_id}}'), "{{tablet_size.width|replace({'px':''})}}", status, 'vd-image-size-tablet-semi_responsive', 'vd-image-size-tablet-responsive')
+        });
+        status = window.outerWidth < 992 & window.outerWidth > 768;
+        vd_semi_responsive($('#image-{{unique_id}}'), "{{tablet_size.width|replace({'px':''})}}", status, 'vd-image-size-tablet-semi_responsive', 'vd-image-size-tablet-responsive');
+        {% endif %}
+    });
+
+    function vd_semi_responsive($block, width, status, semi_responsive, responsive){
+
+        $wrapper = $block.closest('.vd-image-wrapper');
+        $block_content = $block.closest('.block-content');
+
+        if (status) {
+            if($block_content.outerWidth(true) > width){
+                if($wrapper.hasClass(responsive)){
+                    $wrapper.removeClass(responsive);
+                    $wrapper.addClass(semi_responsive);
+                }
+            }
+            else{
+                if($wrapper.hasClass(semi_responsive)){
+                    $wrapper.removeClass(semi_responsive);
+                    $wrapper.addClass(responsive);
+                }
+            }
+        }
+        else{
+            if($wrapper.hasClass(responsive)){
+                $wrapper.removeClass(responsive);
+                $wrapper.addClass(semi_responsive);
+            }
+        }
+    }
+</script>

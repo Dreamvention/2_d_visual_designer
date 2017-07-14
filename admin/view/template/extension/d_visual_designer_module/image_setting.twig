@@ -1,0 +1,287 @@
+<div class="form-group">
+    <label class="control-label">{{entry_title}}</label>
+    <div class="fg-setting">
+        <input type="text" name="title" class="form-control" value="{{setting.title}}">
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_image}}</label>
+    <div class="fg-setting">
+        <a href="" id="thumb-vd-image" data-toggle="vd-image" class="img-thumbnail"><img src="{{thumb}}" alt="" title="" width="100px" height="100px"/></a>
+        <input type="hidden" name="image" value="{{setting.image}}" id="input-vd-image" />
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_alt}}</label>
+    <div class="fg-setting">
+        <input type="text" name="image_alt" class="form-control" value="{{setting.image_alt}}">
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_title}}</label>
+    <div class="fg-setting">
+        <input type="text" name="image_title" class="form-control" value="{{setting.image_title}}">
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_size}}</label>
+    <div class="fg-setting">
+        <select class="form-control" name="size">
+            {% for key, value in sizes %}
+                {% if key == setting.size %}
+                    <option value="{{key}}" selected="selected">{{value}}</option>
+                {% else %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div id="size" style="display:none;">
+    <div class="form-group">
+        <label class="control-label">{{entry_width}}</label>
+        <div class="fg-setting">
+            <input type="text" name="width" class="form-control pixels" value="{{setting.width}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">{{entry_height}}</label>
+        <div class="fg-setting">
+            <input type="text" name="height" class="form-control pixels" value="{{setting.height}}">
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_style}}</label>
+    <div class="fg-setting">
+        <select class="form-control" name="style">
+            {% for key, value in styles %}
+                {% if key == setting.style %}
+                    <option value="{{key}}" selected="selected">{{value}}</option>
+                {% else %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_onclick}}</label>
+    <div class="fg-setting">
+        <select class="form-control" name="onclick">
+            {% for key, value in actions %}
+                {% if key == setting.onclick %}
+                    <option value="{{key}}" selected="selected">{{value}}</option>
+                {% else %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div id="link" style="display:none;">
+    <div class="form-group">
+        <label class="control-label">{{entry_link}}</label>
+        <div class="fg-setting">
+            <input type="text" name="link" class="form-control" value="{{setting.link}}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">{{entry_link_target}}</label>
+        <div class="fg-setting">
+            <select class="form-control" name="link_target">
+                {% if setting.link_target == 'new' %}
+                    <option value="new" selected="selected">{{text_new_window}}</option>
+                    <option value="current">{{text_current_window}}</option>
+                {% else %}
+                    <option value="new">{{text_new_window}}</option>
+                    <option value="current" selected="selected">{{text_current_window}}</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_align}}</label>
+    <div class="fg-setting">
+        <div class="btn-group" data-toggle="buttons">
+            {% for key, value in aligns %}
+                {% if key == setting.align %}
+                    <label class="btn btn-success active">
+                        <input type="radio" name="align" value="{{key}}"
+                        checked="checked">{{value}}
+                    </label>
+                {% else %}
+                    <label class="btn btn-success">
+                        <input type="radio" name="align" value="{{key}}">{{value}}
+                    </label>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_adaptive_design}}</label>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>{{column_device}}</td>
+                <td>{{column_align}}</td>
+                <td>{{column_size}}</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{text_tablet}}</td>
+                <td class="text-center">
+                    <select class="form-control" name="align_tablet">
+                        <option value="" {{setting.align_tablet == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in aligns %}
+                            {% if key == setting.align_tablet %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" name="size_tablet">
+                        <option value="" {{setting.size_tablet == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in sizes %}
+                            {% if key == setting.size_tablet %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div id="size_tablet" style="display:none; margin:20px 0px 0px 0px !important;">
+                        <div class="form-group">
+                            <label class="control-label">{{entry_width}}</label>
+                            <div class="fg-setting">
+                                <input type="text" name="width_tablet" class="form-control pixels" value="{{setting.width_tablet}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">{{entry_height}}</label>
+                            <div class="fg-setting">
+                                <input type="text" name="height_tablet" class="form-control pixels" value="{{setting.height_tablet}}">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>{{text_phone}}</td>
+                <td class="text-center">
+                    <select class="form-control" name="align_phone">
+                        <option value="" {{setting.align_phone == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in aligns %}
+                            {% if key == setting.align_phone %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select class="form-control" name="size_phone">
+                        <option value="" {{setting.size_phone == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in sizes %}
+                            {% if key == setting.size_phone %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div id="size_phone" style="display:none;margin:0px 0px 20px 0px !important;">
+                        <div class="form-group">
+                            <label class="control-label">{{entry_width}}</label>
+                            <div class="fg-setting">
+                                <input type="text" name="width_phone" class="form-control pixels" value="{{setting.width_phone}}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">{{entry_height}}</label>
+                            <div class="fg-setting">
+                                <input type="text" name="height_phone" class="form-control pixels" value="{{setting.height_phone}}">
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_parallax}}</label>
+    <div class="fg-setting">
+        <input type="hidden" name="parallax" value="0" />
+        <input type="checkbox" name="parallax" class="switcher" data-label-text="{{text_enabled}}" {{setting.parallax? 'checked="checked"'}} value="1" />
+    </div>
+</div>
+<div id="parallax">
+    <div class="form-group">
+        <label class="control-label">{{entry_parallax_height}}</label>
+        <div class="fg-setting">
+            <input type="text" name="parallax_height" class="form-control pixels" value="{{setting.parallax_height}}" />
+        </div>
+    </div>
+</div>
+<script>
+    $(".switcher[type='checkbox']").bootstrapSwitch({
+        'onColor': 'success',
+        'onText': '{{text_yes}}',
+        'offText': '{{text_no}}',
+    });
+    $(".switcher[type='checkbox'][name=parallax]").on('switchChange.bootstrapSwitch', function(event, state) {
+        if(state){
+            $('#parallax').removeAttr('style');
+        }
+        else{
+            $('#parallax').attr('style','display:none;');
+        }
+    });
+    $(document).on('change','select[name=size]', function(){
+        if($(this).val() == 'custom'){
+            $('#size').css({display:'block'});
+        }
+        else{
+            $('#size').css({display:'none'});
+        }
+    });
+    $(document).on('change','select[name=size_tablet]', function(){
+        if($(this).val() == 'custom'){
+            $('#size_tablet').css({display:'block'});
+        }
+        else{
+            $('#size_tablet').css({display:'none'});
+        }
+    });
+    $(document).on('change','select[name=size_phone]', function(){
+        if($(this).val() == 'custom'){
+            $('#size_phone').css({display:'block'});
+        }
+        else{
+            $('#size_phone').css({display:'none'});
+        }
+    });
+    $(document).on('change','select[name=onclick]', function(){
+        if($(this).val() == 'link'){
+            $('#link').removeAttr('style');
+        }
+        else{
+            $('#link').attr('style','display:none;');
+        }
+    });
+    $('select[name=size]').trigger('change');
+    $('select[name=size_tablet]').trigger('change');
+    $('select[name=size_phone]').trigger('change');
+    $('select[name=onclick]').trigger('change');
+
+    $('.switcher[type=checkbox][name=parallax]').trigger('switchChange.bootstrapSwitch', {{setting.parallax ? 'true':'false'}});
+</script>

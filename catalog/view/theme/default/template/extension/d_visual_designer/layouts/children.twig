@@ -1,0 +1,40 @@
+<div class="block-child block-container col-md-{{size}} level{{level}} {{setting.design_show_on?setting.design_show_on|join(' ')}} {{setting.design_animate?'animated '~setting.design_animate}} {{ setting.additional_css_class? setting.additional_css_class}}" id="{{key}}"  data-id="{{key}}" data-title="{{title}}" data-image="{{image}}">
+    {% if permission and display_control %}
+        <div class="control control-{{control_position}}" data-control="{{key}}">
+            {% if button_drag %}
+                <a class="drag vd-btn vd-btn-small vd-btn-drag"></a>
+            {% endif %}
+            {% if button_edit %}
+                <a id="button_edit" class="vd-btn vd-btn-small vd-btn-edit"></a>
+            {% endif %}
+            {% if button_copy %}
+                <a id="button_copy" class="vd-btn vd-btn-small vd-btn-copy"></a>
+            {% endif %}
+            {% if button_remove %}
+                <a id="button_remove" class="vd-btn vd-btn-small vd-btn-remove"></a>
+            {% endif %}
+            <div class="block-button {{child?'hidden'}}">
+                <a id="button_add_block"  class="vd-btn vd-btn-add button-add-bottom"></a>
+            </div>
+        </div>
+    {% endif %}
+    <style>
+        #{{key}}.block-child.block-container{
+            {% include template('extension/d_visual_designer/partials/layout_style') %}
+        }
+        
+        {% if setting.additional_css_before %}
+        #{{key}}.block-child.block-container:before {
+            {{setting.additional_css_before}}
+        }
+        {% endif %}
+
+        {% if setting.additional_css_after %}
+        #{{key}}.block-child.block-container:after {
+            {{setting.additional_css_after}}
+        }
+        {% endif %}
+
+    </style>
+    <div class="block-content child" data-id="{{key}}">{{content}}</div>
+</div>

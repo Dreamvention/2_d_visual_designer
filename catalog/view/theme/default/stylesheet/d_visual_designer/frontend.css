@@ -7679,20 +7679,31 @@
 
 .block-container {
   padding: 0px;
-  z-index: 1; }
+  z-index: 10; }
+  @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
+    .block-container:not(.show_mobile) {
+      display: none; } }
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .block-container:not(.show_tablet) {
+      display: none; } }
+  @media only screen and (min-width: 1024px) {
+    .block-container:not(.show_desktop) {
+      display: none; } }
   .block-container .glyphicon {
     font-family: 'Glyph'; }
   .block-container.video {
     position: relative; }
-    .block-container.video > .block-content > .video-background {
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: -1; }
+    .block-container.video > .block-content {
+      background-color: transparent; }
+      .block-container.video > .block-content > .video-background {
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: -1; }
   .block-container[class*=col-]:not(.product-layout) {
     padding: 0px; }
   .block-container:after {

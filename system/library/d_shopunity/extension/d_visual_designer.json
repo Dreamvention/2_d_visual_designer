@@ -1,0 +1,248 @@
+{
+    "codename": "d_visual_designer",
+    "version": "2.2.0",
+    "name": "Visual Designer",
+    "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
+    "index": "extension/module/d_visual_designer",
+    "readme": "system/mbooth/readme/d_visual_designer.md",
+    "author": {
+        "name": "Dreamvention",
+        "email": "info@dreamvention.com",
+        "url": "https://dreamvention.com/"
+    },
+    "opencart_version": [
+        "2.3.0.2"
+    ],
+    "mbooth_version": "^4.0.0",
+    "type": "module",
+    "license": {
+        "type": "commercial",
+        "url": "https://shopunity.net/licenses/commercial"
+    },
+    "install": {
+        "url": "extension/module/install&extension=d_visual_designer"
+    },
+    "support": {
+        "email": "support@dreamvention.com",
+        "url": "https://dreamvention.com/support"
+    },
+    "required": {
+        "d_shopunity": ">= 3.1.1",
+        "d_event_manager": ">= 1.1.4",
+        "d_simple_html_dom": ">= 1.0.4",
+        "d_twig": ">=1.0.0",
+        "d_twig_manager": ">= 1.4.1"
+    },
+    "files": [
+        "system/library/d_shopunity/extension/d_visual_designer.json",
+        "system/config/d_visual_designer.php",
+        
+        "system/config/d_visual_designer_route/category.php",
+        "system/config/d_visual_designer_route/information.php",
+        "system/config/d_visual_designer_route/product.php",
+        "system/config/d_visual_designer_route/template.php",
+        
+        "system/config/d_visual_designer/column.php",
+        "system/config/d_visual_designer/row.php",
+        "system/config/d_visual_designer/text.php",
+        "system/config/d_visual_designer/image.php",
+
+        "admin/controller/extension/module/d_visual_designer.php",
+        "admin/controller/extension/event/d_visual_designer.php",
+        "admin/language/en-gb/extension/module/d_visual_designer.php",
+        "admin/language/english/extension/module/d_visual_designer.php",
+        "admin/language/ru-ru/extension/module/d_visual_designer.php",
+        "admin/language/russian/extension/module/d_visual_designer.php",
+        "admin/model/extension/module/d_visual_designer.php",
+        "admin/view/javascript/d_visual_designer/d_visual_designer.js",
+        "admin/view/javascript/d_visual_designer/filemanager.js",
+        "admin/view/javascript/d_visual_designer/vd-libraries.min.js",
+        "admin/view/javascript/d_visual_designer/vd-libraries.min.css",
+        "admin/view/javascript/d_visual_designer/library/select2/fontsList.gif",
+        "admin/view/template/extension/d_visual_designer/designer.twig",
+        "admin/view/template/extension/d_visual_designer/filemanager.twig",
+        "admin/view/template/extension/d_visual_designer/frontend_editor.twig",
+        "admin/view/template/extension/d_visual_designer/instruction.twig",
+        "admin/view/template/extension/d_visual_designer/setting.twig",
+        "admin/view/template/extension/d_visual_designer/template_form.twig",
+        "admin/view/template/extension/d_visual_designer/template_list.twig",
+        
+        "catalog/controller/extension/event/d_visual_designer.php",
+        "catalog/model/extension/module/d_visual_designer.php",
+        "catalog/view/theme/default/javascript/d_visual_designer.js",
+        "catalog/view/theme/default/template/extension/d_visual_designer/designer.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer/filemanager.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer/frontend.twig",
+        "catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.js",
+        "catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.js",
+        "catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.css",
+        "catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.css",
+        "catalog/view/javascript/d_visual_designer/library/select2/fontsList.gif",
+
+        "admin/view/template/extension/d_visual_designer/layouts/main.twig",
+        "admin/view/template/extension/d_visual_designer/layouts/medium.twig",
+        "admin/view/template/extension/d_visual_designer/layouts/children.twig",
+
+        "admin/controller/extension/d_visual_designer_module/row.php",
+        "admin/controller/extension/d_visual_designer_module/column.php",
+        "admin/controller/extension/d_visual_designer_module/text.php",
+        "admin/controller/extension/d_visual_designer_module/image.php",
+
+        "admin/language/en-gb/extension/d_visual_designer_module/row.php",
+        "admin/language/en-gb/extension/d_visual_designer_module/column.php",
+        "admin/language/en-gb/extension/d_visual_designer_module/text.php",
+        "admin/language/en-gb/extension/d_visual_designer_module/image.php",
+        "admin/language/english/extension/d_visual_designer_module/row.php",
+        "admin/language/english/extension/d_visual_designer_module/column.php",
+        "admin/language/english/extension/d_visual_designer_module/text.php",
+        "admin/language/english/extension/d_visual_designer_module/image.php",
+
+        "admin/language/ru-ru/extension/d_visual_designer_module/row.php",
+        "admin/language/ru-ru/extension/d_visual_designer_module/column.php",
+        "admin/language/ru-ru/extension/d_visual_designer_module/text.php",
+        "admin/language/ru-ru/extension/d_visual_designer_module/image.php",
+        "admin/language/russian/extension/d_visual_designer_module/row.php",
+        "admin/language/russian/extension/d_visual_designer_module/column.php",
+        "admin/language/russian/extension/d_visual_designer_module/text.php",
+        "admin/language/russian/extension/d_visual_designer_module/image.php",
+
+        "admin/view/template/extension/d_visual_designer_module/row_setting.twig",
+        "admin/view/template/extension/d_visual_designer_module/row.twig",
+        "admin/view/template/extension/d_visual_designer_module/column_setting.twig",
+        "admin/view/template/extension/d_visual_designer_module/column.twig",
+        "admin/view/template/extension/d_visual_designer_module/text_setting.twig",
+        "admin/view/template/extension/d_visual_designer_module/text.twig",
+        "admin/view/template/extension/d_visual_designer_module/image_setting.twig",
+        "admin/view/template/extension/d_visual_designer_module/image.twig",
+
+        "catalog/controller/extension/d_visual_designer_module/row.php",
+        "catalog/controller/extension/d_visual_designer_module/column.php",
+        "catalog/controller/extension/d_visual_designer_module/text.php",
+        "catalog/controller/extension/d_visual_designer_module/image.php",
+
+        "catalog/language/en-gb/extension/d_visual_designer_module/row.php",
+        "catalog/language/en-gb/extension/d_visual_designer_module/column.php",
+        "catalog/language/en-gb/extension/d_visual_designer_module/text.php",
+        "catalog/language/en-gb/extension/d_visual_designer_module/image.php",
+        "catalog/language/english/extension/d_visual_designer_module/row.php",
+        "catalog/language/english/extension/d_visual_designer_module/column.php",
+        "catalog/language/english/extension/d_visual_designer_module/text.php",
+        "catalog/language/english/extension/d_visual_designer_module/image.php",
+
+        "catalog/language/ru-ru/extension/d_visual_designer_module/row.php",
+        "catalog/language/ru-ru/extension/d_visual_designer_module/column.php",
+        "catalog/language/ru-ru/extension/d_visual_designer_module/text.php",
+        "catalog/language/ru-ru/extension/d_visual_designer_module/image.php",
+        "catalog/language/russian/extension/d_visual_designer_module/row.php",
+        "catalog/language/russian/extension/d_visual_designer_module/column.php",
+        "catalog/language/russian/extension/d_visual_designer_module/text.php",
+        "catalog/language/russian/extension/d_visual_designer_module/image.php",
+
+        "catalog/model/extension/d_visual_designer_module/image.php",
+
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/row_setting.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/row.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/column_setting.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/column.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/text_setting.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/text.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/image_setting.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/image.twig",
+
+        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/main.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/medium.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/children.twig",
+        
+        "image/catalog/d_visual_designer/row.svg",
+        "image/catalog/d_visual_designer/text.svg",
+        "image/catalog/d_visual_designer/image.svg"
+    ],
+    "dirs": [
+        "admin/controller/extension/d_visual_designer",
+        "admin/language/en-gb/extension/d_visual_designer",
+        "admin/language/english/extension/d_visual_designer",
+        "admin/language/ru-ru/extension/d_visual_designer",
+        "admin/language/russian/extension/d_visual_designer",
+        "admin/model/extension/d_visual_designer",
+        "admin/view/template/extension/d_visual_designer/component",
+        "admin/view/template/extension/d_visual_designer/partials",
+        "admin/view/stylesheet/d_visual_designer",
+        "admin/view/image/d_visual_designer",
+        "admin/view/javascript/d_visual_designer/library/bootstrap-colorpicker/img",
+        "admin/view/javascript/d_visual_designer/library/icon-fonts/fonts",
+        "admin/view/javascript/d_visual_designer/library/fontIconPicker/fonts",
+        "admin/view/javascript/d_visual_designer/library/summernote/font",
+
+        "catalog/controller/extension/d_visual_designer",
+        "catalog/language/en-gb/extension/d_visual_designer",
+        "catalog/language/english/extension/d_visual_designer",
+        "catalog/language/ru-ru/extension/d_visual_designer",
+        "catalog/language/russian/extension/d_visual_designer",
+        "catalog/view/theme/default/template/extension/d_visual_designer/component",
+        "catalog/view/theme/default/template/extension/d_visual_designer/partials",
+        "catalog/view/theme/default/stylesheet/d_visual_designer",
+        "catalog/view/theme/default/image/d_visual_designer",
+        "catalog/view/javascript/d_visual_designer/library/bootstrap-colorpicker/img",
+        "catalog/view/javascript/d_visual_designer/library/icon-fonts/fonts",
+        "catalog/view/javascript/d_visual_designer/library/fontIconPicker/fonts",
+        "catalog/view/javascript/d_visual_designer/library/summernote/font"
+    ],
+    "changelog": [
+        {
+            "version":"2.2.0",
+            "change":"1.Fix for OC 3.0.0.0."
+        },
+        {
+            "version":"2.1.2",
+            "change":"1.Fix bugs."
+        },
+        {
+            "version":"2.1.1",
+            "change":"1.Added notification for free version."
+        },
+        {
+            "version":"2.1.0",
+            "change":"1.Added parallax. \r\n2.Added Code Viewer. \r\n3.Fix bugs. \r\n4.Added animate for control button. \r\n5.OCMOD replaced to Events \r\n6.Added the ability to disable the Visual Designer separately on the pages of goods, categories, information. \r\n7.Added the ability to restrict access to Visual Designer for selected users or groups of users."
+        },
+        {
+            "version":"2.0.9",
+            "change":"1.Fix bugs."
+        },
+        {
+            "version":"2.0.8",
+            "change":"1.Fix bugs."
+        },
+        {
+            "version":"2.0.7",
+            "change":"1. Added offset column. \n\r2.Fix bugs."
+        },
+        {
+            "version":"2.0.6",
+            "change":"1. Added permission on frontend editor. \n\r2.Fix Bugs."
+        },
+        {
+            "version":"2.0.5",
+            "change":"1. Added loader on frontend editor. \n\r2.Fix Styles. \n\r3.Add image to template list"
+        },   
+        {
+            "version":"2.0.4",
+            "change":"1. Divided adding and saving a template. \n\r2. Redesign save template. \n\r3.Added categories of blocks. \n\r4.Added categories of templates \n\r4.Fix bugs."
+        },   
+        {
+            "version":"2.0.3",
+            "change":"1.Fix bugs. \r\n 2.Redesigned popup window for editing layout. \r\n3.Redesigned popup window for template selection."
+        }, 
+        {
+            "version":"2.0.2",
+            "change":"Fix ocmod frontend"
+        },
+        {
+            "version":"2.0.1",
+            "change":"Fix bugs"
+        },
+        {
+            "version":"2.0.0",
+            "change":"First version"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+<div class="vd vd-popup add_template" style="max-height:75vh;">
+    <div class="popup-header">
+        <h2 class="title">{{text_codeview}}</h2>
+        <a class="close"></a>
+    </div>
+    <div class="popup-content">
+        <div class="popup-codeview">
+            <textarea name="codeview" class="text-codeview form-control"><%= content %></textarea>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <a id="save-codeview" class="vd-btn save">{{button_save}}</a>
+    </div>
+    <input type="hidden" name="designer_id" value='<%= designer_id %>'/>
+</div>

@@ -2,7 +2,7 @@ var d_visual_designer = {
     //Настройки
     setting: {
         //url адрес
-        url_designer: 'index.php?route=d_visual_designer/designer&token=' + getURLVar('token'),
+        url_designer: 'index.php?route=extension/d_visual_designer/designer&token=' + getURLVar('token'),
         //формы
         form: {},
         //Статус наличия изменений
@@ -79,13 +79,8 @@ var d_visual_designer = {
                         if (that.data[designer_id].length == 0) {
                             that.data[designer_id] = {};
                         }
-                        if($(element).prevAll('.mce-tinymce').size() > 0){
-                            $(element).prevAll('.mce-tinymce').before(json['content']);
-                        }
-                        else{
-                            $(element).before(json['content']);
-                        }
-                        
+
+                        $(element).before(json['content']);
 
                         var button_vd = $(json['content']).find('#button_vd');
 
@@ -345,8 +340,6 @@ var d_visual_designer = {
         this.setting.form.find('#' + designer_id).prev().removeAttr('style');
         this.setting.form.find('#' + designer_id).removeAttr('style');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.note-editor').css('display', 'none');
-        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').css('display', 'none');
-        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').nextAll('.wysiwyg ').css('display', 'none');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.cke').css('display', 'none');
     },
     //Выключение дизайнера
@@ -354,8 +347,6 @@ var d_visual_designer = {
         var designer_id = $(element).data('id');
         this.setting.form.find('#' + designer_id).attr('style', 'display:none;');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.note-editor').css('display', 'block');
-        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').css('display', 'block');
-        this.setting.form.find('#' + designer_id).parents('.form-group').find('.mce-tinymce').nextAll('.wysiwyg').css('display', 'none');
         this.setting.form.find('#' + designer_id).parents('.form-group').find('.cke').css('display', 'block');
     },
     updateDesigner:function(designer_id, content, callback=null){
@@ -366,7 +357,7 @@ var d_visual_designer = {
             'description': content
         }
         $.ajax({
-            url: 'index.php?route=d_visual_designer/designer/updateDesigner&token='+getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/updateDesigner&token='+getURLVar('token'),
             dataType: 'json',
             data: send_data,
             type: 'post',
@@ -413,21 +404,15 @@ var d_visual_designer = {
                 $(element).summernote('code', content)
             }
             
-            if($(element).next().hasClass('note-editor')){
-                $(element).next().find('.note-editable').html(content);
-            }
-
             if(typeof CKEDITOR != "undefined"){
                 CKEDITOR.config.autoParagraph = false;
                 CKEDITOR.instances[$(element).attr('id')].setData(content);
             }
 
-            if(typeof tinyMCE != "undefined"){
-                $(element).parent().children('.mce-tinymce').find('iframe')[0].contentDocument.body.innerHTML = content;
-            }
+
 
         }).promise().done(function() {
-           if (callback != null) {
+         if (callback != null) {
             callback();
         }
     });
@@ -436,13 +421,8 @@ var d_visual_designer = {
     //Компиляция шаблона
     templateСompile: function(template, data) {
         var source = template.html();
-        Handlebars.registerHelper('if_eq', function(a, b, opts) {
-            if (a == b) // Or === depending on your needs
-                return opts.fn(this);
-            else
-                return opts.inverse(this);
-        });
-        var template = Handlebars.compile(source);
+        
+        var template = _.template(source);
         var html = template(data);
         return html;
     },
@@ -496,7 +476,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/getBlocks&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getBlocks&token=' + getURLVar('token'),
             dataType: 'json',
             data: 'level=' + level,
             success: function(json) {
@@ -525,7 +505,7 @@ var d_visual_designer = {
         var that = this;
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/getModule&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getModule&token=' + getURLVar('token'),
             dataType: 'json',
             data: 'type=' + type + '&parent=' + target + '&level=' + level,
             success: function(json) {
@@ -558,7 +538,13 @@ var d_visual_designer = {
                 }
                 that.initSortable();
                 that.initHover(designer_id);
-                that.updateSortOrderRow(designer_id);
+                
+                if(target != ''){
+                    that.updateSortOrder(target, designer_id);
+                }
+                else{
+                    that.updateSortOrderRow(designer_id);
+                }
                 that.updateValue();
                 that.closePopup();
                 that.setting.stateEdit = true;
@@ -571,7 +557,7 @@ var d_visual_designer = {
         var level = this.getLevelBlock(block_id, designer_id) + 1;
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/getChildBlock&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getChildBlock&token=' + getURLVar('token'),
             dataType: 'json',
             data: 'type=' + block_info['type'] + '&parent=' + block_id + '&level=' + level,
             success: function(json) {
@@ -587,6 +573,7 @@ var d_visual_designer = {
                 that.setting.form.find('#' + designer_id).find('.vd#sortable').find('.block-content[data-id=\'' + block_id + '\']').append(json['content']);
 
                 that.updateContentBlock(block_id, designer_id);
+                that.updateSortOrder(block_id, designer_id);
                 that.setting.stateEdit = true;
             }
         });
@@ -608,30 +595,32 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/getSettingModule&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getSettingModule&token=' + getURLVar('token'),
             dataType: 'json',
             data: send_data,
             success: function(json) {
                 if (json['success']) {
+                    var class_popup = '';
+                    if (block_info['parent'] == '') {
+                        class_popup = 'main'
+                    } else if (block_info['child']) {
+                        class_popup = 'inner'
+                    } else {
+                        class_popup = 'child'
+                    }
                     var data = {
                         'module_setting': json['content'],
                         'block_id': block_id,
                         'designer_id': designer_id,
                         'type': block_info['type'],
                         'block_title': that.setting.form.find('#' + block_id).data('title'),
-                        'design_background_thumb': json['design_background_thumb']
+                        'design_background_thumb': json['design_background_thumb'],
+                        'class_popup': class_popup
                     };
                     data = Object.assign(data, block_info['setting']);
                     var html = that.templateСompile(that.template.edit_block, data);
-                    that.setting.form.append(that.template.popup);
-                    that.setting.form.find('.vd-popup').html(html);
-                    if (block_info['parent'] == '') {
-                        that.setting.form.find('.vd-popup').addClass('main');
-                    } else if (block_info['child']) {
-                        that.setting.form.find('.vd-popup').addClass('inner')
-                    } else {
-                        that.setting.form.find('.vd-popup').addClass('child')
-                    }
+                    that.setting.form.append(html);
+                    
                     that.setting.form.append(that.template.popup_overlay);
                     that.initColorpicker(that.setting.form.find('.vd-popup'));
                     that.updateValue();
@@ -643,7 +632,7 @@ var d_visual_designer = {
     },
     //сохранение настроек блока
     saveBlock: function(block_id, designer_id) {
-        this.data[designer_id][block_id]['setting'] = this.setting.form.find('.vd-popup').find('input[name]:not([class^=note]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
+        this.data[designer_id][block_id]['setting'] = this.setting.form.find('.vd-popup').find('input[name]:not([class^=note]):not([name=designer_id]),textarea[name]:not([class^=note]),select[name]:not([class^=note])').serializeJSON();
         this.setting.form.find('.vd-popup').remove();
         this.setting.form.find('.vd-popup-overlay').remove();
         this.updateValue();
@@ -721,7 +710,7 @@ var d_visual_designer = {
         var that = this;
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/template/getTemplates&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/template/getTemplates&token=' + getURLVar('token'),
             dataType: 'json',
             success: function(json) {
                 if (json['success']) {
@@ -744,7 +733,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/template/getTemplate&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/template/getTemplate&token=' + getURLVar('token'),
             dataType: 'json',
             data: { 'template_id': template_id, 'config': config },
             success: function(json) {
@@ -773,7 +762,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/template/save&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/template/save&token=' + getURLVar('token'),
             dataType: 'json',
             data: send_data,
             success: function(json) {
@@ -846,7 +835,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/getContent&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getContent&token=' + getURLVar('token'),
             dataType: 'json',
             data: setting,
             success: function(json) {
@@ -940,7 +929,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/getContent&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getContent&token=' + getURLVar('token'),
             dataType: 'json',
             data: setting,
             success: function(json) {
@@ -950,6 +939,12 @@ var d_visual_designer = {
                     that.setting.form.find('#' + block_id).after(json['content']);
                     that.initSortable();
                     that.initHover(designer_id);
+                    if(parent_id != ''){
+                        that.updateSortOrder(parent_id, designer_id);
+                    }
+                    else{
+                        that.updateSortOrderRow(designer_id);
+                    }
                     that.setting.stateEdit = true;
                 }
             }
@@ -992,7 +987,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=d_visual_designer/designer/editLayout&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/editLayout&token=' + getURLVar('token'),
             data: send_data,
             dataType: 'json',
             success: function(json) {

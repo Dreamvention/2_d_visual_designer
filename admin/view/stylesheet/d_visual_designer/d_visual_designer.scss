@@ -1,7 +1,7 @@
-@import "loader.css";
-@import "control.scss";
-@import "component.scss";
-@import "animation.css";
+@import 'loader.css';
+@import 'control.scss';
+@import 'component.scss';
+@import 'animation.css';
 @font-face {
     font-family: 'Glyph';
     src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
@@ -499,7 +499,8 @@
         }
         .block-child {
             position: relative;
-            min-height: 33px;
+            // min-height: 33px;
+            min-height: 60px;
 
             padding: 15px 10px;
 
@@ -587,6 +588,7 @@
                     color: #000;
                     font-size: 16px;
                     line-height: 20px;
+                    height: 20px;
                 }
             }
         }
@@ -926,7 +928,7 @@
         >div.search {
             position: absolute;
             top: 11px;
-            right: 55px;
+            right: 60px;
             >i {
                 position: absolute;
                 z-index: 99;
@@ -1039,6 +1041,76 @@
                 &.range{
                     position:relative;
                 }
+                > label.vd-checkbox{
+                    font-size: 13px;
+                    color: #32373c;
+                    line-height: 18.2px;
+                    cursor:pointer;
+                    margin:0;
+                    display: inline;
+                    font-weight: normal;
+                    > input[type=checkbox]{
+                        font-size: 14px;
+                        line-height: 0;
+
+                        position: relative;
+                        display: inline-block;
+                        float: none;
+                        clear: none;
+
+                        width: 25px;
+                        min-width: 16px;
+                        height: 25px;
+                        margin: 0 10px 10px 0;
+                        padding: 0!important;
+
+                        cursor: pointer;
+                        -webkit-transition: .05s border-color ease-in-out;
+                        transition: .05s border-color ease-in-out;
+                        text-align: center;
+                        vertical-align: middle;
+
+                        color: #32373c;
+                        border: none;
+                        border-radius: 4px;
+                        outline: 0;
+                        background: #f1f5f9;
+                        -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+                        box-shadow: none;
+                        box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+
+                        -webkit-appearance: none;
+
+                        &:focus{
+                            box-shadow: none !important;
+                            outline: none !important;
+                            background: #E0E5EA;
+                            -webkit-transition: background .5s;
+                            transition: background .5s;
+                        }
+                        &:checked{
+                            &:after{
+                                display: none;
+                            }
+                            &:before{
+                                position: absolute;
+                                top: 6px;
+                                left: 8px;
+                                width: 11px;
+                                height: 8px;
+                                content: '';
+                                -webkit-transform: rotate(-45deg);
+                                transform: rotate(-45deg);
+                                border: 2px solid #00c3aa;
+                                border-top: none;
+                                border-right: none;
+                                background: rgba(0, 0, 0, 0);
+
+                            }
+                        }
+
+                    }
+                }
                 > input[type=range]{
                     position: relative;
                     top: 2px;
@@ -1114,6 +1186,9 @@
                         width: 50%;
                         padding: 0 5% 0 0;
                         margin: 0;
+                        &:last-child {
+                            padding: 0 0 0 5%;
+                        }
                     }
                 }
                 >.fg-color {

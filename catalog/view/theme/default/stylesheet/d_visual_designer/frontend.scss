@@ -2,31 +2,51 @@
 @import "bootstrap.scss";
 
 @font-face {
-  font-family: 'Glyph';
-  src:  url('fonts/glyphicons-halflings-regular.woff2') format('woff2'),
-  url('fonts/glyphicons-halflings-regular.woff') format('woff');
+    font-family: 'Glyph';
+    src:  url('fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+    url('fonts/glyphicons-halflings-regular.woff') format('woff');
 }
 
 #tab-description{
-  overflow: visible;
-  .vd{
-    .glyphicon {
-      font-family: 'Glyph';
+    overflow: visible;
+    .vd{
+        .glyphicon {
+            font-family: 'Glyph';
+        }
+        div,p{
+            margin-bottom: 0;
+        }
     }
-    div,p{
-      margin-bottom: 0;
-    }
-  }
 }
 .block-container{
-  padding: 0px;
-  z-index:1;
-  .glyphicon {
+    padding: 0px;
+    z-index:10;
+
+    &:not(.show_mobile) {
+        @media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
+            display: none;
+        }
+    }
+
+    &:not(.show_tablet) {
+        @media only screen and (min-device-width : 768px) and (max-device-width : 1023px) {
+            display: none;
+        }
+    }
+
+    &:not(.show_desktop) {
+        @media only screen  and (min-width : 1024px) {
+            display: none;
+        }
+    }
+
+    .glyphicon {
         font-family: 'Glyph';
     }
     &.video{
         position: relative;
         > .block-content{
+            background-color:transparent;
             > .video-background{
                 height: 100%;
                 overflow: hidden;
@@ -52,7 +72,7 @@
 }
 .sharrre{
     .buttons{
-         margin:0;
+        margin:0;
         .button{
             max-width:inherit;
             padding:inherit;

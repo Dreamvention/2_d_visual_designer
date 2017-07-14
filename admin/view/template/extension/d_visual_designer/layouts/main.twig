@@ -1,0 +1,28 @@
+<div class="block-parent block-container col-sm-{{size}}" id="{{key}}" data-id="{{key}}" data-title="{{title}}" data-image="{{image}}">
+    <div class="control control-{{control_position}}" data-control="{{key}}">
+        {% if button_drag %}
+            <a class="drag vd-btn vd-btn-small vd-btn-drag"></a>
+        {% endif %}
+        {% if button_edit %}
+            <a id="button_edit" class="vd-btn vd-btn-small vd-btn-edit" title="{{help_edit}}"></a>
+        {% endif %}
+        {% if button_copy %}
+            <a id="button_copy" class="vd-btn vd-btn-small vd-btn-copy" title="{{help_copy}}"></a>
+        {% endif %}
+        {% if button_layout %}
+            <a id="button_layout" class="vd-btn vd-btn-small vd-btn-layout"></a>
+        {% endif %}
+        {% if child %}
+            <a id="button_add_child" class="vd-btn vd-btn-small vd-btn-add-child" title="{{help_add_child}}"></a>
+        {% endif %}
+        {% if button_remove %}
+            <a id="button_remove" class="vd-btn vd-btn-small vd-btn-remove" title="{{help_remove}}"></a>
+        {% endif %}
+    </div>
+    <div class="block-mouse-toggle"></div>
+    <div class="vd-border vd-border-left"></div>
+    <div class="vd-border vd-border-top"></div>
+    <div class="vd-border vd-border-right"></div>
+    <div class="vd-border vd-border-bottom"></div>
+    <div class="block-content clearfix {{ child? 'child' }}" data-id="{{key}}">{{content}}</div>
+</div>

@@ -1,0 +1,38 @@
+<div class="vd vd-popup save_template" style="max-height:75vh;">
+    <div class="popup-header">
+        <h2 class="title">{{text_save_template}}</h2>
+        <a class="close"></a>
+    </div>
+    <div class="popup-content">
+        <div class="form-group">
+            <label class="control-label">{{entry_name}}</label>
+            <div class="fg-setting">
+                <input type="text" name="name" value="" placeholder="{{entry_name}}" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{{entry_category}}</label>
+            <div class="fg-setting">
+                <input type="text" name="category" value="" placeholder="{{entry_category}}" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{{entry_image_template}}</label>
+            <div class="fg-setting">
+                <a href="" id="thumb-vd-image" data-toggle="vd-image" class="img-thumbnail">
+                    <img src="{{placeholder}}" alt="" title="" data-placeholder="{{placeholder}}"/>
+                </a>
+                <input type="hidden" name="image" value="" id="input-vd-image" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label">{{entry_sort_order}}</label>
+            <div class="fg-setting">
+                <input type="text" name="sort_order" value="" placeholder="{{entry_sort_order}}" class="form-control" />
+            </div>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <a id="saveTemplate" class="vd-btn save" data-designer-id="<%= designer_id %>" data-loading-text="{{button_saved}}">{{button_save}}</a>
+    </div>
+</div>

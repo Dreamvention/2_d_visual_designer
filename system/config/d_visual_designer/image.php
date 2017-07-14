@@ -41,5 +41,9 @@ $_['setting'] = array(
     'align' => 'center',
     'animate' => '',
     'size' => 'responsive',
-    'onclick' => 'popup'
+    'onclick' => 'popup',
+    'size_phone' => '',
+    'size_tablet' => '',
+    'align_phone' => '',
+    'align_tablet' => ''
 );

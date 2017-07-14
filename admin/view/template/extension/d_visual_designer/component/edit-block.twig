@@ -1,0 +1,216 @@
+<div class="vd vd-popup <%=class_popup%>" style="max-height:75vh;">
+    <div class="popup-header">
+        <h2 class="title"><%=block_title%> {{text_edit_block}}</h2>
+        <a class="stick-left"></a>
+        <a class="close"></a>
+    </div>
+    <div class="popup-tabs">
+        <ul class="vd-nav">
+            <li class="active"><a href="#tab-edit-block" data-toggle="tab">{{tab_general}}</a></li>
+            <li><a href="#tab-design-block" data-toggle="tab">{{tab_design}}</a></li>
+            <li><a href="#tab-css-block" data-toggle="tab">{{tab_css}}</a></li>
+        </ul>
+    </div>
+    <div class="popup-content">
+        <div class="tab-content body">
+            <div class="tab-pane active" id="tab-edit-block">
+                <%=module_setting%>
+            </div>
+            <div class="tab-pane" id="tab-design-block">
+                <div class="form-group">
+                    <label class="control-label">{{entry_margin}}</label>
+                    <div class="fg-setting">
+                        <div class=wrap-setting>
+                            <input type="text" name="design_margin_top" class="form-control pixels-procent" value="<%= design_margin_top %>">
+                            <span class="label-helper">{{text_top}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_margin_right" class="form-control pixels-procent" value="<%= design_margin_right %>">
+                            <span class="label-helper">{{text_right}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_margin_bottom" class="form-control pixels-procent" value="<%= design_margin_bottom %>">
+                            <span class="label-helper">{{text_bottom}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_margin_left" class="form-control pixels-procent" value="<%= design_margin_left %>">
+                            <span class="label-helper">{{text_left}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_padding}}</label>
+                    <div class="fg-setting">
+                        <div class="wrap-setting">
+                            <input type="text" name="design_padding_top" class="form-control pixels-procent" value="<%= design_padding_top %>">
+                            <span class="label-helper">{{text_top}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_padding_right" class="form-control pixels-procent" value="<%= design_padding_right %>">
+                            <span class="label-helper">{{text_right}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_padding_bottom" class="form-control pixels-procent" value="<%= design_padding_bottom %>">
+                            <span class="label-helper">{{text_bottom}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_padding_left" class="form-control pixels-procent" value="<%= design_padding_left %>">
+                            <span class="label-helper">{{text_left}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_border}}</label>
+                    <div class="fg-setting">
+                        <div class="wrap-setting">
+                            <input type="text" name="design_border_top" class="form-control pixels-procent" value="<%= design_border_top %>">
+                            <span class="label-helper">{{text_top}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_border_right" class="form-control pixels-procent" value="<%= design_border_right %>">
+                            <span class="label-helper">{{text_right}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_border_bottom" class="form-control pixels-procent" value="<%= design_border_bottom %>">
+                            <span class="label-helper">{{text_bottom}}</span>
+                        </div>
+                        <div class="wrap-setting">
+                            <input type="text" name="design_border_left" class="form-control pixels-procent" value="<%= design_border_left %>">
+                            <span class="label-helper">{{text_left}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_border_color}}</label>
+                    <div class="fg-setting">
+                        <div id="color-input" class="input-group colorpicker-component fg-color">
+                            <input type="text" name="design_border_color" class="form-control" value="<%= design_border_color %>">
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_border_style}}</label>
+                    <div class="fg-setting">
+                        <select name="design_border_style" class="form-control">
+                            {% for key, value in border_styles %}
+                                <option value="{{key}}" <% if(design_border_style == '{{key}}') { %>selected="selected"<% } %>>{{value}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_border_radius}}</label>
+                    <div class="fg-setting">
+                        <input type="text" name="design_border_radius" class="form-control pixels" value="<%= design_border_radius %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_animate}}</label>
+                    <div class="fg-setting">
+                        <select name="design_animate" class="form-control">
+                            {% for key, value in animates %}
+                                <option value="{{key}}" <% if(design_animate == '{{key}}') { %>selected="selected"<% } %>>{{value}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_show_on}}</label>
+                    <div class="fg-setting">
+                        <label class="vd-checkbox">
+                            <input type="checkbox" name="design_show_on[]" value="show_mobile" <% if(_.contains(design_show_on, 'show_mobile')) { %> checked="checked" <% } %>> {{text_phone}}
+                        </label>
+                        <br>
+                        <label class="vd-checkbox">
+                            <input type="checkbox" name="design_show_on[]" value="show_tablet" <% if(_.contains(design_show_on, 'show_tablet')) { %> checked="checked" <% } %>> {{text_tablet}}
+                        </label>
+                        <br>
+                        <label class="vd-checkbox">
+                            <input type="checkbox" name="design_show_on[]" value="show_desktop" <% if(_.contains(design_show_on, 'show_desktop')) { %> checked="checked" <% } %>> {{text_desktop}}
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_image}}</label>
+                    <div class="fg-setting">
+                        <a href="" id="thumb-vd-image" data-toggle="vd-image" class="img-thumbnail">
+                            <img src="<%= design_background_thumb %>" alt="" title="" data-placeholder="{{placeholder}}" width="100px" height="100px" />
+                        </a>
+                        <input type="hidden" name="design_background_image" value="<%= design_background_image %>" id="input-vd-image" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_image_style}}</label>
+                    <div class="fg-setting">
+                        <select name="design_background_image_style" class="form-control">
+                            {% for key, value in image_styles %}
+                                <option value="{{key}}" <% if(design_background_image_style == '{{key}}') { %>selected="selected"<% } %>>{{value}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" <% if(design_background_image_style == 'parallax') { %>  style="display:none;" <% } %>>
+                    <label class="control-label">{{entry_image_position}}</label>
+                    <div class="fg-setting">
+                        <div class="wrap-setting wrap-50">
+                            <select name="design_background_image_position_horizontal" class="form-control">
+                                {% for key, value in image_horizontal_positions %}
+                                    <option value="{{key}}" <% if(design_background_image_position_horizontal == '{{key}}') { %>selected="selected"<% } %>>{{value}}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="label-helper">{{text_horizontal}}</span>
+                        </div>
+                        <div class="wrap-setting wrap-50">
+                            <select name="design_background_image_position_vertical" class="form-control">
+                                {% for key, value in image_vertical_positions %}
+                                    <option value="{{key}}" <% if(design_background_image_position_vertical == '{{key}}') { %>selected="selected"<% } %>>{{value}}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="label-helper">{{text_vertical}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_background}}</label>
+                    <div class="fg-setting">
+                        <div id="color-input" class="input-group colorpicker-component fg-color">
+                            <input type="text" name="design_background" class="form-control" value="<%= design_background %>">
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab-css-block">
+                <div class="form-group">
+                    <label class="control-label">{{entry_additional_css_class}}</label>
+                    <div class="fg-setting">
+                        <input type="text" name="additional_css_class" class="form-control" value="<%= additional_css_class %>">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_additional_css_before}}</label>
+                    <div class="fg-setting">
+                        <textarea name="additional_css_before" class="form-control"><%= additional_css_before %></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_additional_css_content}}</label>
+                    <div class="fg-setting">
+                        <textarea name="additional_css_content" class="form-control"><%= additional_css_content %></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">{{entry_additional_css_after}}</label>
+                    <div class="fg-setting">
+                        <textarea name="additional_css_after" class="form-control"><%= additional_css_after %></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popup-footer">
+        <a id="save" class="vd-btn save" data-id="<%= block_id %>" data-designer_id="<%= designer_id %>" data-type="<%= type %>" data-loading-text="{{button_saved}}">{{button_save}}</a>
+    </div>
+    <input type="hidden" name="designer_id" value="<%= designer_id %>"/>
+</div>

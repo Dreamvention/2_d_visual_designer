@@ -1,0 +1,34 @@
+<div class="form-group">
+    <label class="control-label">{{entry_row_stretch}}</label>
+    <div class="fg-setting">
+        <select class="form-control" name="row_stretch">
+            {% for key,value in stretchs %}
+                {% if key == setting.row_stretch %}
+                    <option value="{{key}}" selected="selected">{{value}}</option>
+                {% else %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_background_video}}</label>
+    <div class="fg-setting">
+        <input type="hidden" name="background_video" value="0" />
+        <input type="checkbox" name="background_video" class="switcher" data-label-text="{{text_enabled}}" {{setting.background_video?'checked="checked"'}} value="1" />
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_video_link}}</label>
+    <div class="fg-setting">
+        <input type="text" class="form-control" name="link" value="{{setting.link}}"/>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".switcher[type='checkbox']").bootstrapSwitch({
+        'onColor': 'success',
+        'onText': '{{text_yes}}',
+        'offText': '{{text_no}}',
+    });
+</script>

@@ -1,0 +1,41 @@
+<div class="vd vd-popup add_template" style="max-height:75vh;">
+    <div class="popup-header">
+        <h2 class="title">{{text_add_template}}</h2>
+        <div class="search">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input type="text" name="search" placeholder="{{text_search}}" value=""/>
+        </div>
+        <a class="close"></a>
+    </div>
+    <% if(_.size(categories) > 0) { %>
+    <div class="popup-tabs">
+        <ul class="vd-nav">
+            <li class="active"><a href="#tab-get-template" data-toggle="tab" data-category="">{{tab_all_blocks}}</a></li>
+            <% _.each(categories, function(value) { %> 
+            <li><a id="new-template-tab"  data-toggle="tab" data-category="<%= value %>"><%= value %></a></li>
+            <% } ); %>
+        </ul>
+    </div>
+    <% } %>
+    <div class="popup-content">
+        <% if(notify) { %>
+        <div class="notify alert alert-warning">
+            {{text_complete_version}}
+        </div>
+        <% } %>
+        <div class="popup-new-template">
+            <% _.each(templates, function(template) { %> 
+            <div class="col-md-3 col-sm-6 col-xs-12 element">
+                <div class="template">
+                    <a id="add_template" data-id="<%= template.template_id %>" data-config="<%= template.config %>" name="type" data-category="<%= template.category %>">
+                        <img src="<%= template.image %>"/>
+                        <p class="title"><%= template.name %></p>
+                    </a>
+                </div>
+            </div>
+            <% } ); %>
+        </div>
+    </div>
+    <input type="hidden" name="target" value=''/>
+    <input type="hidden" name="designer_id" value='<%= designer_id %>'/>
+</div>

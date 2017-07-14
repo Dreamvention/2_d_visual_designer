@@ -1,0 +1,15 @@
+{% for style in styles %}
+    <link href="{{style}}" rel="stylesheet" />
+{% endfor %}
+{% for script in scripts %}
+    <script type="text/javascript" src="{{script}}"></script>
+{% endfor %}
+{% if edit_url %}
+    <div class="btn-group-xs btn-edit" >
+        <a class="btn btn-default" href="{{edit_url}}" target="_blank">
+            <i class="fa fa-pencil"></i>{{text_edit}}
+        </a>
+        <br/><br/>
+    </div>
+{% endif %}
+{{content}}

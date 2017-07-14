@@ -2,7 +2,7 @@ var d_visual_designer = {
     //Настройки
     setting: {
         //url адрес
-        url_designer: 'index.php?route=module/d_visual_designer',
+        url_designer: 'index.php?route=extension/d_visual_designer/designer',
         //формы
         form: '',
         //id,
@@ -105,7 +105,6 @@ var d_visual_designer = {
                     that.updateSortOrder($(ui.item).closest('.block-inner').attr('id'), designer_id);
                     that.updateSortOrder(designer_id, $(this).parents('.vd.content').attr('id'));
                     that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner, .block-section').attr('id'), $(this).data('id'));
-                    that.setting.stateEdit = true;
                 }
             })
         });
@@ -135,7 +134,6 @@ var d_visual_designer = {
             handle: ' > .control > .drag',
             stop: function(event, ui) {
                 that.updateSortOrderRow($(this).parents('.vd.content').attr('id'));
-                that.setting.stateEdit = true;
             }
         });
     },
@@ -221,6 +219,12 @@ var d_visual_designer = {
                 if (v1 === v2) {
                     return options.fn(this);
                 }
+            });
+            window.Handlebars.registerHelper('if_eq', function(a, b, opts) {
+                if (a == b)
+                    return opts.fn(this);
+                else
+                    return opts.inverse(this);
             });
         }
     },
@@ -323,13 +327,10 @@ var d_visual_designer = {
     //Компиляция шаблона
     templateСompile: function(template, data) {
         var source = template.html();
-        Handlebars.registerHelper('if_eq', function(a, b, opts) {
-            if (a == b) // Or === depending on your needs
-                return opts.fn(this);
-            else
-                return opts.inverse(this);
-        });
-        var template = Handlebars.compile(source);
+        
+        // var template = Handlebars.compile(source);
+        // var html = template(data);
+        var template = _.template(source);
         var html = template(data);
         return html;
     },
@@ -408,7 +409,12 @@ var d_visual_designer = {
                     that.setting.stateEdit = true;
 
                 }
-                that.updateSortOrderRow(designer_id);
+                if(target != ''){
+                    that.updateSortOrder(target, designer_id);
+                }
+                else{
+                    that.updateSortOrderRow(designer_id);
+                }
                 that.initSortable();
                 that.initHover(designer_id);
                 that.closePopup();
@@ -435,7 +441,7 @@ var d_visual_designer = {
                 }
 
                 that.settings[designer_id].form.find('.vd#sortable').find('.block-content[data-id=\'' + block_id + '\']').append(json['content']);
-
+                that.updateSortOrder(block_id, designer_id);
                 that.updateContentBlock(block_id, designer_id);
                 that.setting.stateEdit = true;
             }
@@ -848,6 +854,13 @@ var d_visual_designer = {
                     that.initSortable();
                     that.initHover(designer_id);
                     that.setting.stateEdit = true;
+                    if(parent_id != ''){
+                        that.updateSortOrder(parent_id, designer_id);
+                    }
+                    else{
+                        that.updateSortOrderRow(designer_id);
+                    }
+                    
                     var trigger_data = {
                         'title': that.settings[designer_id].form.find('#' + new_block_id).data('title')
                     };
@@ -911,6 +924,7 @@ var d_visual_designer = {
     },
     //Поиск блоков
     search: function(text, items, target, attr = 'text') {
+        console.log(text);
         $(items).addClass('hide');
         $(items).each(function() {
             if (attr == 'text') {
@@ -931,18 +945,18 @@ var d_visual_designer = {
             if (obj.hasOwnProperty(key))
                 sortable.push([key, obj[key]]);
 
-        sortable.sort(function(a, b) {
-            return a[1]['sort_order'] - b[1]['sort_order'];
-        });
+            sortable.sort(function(a, b) {
+                return a[1]['sort_order'] - b[1]['sort_order'];
+            });
 
-        var result = {};
+            var result = {};
 
-        for (key in sortable) {
-            result[sortable[key][0]] = sortable[key][1];
-        }
+            for (key in sortable) {
+                result[sortable[key][0]] = sortable[key][1];
+            }
 
-        return result;
-    },
+            return result;
+        },
     //Возвращает блоки с указаным родителем
     getBlockByParent: function(designer_id, parent) {
         var results = {};

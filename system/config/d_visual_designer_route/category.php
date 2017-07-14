@@ -14,9 +14,9 @@ $_['backend_param']       = 'category_id';
 //GET параметр содержащий id страницы на Frontend
 $_['frontend_param']      = 'path';
 //Путь для сохранения описания на Frontend
-$_['edit_url']            = 'index.php?route=module/d_visual_designer/saveCategory';
+$_['edit_url']            = 'index.php?route=extension/d_visual_designer/designer/saveCategory';
 //События необходимые для работы данного route
 $_['events']              = array(
-    'admin/view/catalog/category_form/after' => 'event/d_visual_designer/view_category_after',
-    'catalog/view/product/category/before' => 'event/d_visual_designer/view_category_before'
+    'admin/view/catalog/category_form/after' => 'extension/event/d_visual_designer/view_category_after',
+    'catalog/view/product/category/before' => 'extension/event/d_visual_designer/view_category_before'
 );

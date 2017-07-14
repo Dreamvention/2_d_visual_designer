@@ -1,0 +1,72 @@
+{% if setting.design_margin_top %}
+    margin-top: {{setting.design_margin_top}};
+{% endif %}
+{% if setting.design_margin_left %}
+    margin-left: {{setting.design_margin_left}};
+{% endif %}
+{% if setting.design_margin_right %}
+    margin-right: {{setting.design_margin_right}};
+{% endif %}
+{% if setting.design_margin_bottom %}
+    margin-bottom: {{setting.design_margin_bottom}};
+{% endif %}
+{% if setting.design_padding_top %}
+    padding-top: {{setting.design_padding_top}};
+{% endif %}
+{% if setting.design_padding_left %}
+    padding-left: {{setting.design_padding_left}};
+{% endif %}
+{% if setting.design_padding_right %}
+    padding-right: {{setting.design_padding_right}};
+{% endif %}
+{% if setting.design_padding_bottom %}
+    padding-bottom: {{setting.design_padding_bottom}};
+{% endif %}
+{% if setting.design_border_top %}
+    border-top: {{setting.design_border_top}} {{ setting.design_border_style }} {{setting.design_border_color}};
+{% endif %}
+{% if setting.design_border_left %}
+    border-left: {{setting.design_border_left}} {{ setting.design_border_style }} {{setting.design_border_color}};
+{% endif %}
+{% if setting.design_border_right %}
+    border-right: {{setting.design_border_right}} {{ setting.design_border_style }} {{setting.design_border_color}};
+{% endif %}
+{% if setting.design_border_bottom %}
+    border-bottom: {{setting.design_border_bottom}} {{ setting.design_border_style }} {{setting.design_border_color}};
+{% endif %}
+{% if setting.design_border_radius %}
+    border-radius: {{setting.design_border_radius}};
+{% endif %}
+{% if setting.design_background %}
+    background-color: {{setting.design_background}};
+{% endif %}
+{% if setting.design_background_image %}
+    background-image: url({{setting.design_background_image}});
+    {% if setting.design_background_image_position_vertical and setting.design_background_image_position_horizontal %}
+        background-position: {{setting.design_background_image_position_vertical}} {{setting.design_background_image_position_horizontal}};
+    {% endif %}
+    {% if setting.design_background_image_style == 'cover' %}
+        background-size: cover;
+        background-repeat: no-repeat;
+    {% endif %}
+    {% if setting.design_background_image_style == 'contain' %}
+        background-size: contain;
+        background-repeat: no-repeat;
+    {% endif %}
+    {% if setting.design_background_image_style == 'repeat' %}
+        background-repeat: repeat;
+    {% endif %}
+    {% if setting.design_background_image_style == 'no-repeat' %}
+        background-repeat: no-repeat;
+    {% endif %}
+    {% if setting.design_background_image_style == 'parallax' %}
+        display: block;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    {% endif %}
+{% endif %}
+{% if setting.additional_css_content %}
+    {{setting.additional_css_content}}
+{% endif %}

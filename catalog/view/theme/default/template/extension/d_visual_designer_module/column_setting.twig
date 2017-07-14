@@ -1,0 +1,131 @@
+<div class="form-group">
+    <label class="control-label">{{entry_size}}</label>
+    <div class="fg-setting">
+        <select name="size" class="form-control">
+            {% for key, value in sizes %}
+                {% if key == setting.size %}
+                    <option value="{{key}}" selected="selected">{{value}}</option>
+                {% else %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_offset}}</label>
+    <div class="fg-setting">
+        <select name="offset" class="form-control">
+            <option value="" {{setting.offset == ''? 'selected="selected"'}}>{{text_none}}</option>
+            {% for key, value in sizes %}
+                {% if key == setting.offset %}
+                    <option value="{{key}}" selected="selected">{{value}}</option>
+                {% else %}
+                    <option value="{{key}}">{{value}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_adaptive_design}}</label>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>{{column_device}}</td>
+                <td>{{column_offset}}</td>
+                <td>{{column_size}}</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{text_tablet}}</td>
+                <td>
+                    <select name="offset_tablet" class="form-control">
+                        <option value="" {{setting.offset_tablet == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in sizes %}
+                            {% if key == setting.offset_tablet %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="size_tablet" class="form-control">
+                        <option value="" {{setting.size_tablet == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in sizes %}
+                            {% if key == setting.size_tablet %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{text_phone}}</td>
+                <td>
+                    <select name="offset_phone" class="form-control">
+                        <option value="" {{setting.offset_phone == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in sizes %}
+                            {% if key == setting.offset_phone %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+                <td>
+                    <select name="size_phone" class="form-control">
+                        <option value="" {{setting.size_phone == ''? 'selected="selected"'}}>{{text_none}}</option>
+                        {% for key, value in sizes %}
+                            {% if key == setting.size_phone %}
+                                <option value="{{key}}" selected="selected">{{value}}</option>
+                            {% else %}
+                                <option value="{{key}}">{{value}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <label class="control-label">{{entry_float}}</label>
+    <div class="fg-setting">
+        <input type="hidden" name="float" value="0" />
+        <input type="checkbox" name="float" class="switcher" data-label-text="{{text_enabled}}"  {{setting.float? 'checked="checked"'}} value="1" />
+    </div>
+</div>
+<div class="form-group" id="align">
+    <label class="control-label">{{entry_align}}</label>
+    <div class="fg-setting">
+        <div class="btn-group" data-toggle="buttons">
+            {% for key, value in aligns %}
+                {% if key == setting.align %}
+                    <label class="btn btn-success active">
+                        <input type="radio" name="align" value="{{key}}"
+                        checked="checked">{{value}}
+                    </label>
+                {% else %}
+                    <label class="btn btn-success">
+                        <input type="radio" name="align" value="{{key}}">{{value}}
+                    </label>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".switcher[type='checkbox']").bootstrapSwitch({
+      'onColor': 'success',
+      'onText': '{{text_yes}}',
+      'offText': '{{text_no}}',
+  });
+</script>

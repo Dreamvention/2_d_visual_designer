@@ -1,0 +1,9 @@
+<div class="form-group">
+    <label class="control-label">{{entry_text}}</label>
+    <div class="fg-setting">
+        <textarea class="form-control" name="text">{{setting.text}}</textarea>
+    </div>
+</div>
+<script>
+    {% include template('extension/d_visual_designer/partials/summernote') with {'selector' : 'textarea[name=text]'} %}
+</script>

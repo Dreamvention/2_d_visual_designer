@@ -1,0 +1,31 @@
+.select2-dropdown.select2-dropdown--below {
+    width: 230px !important;
+    z-index: 9999 !important;
+}
+.select2-results__options li {
+    padding:1px !important;
+}
+.select2-results__options li div {
+    background: url("fontsList.gif") !important;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    text-indent: -999px;
+    height: 29px;
+}
+#select2-select_fontfamily-container {
+    text-align: left !important;
+    width: 200px !important;
+}
+.select2.select2-container{
+    width: 230px !important;
+    z-index: 9999 !important;
+}
+.select2.select2-container .select2-selection__rendered{
+    text-align: left !important;
+    width: 220px !important;
+}
+.select2.select2-container .select2-selection{
+    width: 230px !important;
+    z-index: 9999 !important;
+    padding: 6px 12px;
+}

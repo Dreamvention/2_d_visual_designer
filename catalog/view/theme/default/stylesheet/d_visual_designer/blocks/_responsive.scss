@@ -1,0 +1,17 @@
+&{
+    width: 100%;
+    > .vd-image {
+        width: 100%;
+        > a {
+            width: 100%;
+            > img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
