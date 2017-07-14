@@ -78,7 +78,7 @@
 </div>
 <script type="text/javascript">
     $('#language a:first').tab('show');
-    {% VERSION < '2.2.0.0' %}
+    {% if VERSION < '2.2.0.0' %}
     $('.summernote').summernote({
         height: 300
     });
