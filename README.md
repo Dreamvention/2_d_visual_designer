@@ -5,9 +5,6 @@ The first Visual Page Builder for Opencart.
 
 You can purchase the full version from [Opencart](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=28530) or [Shopunity](https://shopunity.net/index.php?route=extension/extension&extension_id=84)
 
-For older versions 2.2.0.0 and bellow please go [here](https://github.com/Dreamvention/2_d_visual_designer)
-[TOC]
-
 ##Installation and Update
 ###With [shopunity](https://shopunity.net/download)
 1. go to shopunity admin panel
