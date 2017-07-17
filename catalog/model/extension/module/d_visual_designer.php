@@ -465,8 +465,9 @@ class ModelExtensionModuleDVisualDesigner extends Model {
     }
 
     public function loadView($route, $data){
-        $route = rtrim($route, ".tpl");
-
+        
+        $route = rtrim($route, ".twig");
+        
         if(VERSION>='2.2.0.0') {
             return $this->load->view($route, $data);
         }
