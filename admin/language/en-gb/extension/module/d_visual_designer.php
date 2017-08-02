@@ -17,7 +17,7 @@ $_['text_instructions']  = 'Instructions';
 
 //success
 $_['success_modifed']    = 'Success: You have modified module eBay featured!';
-
+$_['success_twig_compatible']    = 'Success: Twig support enabled. Please go to Visual Designer!';
 //error
 $_['error_permission']   = 'Warning: You do not have permission to modify this module!';
 

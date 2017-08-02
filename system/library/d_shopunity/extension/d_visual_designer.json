@@ -33,7 +33,7 @@
         "url": "https://shopunity.net/licenses/commercial"
     },
     "install": {
-        "url": "extension/module/install&extension=d_visual_designer"
+        "url": "extension/extension/module/install&extension=d_visual_designer"
     },
     "support": {
         "email": "support@dreamvention.com",

@@ -30,7 +30,8 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
         if($this->d_twig_manager){
             $this->load->model('extension/module/d_twig_manager');
             if(!$this->model_extension_module_d_twig_manager->isCompatible()){
-                $this->model_extension_module_d_twig_manager->installCompatibility(); 
+                $this->model_extension_module_d_twig_manager->installCompatibility();
+                $this->load->language('extension/module/d_visual_designer'); 
                 $this->session->data['success'] = $this->language->get('success_twig_compatible');
                 $this->load->model('extension/d_opencart_patch/url');
                 $this->response->redirect($this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'));
@@ -69,10 +70,6 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
 
         $this->{'model_extension_module_'.$this->codename}->increaseFields();
 
-        if($this->d_twig_manager){
-            $this->load->model('extension/module/d_twig_manager');
-            $this->model_extension_module_d_twig_manager->installCompatibility(); 
-        }
     }
 
     public function uninstall()
