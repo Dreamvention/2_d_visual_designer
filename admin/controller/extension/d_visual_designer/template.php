@@ -13,6 +13,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->load->language('extension/module/d_visual_designer');
         $this->load->model($this->route);
         $this->load->model('extension/module/d_visual_designer');
+        $this->load->model('extension/d_opencart_patch/url');
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
@@ -49,7 +50,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL'));
+            $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route, $url));
         }
 
         $this->getForm();
@@ -80,7 +81,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL'));
+            $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route, $url));
         }
 
         $this->getForm();
@@ -112,13 +113,16 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-            $this->response->redirect($this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL'));
+            $this->response->redirect($this->model_extension_d_opencart_patch_url->link($this->route, $url));
         }
 
         $this->getForm();
     }
 
     public function getList() {
+
+        $this->load->model('extension/d_opencart_patch/user');
+        $this->load->model('extension/d_opencart_patch/load');
 
         $this->document->setTitle($this->language->get('heading_title_main'));
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
@@ -161,41 +165,35 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('text_home'),
-            'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('common/home'),
             'separator' => false
             );
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('text_module'),
-            'href'      => $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'),
             'separator' => ' :: '
             );
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('heading_title_main'),
-            'href'      => $this->url->link('extension/module/d_visual_designer', 'token=' . $this->session->data['token'], 'SSL'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('extension/module/d_visual_designer'),
             'separator' => ' :: '
             );
 
-        $data['add'] = $this->url->link($this->route.'/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
-        $data['delete'] = $this->url->link($this->route.'/delete', 'token=' . $this->session->data['token'] . $url, 'SSL');
-        if(VERSION>='2.3.0.0'){
-            $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token']."&type=module", 'SSL');
-        }
-        else{
-            $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
-        }
-        
+        $data['add'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/add', $url);
+        $data['delete'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/delete', $url);
+        $data['cancel'] = $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
 
-        $data['href_templates'] = $this->url->link('extension/'.$this->codename.'/template','token='.$this->session->data['token'], 'SSL');
-        $data['href_setting'] = $this->url->link('extension/'.$this->codename.'/setting','token='.$this->session->data['token'], 'SSL');
-        $data['href_instruction'] = $this->url->link('extension/'.$this->codename.'/instruction','token='.$this->session->data['token'], 'SSL');
+        $data['href_templates'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/template');
+        $data['href_setting'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/setting');
+        $data['href_instruction'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/instruction');
 
 
         $data['heading_title'] = $this->language->get('heading_title_main');
         $data['version'] = $this->extension['version'];
         $data['route'] = $this->route;
-        $data['token'] =  $this->session->data['token'];
+        $data['token'] =  $this->model_extension_d_opencart_patch_user->getToken();
 
         $data['text_no_results'] = $this->language->get('text_no_results');
         $data['text_confirm'] = $this->language->get('text_confirm');
@@ -266,7 +264,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
                 'name'   => $result['name'],
                 'config' => $result['config'],
                 'sort_order'   => $result['sort_order'],
-                'edit'       => $this->url->link($this->route.'/edit', 'token=' . $this->session->data['token'] . '&config='.$result['config'].'&template_id=' . $result['template_id'] . $url, 'SSL')
+                'edit'       => $this->model_extension_d_opencart_patch_url->link($this->route.'/edit','config='.$result['config'].'&template_id=' . $result['template_id'] . $url)
                 );
         }
 
@@ -282,8 +280,8 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
             $url .= '&page=' . $this->request->get['page'];
         }
 
-        $data['sort_name'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . '&sort=name' . $url, 'SSL');
-        $data['sort_sort_order'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . '&sort=sort_order' . $url, 'SSL');
+        $data['sort_name'] = $this->model_extension_d_opencart_patch_url->link($this->route,'sort=name' . $url);
+        $data['sort_sort_order'] = $this->model_extension_d_opencart_patch_url->link($this->route, 'sort=sort_order' . $url);
 
         $url = '';
 
@@ -299,7 +297,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $pagination->total = $template_total;
         $pagination->page = $page;
         $pagination->limit = $this->config->get('config_limit_admin');
-        $pagination->url = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url . '&page={page}', 'SSL');
+        $pagination->url = $this->model_extension_d_opencart_patch_url->link($this->route, $url . '&page={page}');
 
         $data['pagination'] = $pagination->render();
 
@@ -315,7 +313,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        $this->response->setOutput($this->load->view('extension/'.$this->codename.'/template_list'.(VERSION < 2.2?'.tpl':''), $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/template_list', $data));
 
     }
 
@@ -387,29 +385,29 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('text_home'),
-            'href'      => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('common/home'),
             'separator' => false
             );
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('text_module'),
-            'href'      => $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'),
             'separator' => ' :: '
             );
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('heading_title_main'),
-            'href'      => $this->url->link('module/d_visual_designer', 'token=' . $this->session->data['token'], 'SSL'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('module/d_visual_designer'),
             'separator' => ' :: '
             );
 
         if (!isset($this->request->get['template_id'])) {
-            $data['action'] = $this->url->link($this->route.'/add', 'token=' . $this->session->data['token'] . $url, 'SSL');
+            $data['action'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/add', $url);
         } else {
-            $data['action'] = $this->url->link($this->route.'/edit', 'token=' . $this->session->data['token'] . '&template_id=' . $this->request->get['template_id'] . $url, 'SSL');
+            $data['action'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/edit', 'template_id=' . $this->request->get['template_id'] . $url);
         }
 
-        $data['cancel'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL');
+        $data['cancel'] = $this->model_extension_d_opencart_patch_url->link($this->route, $url);
         
         $data['config'] = false;
         
@@ -483,7 +481,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('extension/'.$this->codename.'/template_form'.(VERSION < 2.2?'.tpl':''), $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/template_form', $data));
 
     }
 

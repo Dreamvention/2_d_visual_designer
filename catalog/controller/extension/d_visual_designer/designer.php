@@ -41,6 +41,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
             $route_info = array();
         }
 
+        if(VERSION >= '3.0.0.0'){
+            $url_token = 'user_token=' . $this->session->data['user_token'];
+        }else{
+            $url_token =  'token=' . $this->session->data['token'];
+        }
+
         //sharrre
         $this->scripts[] = 'catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.js';
         $this->styles[] = 'catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.css';
@@ -163,7 +169,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
 
             $data['base'] = $this->store_url.'catalog/view/theme/default/';
 
-            $data['filemanager_url'] = $this->store_url.'index.php?route=extension/'.$this->codename.'/filemanager&token='.$this->session->data['token'].'';
+            $data['filemanager_url'] = $this->store_url.'index.php?route=extension/'.$this->codename.'/filemanager&'.$url_token;
 
             $this->load->model('tool/image');
 
@@ -247,7 +253,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
 
             $frontend_url = htmlentities(urlencode($this->store_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
 
-            $data['edit_url'] = $this->store_url.'admin/index.php?route=extension/d_visual_designer/designer/frontend&token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
+            $data['edit_url'] = $this->store_url.'admin/index.php?route=extension/d_visual_designer/designer/frontend&'.$url_token.'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
 
             $data['text_edit'] = $this->language->get('text_edit');
             $data['styles'] = $this->styles;

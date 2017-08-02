@@ -24,6 +24,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
         $this->load->language('extension/module/d_visual_designer');
         $this->load->model($this->route);
         $this->load->model('extension/module/d_visual_designer');
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/load');
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
@@ -151,11 +153,11 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
                     $params = '&'.$route_info['frontend_param'].'='.$url_params[$route_info['backend_param']];
                     $frontend_param = '&id='.$url_params[$route_info['backend_param']];
                     $frontend_url = htmlentities(urlencode($this->catalog_url.'index.php?route='.$route_info['frontend_route'].$params));
-                    $data['frontend_route'] = $this->url->link('extension/d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
+                    $data['frontend_route'] = $this->model_extension_d_opencart_patch_url->link('extension/d_visual_designer/designer/frontend','url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
                 }
                 if(!isset($route_info['backend_param'])){
                     $frontend_url = htmlentities(urlencode($this->catalog_url.'index.php?route='.$route_info['frontend_route']));
-                    $data['frontend_route'] = $this->url->link('extension/d_visual_designer/designer/frontend','token='.$this->session->data['token'].'&url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
+                    $data['frontend_route'] = $this->model_extension_d_opencart_patch_url->link('extension/d_visual_designer/designer/frontend','url='.$frontend_url.'&route_config='.$route_info['config_name'].$frontend_param);
                 }
             }
 
@@ -239,9 +241,9 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
 
             $data['components'] = $this->{'model_extension_module_'.$this->codename}->getComponents($data);
 
-            $data['filemanager_url'] = str_replace('&amp;', '&', $this->url->link('extension/'.$this->codename.'/filemanager', 'token='.$this->session->data['token'], 'SSL'));
+            $data['filemanager_url'] = str_replace('&amp;', '&', $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/filemanager'));
             
-            $json['content'] = $this->load->view($this->route.(VERSION < 2.2?'.tpl':''), $data);
+            $json['content'] = $this->model_extension_d_opencart_patch_load->view($this->route, $data);
 
             $json['success'] = 'success';
         }
@@ -298,12 +300,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
                 $param = '';
             }
 
-            $data['backend_url'] = $this->url->link($route_info['backend_route'], $param.'&token='.$this->session->data['token']);
+            $data['backend_url'] = $this->model_extension_d_opencart_patch_url->link($route_info['backend_route'], $param);
             $data['direction'] = $this->language->get('direction');
             $data['lang'] = $this->language->get('code');
             $data['base'] = $this->store_url;
             $data['text_frontend_title'] = $this->language->get('text_frontend_title');
-            $this->response->setOutput($this->load->view('extension/'.$this->codename.'/frontend_editor'.(VERSION < 2.2?'.tpl':''),$data));
+            $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/frontend_editor',$data));
         }
     }
 

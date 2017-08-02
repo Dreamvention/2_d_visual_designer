@@ -17,6 +17,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             return ;
         }
 
+
         if (isset($this->request->get['filter_name'])) {
             $filter_name = rtrim(str_replace(array('../', '..\\', '..', '*'), '', $this->request->get['filter_name']), '/');
         } else {
@@ -39,6 +40,9 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $data['images'] = array();
 
         $this->load->model('tool/image');
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('extension/d_opencart_patch/user');
 
         // Get directories
         $directories = glob($directory . '/' . $filter_name . '*', GLOB_ONLYDIR);
@@ -82,7 +86,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
                     'name'  => implode(' ', $name),
                     'type'  => 'directory',
                     'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
-                    'href'  => $this->url->link($this->route, 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
+                    'href'  => $this->model_extension_d_opencart_patch_url->link($this->route, 'directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url)
                     );
             } elseif (is_file($image)) {
                 // Find which protocol to use to pass the full image link back
@@ -121,7 +125,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $data['button_delete'] = $this->language->get('button_delete');
         $data['button_search'] = $this->language->get('button_search');
 
-        $data['token'] = $this->session->data['token'];
+        $data['token'] = $this->model_extension_d_opencart_patch_user->getToken();
 
         if (isset($this->request->get['directory'])) {
             $data['directory'] = urlencode($this->request->get['directory']);
@@ -168,7 +172,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&thumb=' . $this->request->get['thumb'];
         }
 
-        $data['parent'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, true);
+        $data['parent'] = $this->model_extension_d_opencart_patch_url->link($this->route, $url);
 
         // Refresh
         $url = '';
@@ -185,7 +189,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&thumb=' . $this->request->get['thumb'];
         }
 
-        $data['refresh'] = str_replace('&amp;', '&', $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, true));
+        $data['refresh'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
 
         // Search
         $url = '';
@@ -194,7 +198,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
         }
 
-        $data['search'] = str_replace('&amp;', '&', $this->url->link($this->route, 'token='.$this->session->data['token'].$url, true));
+        $data['search'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
 
         // Upload
         $url = '';
@@ -203,7 +207,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
         }
 
-        $data['upload'] = str_replace('&amp;', '&', $this->url->link($this->route.'/upload', 'token='.$this->session->data['token'].$url, true));
+        $data['upload'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/upload', $url);
 
         // Folder
         $url = '';
@@ -212,10 +216,10 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
         }
 
-        $data['folder'] = str_replace('&amp;', '&', $this->url->link($this->route.'/folder', 'token='.$this->session->data['token'].$url, true));
+        $data['folder'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/folder', $url);
 
         // Delete
-        $data['delete'] = str_replace('&amp;', '&', $this->url->link($this->route.'/delete', 'token='.$this->session->data['token'], true));
+        $data['delete'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/delete');
 
         //Pagination
         $url = '';
@@ -240,11 +244,11 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $pagination->total = $image_total;
         $pagination->page = $page;
         $pagination->limit = 16;
-        $pagination->url = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url . '&page={page}', true);
+        $pagination->url = $this->model_extension_d_opencart_patch_url->link($this->route, $url . '&page={page}');
 
         $data['pagination'] = $pagination->render();
 
-        $this->response->setOutput($this->load->view($this->route.(VERSION < 2.2?'.tpl':''), $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
     public function upload() {

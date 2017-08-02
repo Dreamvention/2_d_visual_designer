@@ -1,8 +1,18 @@
 var d_visual_designer = {
+
+    getToken: function(){
+        if(getURLVar('token')){
+            return 'token='+getURLVar('token');
+        }
+
+        if(getURLVar('user_token')){
+            return 'user_token='+getURLVar('user_token');
+        }
+    },
     //Настройки
     setting: {
         //url адрес
-        url_designer: 'index.php?route=extension/d_visual_designer/designer&token=' + getURLVar('token'),
+        url_designer: 'index.php?route=extension/d_visual_designer/designer&token='+getURLVar('token')+'&user_token='+getURLVar('user_token'),
         //формы
         form: {},
         //Статус наличия изменений
@@ -357,7 +367,7 @@ var d_visual_designer = {
             'description': content
         }
         $.ajax({
-            url: 'index.php?route=extension/d_visual_designer/designer/updateDesigner&token='+getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/updateDesigner&'+ that.getToken(),
             dataType: 'json',
             data: send_data,
             type: 'post',
@@ -476,7 +486,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/getBlocks&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getBlocks&'+ that.getToken(),
             dataType: 'json',
             data: 'level=' + level,
             success: function(json) {
@@ -505,7 +515,7 @@ var d_visual_designer = {
         var that = this;
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/getModule&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getModule&'+ that.getToken(),
             dataType: 'json',
             data: 'type=' + type + '&parent=' + target + '&level=' + level,
             success: function(json) {
@@ -555,9 +565,10 @@ var d_visual_designer = {
     addChildBlock: function(block_id, designer_id) {
         var block_info = this.data[designer_id][block_id];
         var level = this.getLevelBlock(block_id, designer_id) + 1;
+        var that = this;
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/getChildBlock&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getChildBlock&'+ that.getToken(),
             dataType: 'json',
             data: 'type=' + block_info['type'] + '&parent=' + block_id + '&level=' + level,
             success: function(json) {
@@ -595,7 +606,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/getSettingModule&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getSettingModule&'+ that.getToken(),
             dataType: 'json',
             data: send_data,
             success: function(json) {
@@ -710,7 +721,7 @@ var d_visual_designer = {
         var that = this;
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/template/getTemplates&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/template/getTemplates&'+ that.getToken(),
             dataType: 'json',
             success: function(json) {
                 if (json['success']) {
@@ -733,7 +744,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/template/getTemplate&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/template/getTemplate&'+ that.getToken(),
             dataType: 'json',
             data: { 'template_id': template_id, 'config': config },
             success: function(json) {
@@ -760,9 +771,11 @@ var d_visual_designer = {
         var send_data = popup.find('input').serializeJSON();
         send_data['content'] = content;
 
+        var that = this;
+
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/template/save&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/template/save&'+ that.getToken(),
             dataType: 'json',
             data: send_data,
             success: function(json) {
@@ -835,7 +848,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/getContent&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getContent&'+ that.getToken(),
             dataType: 'json',
             data: setting,
             success: function(json) {
@@ -929,7 +942,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/getContent&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/getContent&'+ that.getToken(),
             dataType: 'json',
             data: setting,
             success: function(json) {
@@ -987,7 +1000,7 @@ var d_visual_designer = {
 
         $.ajax({
             type: 'post',
-            url: 'index.php?route=extension/d_visual_designer/designer/editLayout&token=' + getURLVar('token'),
+            url: 'index.php?route=extension/d_visual_designer/designer/editLayout&'+ that.getToken(),
             data: send_data,
             dataType: 'json',
             success: function(json) {

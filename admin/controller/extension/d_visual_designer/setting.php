@@ -22,9 +22,14 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     }
     
     public function index()
-    {
+    {   
         $this->load->model('setting/setting');
-        $this->load->model('extension/d_shopunity/setting');
+        $this->load->model('extension/module/d_event_manager');
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->load->model('extension/d_opencart_patch/store');
+        $this->load->model('extension/d_opencart_patch/setting');
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('extension/d_opencart_patch/user');
         
         //save post
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
@@ -35,12 +40,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
             }
             $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
-            if(VERSION>='2.3.0.0'){
-                $this->response->redirect($this->url->link('extension/extension', 'token=' . $this->session->data['token'].'&type=module', 'SSL'));
-            }
-            else{
-                $this->response->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));
-            }
+
+            $this->response->redirect($this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'));
             
         }
         
@@ -63,26 +64,18 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['breadcrumbs'] = array();
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/home', 'token=' . $this->session->data['token'], 'SSL')
+            'href' => $this->model_extension_d_opencart_patch_url->link('common/home') 
             );
 
-        if(VERSION>='2.3.0.0'){
-            $data['breadcrumbs'][] = array(
-                'text'      => $this->language->get('text_module'),
-                'href'      => $this->url->link('extension/extension', 'token=' . $this->session->data['token'], 'SSL')
-                );
-        }
-        else{
-            $data['breadcrumbs'][] = array(
-                'text'      => $this->language->get('text_module'),
-                'href'      => $this->url->link('extension/module', 'token=' . $this->session->data['token'].'&type=module', 'SSL')
-                );
-        }
+        $data['breadcrumbs'][] = array(
+            'text'      => $this->language->get('text_module'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module') 
+        );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title_main'),
-            'href' => $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, 'SSL')
-            );
+            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', $url) 
+        );
         
         // Notification
         foreach ($this->error as $key => $error) {
@@ -98,14 +91,14 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['codename'] = $this->codename;
         $data['route'] = $this->route;
         $data['store_id'] = $this->store_id;
-        $data['stores'] = $this->model_extension_d_shopunity_setting->getStores();
+        $data['stores'] = $this->model_extension_d_opencart_patch_store->getAllStores();
         $data['extension'] = $this->extension;
         
         if (!empty($this->extension['support']['email'])) {
             $data['support_email'] = $this->extension['support']['email'];
         }
         $data['version'] = $this->extension['version'];
-        $data['token'] =  $this->session->data['token'];
+        $data['token'] =  $this->model_extension_d_opencart_patch_user->getToken();
         
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_disabled'] = $this->language->get('text_disabled');
@@ -158,18 +151,13 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['tab_templates'] = $this->language->get('tab_templates');
         
         //action
-        $data['module_link'] = $this->url->link('extension/module/'.$this->codename, 'token=' . $this->session->data['token'], 'SSL');
+        $data['module_link'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/'.$this->codename);
         
-        $data['action'] = $this->url->link('extension/'.$this->codename.'/setting', 'token=' . $this->session->data['token'] . $url, 'SSL');
+        $data['action'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/setting', $url);
         
-        $data['install_event_support'] = $this->url->link($this->route.'/install_event_support', 'token=' . $this->session->data['token'], 'SSL');
+        $data['install_event_support'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/install_event_support');
 
-        if(VERSION>='2.3.0.0'){
-            $data['cancel'] = $this->url->link('extension/extension', 'token=' . $this->session->data['token'].'&type=module', 'SSL');
-        }
-        else{
-            $data['cancel'] = $this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL');
-        }
+        $data['cancel'] =$this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
         
         
         $data['tab_setting'] = $this->language->get('tab_setting');
@@ -189,9 +177,9 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['text_instruction'] = $this->language->get('text_instruction');
         
         
-        $data['href_templates'] = $this->url->link('extension/'.$this->codename.'/template', 'token='.$this->session->data['token'], 'SSL');
-        $data['href_setting'] = $this->url->link('extension/'.$this->codename.'/setting', 'token='.$this->session->data['token'], 'SSL');
-        $data['href_instruction'] = $this->url->link('extension/'.$this->codename.'/instruction', 'token='.$this->session->data['token'], 'SSL');
+        $data['href_templates'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/template');
+        $data['href_setting'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/setting');
+        $data['href_instruction'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/instruction');
         
         $this->load->model('extension/'.$this->codename.'/designer');
 
@@ -207,8 +195,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         }
         
         //get setting
-        $data['setting'] = $this->model_extension_d_shopunity_setting->getSetting($this->codename);
-        
+        $data['setting'] = $this->model_extension_module_d_visual_designer->getSetting($this->codename);
+
         $this->load->model('user/user');
         
         $data['users'] = array();
@@ -235,45 +223,36 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         foreach ($results as $key => $value) {
             $data['routes'][$key] = $value['name'];
         }
-        if(VERSION>='2.3.0.0'){
-            $data['event_support'] = true;
-        }
-        else{
-            $event_support = (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json'));
-            $data['event_support'] = false;
-            if($event_support){
-                $this->load->model('extension/d_shopunity/ocmod');
-                $data['event_support'] = $this->model_extension_d_shopunity_ocmod->getModificationByName('d_event_manager');
-            }
-        }
+
+        $data['event_support'] =$this->model_extension_module_d_event_manager->isCompatible();
         
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
         
-        $this->response->setOutput($this->load->view($this->route.(VERSION < 2.2?'.tpl':''), $data));
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
     
     public function installEvents($status){
-        $this->load->model('module/d_event_manager');
+        $this->load->model('extension/module/d_event_manager');
         $this->load->model('extension/'.$this->codename.'/designer');
         foreach ($status as $value) {
             $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($value);
             if(!empty($route_info['events'])){
                 foreach ($route_info['events'] as $trigger => $action) {
-                    $this->model_module_d_event_manager->addEvent($this->codename, $trigger, $action);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action);
                 }
             }
         }
         
-        $this->model_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
-        $this->model_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
+        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
+        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
         
         
     }
     public function uninstallEvents(){
-        $this->load->model('module/d_event_manager');
-        $this->model_module_d_event_manager->deleteEvent($this->codename);
+        $this->load->model('extension/module/d_event_manager');
+        $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
     }
 
     public function install_event_support(){
@@ -282,8 +261,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
             $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
         }
         if(file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')){
-            $this->load->model('module/d_event_manager');
-            $this->model_module_d_event_manager->installCompatibility();
+            $this->load->model('extension/module/d_event_manager');
+            $this->model_extension_module_d_event_manager->installCompatibility();
         }
         $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
     }

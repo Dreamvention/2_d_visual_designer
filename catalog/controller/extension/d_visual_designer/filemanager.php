@@ -17,6 +17,12 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             return ;
         }
 
+        if(VERSION >= '3.0.0.0'){
+            $url_token = 'user_token=' . $this->session->data['user_token'];
+        }else{
+            $url_token =  'token=' . $this->session->data['token'];
+        }
+
         if (isset($this->request->get['filter_name'])) {
             $filter_name = rtrim(str_replace(array('../', '..\\', '..', '*'), '', $this->request->get['filter_name']), '/');
         } else {
@@ -82,7 +88,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
                     'name'  => implode(' ', $name),
                     'type'  => 'directory',
                     'path'  => utf8_substr($image, utf8_strlen(DIR_IMAGE)),
-                    'href'  => $this->url->link($this->route, 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
+                    'href'  => $this->url->link($this->route, $url_token . '&directory=' . urlencode(utf8_substr($image, utf8_strlen(DIR_IMAGE . 'catalog/'))) . $url, true)
                     );
             } elseif (is_file($image)) {
                 // Find which protocol to use to pass the full image link back
@@ -121,7 +127,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $data['button_delete'] = $this->language->get('button_delete');
         $data['button_search'] = $this->language->get('button_search');
 
-        $data['token'] = $this->session->data['token'];
+        $data['token'] = (VERSION >= '3.0.0.0') ? $this->session->data['user_token'] : $this->session->data['token'];
 
         if (isset($this->request->get['directory'])) {
             $data['directory'] = urlencode($this->request->get['directory']);
@@ -168,7 +174,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&thumb=' . $this->request->get['thumb'];
         }
 
-        $data['parent'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, true);
+        $data['parent'] = $this->url->link($this->route, $url_token . $url, true);
 
         // Refresh
         $url = '';
@@ -185,7 +191,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&thumb=' . $this->request->get['thumb'];
         }
 
-        $data['refresh'] = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url, true);
+        $data['refresh'] = $this->url->link($this->route, $url_token . $url, true);
 
         // Search
         $url = '';
@@ -194,7 +200,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
         }
 
-        $data['search'] = str_replace('&amp;', '&', $this->url->link($this->route, 'token='.$this->session->data['token'].$url, true));
+        $data['search'] = str_replace('&amp;', '&', $this->url->link($this->route, $url_token .$url, true));
 
         // Upload
         $url = '';
@@ -203,7 +209,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
         }
 
-        $data['upload'] = $this->url->link($this->route.'/upload', 'token='.$this->session->data['token'].$url, true);
+        $data['upload'] = $this->url->link($this->route.'/upload', $url_token .$url, true);
 
         // Folder
         $url = '';
@@ -212,10 +218,10 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             $url .= '&directory=' . urlencode($this->request->get['directory']);
         }
 
-        $data['folder'] = $this->url->link($this->route.'/folder', 'token='.$this->session->data['token'].$url, true);
+        $data['folder'] = $this->url->link($this->route.'/folder', $url_token.$url, true);
 
         // Delete
-        $data['delete'] = $this->url->link($this->route.'/delete', 'token='.$this->session->data['token'], true);
+        $data['delete'] = $this->url->link($this->route.'/delete', $url_token, true);
 
         //Pagination
         $url = '';
@@ -240,7 +246,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $pagination->total = $image_total;
         $pagination->page = $page;
         $pagination->limit = 16;
-        $pagination->url = $this->url->link($this->route, 'token=' . $this->session->data['token'] . $url . '&page={page}', true);
+        $pagination->url = $this->url->link($this->route, $url_token . $url . '&page={page}', true);
 
         $data['pagination'] = $pagination->render();
 

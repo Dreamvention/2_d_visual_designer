@@ -42,7 +42,10 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         
         $data['thumb'] = $this->model_tool_image->resize($image, $width, $height);
 
-        if(VERSION>='2.2.0.0'){
+        if(VERSION>='3.0.0.0'){
+            $popup_width = $this->config->get('theme_'.$this->config->get('config_theme') . '_image_popup_width');
+            $popup_height = $this->config->get('theme_'.$this->config->get('config_theme') . '_image_popup_height');
+        }elseif(VERSION>='2.2.0.0'){
             $popup_width = $this->config->get($this->config->get('config_theme') . '_image_popup_width');
             $popup_height = $this->config->get($this->config->get('config_theme') . '_image_popup_height');
         }
@@ -50,7 +53,6 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
             $popup_width = $this->config->get('config_image_popup_width');
             $popup_height = $this->config->get('config_image_popup_height');
         }
-        
         $data['popup'] = $this->model_tool_image->resize($image, $popup_width, $popup_height);
         
         $data['unique_id'] = uniqid();

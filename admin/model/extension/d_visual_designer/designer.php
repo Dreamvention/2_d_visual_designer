@@ -377,22 +377,22 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
         }
 
 
-
+        $this->load->model('extension/d_opencart_patch/load');
         if(!empty($setting_block['custom_layout'])){
-            return $this->load->view('extension/d_visual_designer/layouts/'.$setting_block['custom_layout'].(VERSION < 2.2?'.tpl':''), $data);
+            return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/'.$setting_block['custom_layout'], $data);
         }
         else{
             if($inner_blocks == 1){
-                return $this->load->view('extension/d_visual_designer/layouts/medium'.(VERSION < 2.2?'.tpl':''), $data);
+                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/medium', $data);
             }
             else if($inner_blocks == 2){
-                return $this->load->view('extension/d_visual_designer/layouts/main'.(VERSION < 2.2?'.tpl':''), $data);
+                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/main', $data);
             }
             elseif ($setting_block['child_blocks'] && $inner_blocks == 0) {
-                return $this->load->view('extension/d_visual_designer/layouts/medium'.(VERSION < 2.2?'.tpl':''), $data);
+                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/medium', $data);
             }
             else{
-                return $this->load->view('extension/d_visual_designer/layouts/children'.(VERSION < 2.2?'.tpl':''), $data);
+                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/children', $data);
             }
         }
     }
@@ -656,8 +656,8 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
     }
 
     public function checkPermission(){
-        $this->load->model('d_shopunity/setting');
-        $setting = $this->model_d_shopunity_setting->getSetting($this->codename);
+        $this->load->model('extension/module/d_visual_designer');
+        $setting = $this->model_extension_module_d_visual_designer->getSetting($this->codename);
 
         if(!empty($setting['limit_access_user'])){
             if(!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])){
