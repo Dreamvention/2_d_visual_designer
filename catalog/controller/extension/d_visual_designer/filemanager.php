@@ -17,10 +17,13 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             return ;
         }
 
-        if(VERSION >= '3.0.0.0'){
-            $url_token = 'user_token=' . $this->session->data['user_token'];
-        }else{
-            $url_token =  'token=' . $this->session->data['token'];
+        $url_token = '';
+        if(isset($this->session->data['user_token']) || isset($this->session->data['token'])){
+            if(VERSION >= '3.0.0.0'{
+                $url_token = 'user_token=' . $this->session->data['user_token'];
+            }else{
+                $url_token =  'token=' . $this->session->data['token'];
+            }
         }
 
         if (isset($this->request->get['filter_name'])) {
@@ -127,7 +130,11 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $data['button_delete'] = $this->language->get('button_delete');
         $data['button_search'] = $this->language->get('button_search');
 
-        $data['token'] = (VERSION >= '3.0.0.0') ? $this->session->data['user_token'] : $this->session->data['token'];
+        $data['token'] = '';
+        if(isset($this->session->data['user_token']) || isset($this->session->data['token'])){
+            $data['token'] = (VERSION >= '3.0.0.0') ? $this->session->data['user_token'] : $this->session->data['token'];
+        }
+        
 
         if (isset($this->request->get['directory'])) {
             $data['directory'] = urlencode($this->request->get['directory']);
