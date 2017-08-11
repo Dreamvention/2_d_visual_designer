@@ -43,7 +43,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
 
         $url_token = '';
         if(isset($this->session->data['user_token']) || isset($this->session->data['token'])){
-            if(VERSION >= '3.0.0.0'{
+            if(VERSION >= '3.0.0.0'){
                 $url_token = 'user_token=' . $this->session->data['user_token'];
             }else{
                 $url_token =  'token=' . $this->session->data['token'];
