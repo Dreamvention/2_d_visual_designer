@@ -23,10 +23,3 @@ $_['error_permission']   = 'Warning: You do not have permission to modify this m
 
 //setting
 $_['tab_setting']        = 'Settings';
-
-$_['text_not_found']     = '<div class="jumbotron">
-          <h1>Please install Shopunity</h1>
-          <p>Before you can use this module you will need to install Shopunity. Simply download the archive for your version of opencart and install it view Extension Installer or unzip the archive and upload all the files into your root folder from the UPLOAD folder.</p>
-          <p><a class="btn btn-primary btn-lg" href="https://shopunity.net/download" target="_blank">Download</a></p>
-        </div>';
-?>
