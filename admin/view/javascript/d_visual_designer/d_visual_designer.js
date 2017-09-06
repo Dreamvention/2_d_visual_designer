@@ -1,10 +1,10 @@
 var d_visual_designer = {
-
+    
     getToken: function(){
         if(getURLVar('token')){
             return 'token='+getURLVar('token');
         }
-
+        
         if(getURLVar('user_token')){
             return 'user_token='+getURLVar('user_token');
         }
@@ -18,14 +18,14 @@ var d_visual_designer = {
         //Статус наличия изменений
         stateEdit: false
     },
-
+    
     //настройка popup
     setting_popup: {
         moved: 0,
         offsetX: 0,
         offsetY: 0
     },
-
+    
     //Данные
     data: {},
     //Шаблоны
@@ -85,15 +85,15 @@ var d_visual_designer = {
                     if (json['success']) {
                         var designer_id = $('<div>' + json['content'] + '</div>').find('.vd.content').attr('id');
                         that.data[designer_id] = JSON.parse(json['rows']);
-
+                        
                         if (that.data[designer_id].length == 0) {
                             that.data[designer_id] = {};
                         }
-
+                        
                         $(element).before(json['content']);
-
+                        
                         var button_vd = $(json['content']).find('#button_vd');
-
+                        
                         that.setting.form.find('#'.designer_id).tooltip();
                         setTimeout(function() {
                             $(element).closest('div').find('div#visual-designer-loader').remove();
@@ -106,14 +106,14 @@ var d_visual_designer = {
                             }
                             that.enable(button_vd);
                         }, 1000)
-
+                        
                         that.initSortable();
                         that.initHover(designer_id);
                         that.initPartial();
                     }
                     if (json['error']) {
                         $(element).closest('div').find('div#visual-designer-loader').remove();
-
+                        
                         if ($(element).next().hasClass('note-editor')) {
                             $(element).next().fadeTo('slow', 1);
                         } else if ($(element).next().hasClass('cke')) {
@@ -160,7 +160,7 @@ var d_visual_designer = {
                         image: ui.data('image'),
                         type: type
                     };
-
+                    
                     var helper = that.templateСompile(that.template.helper, data);
                     return helper;
                 },
@@ -173,13 +173,13 @@ var d_visual_designer = {
                 handle: ' .drag',
                 tolerance: 'intersect',
                 stop: function(event, ui) {
-
+                    
                     var designer_id = $(this).parents('.vd.content').attr('id');
-
+                    
                     that.updateSortOrder($(ui.item).closest('.block-inner, .block-section').attr('id'), designer_id);
-
+                    
                     that.updateSortOrder($(this).closest('.block-container').attr('id'), designer_id);
-
+                    
                     that.updateParent($(ui.item).attr('id'), designer_id, $(ui.item).closest('.block-inner, .block-section').attr('id'), $(this).data('id'));
                     that.setting.stateEdit = true;
                     d_visual_designer.updateValue();
@@ -199,7 +199,7 @@ var d_visual_designer = {
                     image: ui.data('image'),
                     type: 'main'
                 };
-
+                
                 var helper = that.templateСompile(that.template.helper, data);
                 return helper;
             },
@@ -243,7 +243,7 @@ var d_visual_designer = {
         $('button[type=submit]').on('click', function() {
             that.setting.stateEdit = false;
         });
-
+        
         window.onbeforeunload = function() {
             if (that.setting.stateEdit) {
                 return true;
@@ -252,16 +252,16 @@ var d_visual_designer = {
     },
     //обновление родителя
     updateParent: function(block_id, designer_id, parent_id, old_parent_id) {
-
+        
         this.data[designer_id][block_id]['parent'] = parent_id
-
+        
         var block_info = this.data[designer_id][block_id];
-
+        
         this.getChildBlock(old_parent_id, designer_id);
-
-
+        
+        
         var count_childs = Object.keys(this.tmpSetting.items).length;
-
+        
         if (block_info['parent'] != '' && count_childs == 0 && old_parent_id != parent_id) {
             this.setting.form.find('#' + designer_id).find('.block-content[data-id=' + old_parent_id + ']').empty();
         }
@@ -269,7 +269,7 @@ var d_visual_designer = {
     //обновление sort_order
     updateSortOrder: function(block_id, designer_id) {
         var that = this;
-
+        
         this.setting.form.find('#' + designer_id + ' .block-content[data-id=\'' + block_id + '\']').children('.block-container').each(function(index, value) {
             that.data[designer_id][$(value).attr('id')]['sort_order'] = index;
         });
@@ -304,7 +304,7 @@ var d_visual_designer = {
                 return options.inverse(this);
             });
         }
-
+        
     },
     //Инициализация ColorPicker
     initColorpicker: function(element) {
@@ -374,12 +374,12 @@ var d_visual_designer = {
             success: function(json) {
                 if (json['success']) {
                     that.data[designer_id] = JSON.parse(json['rows']);
-
+                    
                     if (that.data[designer_id].length == 0) {
                         that.data[designer_id] = {};
                     }
                     that.setting.form.find('.vd.content#'+designer_id).find('.vd.container-fluid').html(json['content']);
-
+                    
                     that.initSortable();
                     that.initHover(designer_id);
                     that.setting.stateEdit = true;
@@ -405,28 +405,33 @@ var d_visual_designer = {
             var setting = $(element).parents('.form-group');
             var designer_id = $(element).parents('.form-group').find('.vd.content').attr('id');
             // $(element).get(0).innerText = that.getText(setting);
-
+            
             var content = that.getText(designer_id);
-
+            
             $(element).get(0).innerText = content;
-
+            
             if ($(element).hasClass('summernote')) {
                 $(element).summernote('code', content)
+            }
+            else {
+                if ($(element).next('.note-editor').size() > 0) {
+                    $(element).next('.note-editor').find('.note-editable').html(content);
+                }
             }
             
             if(typeof CKEDITOR != "undefined"){
                 CKEDITOR.config.autoParagraph = false;
                 CKEDITOR.instances[$(element).attr('id')].setData(content);
             }
-
-
-
+            
+            
+            
         }).promise().done(function() {
-         if (callback != null) {
-            callback();
-        }
-    });
-
+            if (callback != null) {
+                callback();
+            }
+        });
+        
     },
     //Компиляция шаблона
     templateСompile: function(template, data) {
@@ -463,7 +468,7 @@ var d_visual_designer = {
         that.setting.form.append(that.template.popup_overlay);
         that.initPopup();
     },
-
+    
     saveCodeview:function(designer_id){
         var that = this;
         content = this.setting.form.find('.vd-popup').find('textarea[name=codeview]').val();
@@ -475,15 +480,15 @@ var d_visual_designer = {
     },
     //Вызов окна добавления блока
     showAddBlock: function(designer_id, target = '') {
-
+        
         var level = 0;
-
+        
         var that = this;
-
+        
         if (target != '') {
             level = this.getLevelBlock(target, designer_id) + 1;
         }
-
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/designer/getBlocks&'+ that.getToken(),
@@ -491,12 +496,12 @@ var d_visual_designer = {
             data: 'level=' + level,
             success: function(json) {
                 if (json['success']) {
-
+                    
                     var data = json;
                     data['target'] = target;
                     data['designer_id'] = designer_id;
                     data['level'] = level;
-
+                    
                     var content = that.templateСompile(that.template.add_block, json);
                     that.setting.form.append(content);
                     that.setting.form.append(that.template.popup_overlay);
@@ -520,25 +525,25 @@ var d_visual_designer = {
             data: 'type=' + type + '&parent=' + target + '&level=' + level,
             success: function(json) {
                 if (json['success']) {
-
+                    
                     console.log('d_visual_designer:add_block');
-
+                    
                     var setting = JSON.parse(json['setting']);
-
+                    
                     for (var key in setting) {
                         that.data[designer_id][key] = setting[key];
                     }
-
+                    
                     if (target == '') {
                         that.setting.form.find('#' + designer_id).find('.vd#sortable').append(json['content']);
                     } else {
-
+                        
                         var block = that.setting.form.find('#' + designer_id).find('.vd#sortable').find('#' + target);
                         var selector = $(block).data('selector');
                         that.setting.form.find('#' + designer_id).find('.vd#sortable').find('.block-content[data-id=\'' + target + '\']').append(json['content']);
                     }
                     var block = that.setting.form.find('#' + designer_id).find('.vd#sortable').find('#' + json['target']);
-
+                    
                     if (type == 'tour' || type == 'tabs') {
                         var control = block.children('.block-content');
                     } else {
@@ -572,17 +577,17 @@ var d_visual_designer = {
             dataType: 'json',
             data: 'type=' + block_info['type'] + '&parent=' + block_id + '&level=' + level,
             success: function(json) {
-
+                
                 console.log('d_visual_designer:add_child_block');
-
+                
                 var setting = JSON.parse(json['setting']);
-
+                
                 for (var key in setting) {
                     that.data[designer_id][key] = setting[key];
                 }
-
+                
                 that.setting.form.find('#' + designer_id).find('.vd#sortable').find('.block-content[data-id=\'' + block_id + '\']').append(json['content']);
-
+                
                 that.updateContentBlock(block_id, designer_id);
                 that.updateSortOrder(block_id, designer_id);
                 that.setting.stateEdit = true;
@@ -591,19 +596,19 @@ var d_visual_designer = {
     },
     //Вызов окна редактирование блока
     editBlock: function(block_id, designer_id) {
-
+        
         var that = this;
-
+        
         var block_info = that.data[designer_id][block_id];
-
+        
         if (that.data[designer_id][block_id]['setting'].length == 0) {
             var send_data = {};
         } else {
             var send_data = that.data[designer_id][block_id]['setting'];
         }
-
+        
         send_data['type'] = block_info['type'];
-
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/designer/getSettingModule&'+ that.getToken(),
@@ -653,21 +658,21 @@ var d_visual_designer = {
     //Удаление выбранного блока
     removeBlock: function(block_id, designer_id) {
         console.log('d_visual_designer:remove_block');
-
+        
         var block_info = this.data[designer_id][block_id];
-
+        
         if (block_info['child']) {
             var parent_id = block_info['parent'];
         }
-
+        
         delete this.data[designer_id][block_id];
-
+        
         console.log(block_info)
         var childs = this.getBlockByParent(designer_id, block_info['parent']);
-
+        
         console.log(childs)
         var count_childs = Object.keys(childs).length;
-
+        
         if (block_info['child'] && count_childs > 0) {
             this.updateContentBlock(block_info['parent'], designer_id);
         } else if (block_info['child'] && count_childs == 0) {
@@ -677,20 +682,20 @@ var d_visual_designer = {
         } else if (block_info['parent'] == '' && count_childs == 0) {
             this.setting.form.find('#' + designer_id).find('#sortable').empty();
         }
-
+        
         this.setting.form.find('#' + designer_id).find('#' + block_id).remove();
-
+        
         this.setting.stateEdit = true;
-
+        
         this.updateValue();
     },
     //Возвращает уровень влдожености блока
     getLevelBlock: function(block_id, designer_id) {
-
+        
         var level = 0;
-
+        
         var parent = this.data[designer_id][block_id]['parent'];
-
+        
         if (parent != '') {
             if (this.data[designer_id][parent]['parent'] != parent) {
                 while (parent != '') {
@@ -699,18 +704,18 @@ var d_visual_designer = {
                 }
             }
         }
-
+        
         return level;
-
+        
     },
     //Вызов окна сохранения блоков в шаблон
     showSaveTemplate: function(designer_id) {
         var that = this;
-
+        
         var data = {
             'designer_id': designer_id
         };
-
+        
         var content = that.templateСompile(that.template.save_template, data);
         that.setting.form.append(content);
         that.setting.form.append(that.template.popup_overlay);
@@ -725,11 +730,11 @@ var d_visual_designer = {
             dataType: 'json',
             success: function(json) {
                 if (json['success']) {
-
+                    
                     var data = json;
-
+                    
                     data['designer_id'] = designer_id;
-
+                    
                     var content = that.templateСompile(that.template.add_template, data);
                     that.setting.form.append(content);
                     that.setting.form.append(that.template.popup_overlay);
@@ -741,7 +746,7 @@ var d_visual_designer = {
     //Добавление шаблона
     addTemplate: function(template_id, config, designer_id) {
         var that = this;
-
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/template/getTemplate&'+ that.getToken(),
@@ -760,19 +765,19 @@ var d_visual_designer = {
             }
         });
     },
-
+    
     //Сохранения шаблона
     saveTemplate: function(designer_id) {
-
+        
         var popup = this.setting.form.find('.vd-popup.save_template');
-
+        
         var content = this.getText(designer_id, '');
-
+        
         var send_data = popup.find('input').serializeJSON();
         send_data['content'] = content;
-
+        
         var that = this;
-
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/template/save&'+ that.getToken(),
@@ -781,10 +786,10 @@ var d_visual_designer = {
             success: function(json) {
                 popup.find('.form-group').removeClass('.has-error');
                 popup.find('.text-danger').remove();
-
+                
                 if (json['error']) {
                     delete json['error']['warning'];
-
+                    
                     for (var key in json['error']) {
                         var fg = popup.find('input[name=' + key + ']').closest('.form-group');
                         fg.find('.fg-setting').append('<div class="text-danger">' + json['error'][key] + '</div>');
@@ -800,15 +805,15 @@ var d_visual_designer = {
                 }
             }
         });
-
+        
     },
     //Возвращает массив дочерних блоков
     getChildBlock: function(block_id, designer_id, child = false) {
-
+        
         if (!child) {
             this.tmpSetting = { 'items': {}, 'relateds': {} };
         }
-
+        
         var results = this.getBlockByParent(designer_id, block_id);
         if (!$.isEmptyObject(results)) {
             this.tmpSetting['relateds'][block_id] = [];
@@ -834,18 +839,18 @@ var d_visual_designer = {
     //Обновление содержимого
     updateContentBlock: function(block_id, designer_id) {
         var that = this;
-
+        
         var block_info = this.data[designer_id][block_id];
         if (block_info['child']) {
             block_id = block_info['parent'];
         }
-
+        
         this.getChildBlock(block_id, designer_id);
         var setting = {
             'blocks': this.tmpSetting,
             'main_block_id': block_id
         };
-
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/designer/getContent&'+ that.getToken(),
@@ -863,9 +868,9 @@ var d_visual_designer = {
     },
     //Сохранение
     saveContent: function(callback = null) {
-
+        
         var that = this;
-
+        
         this.updateValue(function() {
             $.ajax({
                 type: 'post',
@@ -881,7 +886,7 @@ var d_visual_designer = {
     //Открытие Frontend Редактора
     openFrontend: function(href) {
         var that = this;
-
+        
         if (this.setting.stateEdit) {
             this.saveContent(function() {
                 location.href = href;
@@ -892,22 +897,22 @@ var d_visual_designer = {
     },
     //Возвращает массив дочерних блоков
     getCloneBlock: function(block_id, designer_id, block_id_new = false, parent_id = false, child = false) {
-
+        
         if (!child) {
             this.tmpSetting = { 'items': {}, 'relateds': {} };
         }
-
+        
         var results = this.getBlockByParent(designer_id, block_id);
-
+        
         if (!$.isEmptyObject(results)) {
-
+            
             this.tmpSetting['relateds'][block_id_new] = [];
             this.tmpSetting['items'][block_id_new] = {};
             this.tmpSetting['items'][block_id_new] = jQuery.extend({}, this.data[designer_id][block_id]);
             this.tmpSetting['items'][block_id_new]['level'] = this.getLevelBlock(block_id, designer_id);
             this.tmpSetting['items'][block_id_new]['parent'] = parent_id;
             this.tmpSetting['items'][block_id_new]['block_id'] = block_id_new;
-
+            
             for (var key in results) {
                 var new_child_block_id = this.data[designer_id][key]['type'] + '_' + this.getRandomString();
                 this.tmpSetting['relateds'][block_id_new].push(new_child_block_id);
@@ -919,7 +924,7 @@ var d_visual_designer = {
             }
         } else {
             this.tmpSetting['items'][block_id_new] = {};
-
+            
             this.tmpSetting['items'][block_id_new] = jQuery.extend({}, this.data[designer_id][block_id]);
             this.tmpSetting['items'][block_id_new]['level'] = this.getLevelBlock(block_id, designer_id);
             this.tmpSetting['items'][block_id_new]['parent'] = parent_id;
@@ -929,17 +934,17 @@ var d_visual_designer = {
     //Клонирование блока
     cloneBlock: function(block_id, designer_id) {
         var that = this;
-
+        
         var new_block_id = this.data[designer_id][block_id]['type'] + '_' + this.getRandomString();
         var parent_id = this.data[designer_id][block_id]['parent'];
         this.getCloneBlock(block_id, designer_id, new_block_id, parent_id);
-
+        
         var setting = {
             'blocks': this.tmpSetting,
             'main_block_id': new_block_id
         };
-
-
+        
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/designer/getContent&'+ that.getToken(),
@@ -965,39 +970,39 @@ var d_visual_designer = {
     },
     //Вызов окна редактирование layout
     showEditLayout: function(target, designer_id) {
-
+        
         var items = this.getBlockByParent(designer_id, target);
-
+        
         var size = [];
-
+        
         for (var key in items) {
             size.push(items[key]['setting']['size']);
         }
-
+        
         var data = {
             'target': target,
             'designer_id': designer_id,
             'size': size.join('+')
         };
-
+        
         var html = this.templateСompile(this.template.row_layout, data);
-
+        
         this.setting.form.append(html);
-
+        
         this.initPopup();
     },
     //Редактирование layout
     editLayout: function(setting_layout, block_id, designer_id) {
-
+        
         var that = this;
-
+        
         var send_data = {
             'setting_layout': setting_layout,
             'type': this.data[designer_id][block_id]['type'],
             'parent': block_id,
             'items': this.getBlockByParent(designer_id, block_id)
         };
-
+        
         $.ajax({
             type: 'post',
             url: 'index.php?route=extension/d_visual_designer/designer/editLayout&'+ that.getToken(),
@@ -1009,11 +1014,11 @@ var d_visual_designer = {
                     for (var key in send_data['items']) {
                         delete that.data[designer_id][key];
                     }
-
+                    
                     for (var key in json['items']) {
                         that.data[designer_id][key] = json['items'][key];
                     }
-
+                    
                     that.updateContentBlock(block_id, designer_id);
                     that.closePopup();
                     that.setting.stateEdit = true;
@@ -1030,22 +1035,22 @@ var d_visual_designer = {
     //Задать новый текст
     setText:function(designer_id, content){
         var element = this.setting.form.find('.vd.content#'+designer_id).parent().find('.d_visual_designer');
-
+        
         $(element).get(0).innerText = content;
-
+        
         if ($(element).hasClass('summernote')) {
             $(element).summernote('code', $(element).get(0).innerText)
         }
     },
     //Получение текста из формы
     getText: function(designer_id, parent = "") {;
-
+        
         var results = this.getBlockByParent(designer_id, parent);
-
+        
         var result = '';
-
+        
         for (var key in results) {
-
+            
             var countChild = this.getCountBlockWithParent(designer_id, key);
             var shortcode = this.getShortcode(results[key], countChild > 0 ? true : false);
             if (countChild == 0) {
@@ -1069,7 +1074,7 @@ var d_visual_designer = {
             } else {
                 var content = $(this).find(target).attr(attr);
             }
-
+            
             if (content.indexOf(text) != -1) {
                 $(this).removeClass('hide');
             }
@@ -1081,19 +1086,19 @@ var d_visual_designer = {
         for (var key in obj)
             if (obj.hasOwnProperty(key))
                 sortable.push([key, obj[key]]);
-
-            sortable.sort(function(a, b) {
-                return a[1]['sort_order'] - b[1]['sort_order'];
-            });
-
-            var result = {};
-
-            for (key in sortable) {
-                result[sortable[key][0]] = sortable[key][1];
-            }
-
-            return result;
-        },
+        
+        sortable.sort(function(a, b) {
+            return a[1]['sort_order'] - b[1]['sort_order'];
+        });
+        
+        var result = {};
+        
+        for (key in sortable) {
+            result[sortable[key][0]] = sortable[key][1];
+        }
+        
+        return result;
+    },
     //Возвращает блоки с указаным родителем
     getBlockByParent: function(designer_id, parent) {
         var results = {};
@@ -1113,7 +1118,7 @@ var d_visual_designer = {
                 count++;
             }
         });
-
+        
         return count;
     },
     //возвращет шорткод
@@ -1130,7 +1135,7 @@ var d_visual_designer = {
             var value = setting[key];
             if (value instanceof Array || value instanceof Object) {
                 var array_values = this.convert(name, value);
-
+                
                 for (var key2 in array_values) {
                     name = key2.replace(/\]\[/g, ':');
                     name = name.replace(/\[/g, '::');
@@ -1140,8 +1145,8 @@ var d_visual_designer = {
             } else {
                 shortcode += ' ' + name + '=\'' + this.escape(value) + '\'' + ' ';
             }
-
-
+            
+            
         }
         if (!child) {
             shortcode += '/]';
@@ -1162,7 +1167,7 @@ var d_visual_designer = {
     },
     convert: function(key, obj) {
         var collector = {};
-
+        
         function recurse(key, obj) {
             var property, name;
             if (typeof obj === "object") {
@@ -1176,7 +1181,7 @@ var d_visual_designer = {
                 collector[key] = String(obj);
             }
         }
-
+        
         recurse(key, obj);
         return collector;
     },
