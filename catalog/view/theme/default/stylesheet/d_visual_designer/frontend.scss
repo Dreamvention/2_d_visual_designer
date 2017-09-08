@@ -210,11 +210,13 @@
         line-height: 40px;
     }
 }
-.progress{
-    height: 44px;
-    > .progress-bar{
-        line-height: 28px;
-        text-align: left;
-        padding: 8px 16px;
+.block-content {
+    > .progress {
+        height: 44px;
+        >.progress-bar {
+            line-height: 28px;
+            text-align: left;
+            padding: 8px 16px;
+        }
     }
-}
+} 

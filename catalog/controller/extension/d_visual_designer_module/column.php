@@ -3,42 +3,35 @@
  *  location: admin/controller
  */
 
-class ControllerExtensionDVisualDesignerModuleColumn extends Controller {
+class ControllerExtensionDVisualDesignerModuleColumn extends Controller
+{
     private $codename = 'column';
     private $route = 'extension/d_visual_designer_module/column';
 
-    public function __construct($registry) {
+    public function __construct($registry)
+    {
         parent::__construct($registry);
         
         $this->load->language($this->route);
         $this->load->model('extension/module/d_visual_designer');
+        $this->load->model('extension/d_opencart_patch/load');
     }
-    public function index($setting){
-
+    public function index($setting)
+    {
         $data['button_add'] = $this->language->get('button_add');
         
         $data['setting'] = $this->model_extension_module_d_visual_designer->getSetting($setting, $this->codename);
         
-        if(isset($setting['unique_id'])){
+        if (isset($setting['unique_id'])) {
             $data['unique_id'] = $setting['unique_id'];
-        }
-        else{
+        } else {
             $data['unique_id'] = substr(md5(rand()), 0, 7);
         }
         
-        if(VERSION>='2.2.0.0') {
-            return $this->load->view($this->route, $data);
-        }
-        else {
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$this->route.'.twig')) {
-                return $this->load->view($this->config->get('config_template') . '/template/'.$this->route.'.twig', $data);
-            } else {
-                return $this->load->view('default/template/'.$this->route.'.twig', $data);
-            }
-        }
+        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
     }
-    public function setting($setting){
-
+    public function setting($setting)
+    {
         $data['entry_size'] = $this->language->get('entry_size');
         $data['entry_float'] = $this->language->get('entry_float');
         $data['entry_align'] = $this->language->get('entry_align');
@@ -84,15 +77,6 @@ class ControllerExtensionDVisualDesignerModuleColumn extends Controller {
            'right' => $this->language->get('text_right')
            );
 
-        if(VERSION>='2.2.0.0') {
-            return $this->load->view($this->route.'_setting', $data);
-        }
-        else {
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$this->route.'_setting.twig')) {
-                return $this->load->view($this->config->get('config_template') . '/template/'.$this->route.'_setting.twig', $data);
-            } else {
-                return $this->load->view('default/template/'.$this->route.'_setting.twig', $data);
-            }
-        }
+        return $this->model_extension_d_opencart_patch_load->view($this->route.'_setting', $data);
     }
 }

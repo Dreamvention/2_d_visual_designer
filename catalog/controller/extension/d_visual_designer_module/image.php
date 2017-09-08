@@ -14,6 +14,7 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         
         $this->load->language($this->route);
         $this->load->model('extension/module/d_visual_designer');
+        $this->load->model('extension/d_opencart_patch/load');
         $this->load->model($this->route);
     }
     public function index($setting)
@@ -30,11 +31,11 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
 
         $data['desktop_size'] = $this->{'model_extension_d_visual_designer_module_'.$this->codename}->getSize($image, $data['setting']['size'], $data['setting']['width'], $data['setting']['height']);
         
-        if(!empty($data['setting']['size_phone'])){
+        if (!empty($data['setting']['size_phone'])) {
             $data['phone_size'] = $this->{'model_extension_d_visual_designer_module_'.$this->codename}->getSize($image, $data['setting']['size_phone'], $data['setting']['width_phone'], $data['setting']['height_phone']);
         }
 
-        if(!empty($data['setting']['size_tablet'])){
+        if (!empty($data['setting']['size_tablet'])) {
             $data['tablet_size'] = $this->{'model_extension_d_visual_designer_module_'.$this->codename}->getSize($image, $data['setting']['size_tablet'], $data['setting']['width_tablet'], $data['setting']['height_tablet']);
         }
 
@@ -42,14 +43,13 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         
         $data['thumb'] = $this->model_tool_image->resize($image, $width, $height);
 
-        if(VERSION>='3.0.0.0'){
+        if (VERSION>='3.0.0.0') {
             $popup_width = $this->config->get('theme_'.$this->config->get('config_theme') . '_image_popup_width');
             $popup_height = $this->config->get('theme_'.$this->config->get('config_theme') . '_image_popup_height');
-        }elseif(VERSION>='2.2.0.0'){
+        } elseif (VERSION>='2.2.0.0') {
             $popup_width = $this->config->get($this->config->get('config_theme') . '_image_popup_width');
             $popup_height = $this->config->get($this->config->get('config_theme') . '_image_popup_height');
-        }
-        else{
+        } else {
             $popup_width = $this->config->get('config_image_popup_width');
             $popup_height = $this->config->get('config_image_popup_height');
         }
@@ -57,15 +57,7 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         
         $data['unique_id'] = uniqid();
 
-        if (VERSION>='2.2.0.0') {
-            return $this->load->view($this->route, $data);
-        } else {
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$this->route.'.twig')) {
-                return $this->load->view($this->config->get('config_template') . '/template/'.$this->route.'.twig', $data);
-            } else {
-                return $this->load->view('default/template/'.$this->route.'.twig', $data);
-            }
-        }
+        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
     }
     public function setting($setting)
     {
@@ -157,14 +149,6 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
             'popup' => $this->language->get('text_popup')
             );
         
-        if (VERSION>='2.2.0.0') {
-            return $this->load->view($this->route.'_setting', $data);
-        } else {
-            if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/'.$this->route.'_setting.twig')) {
-                return $this->load->view($this->config->get('config_template') . '/template/'.$this->route.'_setting.twig', $data);
-            } else {
-                return $this->load->view('default/template/'.$this->route.'_setting.twig', $data);
-            }
-        }
+        return $this->model_extension_d_opencart_patch_load->view($this->route.'_setting', $data);
     }
 }

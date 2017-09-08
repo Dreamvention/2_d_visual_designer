@@ -7806,9 +7806,9 @@
     margin-top: -20px;
     line-height: 40px; }
 
-.progress {
+.block-content > .progress {
   height: 44px; }
-  .progress > .progress-bar {
+  .block-content > .progress > .progress-bar {
     line-height: 28px;
     text-align: left;
     padding: 8px 16px; }
