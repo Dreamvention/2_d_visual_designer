@@ -319,6 +319,9 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
     public function getForm() {
 
+        $this->load->model('extension/d_opencart_patch/user');
+        $this->load->model('extension/d_opencart_patch/load');
+
         $this->document->setTitle($this->language->get('heading_title_main'));
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 

@@ -27,7 +27,7 @@ $("{{selector}}").summernote({
             badAttributes: ['style', 'start']
         },
         onChange: function(contents, $editable) {
-            {% if VERSION >= '2.2.0.0' %}
+            {% if constant('VERSION') >= '2.2.0.0' %}
                 $(this).val(contents);
             {% else %}
                 $("{{selector}}").text(contents);
@@ -35,7 +35,7 @@ $("{{selector}}").summernote({
         },
         callbacks : {
             onChange: function(contents, $editable) {
-            {% if VERSION >= '2.2.0.0' %}
+            {% if constant('VERSION') >= '2.2.0.0' %}
                 $(this).val(contents);
             {% else %}
                 $("{{selector}}").text(contents);

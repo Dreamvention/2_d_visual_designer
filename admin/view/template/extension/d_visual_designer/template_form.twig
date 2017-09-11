@@ -78,11 +78,7 @@
 </div>
 <script type="text/javascript">
     $('#language a:first').tab('show');
-    {% if VERSION < '2.2.0.0' %}
-    $('.summernote').summernote({
-        height: 300
-    });
-    {% endif %}
+    {% include 'extension/d_visual_designer/partials/summernote.twig' with {'selector' : '.summernote'} %}
 </script>
 
 {{footer}}
