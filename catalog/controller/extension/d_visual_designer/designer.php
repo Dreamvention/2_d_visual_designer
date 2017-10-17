@@ -638,7 +638,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     public function saveProduct(){
         $json = array();
 
-        $this->load->model('extension/d_opencart_path/user')
+        $this->load->model('extension/d_opencart_path/user');
 
         if(!empty($this->request->post['product_description'])){
             $product_description = $this->request->post['product_description'];
@@ -672,6 +672,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     public function saveCategory(){
         $json = array();
 
+        $this->load->model('extension/d_opencart_path/user');
+
         if(!empty($this->request->post['category_description'])){
             $category_description = $this->request->post['category_description'];
         }
@@ -680,9 +682,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
             $category_id = $this->request->get['id'];
         }
 
-        $this->user = new Cart\User($this->registry);
-
-        if (!$this->user->hasPermission('modify', 'catalog/category')) {
+        if (!$this->model_extension_d_opencart_patch_user->hasPermission('modify', 'catalog/category')) {
             $permission = false;
         }
         else{
@@ -702,9 +702,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
     public function saveInformation(){
         $json = array();
 
+        $this->load->model('extension/d_opencart_path/user');
+        
         if(!empty($this->request->post['information_description'])){
             $information_description = $this->request->post['information_description'];
         }
@@ -713,12 +716,10 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
             $information_id = $this->request->get['id'];
         }
 
-        $this->user = new Cart\User($this->registry);
-
-        if (!$this->user->hasPermission('modify', 'catalog/information')) {
+        if (!$this->model_extension_d_opencart_patch_user->hasPermission('modify', 'catalog/information')) {
             $permission = false;
         }
-        else{
+        else {
             $permission = true;
         }
 
@@ -735,6 +736,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+    
     public function saveTemplate(){
         $this->load->model('setting/setting');
 
