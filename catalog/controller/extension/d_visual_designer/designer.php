@@ -10,7 +10,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     private $store_url = '';
 
     private $scripts = array();
-
     private $error = array();
     private $styles = array();
 
