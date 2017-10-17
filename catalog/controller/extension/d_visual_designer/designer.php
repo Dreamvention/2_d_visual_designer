@@ -648,7 +648,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
             $product_id = $this->request->get['id'];
         }
 
-
         if (!$this->model_extension_d_opencart_patch_user->hasPermission('modify', 'catalog/product')) {
             $permission = false;
         }
