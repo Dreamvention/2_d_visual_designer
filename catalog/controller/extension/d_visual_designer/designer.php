@@ -638,7 +638,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     public function saveProduct(){
         $json = array();
 
-        $this->load->model('extension/d_opencart_path/user');
+        $this->load->model('extension/d_opencart_patch/user');
 
         if(!empty($this->request->post['product_description'])){
             $product_description = $this->request->post['product_description'];
@@ -672,7 +672,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     public function saveCategory(){
         $json = array();
 
-        $this->load->model('extension/d_opencart_path/user');
+        $this->load->model('extension/d_opencart_patch/user');
 
         if(!empty($this->request->post['category_description'])){
             $category_description = $this->request->post['category_description'];
@@ -706,7 +706,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     public function saveInformation(){
         $json = array();
 
-        $this->load->model('extension/d_opencart_path/user');
+        $this->load->model('extension/d_opencart_patch/user');
         
         if(!empty($this->request->post['information_description'])){
             $information_description = $this->request->post['information_description'];
