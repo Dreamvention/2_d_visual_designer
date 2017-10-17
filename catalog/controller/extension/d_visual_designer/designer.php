@@ -638,6 +638,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
     public function saveProduct(){
         $json = array();
 
+        $this->load->model('extension/d_opencart_path/user')
+
         if(!empty($this->request->post['product_description'])){
             $product_description = $this->request->post['product_description'];
         }
@@ -646,9 +648,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
             $product_id = $this->request->get['id'];
         }
 
-        $this->user = new Cart\User($this->registry);
 
-        if (!$this->user->hasPermission('modify', 'catalog/product')) {
+        if (!$this->model_extension_d_opencart_patch_user->hasPermission('modify', 'catalog/product')) {
             $permission = false;
         }
         else{

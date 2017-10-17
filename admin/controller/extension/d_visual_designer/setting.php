@@ -22,7 +22,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     }
     
     public function index()
-    {   
+    {
         $this->load->model('setting/setting');
         $this->load->model('extension/module/d_event_manager');
         $this->load->model('extension/d_opencart_patch/url');
@@ -35,14 +35,13 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->uninstallEvents();
             
-            if(!empty($this->request->post[$this->codename.'_status'])){
+            if (!empty($this->request->post[$this->codename.'_status'])) {
                 $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
             }
             $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
 
             $this->response->redirect($this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'));
-            
         }
         
         // styles and scripts
@@ -64,17 +63,17 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['breadcrumbs'] = array();
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->model_extension_d_opencart_patch_url->link('common/home') 
+            'href' => $this->model_extension_d_opencart_patch_url->link('common/home')
             );
 
         $data['breadcrumbs'][] = array(
             'text'      => $this->language->get('text_module'),
-            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module') 
+            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module')
         );
 
         $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title_main'),
-            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', $url) 
+            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', $url)
         );
         
         // Notification
@@ -201,7 +200,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         $data['users'] = array();
         
-        if(!empty($data['setting']['access_user'])){
+        if (!empty($data['setting']['access_user'])) {
             foreach ($data['setting']['access_user'] as $user_id) {
                 $user_info = $this->model_user_user->getUser($user_id);
                 $data['users'][$user_info['user_id']] = $user_info['username'];
@@ -211,7 +210,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->load->model('user/user_group');
         
         $data['user_groups'] = array();
-        if(!empty($data['setting']['access_user_group'])){
+        if (!empty($data['setting']['access_user_group'])) {
             foreach ($data['setting']['access_user_group'] as $user_group_id) {
                 $user_group_info = $this->model_user_user_group->getUserGroup($user_group_id);
                 $data['user_groups'][$user_group_id] = $user_group_info['name'];
@@ -233,12 +232,13 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
     
-    public function installEvents($status){
+    public function installEvents($status)
+    {
         $this->load->model('extension/module/d_event_manager');
         $this->load->model('extension/'.$this->codename.'/designer');
         foreach ($status as $value) {
             $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($value);
-            if(!empty($route_info['events'])){
+            if (!empty($route_info['events'])) {
                 foreach ($route_info['events'] as $trigger => $action) {
                     $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action);
                 }
@@ -247,20 +247,20 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
         $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
-        
-        
     }
-    public function uninstallEvents(){
+    public function uninstallEvents()
+    {
         $this->load->model('extension/module/d_event_manager');
         $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
     }
 
-    public function install_event_support(){
+    public function install_event_support()
+    {
         if (!$this->user->hasPermission('modify', $this->route)) {
             $this->session->data['error'] = $this->language->get('error_permission');
             $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
         }
-        if(file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')){
+        if (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')) {
             $this->load->model('extension/module/d_event_manager');
             $this->model_extension_module_d_event_manager->installCompatibility();
         }
@@ -278,7 +278,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         return true;
     }
-    public function autocompleteUser() {
+    public function autocompleteUser()
+    {
         $json = array();
         
         if (isset($this->request->get['filter_name'])) {
@@ -312,7 +313,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->response->setOutput(json_encode($json));
     }
     
-    public function autocompleteUserGroup() {
+    public function autocompleteUserGroup()
+    {
         $json = array();
         
         if (isset($this->request->get['filter_name'])) {
