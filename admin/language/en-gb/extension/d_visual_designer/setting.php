@@ -15,9 +15,6 @@ $_['text_product']                  = 'Products';
 $_['text_category']                 = 'Categories';
 $_['text_information']              = 'Information pages';
 $_['text_complete_version']         = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart?utm_source=d_visual_desginer&utm_medium=extension&utm_campaign=get_full_version&utm_content=setting" target="_blank">Over 40 building blocks in Complete version. Get it now!</a>';
-$_['text_install_event_support']    = 'Install events';
-
-$_['help_event_support']                = '<h4>Activate Event support</h4><p>Visual Designer uses the latest Opencart Events mechanism instead of Vqmod/Ocmod. Old version of Opencart do not support events but you can enable them here. Click install Events. </p>';
 
 //button
 $_['button_support_email']          = 'support';

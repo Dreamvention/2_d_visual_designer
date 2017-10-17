@@ -24,7 +24,7 @@ class ControllerExtensionDVisualDesignerInstruction extends Controller {
         $this->document->setTitle($this->language->get('heading_title_main'));
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
+        $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
 
         $this->load->model('setting/setting');
         $this->load->model('extension/d_opencart_patch/url');

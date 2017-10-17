@@ -16,6 +16,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->load->model('extension/module/d_visual_designer');
         
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
+        $this->d_event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
 
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
@@ -24,7 +25,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     public function index()
     {
         $this->load->model('setting/setting');
-        $this->load->model('extension/module/d_event_manager');
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/store');
         $this->load->model('extension/d_opencart_patch/setting');
@@ -45,11 +45,11 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         }
         
         // styles and scripts
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap.css');
+        $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
         
-        $this->document->addScript('view/javascript/shopunity/bootstrap-switch/bootstrap-switch.min.js');
-        $this->document->addStyle('view/stylesheet/shopunity/bootstrap-switch/bootstrap-switch.css');
+        $this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
+        $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
         
         $url_params = array();
         
@@ -110,7 +110,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['text_select_all'] = $this->language->get('text_select_all');
         $data['text_unselect_all'] = $this->language->get('text_unselect_all');
         $data['text_complete_version'] = $this->language->get('text_complete_version');
-        $data['text_install_event_support'] = $this->language->get('text_install_event_support');
         
         // Button
         $data['button_add'] = $this->language->get('button_add');
@@ -119,8 +118,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['button_save_and_stay'] = $this->language->get('button_save_and_stay');
         $data['button_cancel'] = $this->language->get('button_cancel');
         $data['button_remove'] = $this->language->get('button_remove');
-
-        $data['help_event_support'] = $this->language->get('help_event_support');
         
         // Entry
         $data['entry_status'] = $this->language->get('entry_status');
@@ -154,8 +151,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         $data['action'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/setting', $url);
         
-        $data['install_event_support'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/install_event_support');
-
         $data['cancel'] =$this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
         
         
@@ -222,8 +217,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         foreach ($results as $key => $value) {
             $data['routes'][$key] = $value['name'];
         }
-
-        $data['event_support'] =$this->model_extension_module_d_event_manager->isCompatible();
         
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
@@ -234,37 +227,28 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     
     public function installEvents($status)
     {
-        $this->load->model('extension/module/d_event_manager');
-        $this->load->model('extension/'.$this->codename.'/designer');
-        foreach ($status as $value) {
-            $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($value);
-            if (!empty($route_info['events'])) {
-                foreach ($route_info['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action);
+        if ($this->d_event_manager) {
+            $this->load->model('extension/module/d_event_manager');
+            $this->load->model('extension/'.$this->codename.'/designer');
+            foreach ($status as $value) {
+                $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($value);
+                if (!empty($route_info['events'])) {
+                    foreach ($route_info['events'] as $trigger => $action) {
+                        $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action);
+                    }
                 }
             }
+            
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
         }
-        
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
-        $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
     }
     public function uninstallEvents()
     {
-        $this->load->model('extension/module/d_event_manager');
-        $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
-    }
-
-    public function install_event_support()
-    {
-        if (!$this->user->hasPermission('modify', $this->route)) {
-            $this->session->data['error'] = $this->language->get('error_permission');
-            $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
-        }
-        if (file_exists(DIR_SYSTEM.'mbooth/extension/d_event_manager.json')) {
+        if ($this->d_event_manager) {
             $this->load->model('extension/module/d_event_manager');
-            $this->model_extension_module_d_event_manager->installCompatibility();
+            $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
         }
-        $this->response->redirect($this->url->link($this->route, 'token='.$this->session->data['token'], 'SSL'));
     }
     
     private function validate($permission = 'modify')
