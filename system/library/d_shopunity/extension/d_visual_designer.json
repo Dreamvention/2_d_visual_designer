@@ -1,6 +1,6 @@
 {
     "codename": "d_visual_designer",
-    "version": "2.2.6",
+    "version": "2.2.7",
     "name": "Visual Designer",
     "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
     "index": "extension/module/d_visual_designer",
@@ -202,6 +202,10 @@
         "catalog/view/javascript/d_visual_designer/library/summernote/font"
     ],
     "changelog": [
+        {
+            "version": "2.2.7",
+            "change": "Changed extension_id to 125"
+        },
         {
             "version": "2.2.6",
             "change": "Bug fix"
