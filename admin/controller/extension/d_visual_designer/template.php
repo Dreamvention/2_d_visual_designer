@@ -339,7 +339,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $data['heading_title'] = $this->language->get('heading_title_main');
         $data['version'] = $this->extension['version'];
         $data['route'] = $this->route;
-        $data['token'] =  $this->session->data['token'];
+        $data['token'] =  $this->model_extension_d_opencart_patch_user->getToken();
 
         $data['text_form'] = !isset($this->request->get['template_id']) ? $this->language->get('text_add_template') : $this->language->get('text_edit_template');
 

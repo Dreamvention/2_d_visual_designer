@@ -21,7 +21,12 @@
                 var right = width_window - left - content.width();
                 content.css('position','relative');
                 content.css('z-index','2');
-                content.css('left','-'+left+'px');
+                var direction = $('body').css('direction');
+                if(direction == 'rtl'){
+                    content.css('right','-'+right+'px');
+                } else {
+                    content.css('left','-'+left+'px');
+                }
                 content.css('width',width_window+'px');
                 width_content = width_window;
                 if(row_stretch === 'stretch_row'){
