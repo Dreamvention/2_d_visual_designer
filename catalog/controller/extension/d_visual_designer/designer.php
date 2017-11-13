@@ -267,7 +267,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller {
                 if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/extension/'.$this->codename.'/frontend.twig')) {
                     return $this->load->view($this->config->get('config_template') . '/template/extension/'.$this->codename.'/frontend.twig', $data);
                 } else {
-                    return $this->load->view('default/template/extension/'.$this->route.'/frontend.twig', $data);
+                    return $this->load->view('default/template/extension/'.$this->codename.'/frontend.twig', $data);
                 }
             }
         }
