@@ -699,10 +699,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
 
     public function checkCompleteVersion(){
         $return = false;
-        if(!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_module.json')){
+        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_module.json')){
             $return = true; 
         }
-        if(!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_landing.json')){
+        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_landing.json')){
             $return = true; 
         }
 

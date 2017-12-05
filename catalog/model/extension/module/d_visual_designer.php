@@ -511,7 +511,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
                 if(!empty($setting['d_visual_designer_setting']['access_user']) && !in_array($this->user->getId(), $setting['d_visual_designer_setting']['access_user'])){
                     $this->error['warning'] = $this->language->get('error_permission');
                 }
-                elseif($setting['d_visual_designer_setting']['access_user']){
+                elseif(empty($setting['d_visual_designer_setting']['access_user'])){
                     $this->error['warning'] = $this->language->get('error_permission');
                 }
             }
@@ -985,10 +985,10 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
     public function checkCompleteVersion(){
         $return = false;
-        if(!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_module.json')){
+        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_module.json')){
             $return = true; 
         }
-        if(!file_exists(DIR_SYSTEM.'mbooth/extension/d_visual_designer_landing.json')){
+        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_landing.json')){
             $return = true; 
         }
 

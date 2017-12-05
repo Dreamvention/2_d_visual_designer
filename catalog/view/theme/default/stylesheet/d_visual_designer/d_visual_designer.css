@@ -858,7 +858,7 @@
     box-sizing: border-box; }
   .vd html, .block-container html, #modal-image html {
     font-size: 10px;
-    -webkit-tap-highlight-color: transparent; }
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
   .vd body, .block-container body, #modal-image body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
@@ -6958,7 +6958,7 @@
     text-indent: -999px;
     cursor: pointer;
     background-color: #000 \9;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0);
     border: 1px solid #fff;
     border-radius: 10px; }
   .vd .carousel-indicators .active, .block-container .carousel-indicators .active, #modal-image .carousel-indicators .active {
@@ -7555,7 +7555,8 @@
     .vd-popup .popup-header > div.search {
       position: absolute;
       top: 11px;
-      right: 60px; }
+      right: 60px;
+      padding: 0; }
       .vd-popup .popup-header > div.search > i {
         position: absolute;
         z-index: 99;
@@ -7702,7 +7703,7 @@
               border: 2px solid #00c3aa;
               border-top: none;
               border-right: none;
-              background: transparent; }
+              background: rgba(0, 0, 0, 0); }
         .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-default {
           color: #333 !important;
           background: #fff !important;
