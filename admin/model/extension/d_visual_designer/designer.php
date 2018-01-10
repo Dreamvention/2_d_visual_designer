@@ -597,7 +597,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
             else{
                 $pattern = $route_info['backend_route'];
             }
-            if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($pattern, '/')) . '/', $backend_route)) {
+            if (preg_match('/' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($pattern, '/')) . '/', $backend_route)) {
                 $route_info['config_name'] = $route;
                 return $route_info;
             }
