@@ -76,6 +76,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $data['state']['config']['id'] = $setting['id'];
             $data['state']['config']['blocks'] = $this->prepareBlocksConfig();
             $data['state']['config']['frontend'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/frontend', 'config='.$setting['config'].'&id='.$setting['id']);
+            
             $data['state']['config']['filemanager_url'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/filemanager');
             $data['state']['config']['url_token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
 
