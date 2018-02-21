@@ -14,15 +14,13 @@ $_['backend_param']     = 'product_id';
 //GET параметр содержащий id страницы на Frontend
 $_['frontend_param']    = 'product_id';
 //Путь для сохранения описания на Frontend
-$_['edit_url']          = 'index.php?route=extension/d_visual_designer/designer/saveProduct';
+$_['edit_route']        = 'extension/d_visual_designer/designer/saveProduct';
 //События
 $_['events']            = array(
     'admin/view/catalog/product_form/after' => 'extension/event/d_visual_designer/view_product_after',
-    'catalog/view/product/product/before' => 'extension/event/d_visual_designer/view_product_before',
-    'catalog/view/extension/module/featured/before' => 'extension/event/d_visual_designer/view_module_feautured_before',
-    'catalog/view/module/featured/before' => 'extension/event/d_visual_designer/view_module_feautured_before',
-    'catalog/model/catalog/product/getProducts/after' => 'extension/event/d_visual_designer/model_getProducts_after',
-    'catalog/model/catalog/product/getProductSpecials/after' => 'extension/event/d_visual_designer/model_getProducts_after',
-    'catalog/model/catalog/product/getBestSellerProducts/after' => 'extension/event/d_visual_designer/model_getProducts_after',
-    'catalog/model/catalog/product/getProductRelated/after' => 'extension/event/d_visual_designer/model_getProducts_after',
-    );
+    'admin/model/catalog/product/addProduct/after' => 'extension/event/d_visual_designer/model_catalog_product_addProduct_after',
+    'admin/model/catalog/product/addProduct/before' => 'extension/event/d_visual_designer/model_catalog_product_addProduct_before',
+    'admin/model/catalog/product/editProduct/after' => 'extension/event/d_visual_designer/model_catalog_product_editProduct_after',
+    'admin/model/catalog/product/editProduct/before' => 'extension/event/d_visual_designer/model_catalog_product_editProduct_before',
+    'catalog/view/product/product/before' => 'extension/event/d_visual_designer/view_product_before'
+);

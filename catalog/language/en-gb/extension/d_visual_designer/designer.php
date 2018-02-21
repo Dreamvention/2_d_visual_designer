@@ -90,6 +90,10 @@ $_['tab_category_structure']         = 'Structure';
 $_['button_saved']                   = "<i class='fa fa-check' aria-hidden='true'></i>Saved";
 $_['button_save']                    = 'Save changes';
 $_['button_close']                   = 'Close';
+$_['button_cancel']                  = 'Cancel';
+$_['button_undo']                    = 'Undo';
+$_['button_return']                  = 'Return';
+$_['button_short_save']              = 'Save';
 
 //entry
 $_['entry_name']                     = 'Name';

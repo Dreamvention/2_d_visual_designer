@@ -13,27 +13,36 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
         parent::__construct($registry);
         
         $this->load->language($this->route);
-        $this->load->model('extension/module/d_visual_designer');
         $this->load->model('extension/d_opencart_patch/load');
     }
     
     public function index($setting)
-    {
-        $data['setting'] = $this->model_extension_module_d_visual_designer->getSetting($setting, $this->codename);
+    {   
+
+        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
         
-        $data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-        
-        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
+        return $data;
     }
     
     public function setting($setting)
     {
-        $data['entry_text'] = $this->language->get('entry_text');
+        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
         
-        $data['setting'] = $this->model_extension_module_d_visual_designer->getSetting($setting, $this->codename);
-        
-        $data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-        
-        return $this->model_extension_d_opencart_patch_load->view($this->route.'_setting', $data);
+        return $data;
+    }
+
+    public function local($permission)
+    {
+        $data = array();
+        if($permission){
+            $data['entry_text'] = $this->language->get('entry_text');
+        }
+
+        return $data;
+    }
+
+    public function text($setting){
+        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
+        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
     }
 }

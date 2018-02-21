@@ -85,6 +85,10 @@ $_['tab_css']                        = 'CSS';
 $_['button_saved']                   = "<i class='fa fa-check' aria-hidden='true'></i>Сохранено";
 $_['button_save']                    = 'Сохранить изменения';
 $_['button_close']                   = 'Закрыть';
+$_['button_cancel']                  = 'Закрыть';
+$_['button_undo']                    = 'Отменить';
+$_['button_return']                  = 'Вернуть';
+$_['button_short_save']              = 'Сохранить';
 
 //help
 $_['help_add_child']                 = 'Добавить %s';

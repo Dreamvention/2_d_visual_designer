@@ -87,7 +87,7 @@ span.notify{
             
         }
         .vd-btn{
-            display: inline-block;
+            display: block;
             cursor: pointer;
             width:60px;
             height:60px;
@@ -103,9 +103,55 @@ span.notify{
     
     &.right-bar{
         float:right;
-        background-color: rgb(255, 255, 255);
         box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
         border-radius: 3px;
+        background-color: #1F7DC7;
+        > .vd-switcher {
+            display: block;
+            float:left;
+            position: relative;
+            line-height: 60px;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 0 40px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #308cd6;
+            margin-right: 1px;
+            color: #fff;
+            min-width: 50px;
+            text-transform: capitalize;
+            &:hover {
+                background-color: #56a6e6;
+                >.vd-switcher-content{
+                    display: block;
+                }
+            }
+            &>.vd-switcher-content{
+                position: absolute;
+                display: none;
+                left: 0;
+                // right: 0;
+                top: 61px;
+                background-color: #308cd6;
+                > .vd-switcher-element {
+                    white-space: nowrap;
+                    padding: 0 40px;
+                    &.active {
+                        background-color: #56a6e6;
+                    }
+                    &:hover {
+                        background-color: #56a6e6;
+                    }
+                }
+                &:hover {
+                    display: block;
+                }
+                &.active {
+                    display: block;
+                }
+            }
+        }
         > a{
             display: block;
             float:left;

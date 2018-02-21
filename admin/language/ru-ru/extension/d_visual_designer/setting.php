@@ -2,6 +2,7 @@
 //entry
 $_['entry_status']                  = 'Статус';
 $_['entry_save_change']             = 'Сохранять при изменении';
+$_['entry_save_text']               = 'Обновлять описания из Visual Designer';
 $_['entry_use_designer']            = 'Использовать Visual Designer для ';
 $_['entry_support']                 = 'Поддержка';
 $_['entry_increase_fields']         = 'Увеличить описание для продукта, категории, информационные страницы';
@@ -9,6 +10,8 @@ $_['entry_limit_access_user']       = 'Разрешить использоват
 $_['entry_limit_access_user_group'] = 'Разрешить использовать только выбранным группам пользователей';
 $_['entry_user']                    = 'Пользователь';
 $_['entry_user_group']              = 'Группа пользователей';
+
+$_['help_save_text']                = 'При активации описание будет заменено описанием из Visual Designer. Если неактивно, вы можете создавать описание отдельно от Visual Designer';
 
 $_['text_success']                  = 'Success: You have modified settings!';
 $_['text_product']                  = 'Товаров';

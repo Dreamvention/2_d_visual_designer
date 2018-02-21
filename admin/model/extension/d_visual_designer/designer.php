@@ -3,8 +3,8 @@
 *	location: admin/model
 */
 
-class ModelExtensionDVisualDesignerDesigner extends Model {
-
+class ModelExtensionDVisualDesignerDesigner extends Model
+{
     private $codename = 'd_visual_designer';
 
     private $settingJS;
@@ -23,512 +23,130 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
 
     private $parent_clear = false;
 
-    public function getPattern(){
+    private $error = array();
+
+    /**
+    * Converts shortcodes to settings
+    */
+    public function parseContent($text)
+    {
         $blocks = $this->getBlocks();
 
-        $pattern = "\\[(\\[?)(vd_row|vd_column";
+        $d_shortcode_reader_writer = new d_shortcode_reader_writer($blocks);
 
-        foreach ($blocks as $block) {
-            $pattern .= '|vd_'.$block;
-        }
-        $pattern .=")(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\[(?!\\/\\2\])[^\\[]*+)*+)\[\\/\\2\])?)(\\]?)";
-
-        return $pattern;
-    }
-
-    public function getChildPattern($type){
-        $pattern = "\\[(\\[?)(vd_".$type;
-        $pattern .=")(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\[(?!\\/\\2\])[^\\[]*+)*+)\[\\/\\2\])?)(\\]?)";
-        return $pattern;
-    }
-
-    public function escape($text){
-
-        $text = str_replace("'", '``', $text);
-        $text = str_replace("[", '`{`', $text);
-        $text = str_replace("]", '`}`', $text);
-
-        return $text;
-    } 
-
-    public function unescape($text){
-
-        $text = str_replace('`{`', '[', $text);
-        $text = str_replace('`}`', ']', $text);
-        $text = str_replace('``', "'", $text);
-
-        return $text;
-    }
-
-    public function shortcode_parse_atts($text) {
-        $attr = array();
-        $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|([a-zA-Z:0-9_]+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
-        $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
-
-        if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
-            $params = '';
-            foreach ($match as $m) {
-                if (!empty($m[1])) {
-                    $attr[strtolower($m[1])] = stripcslashes($m[2]);
-                } elseif (!empty($m[3])) {
-                    $this->parseName($m[3], $m[4], $attr);
-                }
-            }
-        } else {
-            $attr = ltrim($text);
-        }
-
-        return $attr;
+        $setting = $d_shortcode_reader_writer->readShortcode($text);
         
-    }
-
-    public function parseName($name, $value, &$attr){
-        $pos = strpos($name, '::');
-        if($pos === false){
-
-            $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-            $value = $this->unescape($value);
-            $attr[$name] = $value;
-        }
-        else{
-            $name = str_replace('::',',',$name);
-            $name = str_replace(':',',',$name);
-            $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-            $value = $this->unescape($value);
-
-            $exploded = explode(',', $name);
-            $temp = &$attr;
-            foreach($exploded as $key) {
-                $temp = &$temp[$key];
-            }
-            $temp = $value;
-        }
-    }
-
-    public function getRandomString(){
-        return substr( md5(rand()), 0, 7);
-    }
-
-    public function parseDescription($description){
-        $this->level=0;
-
-        $description = html_entity_decode($description);
-
-        $this->settingJS = array();
-
-        $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelExtensionDVisualDesignerDesigner::do_shortcode_tag', $description);
-
-        if(empty($this->settingJS) && !empty($content)){
-            $description = $this->escape($description);
-            $content = "[vd_row][vd_column][vd_text text='".$description."'][/vd_column][/vd_row]";
-            $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelExtensionDVisualDesignerDesigner::do_shortcode_tag', $content);
+        if (!empty($text) && empty($setting)) {
+            $text = "[vd_row][vd_column][vd_text text='".$d_shortcode_reader_writer->escape($text)."'][/vd_column][/vd_row]";
+            $setting = $d_shortcode_reader_writer->readShortcode($text);
         }
 
-        $results = array();
+        $that = $this;
+        array_walk($setting, function (&$block, $key) use ($that) {
+            $block['setting'] = $that->getSetting($block['setting'], $block['type']);
+        });
 
-        $results['content'] = $content;
-        $results['setting'] = $this->settingJS;
-
-        return $results;
+        return $setting;
     }
 
-    public function parseDescriptionHelper($description){
-        $this->sort_order = 0;
-        $this->level++;
-        $this->sort_orders[$this->level] = -1;
-        $content = preg_replace_callback('/' . $this->getPattern() . '/s', 'ModelExtensionDVisualDesignerDesigner::do_shortcode_tag', $description);
-        array_pop($this->parents);
-        $this->level--;
+    /**
+     * Converts settings to shortcodes
+     */
+    public function parseSetting($setting)
+    {
+        $blocks = $this->getBlocks();
+
+        $that = $this;
+        array_walk($setting, function (&$block, $key) use ($that) {
+            $block['setting'] = $block['setting']['global'];
+        });
+
+        if (empty($setting)) {
+            return '';
+        }
+
+        $d_shortcode_reader_writer = new d_shortcode_reader_writer($blocks);
+
+        $content = $d_shortcode_reader_writer->writeShortcode($setting);
+
         return $content;
     }
 
-    public function getChildSetting($content, $type){
+    /**
+     * Returns the shortcodes for the specified config
+     */
+    public function getContent($route, $id, $field_name)
+    {
+        $query = $this->db->query("SELECT `content` FROM `".DB_PREFIX."visual_designer_content` WHERE `route` ='".$route."' AND `id` = '".(int)$id."' AND `field` = '".$field_name."'");
 
-        $setting_block = $this->getSettingBlock($type);
-        if(!empty($setting_block['child'])){
-            $this->settingChild = array();
-            preg_replace_callback('/' . $this->getChildPattern($setting_block['child']) . '/s', 'ModelExtensionDVisualDesignerDesigner::do_child_shortcode_tag', $content);
-
-            return $this->settingChild;
-        }
-        else{
-            return array();
-        }
-
+        return $query->row;
     }
+    /**
+     * Keeps shortcodes in the database
+     */
+    public function saveContent($content, $route, $id, $field_name)
+    {
+        $query = $this->db->query("SELECT * FROM `".DB_PREFIX."visual_designer_content` WHERE `route` ='".$route."' AND `id` = '".(int)$id."' AND `field` = '".$field_name."'");
 
-    public function do_child_shortcode_tag($m){
-
-        if ( $m[1] == '[' && $m[6] == ']' ) {
-            return substr($m[0], 1, -1);
-        }
-
-        $tag = $m[2];
-
-        $type=str_replace('vd_','',$tag);
-
-        $attr = $this->shortcode_parse_atts( $m[3] );
-
-        $block_id = $type.'_'.$this->getRandomString();
-
-        $attrd = array(
-            'setting' => $attr,
-            'type' => $type,
-            'content' => $m[5],
-            'block_id' => $block_id
-            );
-
-        $this->settingChild[] = $attr;
-    }
-
-    private function do_shortcode_tag($m) {
-
-        if ( $m[1] == '[' && $m[6] == ']' ) {
-            return substr($m[0], 1, -1);
-        }
-
-        $tag = $m[2];
-
-        $type=str_replace('vd_','',$tag);
-
-        $attr = $this->getSetting($this->shortcode_parse_atts( $m[3]), $type);
-
-        if ( !empty( $m[5] ) ) {
-            $current_block = $type.'_'.$this->getRandomString();
-
-            if(!isset($this->sort_orders[$this->level])){
-                $this->sort_orders[$this->level] = 0;
-            }
-            else{
-                $this->sort_orders[$this->level]++;
-            }
-
-            $attr_tmp = $attr;
-            $attr_tmp['setting_child'] = $this->getChildSetting($m[5], $type);
-
-            $level_main = $this->level;
-
-            if($type == 'row'){
-                $this->parent = '';
-            }
-
-            if(!empty($this->parents))
-            {
-                $parent_id = current(array_slice($this->parents, -1));
-            }
-            else{
-                $parent_id = '';
-            }
-
-
-            $this->settingJS[$current_block] = array(
-                'setting' => $attr,
-                'parent' => $parent_id,
-                'sort_order' => $this->sort_orders[$this->level],
-                'type' => $type
-                );
-
-            if($parent_id != ''){
-                $setting_parent = $this->getSettingBlock($this->settingJS[$parent_id]['type']);
-
-                if(!empty($setting_parent['child'])){
-                    $this->settingJS[$current_block]['child'] = true;
-                }
-            }
-
-            $this->parent = $current_block;
-
-            array_push($this->parents,$current_block);
-
-            $content_child = $this->parseDescriptionHelper($m[5]);
-
-            $child_settings = $this->getSettingFromArray($current_block);
-
-            $attr_tmp = $attr;
-
-            $attr_tmp['setting_child'] = $child_settings;
-
-            if($type == 'row'){
-                $content_main = $this->getContent($type, $attr_tmp, $current_block, $level_main, 2);
-            }
-            else{
-                $content_main = $this->getContent($type, $attr_tmp, $current_block, $level_main, 1);
-            }
-
-            $content = str_replace('[[[inner-block]]]', $content_child, $content_main);
-            return $content;
-
+        if ($query->num_rows) {
+            $this->db->query("UPDATE `".DB_PREFIX."visual_designer_content` SET `content`= '".$this->db->escape($content)."' WHERE `route` ='".$route."' AND `id` = '".(int)$id."' AND `field` = '".$field_name."'");
         } else {
-            $current_block = $type.'_'.$this->getRandomString();
-
-            $content = $this->getContent($type, $attr, $current_block, $this->level);
-
-            $content = str_replace('[[[inner-block]]]', '', $content);
-
-            $this->load->language('d_visual_designer_module/'.$type);
-
-            $this->settingJS[$current_block] = array(
-                'setting' => $attr,
-                'sort_order' => $this->sort_order++,
-                'parent' => $this->parent,
-                'type' => $type
-                );
-
-            if($this->parent != ''){
-                $setting_parent = $this->getSettingBlock($this->settingJS[$this->parent]['type']);
-
-                if(!empty($setting_parent['child'])){
-                    $this->settingJS[$current_block]['child'] = true;
-                }
-            }
-
-            return $content;
+            $this->db->query("INSERT INTO `".DB_PREFIX."visual_designer_content` SET `content`= '".$this->db->escape($content)."', `route` ='".$route."', `id` = '".(int)$id."', `field` = '".$field_name."'");
         }
     }
+    /**
+     * Converts shortcodes to text
+     */
+    public function getText($setting)
+    {
+        $content = '';
 
-    public function getSettingFromArray($parent_id){
-        $settings = array();
-
-        foreach ($this->settingJS as $block_id => $setting) {
-            if($setting['parent'] == $parent_id){
-                $settings[$block_id] = $setting['setting'];
+        foreach ($setting as $block_id => $block_setting) {
+            $output = $this->load->controller('extension/d_visual_designer_module/'.$block_setting['type'].'/text', $block_setting['setting']['global']);
+            if ($output) {
+                $content .= $output;
             }
         }
-        return $settings;
+
+        return $content;
     }
 
-    public function getContent($type, $setting, $key, $level, $inner_blocks = 0){
 
-        $this->load->language('extension/d_visual_designer_module/'.$type);
-
-        $setting_block = $this->getSettingBlock($type);
-
-        $data = $setting_block;
-
-        $data['type'] = $type;
-
-        $data['content'] = $this->load->controller('extension/d_visual_designer_module/'.$type, $setting);
-
-        $data['setting'] = $this->getSetting($setting, $type);
-
-        if(!empty($key)){
-            $data['key'] = $key;
-        }else{
-            $data['key'] = $type.'_'.$this->getRandomString();
-        }
-
-        $data['title'] = $this->language->get('text_title');
-
-        if(!empty($setting['size']) && is_numeric($setting['size'])){
-            $data['size'] = $setting['size'];
-        }
-        else{
-            $data['size'] = '12';
-        }
-
-        if($level%2){
-            $data['level'] = 1;
-        }
-        else{
-            $data['level'] = 0;
-        }
-
-        if(!empty($setting_block['child'])){
-            $this->load->language('extension/d_visual_designer_module/'.$setting_block['child']);
-            $data['help_add_child'] = sprintf($this->language->get('help_add_child'),$this->language->get('text_title'));
-        }
-
-        $this->load->language('extension/d_visual_designer_module/'.$type);
-        $data['help_add_block'] = sprintf($this->language->get('help_add_block'),$this->language->get('text_title'));
-        $data['help_edit'] = sprintf($this->language->get('help_edit'),$this->language->get('text_title'));
-        $data['help_copy'] =sprintf($this->language->get('help_copy'),$this->language->get('text_title'));
-        $data['help_collapse'] = sprintf($this->language->get('help_collapse'),$this->language->get('text_title'));
-        $data['help_remove'] = sprintf($this->language->get('help_remove'),$this->language->get('text_title'));
-        $data['title'] = $this->language->get('text_title');
-
+    public function prepareUserSetting($setting)
+    {
+        $data = array();
         $this->load->model('tool/image');
-
-        if(!empty($setting['design_background_image'])){
+        if (!empty($setting['design_background_image'])) {
             $image = $setting['design_background_image'];
 
-            if(file_exists(DIR_IMAGE.$image)){
+            if (file_exists(DIR_IMAGE.$image)) {
                 list($width, $height) = getimagesize(DIR_IMAGE . $image);
-                $data['setting']['design_background_image'] = $this->model_tool_image->resize($image, $width, $height);
+                $data['design_background_image'] = $this->model_tool_image->resize($image, $width, $height);
             }
         }
+        return $data;
+    }
 
-        if(!empty($setting['image'])){
-            $image = $setting['image'];
+    public function prepareEditSetting($setting)
+    {
+        $data = array();
+        $this->load->model('tool/image');
+        if (!empty($setting['design_background_image'])) {
+            $image = $setting['design_background_image'];
 
-            if (is_file(DIR_IMAGE.$image)) {
-                $data['image'] = $this->model_tool_image->resize($image, 32, 32);;
+            if (file_exists(DIR_IMAGE.$image)) {
+                $data['design_background_thumb'] = $this->model_tool_image->resize($image, 100, 100);
             } else {
-                $data['image'] = $this->model_tool_image->resize('no_image.png', 32, 32);
+                $data['design_background_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
             }
+        } else {
+            $data['design_background_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
         }
-        else{
-            $image = '../image/catalog/d_visual_designer/'.$type.'.svg';
-
-            if (is_file(DIR_IMAGE.$image)) {
-                $data['image'] = $image;
-            } else {
-                $data['image'] = $this->model_tool_image->resize('no_image.png', 32, 32);
-            }
-        }
-
-
-        $this->load->model('extension/d_opencart_patch/load');
-        if(!empty($setting_block['custom_layout'])){
-            return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/'.$setting_block['custom_layout'], $data);
-        }
-        else{
-            if($inner_blocks == 1){
-                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/medium', $data);
-            }
-            else if($inner_blocks == 2){
-                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/main', $data);
-            }
-            elseif ($setting_block['child_blocks'] && $inner_blocks == 0) {
-                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/medium', $data);
-            }
-            else{
-                return $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer/layouts/children', $data);
-            }
-        }
+        return $data;
     }
 
-    public function getContentBySetting($blocks, $block_id){
-
-        $block_info = $blocks['items'][$block_id];
-
-        if(!empty($blocks['relateds'][$block_id])){
-            $content_child = '';
-            $setting_block = array();
-            foreach ($blocks['relateds'][$block_id] as $parent_id => $child_id) {
-                $result = $this->getContentBySetting($blocks, $child_id);
-                $content_child .= $result;
-                if(!empty($blocks['items'][$child_id]['setting'])){
-                    $setting_block[$child_id] = $blocks['items'][$child_id]['setting'];
-                }
-                else{
-                    $setting_block[$child_id] = array();
-                }
-            }
-
-            if(!empty($block_info['setting']))
-            {
-                $setting = $block_info['setting'] + array('setting_child'=>$setting_block);
-            }
-            else{
-                $setting = array('setting_child'=>$setting_block);
-            }
-
-            $content_main = $this->getContent($block_info['type'], $setting, $block_info['block_id'], ($block_info['level']), ($block_info['level'] == 0)?2:1);
-            $content = str_replace('[[[inner-block]]]', $content_child, $content_main);
-
-        }
-        else{
-            $setting_block = $this->getSettingBlock($block_info['type']);
-
-            if(!empty($block_info['setting'])){
-                $block_setting = $block_info['setting'];
-            }
-            else{
-                $block_setting = array();
-            }
-
-            $content = $this->getContent($block_info['type'], $block_setting, $block_info['block_id'], $block_info['level'],
-                $setting_block['child_blocks']?1:0);
-            $content = str_replace('[[[inner-block]]]', '', $content);
-        }
-
-        return $content;
-    }
-
-    public function getFullContent($block_info, $level, $settingJS = array()){
-
-        $setting_block = $this->getSettingBlock($block_info['type']);
-
-        $settingChild = array();
-        if($level == 0 && $setting_block['level_min'] == 2){
-            $this->parent_clear = true;
-            $setting_main_block = $this->getSettingBlock('row');
-
-            $child_block =array(
-                'type' => 'row',
-                'parent'=> '',
-                'sort_order' => 0,
-                'setting' => $this->getSetting(array(), 'row'),
-                'block_id' => 'row_'.$this->getRandomString()
-                );
-            $result_main = $this->getFullContent($child_block, ($level), $settingJS);
-
-            $settingJS = $result_main['setting'];
-
-            $block_info['parent'] = $this->parent;
-            $this->parent_clear = false;
-            $result_child = $this->getFullContent($block_info, 2, $settingJS);
-
-            $settingJS = $settingJS+$result_child['setting'];
-            $content = str_replace('[[[inner-block]]]', $result_child['content'], $result_main['content']);
-        }
-        else if(!empty($setting_block['child'])){
-            $settingJS[$block_info['block_id']] = array(
-                'type' => $block_info['type'],
-                'parent' => $block_info['parent'],
-                'sort_order' => 0,
-                'setting' => $block_info['setting']
-                );
-            $this->parent = $block_info['block_id'];
-            $setting_child_block = $this->getSettingBlock($setting_block['child']);
-
-            $child_block =array(
-                'type' => $setting_block['child'],
-                'parent'=> $block_info['block_id'],
-                'sort_order' => 0,
-                'setting' => $this->getSetting(array(), $setting_block['child']),
-                'block_id' => $setting_block['child'].'_'.$this->getRandomString()
-                );
-            $this->parent = $block_info['block_id'];
-
-            $result = $this->getFullContent($child_block, ($level+1), $settingJS);
-
-            $content_child = $result['content'];
-            $settingJS = $settingJS+$result['setting'];
-            $block_info['setting']['setting_child'] = $result['setting_child'];
-
-            $content_main = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, ($level == 0)?2:1, 1);
-            $content = str_replace('[[[inner-block]]]', $content_child, $content_main);
-        }
-        else{
-            $settingJS[$block_info['block_id']] = array(
-                'type' => $block_info['type'],
-                'parent' => $block_info['parent'],
-                'sort_order' => 0,
-                'setting' => $block_info['setting']
-                );
-            $settingChild = $block_info['setting'];
-            if(!empty($settingJS[$block_info['parent']])){
-                $setting_parent = $this->getSettingBlock($settingJS[$block_info['parent']]['type']);
-
-                if(!empty($setting_parent['child'])){
-                    $settingJS[$block_info['block_id']]['child'] = true;
-                }
-            }
-
-            $content = $this->getContent($block_info['type'], $block_info['setting'], $block_info['block_id'], $level, $setting_block['child_blocks']?1:0, 1);
-            if(!$this->parent_clear){
-                $content = str_replace('[[[inner-block]]]', '', $content);
-            }
-            $this->parent = $block_info['block_id'];
-
-        }
-
-        return array('content' => $content,'setting' => $settingJS, 'setting_child' => array( $block_info['block_id'] => $settingChild), 'block_id' => $block_info['block_id']);
-    }
-
-    public function getSetting($setting, $type){
-
+    public function getSetting($setting, $type)
+    {
         $this->config->load('d_visual_designer');
 
         $setting_main = $this->config->get('d_visual_designer_default_block_setting');
@@ -537,35 +155,56 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
 
         $result = $setting_main;
 
-        if(!empty($setting_default['setting'])){
+        if (!empty($setting_default['setting'])) {
             foreach ($setting_default['setting'] as $key => $value) {
                 $result[$key] = $value;
             }
         }
 
-        if(!empty($setting)){
+        if (!empty($setting)) {
             foreach ($setting as $key => $value) {
                 $result[$key] = $value;
             }
         }
 
-        return $result;
+        $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
+
+        if (!$userSetting) {
+            $userSetting = array();
+        }
+        
+        $globalUserSetting = $this->prepareUserSetting($result);
+
+        $userSetting = array_merge($globalUserSetting, $userSetting);
+        
+        $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
+
+        if (!$editSetting) {
+            $editSetting = array();
+        }
+
+        $globalEditSetting = $this->prepareEditSetting($result);
+
+        $editSetting = array_merge($globalEditSetting, $editSetting);
+
+        return array('global'=>$result, 'user' => $userSetting, 'edit' => $editSetting);
     }
 
-    public function getBlocks(){
+    public function getBlocks()
+    {
         $dir = DIR_APPLICATION.'controller/extension/d_visual_designer_module';
         $files = scandir($dir);
         $result = array();
-        foreach($files as $file){
-            if(strlen($file) > 1 && strpos( $file, '.php')){
+        foreach ($files as $file) {
+            if (strlen($file) > 1 && strpos($file, '.php')) {
                 $result[] = substr($file, 0, -4);
             }
         }
         return $result;
     }
 
-    public function getSettingBlock($type){
-
+    public function getSettingBlock($type)
+    {
         $results = array();
 
         $file = DIR_CONFIG.'d_visual_designer/'.$type.'.php';
@@ -580,21 +219,20 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
         return $results;
     }
 
-    public function getRouteByBackendRoute($backend_route){
+    public function getRouteByBackendRoute($backend_route)
+    {
         $this->load->model('setting/setting');
         $setting = $this->model_setting_setting->getSetting('d_visual_designer');
-        if(isset($setting['d_visual_designer_setting']['use'])){
+        if (isset($setting['d_visual_designer_setting']['use'])) {
             $routes = $setting['d_visual_designer_setting']['use'];
-        }
-        else{
+        } else {
             $routes = array();
         }
         foreach ($routes as $route) {
             $route_info = $this->getRoute($route);
-            if(isset($route_info['backend_route_regex'])){
+            if (isset($route_info['backend_route_regex'])) {
                 $pattern = $route_info['backend_route_regex'];
-            }
-            else{
+            } else {
                 $pattern = $route_info['backend_route'];
             }
             if (preg_match('/' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($pattern, '/')) . '/', $backend_route)) {
@@ -605,39 +243,37 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
         return array();
     }
 
-    public function getRoutes(){
+    public function getRoutes()
+    {
         $dir = DIR_CONFIG.'d_visual_designer_route/*.php';
 
         $files = glob($dir);
 
         $route_data = array();
 
-        foreach($files as $file){
-
+        foreach ($files as $file) {
             $name = basename($file, '.php');
             $route_info = $this->getRoute($name);
             $route_data[$name] = $route_info;
-
         }
         uasort($route_data, 'ModelExtensionDVisualDesignerDesigner::compareRoute');
         return $route_data;
     }
 
 
-    public function compareRoute($a, $b){
-        if($a['name'] > $b['name']){
+    public function compareRoute($a, $b)
+    {
+        if ($a['name'] > $b['name']) {
             return 1;
-        }
-        elseif($a['name'] < $b['name']){
+        } elseif ($a['name'] < $b['name']) {
             return -1;
-        }
-        else{
+        } else {
             return 0;
         }
     }
 
-    public function getRoute($name){
-
+    public function getRoute($name)
+    {
         $results = array();
 
         $file = DIR_CONFIG.'d_visual_designer_route/'.$name.'.php';
@@ -649,64 +285,119 @@ class ModelExtensionDVisualDesignerDesigner extends Model {
 
             $results = array_merge($results, $_);
         }
-        if(!empty($results) && !isset($results['name'])){
+        if (!empty($results) && !isset($results['name'])) {
             $results['name'] = ucfirst(strtolower($name));
         }
         return $results;
     }
 
-    public function checkPermission(){
+    public function checkPermission()
+    {
         $this->load->model('extension/module/d_visual_designer');
         $setting = $this->model_extension_module_d_visual_designer->getSetting($this->codename);
 
-        if(!empty($setting['limit_access_user'])){
-            if(!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])){
-               return true;
-            }
-        }
-        elseif(!empty($setting['limit_access_user_group'])){
-            if(!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])){
+        if (!empty($setting['limit_access_user'])) {
+            if (!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])) {
                 return true;
             }
-        }
-        else{
+        } elseif (!empty($setting['limit_access_user_group'])) {
+            if (!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])) {
+                return true;
+            }
+        } else {
             return true;
         }
 
         return false;
     }
 
-    public function addScript(){
-        if(!empty($setting)){
-            if(!empty($setting['limit_access_user'])){
-                if(!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])){
-                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
+    public function addScript()
+    {
+        if (!empty($setting)) {
+            if (!empty($setting['limit_access_user'])) {
+                if (!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])) {
+                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
                 }
-            }
-            elseif(!empty($setting['limit_access_user_group'])){
-                if(!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])){
-                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
+            } elseif (!empty($setting['limit_access_user_group'])) {
+                if (!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])) {
+                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
                 }
+            } else {
+                $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
             }
-            else{
-                $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
-            }
-        }
-        else{
-            $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5,10));
+        } else {
+            $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
         }
     }
 
-    public function checkCompleteVersion(){
+    public function checkCompleteVersion()
+    {
         $return = false;
-        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_module.json')){
-            $return = true; 
+        if (!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_module.json')) {
+            $return = true;
         }
-        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_landing.json')){
-            $return = true; 
+        if (!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_landing.json')) {
+            $return = true;
         }
 
         return $return;
     }
 
+    public function validateEdit($config_name)
+    {
+        $this->error = array();
+
+        $status = $this->config->get($this->codename . '_status');
+
+        if (!$status) {
+            $this->error['status'] = $this->language->get('error_status');
+        }
+
+        if (!empty($setting['d_visual_designer_setting']['limit_access_user'])) {
+            if (!empty($setting['d_visual_designer_setting']['access_user']) && !in_array($this->user->getId(), $setting['d_visual_designer_setting']['access_user'])) {
+                $this->error['warning'] = $this->language->get('error_permission');
+            } elseif ($setting['d_visual_designer_setting']['access_user']) {
+                $this->error['warning'] = $this->language->get('error_permission');
+            }
+        }
+        if (!empty($setting['d_visual_designer_setting']['limit_access_user_group'])) {
+            if (!empty($setting['d_visual_designer_setting']['access_user_group']) && !in_array($this->user->getGroupId(), $setting['d_visual_designer_setting']['access_user_group'])) {
+                $this->error['warning'] = $this->language->get('error_permission');
+            } elseif (empty($setting['d_visual_designer_setting']['access_user_group'])) {
+                $this->error['warning'] = $this->language->get('error_permission');
+            }
+        } else {
+            $route_info = $this->getRoute($config_name);
+
+            if (empty($route_info)) {
+                $this->error['config'] = $this->language->get('error_config');
+            }
+        }
+        return !$this->error;
+    }
+
+    public function getRiotTags()
+    {
+        $this->load->model('extension/module/d_visual_designer');
+        $result = array();
+        // if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
+        $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+        // }
+
+        $files = glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*.tag", GLOB_BRACE);
+
+        foreach ($files as $file) {
+            $result[] = 'view/template/extension/'.$this->codename.'/compress/'.basename($file);
+        }
+
+        if (empty($result)) {
+            $files = glob(DIR_TEMPLATE."extension/d_visual_designer/{components,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
+
+            foreach ($files as $file) {
+                $result[] = 'view/template/extension/'.$this->codename.'/'.basename(dirname($file)).'/'.basename($file);
+            }
+        }
+
+        return $result;
+    }
 }

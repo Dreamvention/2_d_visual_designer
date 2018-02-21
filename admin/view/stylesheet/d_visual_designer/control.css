@@ -1,0 +1,66 @@
+.control-advanced {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 4px 0 0 4px;
+  width: 50px;
+  font-size: 32px; }
+  .control-advanced ~ .block-content {
+    padding: 15px 15px 40px 65px;
+    position: relative; }
+    .control-advanced ~ .block-content > .vd-new-child-block {
+      left: 75px; }
+  .control-advanced > .vd-btn {
+    left: 8px;
+    z-index: 9;
+    position: absolute; }
+    .control-advanced > .vd-btn.vd-btn-edit {
+      top: 7px;
+      bottom: auto; }
+    .control-advanced > .vd-btn.vd-btn-copy {
+      top: 40px;
+      bottom: auto; }
+    .control-advanced > .vd-btn.vd-btn-layout {
+      top: 72px;
+      bottom: auto; }
+    .control-advanced > .vd-btn.vd-btn-add-child {
+      top: 104px;
+      bottom: auto; }
+    .control-advanced > .vd-btn.vd-btn-remove {
+      top: auto;
+      bottom: 7px; }
+
+.control-top {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  z-index: 1; }
+  .control-top ~ .block-content {
+    padding: 65px 15px 40px 15px; }
+  .control-top > .vd-btn {
+    position: absolute;
+    top: 7px; }
+    .control-top > .vd-btn.vd-btn-edit {
+      left: 5px; }
+    .control-top > .vd-btn.vd-btn-copy {
+      left: 37px; }
+    .control-top > .vd-btn.vd-btn-remove {
+      right: 5px; }
+
+.control-popup > .vd-btn {
+  position: absolute;
+  top: auto;
+  bottom: auto; }
+  .control-popup > .vd-btn.vd-btn-edit {
+    left: 5px; }
+  .control-popup > .vd-btn.vd-btn-copy {
+    left: 37px; }
+  .control-popup > .vd-btn.vd-btn-remove {
+    right: 5px; }
+
+/*# sourceMappingURL=control.css.map */

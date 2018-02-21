@@ -76,6 +76,8 @@
         $('#{{thumb}}').find('img').attr('src', $(this).find('img').attr('src'));
         {% endif %}
         $('#{{target}}').attr('value', $(this).parent().find('input').attr('value'));
+        var event = new Event('change');
+        $('#{{target}}')[0].dispatchEvent(event);
 
         $('#modal-image').modal('hide');
     });

@@ -5,3 +5,5 @@
 // @koala-append "library/circle-progress.js"
 // @koala-append "library/owl-carousel/owl.carousel.min.js"
 // @koala-append "library/webfont.js"
+// @koala-append "library/webfont.js"
+// @koala-append "library/underscore-min.js"

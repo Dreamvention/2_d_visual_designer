@@ -67,8 +67,6 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
 
         $this->{'model_extension_module_'.$this->codename}->createDatabase();
 
-        $this->{'model_extension_module_'.$this->codename}->increaseFields();
-
     }
 
     public function uninstall()

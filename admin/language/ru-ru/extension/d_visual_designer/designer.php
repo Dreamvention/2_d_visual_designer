@@ -11,6 +11,8 @@ $_['text_frontend_title']            = 'Frontend Editor';
 $_['text_designer']                  = 'Visual Designer';
 $_['text_layout']                    = 'Редактирование макета';
 $_['text_set_custom']                = 'Задать';
+$_['text_add_child_block']           = 'Добавить блок';
+$_['text_add']                       = 'Добавить';
 
 $_['text_dotted']                    = 'Точечный';
 $_['text_dashed']                    = 'Пунктирный';

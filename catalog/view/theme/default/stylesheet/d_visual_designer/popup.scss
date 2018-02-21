@@ -243,7 +243,6 @@
                 width: 52px;
                 height: 52px;
                 opacity: 1;
-                background: url(../../image/d_visual_designer/cross.svg) no-repeat center;
                 &:hover {
                     border-top-right-radius: 5px;
                     background-color: #85C24D;
@@ -287,13 +286,17 @@
         flex: 0 0 auto;
         cursor: pointer;
         >a.close {
+            display:flex;
+            align-items: center;
+            justify-content: center;
             position: absolute;
+            color: white;
+            text-shadow: none;
             top: 0px;
             right: 0px;
             width: 53px;
             height: 53px;
             opacity: 1;
-            background: url(../../image/d_visual_designer/cross.svg) no-repeat center;
             &:hover {
                 border-top-right-radius: 5px;
                 background-color: #56a6e6;
@@ -393,7 +396,7 @@
         > .notify{
             display:block;
             margin: 20px;
-            > a{
+             a{
                 display:block;
                 padding:10px;
                 margin:-15px;
@@ -887,6 +890,29 @@
         -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
+        .vd-btn-group {
+            &.btn-4 {
+                > .vd-btn {
+                    width: 25%;
+                }
+            }
+            > .vd-btn:first-child {
+                border-bottom-left-radius: 5px;
+            }
+            > .vd-btn:last-child {
+                border-bottom-right-radius: 5px;
+            }
+            > .vd-btn {
+                border-radius: 0px;
+                float: left;
+                width: auto;
+            }
+            &::after{
+                display: table;
+                content: '';
+                clear: both;
+            }
+        }
         a {
             position: relative;
             display: inline-block;
@@ -919,6 +945,45 @@
             background: 0 0;
             font-size: 14px;
             font-weight: 400;
+            &.vd-btn {
+                &.apply {
+                    background: #7dbc44;
+                    color: white;
+                    &:hover{
+                        background: #5f982a;
+                    }
+                }
+                &.undo {
+                    background: #65a3be;
+                    color: white;
+                    height: 40px;
+                    > .vd-image-undo {
+                        background-image: url(../../image/d_visual_designer/undo.svg);
+                        fill: rgb(255, 255, 255);
+                        width: 28px;
+                        min-width: 28px;
+                        height: 28px;
+                        margin: -6px;
+                    }
+                    &:hover{
+                        background: #4986a1;
+                    }
+                }
+                &.return {
+                    background: #2498ca;
+                    color: white;
+                    &:hover {
+                        background: #177eab;
+                    }
+                }
+                &.cancel {
+                    background: #d94d3b;
+                    color: white;
+                    &:hover{
+                        background: #b03c2d;
+                    }
+                }
+            }
             &.save {
                 color: #fff;
                 background-color: #308cd6;

@@ -38,6 +38,9 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
             if (!empty($this->request->post[$this->codename.'_status'])) {
                 $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
             }
+
+            $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+            
             $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -122,12 +125,15 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         // Entry
         $data['entry_status'] = $this->language->get('entry_status');
         $data['entry_save_change'] = $this->language->get('entry_save_change');
+        $data['entry_save_text'] = $this->language->get('entry_save_text');
         $data['entry_use_designer'] = $this->language->get('entry_use_designer');
         $data['entry_access'] = $this->language->get('entry_access');
         $data['entry_limit_access_user'] = $this->language->get('entry_limit_access_user');
         $data['entry_limit_access_user_group'] = $this->language->get('entry_limit_access_user_group');
         $data['entry_user'] = $this->language->get('entry_user');
         $data['entry_user_group'] = $this->language->get('entry_user_group');
+        
+        $data['help_save_text'] = $this->language->get('help_save_text');
         
         // Text
         $data['text_enabled'] = $this->language->get('text_enabled');

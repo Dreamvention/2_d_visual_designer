@@ -22,8 +22,8 @@ class ControllerExtensionEventDVisualDesigner extends Controller
                 'field_name' => 'product_description['.(int)$this->config->get('config_language_id').'][description]',
                 'id' => $data['product_id']
                 );
+            $data['description'] = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
             
-            $data['description'] = $this->{'model_extension_module_'.$this->codename}->parseDescription($designer_data);
             $data['description'] = html_entity_decode($data['description'], ENT_QUOTES, 'UTF-8');
         }
     }
@@ -42,49 +42,25 @@ class ControllerExtensionEventDVisualDesigner extends Controller
                 'id' => $category_id
                 );
 
-            $data['description'] = $this->{'model_extension_module_'.$this->codename}->parseDescription($designer_data);
+            $data['description'] = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+
             $data['description'] = html_entity_decode($data['description'], ENT_QUOTES, 'UTF-8');
         }
     }
 
-    public function view_module_feautured_before(&$view, &$data, &$output)
+    public function view_information_before(&$view, &$data, &$output)
     {
-        $this->load->model('catalog/product');
-        if(!empty($data['products'])){
-            foreach ($data['products'] as $key => $value) {
-                $product_info = $this->model_catalog_product->getProduct($value['product_id']);
-                $data['products'][$key]['description'] = $this->{'model_extension_module_'.$this->codename}->getText($product_info['description']);
-                if(VERSION>='2.2.0.0' && VERSION < '3.0.0.0') {
-                  $limit_description = $this->config->get($this->config->get('config_theme') . '_product_description_length');
-                }
-                else if(VERSION < '2.2.0.0') {
-                  $limit_description = $this->config->get('config_product_description_length');
-                }
-                else{
-                  $limit_description = $this->config->get('theme_' . $this->config->get('config_theme') . '_product_description_length');
-                }
-                $data['products'][$key]['description'] = utf8_substr(strip_tags(html_entity_decode($data['products'][$key]['description'], ENT_QUOTES, 'UTF-8')), 0, $limit_description) . '..';
-            }
-        }
-    }
-    public function model_getProducts_after(&$route, &$data, &$output)
-    {
-        if(!empty($output)){
-            foreach ($output as $key => $value) {
-                $output[$key]['description'] = $this->{'model_extension_module_'.$this->codename}->getText($value['description']);
-            }
-        }
-    }
-    public function model_getInformation_after(&$route, &$data, &$output)
-    {
-        if(!empty($output)&&!empty($data[0])){
+        if(isset($data['description']) && !empty($this->request->get['information_id'])){
             $designer_data = array(
                 'config' => 'information',
-                'content' => $output['description'],
+                'content' => $data['description'],
                 'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
-                'id' => $data[0]
+                'id' => (int)$this->request->get['information_id']
                 );
-            $output['description'] = $this->{'model_extension_module_'.$this->codename}->parseDescription($designer_data);
+                
+            $data['description'] = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+            
+            $data['description'] = html_entity_decode($data['description'], ENT_QUOTES, 'UTF-8');
         }
     }
 

@@ -1,47 +1,48 @@
 <?php
 /*
-*  location: admin/controller
-*/
+ *  location: admin/controller
+ */
 
-class ControllerExtensionDVisualDesignerModuleText extends Controller {
-    /**
-    * module codename - keep it simple yet unique. add prefix
-    */
+class ControllerExtensionDVisualDesignerModuleText extends Controller
+{
     private $codename = 'text';
     private $route = 'extension/d_visual_designer_module/text';
-    
-    /**
-    * share loaded language files and models with all methods
-    */
-    public function __construct($registry) {
+
+    public function __construct($registry)
+    {
         parent::__construct($registry);
         
         $this->load->language($this->route);
-        $this->load->model('extension/d_visual_designer/designer');
         $this->load->model('extension/d_opencart_patch/load');
     }
     
-    /**
-    * returns the module block view
-    */
-    public function index($setting){
+    public function index($setting)
+    {   
+
+        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
         
-        $data['setting'] = $this->model_extension_d_visual_designer_designer->getSetting($setting, $this->codename);
-        
-        $data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-        
-        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
+        return $data;
     }
     
-    /**
-    * returns the module settings view
-    */
-    public function setting($setting){
+    public function setting($setting)
+    {
+        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
         
+        return $data;
+    }
+
+    public function local()
+    {
+        $data = array();
+
         $data['entry_text'] = $this->language->get('entry_text');
-        $data['setting'] = $this->model_extension_d_visual_designer_designer->getSetting($setting, $this->codename);
-        $data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-        
-        return $this->model_extension_d_opencart_patch_load->view($this->route.'_setting', $data);
+
+
+        return $data;
+    }
+
+    public function text($setting){
+        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
+        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
     }
 }

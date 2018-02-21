@@ -3,6 +3,7 @@ $_['d_visual_designer_setting'] = array(
     
     'config' => 'd_visual_designer', 
     'save_change' => 0,
+    'save_text' => 0,
     'use' => array('category', 'information', 'product', 'template'),
     'limit_access_user' => 0,
     'limit_access_user_group' => 0,
@@ -24,7 +25,7 @@ $_['d_visual_designer_default_block_setting'] = array(
     'design_border_bottom' => '',
     'design_border_left' => '',
     'design_border_color' => '',
-    'design_border_style' => '',
+    'design_border_style' => 'dotted',
     'design_border_radius' => '',
     'design_background_image' => '',
     'design_background_image_style' => 'cover',

@@ -5,7 +5,6 @@
 // @koala-append "library/summernote/summernote.min.js"
 // @koala-append "library/summernote/summernote-cleaner.js"
 // @koala-append "library/jquery-ui.js"
-// @koala-append "library/underscore-min.js"
 // @koala-append "library/jquery.serializejson.js"
 // @koala-append "library/select2/select2.full.min.js"
 // @koala-append "library/fontset.js"

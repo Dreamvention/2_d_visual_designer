@@ -1,6 +1,6 @@
 {
     "codename": "d_visual_designer",
-    "version": "2.2.9",
+    "version": "3.0.0",
     "name": "Visual Designer",
     "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
     "index": "extension/module/d_visual_designer",
@@ -45,10 +45,12 @@
         "d_simple_html_dom": ">= 1.0.4",
         "d_twig_manager": ">= 1.4.1",
         "d_bootstrap_extra": ">= 1.0.1",
-        "d_bootstrap_switch": ">= 3.3.5"
+        "d_bootstrap_switch": ">= 3.3.5",
+        "d_riot": ">= 3.5.0"
     },
     "files": [
         "system/library/d_shopunity/extension/d_visual_designer.json",
+        "system/library/d_shortcode_reader_writer.php",
         "system/config/d_visual_designer.php",
         
         "system/config/d_visual_designer_route/category.php",
@@ -68,8 +70,12 @@
         "admin/language/ru-ru/extension/module/d_visual_designer.php",
         "admin/language/russian/extension/module/d_visual_designer.php",
         "admin/model/extension/module/d_visual_designer.php",
-        "admin/view/javascript/d_visual_designer/d_visual_designer.js",
-        "admin/view/javascript/d_visual_designer/filemanager.js",
+        "admin/view/javascript/d_visual_designer/main.js",
+        "admin/view/javascript/d_visual_designer/model/block.js",
+        "admin/view/javascript/d_visual_designer/model/content.js",
+        "admin/view/javascript/d_visual_designer/model/designer.js",
+        "admin/view/javascript/d_visual_designer/model/history.js",
+        "admin/view/javascript/d_visual_designer/model/template.js",
         "admin/view/javascript/d_visual_designer/vd-libraries.min.js",
         "admin/view/javascript/d_visual_designer/vd-libraries.min.css",
         "admin/view/javascript/d_visual_designer/library/select2/fontsList.gif",
@@ -83,7 +89,11 @@
         
         "catalog/controller/extension/event/d_visual_designer.php",
         "catalog/model/extension/module/d_visual_designer.php",
-        "catalog/view/theme/default/javascript/d_visual_designer.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/main.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/model/block.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/model/content.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/model/history.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/model/template.js",
         "catalog/view/theme/default/template/extension/d_visual_designer/designer.twig",
         "catalog/view/theme/default/template/extension/d_visual_designer/filemanager.twig",
         "catalog/view/theme/default/template/extension/d_visual_designer/frontend.twig",
@@ -93,9 +103,9 @@
         "catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.css",
         "catalog/view/javascript/d_visual_designer/library/select2/fontsList.gif",
 
-        "admin/view/template/extension/d_visual_designer/layouts/main.twig",
-        "admin/view/template/extension/d_visual_designer/layouts/medium.twig",
-        "admin/view/template/extension/d_visual_designer/layouts/children.twig",
+        "admin/view/template/extension/d_visual_designer/layouts/vd-layout-children.tag",
+        "admin/view/template/extension/d_visual_designer/layouts/vd-layout-main.tag",
+        "admin/view/template/extension/d_visual_designer/layouts/vd-layout-medium.tag",
 
         "admin/controller/extension/d_visual_designer_module/row.php",
         "admin/controller/extension/d_visual_designer_module/column.php",
@@ -120,14 +130,17 @@
         "admin/language/russian/extension/d_visual_designer_module/text.php",
         "admin/language/russian/extension/d_visual_designer_module/image.php",
 
-        "admin/view/template/extension/d_visual_designer_module/row_setting.twig",
-        "admin/view/template/extension/d_visual_designer_module/row.twig",
-        "admin/view/template/extension/d_visual_designer_module/column_setting.twig",
-        "admin/view/template/extension/d_visual_designer_module/column.twig",
-        "admin/view/template/extension/d_visual_designer_module/text_setting.twig",
+        "admin/view/template/extension/d_visual_designer/content_blocks/vd-block-row.tag",
+        "admin/view/template/extension/d_visual_designer/settings_block/vd-setting-block-row.tag",
+        "admin/view/template/extension/d_visual_designer/layout_blocks/vd-layout-block-row.tag",
+        "admin/view/template/extension/d_visual_designer/content_blocks/vd-block-column.tag",
+        "admin/view/template/extension/d_visual_designer/settings_block/vd-setting-block-column.tag",
+        "admin/view/template/extension/d_visual_designer/content_blocks/vd-block-text.tag",
+        "admin/view/template/extension/d_visual_designer/settings_block/vd-setting-block-text.tag",
+        "admin/view/template/extension/d_visual_designer/content_blocks/vd-block-image.tag",
+        "admin/view/template/extension/d_visual_designer/settings_block/vd-setting-block-image.tag",
+
         "admin/view/template/extension/d_visual_designer_module/text.twig",
-        "admin/view/template/extension/d_visual_designer_module/image_setting.twig",
-        "admin/view/template/extension/d_visual_designer_module/image.twig",
 
         "catalog/controller/extension/d_visual_designer_module/row.php",
         "catalog/controller/extension/d_visual_designer_module/column.php",
@@ -154,18 +167,20 @@
 
         "catalog/model/extension/d_visual_designer_module/image.php",
 
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/row_setting.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/row.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/column_setting.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/column.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/text_setting.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/text.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/image_setting.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer_module/image.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-row.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-row.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-column.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-column.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-text.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-text.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-image.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-image.tag",
 
-        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/main.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/medium.twig",
-        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/children.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/text.twig",
+
+        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-main.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-children.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-medium.tag",
         
         "image/catalog/d_visual_designer/row.svg",
         "image/catalog/d_visual_designer/text.svg",
@@ -178,7 +193,8 @@
         "admin/language/ru-ru/extension/d_visual_designer",
         "admin/language/russian/extension/d_visual_designer",
         "admin/model/extension/d_visual_designer",
-        "admin/view/template/extension/d_visual_designer/component",
+        "admin/view/template/extension/d_visual_designer/components",
+        "admin/view/template/extension/d_visual_designer/popups",
         "admin/view/template/extension/d_visual_designer/partials",
         "admin/view/stylesheet/d_visual_designer",
         "admin/view/image/d_visual_designer",
@@ -192,16 +208,22 @@
         "catalog/language/english/extension/d_visual_designer",
         "catalog/language/ru-ru/extension/d_visual_designer",
         "catalog/language/russian/extension/d_visual_designer",
-        "catalog/view/theme/default/template/extension/d_visual_designer/component",
-        "catalog/view/theme/default/template/extension/d_visual_designer/partials",
+        "catalog/view/theme/default/template/extension/d_visual_designer/components",
+        "catalog/view/theme/default/template/extension/d_visual_designer/popups",
         "catalog/view/theme/default/stylesheet/d_visual_designer",
         "catalog/view/theme/default/image/d_visual_designer",
         "catalog/view/javascript/d_visual_designer/library/bootstrap-colorpicker/img",
         "catalog/view/javascript/d_visual_designer/library/icon-fonts/fonts",
         "catalog/view/javascript/d_visual_designer/library/fontIconPicker/fonts",
-        "catalog/view/javascript/d_visual_designer/library/summernote/font"
+        "catalog/view/javascript/d_visual_designer/library/summernote/font",
+
+        "system/library/d_shortcode_reader_writer"
     ],
     "changelog": [
+        {
+            "version": "3.0.0",
+            "change": "Bug fix"
+        },
         {
             "version": "2.2.9",
             "change": "Bug fix"

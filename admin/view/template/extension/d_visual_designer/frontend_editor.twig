@@ -7,10 +7,17 @@
     <script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
     <link href="view/javascript/bootstrap/css/bootstrap.css" rel="stylesheet" media="all" />
     <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="view/javascript/d_riot/riotcompiler.min.js"></script>
     <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
     <link type="text/css" href="view/stylesheet/stylesheet.css" rel="stylesheet" media="all" />
     <link type="text/css" href="view/stylesheet/d_visual_designer/frontend.css" rel="stylesheet" media="all" />
     <script type="text/javascript">
+        var designers = {
+            items: [],
+            title: {},
+            id: {},
+            active: ''
+        }
         function resize_iframe(){
             var $w_height = $( window ).height(),
             $b_height = $( '.vd-navbar-container' ).height(),
@@ -18,7 +25,28 @@
             $('iframe').height($i_height);
         }
         $(document).ready(function(){
+            riot.mount('*')
             $('iframe').load(function(){
+                designers = {
+                    items: [],
+                    title: {},
+                    id: {},
+                    active: ''
+                }
+                var state = $('iframe')[0].contentWindow.d_visual_designer.state
+
+                for (var designer_id in state.blocks){
+                    designers.items.push(designer_id)
+                    designers.title[designer_id] =state.config.route[designer_id]
+                    designers.id[designer_id] =state.config.id[designer_id]
+                }
+
+                if(designers.items.length > 0) {
+                    designers.active = designers.items[0]
+                }
+                riot.update()
+
+                $('#vd-switcher').show()
                 $('#visual-designer-preloader').hide();
                 $('#visual-designer-preloader-icon').hide();
                 $('iframe').contents().find('body').get(0).onsave_content_success = function() {
@@ -67,22 +95,22 @@
         
                 
         $(document).on('click','#button-save', function (){
-            $('iframe')[0].contentWindow.$('body').trigger('designerSave');
+            $('iframe')[0].contentWindow.$('body').trigger('designerSave', {designer_id: designers.active});
             $('a[id=button-save]').button('loading');
         }); 
         $(document).on('click','#button-save-template', function (){
-            $('iframe')[0].contentWindow.$('body').trigger('designerSaveTemplate');
+            $('iframe')[0].contentWindow.$('body').trigger('designerSaveTemplate', {designer_id: designers.active});
         });
         
         $(document).on('click','#button-add', function (){
-            $('iframe')[0].contentWindow.$('body').trigger('designerAddBlock');
+            $('iframe')[0].contentWindow.$('body').trigger('designerAddBlock', {designer_id: designers.active});
         });
         $(document).on('click','#button-add-template', function (){
-            $('iframe')[0].contentWindow.$('body').trigger('designerTemplate');
+            $('iframe')[0].contentWindow.$('body').trigger('designerTemplate', {designer_id: designers.active});
         });
         
         $(document).on('click','#button-reload', function (){
-            $('iframe').get(0).contentDocument.location.reload(true);;
+            $('iframe').get(0).contentDocument.location.reload(true);
         });
         $(document).on('click','#button-close', function (){
             location.href = '{{url}}';
@@ -130,22 +158,43 @@
     </script>
 </head>
 <body>
-    <div class="vd-navbar-container">
-        <span class="notify"></span>
-            <div class="vd-navbar left-bar">
-                <a id="button-add" class="vd-btn vd-btn-add-block" data-toggle="tooltip" data-placement="bottom" title="{{button_add_block}}"></a>
-                <a id="button-add-template" class="vd-btn vd-btn-add-template" data-toggle="tooltip" data-placement="bottom" title="{{button_add_template}}"></a>
-                <a id="button-save-template" class=" vd-btn vd-btn-save-template" data-toggle="tooltip" data-placement="bottom" title="{{button_save_template}}"></a>
-               <a id="desctop-size" class="vd-btn vd-btn-desktop" data-mode="desktop" data-toggle="tooltip" data-placement="bottom" title="{{button_desktop}}"></a>
-                <a id="tablet-size" class="vd-btn vd-btn-tablet" data-mode="tablet" data-toggle="tooltip" data-placement="bottom" title="{{button_tablet}}"></a>
-                <a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="bottom" title="{{button_mobile}}"></a>
-            </div>
-            <div class="vd-navbar right-bar">
-                <a id="button-backend" data-url="{{backend_url}}">{{button_backend_editor}}</a>
-                <a id="button-save" data-loading-text="Loading...">{{button_publish}}</a>
-                <a id="button-close">{{button_cancel}}</a>
-            </div>
-    </div>
+    <script type="riot/tag">
+        <vd-navbar-container>
+            <span class="notify"></span>
+                <div class="vd-navbar left-bar">
+                    <a id="button-add" class="vd-btn vd-btn-add-block" data-toggle="tooltip" data-placement="bottom" title="{{button_add_block}}"></a>
+                    <a id="button-add-template" class="vd-btn vd-btn-add-template" data-toggle="tooltip" data-placement="bottom" title="{{button_add_template}}"></a>
+                    <a id="button-save-template" class=" vd-btn vd-btn-save-template" data-toggle="tooltip" data-placement="bottom" title="{{button_save_template}}"></a>
+                <a id="desctop-size" class="vd-btn vd-btn-desktop" data-mode="desktop" data-toggle="tooltip" data-placement="bottom" title="{{button_desktop}}"></a>
+                    <a id="tablet-size" class="vd-btn vd-btn-tablet" data-mode="tablet" data-toggle="tooltip" data-placement="bottom" title="{{button_tablet}}"></a>
+                    <a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="bottom" title="{{button_mobile}}"></a>
+                </div>
+                <div class="vd-navbar right-bar">
+                    <div class="vd-switcher" show={designers.items.length > 1}>{designers.title[designers.active]} #{designers.id[designers.active]}<div class="vd-switcher-content" style="left: {left}px;">
+                        <div class="vd-switcher-element {designers.active == designer_id?'active' : ''}" each={designer_id  in designers.items} onClick={designerChange}>{designers.title[designer_id]} #{designers.id[designer_id]}</div>
+                    </div></div>
+                    
+                    <a id="button-backend" data-url="{{backend_url}}">{{button_backend_editor}}</a>
+                    <a id="button-save" data-loading-text="Loading...">{{button_publish}}</a>
+                    <a id="button-close">{{button_cancel}}</a>
+                </div>
+                designerChange(e) {
+                   designers.active = e.item.designer_id
+                }
+                this.on('updated', function(){
+                    var oldLeft = this.left
+                    
+                    width_popup = $('.vd-switcher', this.root).outerWidth()
+                    width_popup_content = $('.vd-switcher-content', this.root).outerWidth()
+
+                    this.left =Math.floor((width_popup - width_popup_content)/2)
+                    if(this.left != oldLeft) {
+                        this.update()
+                    }
+                })
+        </vd-navbar-container>
+    </script>
+    <div data-is="vd-navbar-container"  class="vd-navbar-container"></div>
     <div id="visual-designer-preloader"></div>
     <div id="visual-designer-preloader-icon" class="la-ball-scale-ripple-multiple la-2x"><div></div><div></div><div></div></div>
     <iframe src="{{url}}&edit" onload="resize_iframe()" frameborder="0" border="0"/>

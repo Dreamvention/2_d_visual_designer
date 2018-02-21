@@ -207,7 +207,7 @@
                 content: '';
                 clear: both;
             }
-            &:empty {
+            &:empty, .vd-new-child-block {
                 position: relative;
                 min-height: 100px!important;
                 cursor: pointer;
@@ -669,6 +669,7 @@ span.module_name {
         background: url(../../image/d_visual_designer/delete-gray.svg) no-repeat center;
     }
 }
+
 
 .vd-helper {
     display: -webkit-box;

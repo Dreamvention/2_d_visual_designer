@@ -62,7 +62,7 @@ span.notify {
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px; }
   .vd-navbar.left-bar .vd-btn {
-    display: inline-block;
+    display: block;
     cursor: pointer;
     width: 60px;
     height: 60px;
@@ -72,9 +72,45 @@ span.notify {
       background-color: #56a6e6; }
 .vd-navbar.right-bar {
   float: right;
-  background-color: white;
   box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
-  border-radius: 3px; }
+  border-radius: 3px;
+  background-color: #1F7DC7; }
+  .vd-navbar.right-bar > .vd-switcher {
+    display: block;
+    float: left;
+    position: relative;
+    line-height: 60px;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 0 40px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #308cd6;
+    margin-right: 1px;
+    color: #fff;
+    min-width: 50px;
+    text-transform: capitalize; }
+    .vd-navbar.right-bar > .vd-switcher:hover {
+      background-color: #56a6e6; }
+      .vd-navbar.right-bar > .vd-switcher:hover > .vd-switcher-content {
+        display: block; }
+    .vd-navbar.right-bar > .vd-switcher > .vd-switcher-content {
+      position: absolute;
+      display: none;
+      left: 0;
+      top: 61px;
+      background-color: #308cd6; }
+      .vd-navbar.right-bar > .vd-switcher > .vd-switcher-content > .vd-switcher-element {
+        white-space: nowrap;
+        padding: 0 40px; }
+        .vd-navbar.right-bar > .vd-switcher > .vd-switcher-content > .vd-switcher-element.active {
+          background-color: #56a6e6; }
+        .vd-navbar.right-bar > .vd-switcher > .vd-switcher-content > .vd-switcher-element:hover {
+          background-color: #56a6e6; }
+      .vd-navbar.right-bar > .vd-switcher > .vd-switcher-content:hover {
+        display: block; }
+      .vd-navbar.right-bar > .vd-switcher > .vd-switcher-content.active {
+        display: block; }
   .vd-navbar.right-bar > a {
     display: block;
     float: left;

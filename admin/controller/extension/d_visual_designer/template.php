@@ -13,6 +13,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->load->language('extension/module/d_visual_designer');
         $this->load->model($this->route);
         $this->load->model('extension/module/d_visual_designer');
+        $this->load->model('extension/'.$this->codename.'/designer');
         $this->load->model('extension/d_opencart_patch/url');
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
@@ -31,6 +32,12 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm(true)) {
+
+            foreach ($this->request->post['vd_content'] as $field_name => $setting_json) {
+                $setting = json_decode(html_entity_decode($setting_json, ENT_QUOTES, 'UTF-8'), true);
+                $content = $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($setting);
+                $this->request->post[$field_name] = $content;
+            }
 
             $this->{'model_extension_'.$this->codename.'_template'}->addTemplate($this->request->post);
 
@@ -62,6 +69,12 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+
+            foreach ($this->request->post['vd_content'] as $field_name => $setting_json) {
+                $setting = json_decode(html_entity_decode($setting_json, ENT_QUOTES, 'UTF-8'), true);
+                $content = $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($setting);
+                $this->request->post[$field_name] = $content;
+            }
 
             $this->{'model_extension_'.$this->codename.'_template'}->editTemplate($this->request->get['template_id'], $this->request->post);
 
@@ -325,9 +338,6 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->document->setTitle($this->language->get('heading_title_main'));
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 
-        $this->document->addScript('view/javascript/d_visual_designer/filemanager.js');
-        $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js');
-
         if(VERSION>='2.3.0.0'){
             $this->document->addScript('view/javascript/summernote/summernote.js');
             $this->document->addScript('view/javascript/summernote/opencart.js');
@@ -480,6 +490,13 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
             $data['store_id'] = '';
         }
 
+        $designer_data = array(
+            'config' => 'template',
+            'id' => !empty($this->request->get['template_id'])?$this->request->get['template_id']:false
+            );
+
+        $data['designer'] = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
@@ -572,11 +589,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
             if(!empty($template_info)){
                 $this->load->model('extension/d_visual_designer/designer');
-
-                $result = $this->model_extension_d_visual_designer_designer->parseDescription($template_info['content']);
-                $json['content'] = $result['content'];
-                $json['setting'] = $result['setting'];
-                $json['text'] = $template_info['content'];
+                $json['setting'] = $this->{'model_extension_'.$this->codename.'_designer'}->parseContent($template_info['content']);
                 $json['success'] = 'success';
             }
             else{
@@ -596,29 +609,35 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $json = array();
 
-        if(isset($this->request->post['content'])){
-            $content = $this->request->post['content'];
+        if (isset($this->request->post['setting'])) {
+            $setting = json_decode(html_entity_decode($this->request->post['setting'], ENT_QUOTES, 'UTF-8'), true);
         }
 
-        if(isset($this->request->post['name'])){
+        if (isset($this->request->post['name'])) {
             $name = $this->request->post['name'];
-        } 
+        }
 
-        if(isset($this->request->post['image'])){
+        if (isset($this->request->post['image'])) {
             $image = $this->request->post['image'];
-        } 
+        }
 
-        if(isset($this->request->post['category'])){
+        if (isset($this->request->post['category'])) {
             $category = $this->request->post['category'];
         }
 
+        if (isset($this->request->post['sort_order'])) {
+            $sort_order = $this->request->post['sort_order'];
+        }
+
         if($this->validateForm()){
+            $content = $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($setting);
+
             $template_info = array(
-                'name' => $name,
+                'name'=> $name,
                 'image' => $image,
                 'category' => $category,
                 'content' => $content,
-                'sort_order' => '0'
+                'sort_order' => $sort_order
                 );
             $this->{'model_extension_'.$this->codename.'_template'}->addTemplate($template_info);
             $json['success'] = 'success';

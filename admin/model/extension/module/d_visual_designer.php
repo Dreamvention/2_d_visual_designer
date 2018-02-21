@@ -19,45 +19,77 @@ class ModelExtensionModuleDVisualDesigner extends Model
          PRIMARY KEY (`template_id`)
          )
          COLLATE='utf8_general_ci' ENGINE=MyISAM;");
+        $this->db->query("CREATE TABLE `".DB_PREFIX."visual_designer_content` (
+            `id` INT(11) NOT NULL,
+            `route` VARCHAR(64) NOT NULL,
+            `field` VARCHAR(256) NOT NULL,
+            `content` LONGTEXT NULL,
+            PRIMARY KEY (`id`, `route`, `field`)
+        )
+        COLLATE='utf8_general_ci' ENGINE=MyISAM;");
     }
     
     public function dropDatabase()
     {
         $this->db->query("DROP TABLE IF EXISTS ".DB_PREFIX."visual_designer_template");
+        $this->db->query("DROP TABLE IF EXISTS ".DB_PREFIX."visual_designer_content");
     }
 
-    public function increaseFields()
+    public function getComponents($data)
     {
-        $query = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX."product_description` WHERE field LIKE 'description' AND type = 'text';");
-
-        if ($query->num_rows) {
-            $this->db->query("ALTER TABLE `".DB_PREFIX."product_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
-        }
-
-        $query = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX."category_description` WHERE field LIKE 'description' AND type = 'text';");
-
-        if ($query->num_rows) {
-            $this->db->query("ALTER TABLE `".DB_PREFIX."category_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
-        }
-
-        $query = $this->db->query("SHOW COLUMNS FROM `".DB_PREFIX."information_description` WHERE field LIKE 'description' AND type = 'text';");
-
-        if ($query->num_rows) {
-            $this->db->query("ALTER TABLE `".DB_PREFIX."information_description` CHANGE COLUMN `description` `description` LONGTEXT NOT NULL;");
-        }
-    }
-
-    public function getComponents($data) {
         $result = array();
         $files = glob(DIR_APPLICATION . 'view/template/extension/d_visual_designer/component/*.twig', GLOB_BRACE);
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             $result[basename($file, '.twig')] = 'extension/d_visual_designer/component/'.basename($file);
         }
         
         return $result;
     }
-    
+
+    public function compressRiotTag()
+    {
+        $this->compressRiotTagByFolder(DIR_TEMPLATE.'extension/d_visual_designer/');
+        $this->compressRiotTagByFolder(DIR_CATALOG.'view/theme/default/template/extension/d_visual_designer/');
+    }
+
+    protected function compressRiotTagByFolder($folder)
+    {
+        if (is_dir($folder."compress")) {
+            array_map('unlink', glob($folder."compress/*"));
+        } else {
+            mkdir($folder."compress");
+        }
+
+        $files = glob($folder . 'components/*.tag', GLOB_BRACE);
+
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/component.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+
+        $files = glob($folder . 'popups/*.tag', GLOB_BRACE);
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/popups.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+
+        $files = glob($folder . 'layouts/*.tag', GLOB_BRACE);
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/layouts.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+        $files = glob($folder . 'content_blocks/*.tag', GLOB_BRACE);
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/content_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+        $files = glob($folder . 'settings_block/*.tag', GLOB_BRACE);
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/settings_block.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+        $files = glob($folder . 'layout_blocks/*.tag', GLOB_BRACE);
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/layout_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+    }
+
     public function ajax($link)
     {
         return str_replace('&amp;', '&', $link);
@@ -108,24 +140,24 @@ class ModelExtensionModuleDVisualDesigner extends Model
     /*
     *   Return name of config file.
     */
-    public function getConfigFileName($codename){
-        
-        if(isset($this->request->post['config'])){
+    public function getConfigFileName($codename)
+    {
+        if (isset($this->request->post['config'])) {
             return $this->request->post['config'];
         }
 
         $setting = $this->config->get($codename.'_setting');
 
-        if(isset($setting['config'])){
+        if (isset($setting['config'])) {
             return $setting['config'];
         }
 
         $full = DIR_SYSTEM . 'config/'. $codename . '.php';
         if (file_exists($full)) {
             return $codename;
-        } 
+        }
 
-        foreach ($this->subversions as $subversion){
+        foreach ($this->subversions as $subversion) {
             if (file_exists(DIR_SYSTEM . 'config/'. $codename . '_' . $subversion . '.php')) {
                 return $codename . '_' . $subversion;
             }
@@ -134,28 +166,26 @@ class ModelExtensionModuleDVisualDesigner extends Model
         return false;
     }
 
-    public function getSetting($codename, $prefix = '_setting'){
-
+    public function getSetting($codename, $prefix = '_setting')
+    {
         $store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
         $config_file = $this->getConfigFileName($codename);
         $this->config->load($config_file);
 
         $result = ($this->config->get($codename.$prefix)) ? $this->config->get($codename.$prefix) : array();
 
-        if(!isset($this->request->post['config'])){
-
+        if (!isset($this->request->post['config'])) {
             $this->load->model('setting/setting');
             if (isset($this->request->post[$codename.$prefix])) {
                 $setting = $this->request->post;
-            } elseif ($this->model_setting_setting->getSetting($codename, $store_id)) { 
+            } elseif ($this->model_setting_setting->getSetting($codename, $store_id)) {
                 $setting = $this->model_setting_setting->getSetting($codename, $store_id);
             }
-            if(isset($setting[$codename.$prefix])){
-                foreach($setting[$codename.$prefix] as $key => $value){
+            if (isset($setting[$codename.$prefix])) {
+                foreach ($setting[$codename.$prefix] as $key => $value) {
                     $result[$key] = $value;
                 }
             }
-            
         }
         return $result;
     }
