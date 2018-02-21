@@ -535,8 +535,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
             $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/compress/'.basename($file);
         }
         
-        if (true) {
-        // if (empty($result)) {
+        if (empty($result)) {
             $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
 
             foreach ($files as $file) {

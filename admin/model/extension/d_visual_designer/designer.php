@@ -380,9 +380,9 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     {
         $this->load->model('extension/module/d_visual_designer');
         $result = array();
-        // if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
-        $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
-        // }
+        if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
+            $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+        }
 
         $files = glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*.tag", GLOB_BRACE);
 
