@@ -536,7 +536,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         }
         
         if (empty($result)) {
-            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
+            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,elements,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
 
             foreach ($files as $file) {
                 $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
