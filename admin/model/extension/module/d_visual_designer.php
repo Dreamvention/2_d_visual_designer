@@ -67,6 +67,12 @@ class ModelExtensionModuleDVisualDesigner extends Model
             file_put_contents($folder."compress/component.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
 
+        $files = glob($folder . 'elements/*.tag', GLOB_BRACE);
+
+        foreach ($files as $file) {
+            file_put_contents($folder."compress/elements.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
+        }
+
         $files = glob($folder . 'popups/*.tag', GLOB_BRACE);
         foreach ($files as $file) {
             file_put_contents($folder."compress/popups.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
