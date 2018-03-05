@@ -116,9 +116,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         } elseif ($this->{'model_extension_module_'.$this->codename}->validateEdit($setting['config'], false)&&!empty($setting['id'])) {
             $this->addStyle('stylesheet/d_visual_designer/frontend.css');
 
-            $frontend_url = htmlentities(urlencode($this->store_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$setting['id']));
-
-            $data['edit_url'] = $this->store_url.'admin/index.php?route=extension/d_visual_designer/designer/frontend&'.$url_token.'&url='.$frontend_url.'&route_config='.$setting['config'].'&id='.$setting['id'];
+            $data['edit_url'] = $this->store_url.'admin/index.php?route=extension/d_visual_designer/designer/frontend&'.$url_token.'&config='.$setting['config'].'&id='.$setting['id'];
 
             $data['local'] = $this->prepareLocal(false);
             $data['options'] = $this->prepareOptions(false);
@@ -445,7 +443,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 $result = $this->load->controller($route_info['edit_route'], $saveData);
             }
 
-            if ($result) {
+            if (($setting_module['save_text'] && $result) || !$setting_module['save_text']) {
                 $json['success'] = 'success';
             } else {
                 $json['error'] = 'error';

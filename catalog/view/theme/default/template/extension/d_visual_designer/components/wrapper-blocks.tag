@@ -11,7 +11,6 @@
         this.store.dispatch('popup/addBlock', {parent_id: this.parent_id, designer_id: this.top.opts.id, level: this.level});
     }.bind(this)
 
-
     this.initSortable = function (){
         var parent_root = this.opts.selector ? this.opts.selector : this.parent.root
         var that = this;

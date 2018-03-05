@@ -47,7 +47,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
     {
         if ($this->{'model_extension_'.$this->codename.'_designer'}->validateEdit($setting['config'])) {
             $this->styles[] = 'view/stylesheet/d_visual_designer/d_visual_designer.css?'.rand();
-                
+
             $this->styles[] = 'view/javascript/d_visual_designer/vd-libraries.min.css';
             $this->styles[] = 'view/stylesheet/d_visual_designer/loader.css';
             $this->scripts[] = 'view/javascript/d_riot/riotcompiler.min.js';
@@ -447,8 +447,14 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $data['text_success_remove_block'] = $this->language->get('text_success_remove_block');
 
             $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($config);
+            
+            if (!empty($route_info['frontend_param'])&!empty($id)) {
+                $param = $route_info['frontend_param'].'='.$id;
+            } else {
+                $param = '';
+            }
 
-            $data['url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.$route_info['frontend_param'].'='.$id;
+            $data['url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.$param;
 
             if (!empty($route_info['backend_param'])&!empty($id)) {
                 $param = $route_info['backend_param'].'='.$id;

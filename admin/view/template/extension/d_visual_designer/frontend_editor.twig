@@ -33,17 +33,21 @@
                     id: {},
                     active: ''
                 }
-                var state = $('iframe')[0].contentWindow.d_visual_designer.state
+                
+                if(typeof $('iframe')[0].contentWindow.d_visual_designer != 'undefined') {
+                    var state = $('iframe')[0].contentWindow.d_visual_designer.state
 
-                for (var designer_id in state.blocks){
-                    designers.items.push(designer_id)
-                    designers.title[designer_id] =state.config.route[designer_id]
-                    designers.id[designer_id] =state.config.id[designer_id]
-                }
+                    for (var designer_id in state.blocks){
+                        designers.items.push(designer_id)
+                        designers.title[designer_id] =state.config.route[designer_id]
+                        designers.id[designer_id] =state.config.id[designer_id]
+                    }
 
-                if(designers.items.length > 0) {
-                    designers.active = designers.items[0]
+                    if(designers.items.length > 0) {
+                        designers.active = designers.items[0]
+                    }
                 }
+               
                 riot.update()
 
                 $('#vd-switcher').show()

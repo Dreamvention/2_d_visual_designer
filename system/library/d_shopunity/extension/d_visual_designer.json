@@ -170,6 +170,7 @@
 
         "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-row.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-row.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/layout_blocks/vd-layout-block-row.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-column.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-column.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-text.tag",

@@ -64,7 +64,7 @@
         <label class="control-label">{store.getLocal('blocks.column.entry_float')}</label>
         <div class="fg-setting">
             <input type="hidden" name="float" value="0" />
-            <input type="checkbox" name="float" class="switcher" data-label-text="{store.getLocal('blocks.column.text_enabled')}" checked={setting.global.float} value="1"  onChange={change}/>
+            <input type="checkbox" name="float" class="switcher" data-label-text="{store.getLocal('blocks.column.text_enabled')}" checked={setting.global.float} value="1"/>
         </div>
     </div>
     <div class="form-group" id="align">
@@ -95,6 +95,10 @@
                 'onText': this.store.getLocal('blocks.row.text_yes'),
                 'offText': this.store.getLocal('blocks.row.text_no')
             });
+            $(".switcher[type='checkbox']", this.root).on('switchChange.bootstrapSwitch', function(e, state) {
+                this.setting.global[e.target.name] = state
+                this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
+            }.bind(this));
         })
     </script>
 </vd-setting-block-column>

@@ -3,10 +3,36 @@
         this.top = this.parent ? this.parent.top : this
         this.level = this.parent.level
         this.mixin({store:d_visual_designer})
+        this.initParentSetting = function(){
+            this.block_parent = this.store.getState().blocks[this.top.opts.id][this.opts.block.parent]
+        }
         this.initStyle = function(){
             var element = this.parent.root
             var setting = this.opts.block.setting.global
-            if( setting.design_margin_top){
+
+            if(this.opts.block.parent !== '' && !_.isUndefined(this.block_parent.setting.global.float) && this.block_parent.setting.global.float){
+                $(element).css({'float': 'left', 'width': 'auto'});
+                if(this.block_parent.setting.global.align) {
+                    if(this.block_parent.setting.global.align == 'left') {
+                        $(element).css({'float': 'left'})
+                    }
+                    if(this.block_parent.setting.global.align == 'right') {
+                        $(element).css({'float': 'right'})
+                    }
+                }
+            } else {
+                $(element).css({'float': '', 'width': ''});
+            }
+
+            if(setting.align && setting.float) {
+                if(setting.align == 'center') {
+                    $(element).children('.block-content').css({'display': 'flex', 'justify-content': 'center'})
+                } else {
+                    $(element).children('.block-content').css({'display': '', 'justify-content': ''})
+                }
+            }
+
+            if(setting.design_margin_top){
                 $(element).css({'margin-top': setting.design_margin_top})
             }
             if( setting.design_margin_left){
@@ -76,8 +102,16 @@
                 }
             }
         }
+        this.initParentSetting();
         this.initStyle();
+
+        this.on('mount', function(){
+            this.initParentSetting();
+            this.initStyle();
+        })
+
         this.on('update', function(){
+            this.initParentSetting()
             this.initStyle()
         })
     </script>
