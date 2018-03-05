@@ -1,4 +1,4 @@
-<vd-layout-children class="block-child block-container {className}" id="{opts.block.id}">
+<vd-layout-children class="block-child block-container {className}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
     <div class="control control-{block_config.setting.control_position}" if={permission}>
         <virtual data-is="control-buttons" block={opts.block}/>
     </div>
@@ -8,6 +8,7 @@
         this.top = this.parent ? this.parent.top : this
         this.level = this.parent.level
         this.block_setting = this.opts.block.setting.global
+        this.setting = this.opts.block.setting.global
 
         this.mixin({store:d_visual_designer})
         this.block_config = _.find(this.store.getState().config.blocks, function(block){

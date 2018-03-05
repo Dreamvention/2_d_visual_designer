@@ -103,6 +103,7 @@ $_['entry_border_radius']            = 'Border Radius(px)';
 $_['entry_animate']                  = 'CCS animation';
 $_['entry_show_on']                  = 'Display on:';
 $_['entry_background']               = 'Background';
+$_['entry_id']                       = 'Block ID';
 $_['entry_additional_css_class']     = 'Additional CSS class';
 $_['entry_additional_css_before']    = 'Before';
 $_['entry_additional_css_content']   = 'Main element';

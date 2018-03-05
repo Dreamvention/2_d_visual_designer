@@ -1,4 +1,4 @@
-<vd-layout-main class="block-parent block-container {className} {opts.block.id}" id={opts.block.id}>
+<vd-layout-main class="block-parent block-container {className} {opts.block.id}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
     <virtual if={permission}>
         <div class="block-mouse-toggle"></div>
         <div class="control control-{block_config.setting.control_position}">

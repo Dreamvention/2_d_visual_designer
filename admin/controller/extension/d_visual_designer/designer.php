@@ -245,6 +245,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $local['designer']['entry_animate'] = $this->language->get('entry_animate');
         $local['designer']['entry_show_on'] = $this->language->get('entry_show_on');
         $local['designer']['entry_background'] = $this->language->get('entry_background');
+        $local['designer']['entry_id'] = $this->language->get('entry_id');
         $local['designer']['entry_additional_css_class'] = $this->language->get('entry_additional_css_class');
         $local['designer']['entry_additional_css_before'] = $this->language->get('entry_additional_css_before');
         $local['designer']['entry_additional_css_content'] = $this->language->get('entry_additional_css_content');

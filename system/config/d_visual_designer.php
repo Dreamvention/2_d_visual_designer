@@ -34,6 +34,7 @@ $_['d_visual_designer_default_block_setting'] = array(
     'design_background' => '',
     'design_animate' => '',
     'design_show_on' => array('show_desktop', 'show_mobile', 'show_tablet'),
+    'id' => '',
     'additional_css_class' => '',
     'additional_css_before' => '',
     'additional_css_content' => '',

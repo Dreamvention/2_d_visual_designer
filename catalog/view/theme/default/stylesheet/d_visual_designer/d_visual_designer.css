@@ -8183,7 +8183,8 @@
     padding: 12px 0px;
     border: 0px;
     border-radius: 0px;
-    background-color: #308cd6; }
+    background-color: #308cd6;
+    margin: 0 !important; }
     .vd .control-advanced > a:first-child {
       border-top-left-radius: 3px;
       border-bottom-left-radius: 3px; }
@@ -8205,6 +8206,7 @@
     height: 40px !important;
     padding: 12px 0px !important;
     border: 0px;
+    margin: 0 !important;
     border-radius: 0px;
     background-color: #4c5866; }
     .vd .control-section-accordion > a:last-child {
@@ -8229,6 +8231,7 @@
     height: 40px !important;
     padding: 12px 0px !important;
     border: 0px;
+    margin: 0 !important;
     border-radius: 0px;
     background-color: #4c5866; }
     .vd .accordion-control > a:hover {
@@ -8239,6 +8242,7 @@
   height: 40px !important;
   padding: 12px 0px !important;
   border: 0px;
+  margin: 0 !important;
   border-radius: 0px;
   background-color: #4c5866; }
   .vd .tab-control > a:hover {
@@ -8258,6 +8262,7 @@
     padding: 0px;
     padding: 12px 0px;
     border: 0px;
+    margin: 0 !important;
     border-radius: 0px;
     background-color: #f4c000; }
     .vd .control-section > a:hover {
@@ -8286,6 +8291,7 @@
     height: 40px;
     padding: 0px;
     padding: 12px 0px;
+    margin: 0 !important;
     border: 0px;
     border-radius: 0px;
     background-color: #f4c000; }
@@ -8320,6 +8326,7 @@
     height: 40px;
     cursor: pointer;
     border: 0px;
+    margin: 0 !important;
     border-radius: 0px;
     background-color: #72b338 !important; }
     .vd .control-top-bordered > a:hover {
@@ -8356,6 +8363,7 @@
     height: 40px;
     cursor: pointer !important;
     border: 0px;
+    margin: 0 !important;
     border-radius: 0px;
     background-color: #72b338;
     font-size: 16px !important;

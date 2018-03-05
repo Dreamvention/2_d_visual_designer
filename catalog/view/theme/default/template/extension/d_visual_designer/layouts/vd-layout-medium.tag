@@ -1,4 +1,4 @@
-<vd-layout-medium class="block-inner block-container col-md-offset-{block_setting.offset} col-md-{block_setting.size} {className}" id={opts.block.id}>
+<vd-layout-medium class="block-inner block-container col-md-offset-{block_setting.offset} col-md-{block_setting.size} {className}" data-id="{opts.block.id}" id={block_setting.id? block_setting.id:null}>
     <virtual if={permission}>
         <div class="block-mouse-toggle"></div>
         <div class="control control-{block_config.setting.control_position}">

@@ -26,7 +26,7 @@
                     } else {
                         var type = "child";
                     }
-                    var block_id = $(ui).closest('.block-container').attr('id')
+                    var block_id = $(ui).closest('.block-container').data('id')
                     var block_info = that.store.getState().blocks[that.top.opts.id][block_id]
                     var block_config = _.find(that.store.getState().config.blocks, function(block){
                         return block.type == block_info.type
@@ -45,8 +45,8 @@
                 handle: this.parent_id == ''? ' > .control > .drag' :' .drag',
                 tolerance: 'intersect',
                 receive: function(event, ui) {
-                    var block_id = $(ui.item).closest('.block-container').attr('id')
-                    var parent_id = $(ui.item).parent().closest('.block-container').attr('id')
+                    var block_id = $(ui.item).closest('.block-container').data('id')
+                    var parent_id = $(ui.item).parent().closest('.block-container').data('id')
                     that.store.dispatch('block/move', {block_id: block_id, target: parent_id, designer_id: that.top.opts.id})
                     ui.sender.sortable("cancel");
                 }

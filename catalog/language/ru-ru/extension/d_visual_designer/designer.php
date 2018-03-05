@@ -106,6 +106,7 @@ $_['entry_border_radius']            = 'Border Radius(px)';
 $_['entry_animate']                  = 'Анимация';
 $_['entry_show_on']                  = 'Паказывать на:';
 $_['entry_background']               = 'Цвет фона';
+$_['entry_id']                       = 'ID блока';
 $_['entry_additional_css_class']     = 'Дополнительный CSS класс';
 $_['entry_additional_css_before']    = 'До';
 $_['entry_additional_css_content']   = 'Основной элемент';
