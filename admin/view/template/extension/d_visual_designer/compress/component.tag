@@ -125,51 +125,6 @@
     this.on('mount', this.set)
 </script>
 </raw>
-<vd-summernote>
-    <textarea class="form-control" name={opts.name}>{opts.riotValue}</textarea>
-<script>
-    this.on('mount', function(){
-        $('textarea', this.root).summernote({
-            height:'200px',
-            disableDragAndDrop: true,
-            toolbar: [
-                ['style', ['style']],
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['height', ['height']],
-                ['insert', ['link']],
-                ['cleaner',['cleaner']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ],
-            cleaner:{
-                notTime: 2400,
-                action: 'both',
-                newline: '<br>',
-                notStyle: 'position:absolute;top:0;left:0;right:0',
-                icon: '<i class="fa fa-eraser" aria-hidden="true"></i>',
-                keepHtml: false,
-                keepClasses: false,
-                badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'],
-                badAttributes: ['style', 'start']
-            },
-            onChange: function(contents, $editable) {
-                    this.opts.change(this.opts.name, contents)
-
-            }.bind(this),
-            callbacks : {
-                onChange: function(contents, $editable) {
-                    this.opts.change(this.opts.name, contents)
-                }.bind(this)
-            }
-        });
-    })
-</script>
-</vd-summernote>
 <visual-designer>
     <div class="vd mode_switch btn-group" role="group">
         <a id="button_classic" class="btn btn-default" hide={store.getState().config.mode[opts.id] == 'classic'} onClick={modeClassic}><formatted-message path='designer.text_classic_mode'/></a>

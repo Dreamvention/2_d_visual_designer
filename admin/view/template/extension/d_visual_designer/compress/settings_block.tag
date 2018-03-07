@@ -11,7 +11,7 @@
         <label class="control-label">{store.getLocal('blocks.column.entry_offset')}</label>
         <div class="fg-setting">
             <select name="offset" class="form-control" onChange={change}>
-                <option value="0" selected={setting.global.offset == '' || setting.global.offset == 0}>{store.getLocal('blocks.column.text_none')}</option>
+                <option value="" selected={setting.global.offset == ''}>{store.getLocal('blocks.column.text_none')}</option>
                 <option each={value, key in store.getOptions('blocks.column.sizes')} value="{key}" selected={key == setting.global.offset}>{value}</option>
             </select>
         </div>
@@ -64,14 +64,14 @@
         <label class="control-label">{store.getLocal('blocks.column.entry_float')}</label>
         <div class="fg-setting">
             <input type="hidden" name="float" value="0" />
-            <input type="checkbox" name="float" class="switcher" data-label-text="{store.getLocal('blocks.column.text_enabled')}" checked={setting.global.float} value="1"  onChange={change}/>
+            <input type="checkbox" name="float" class="switcher" data-label-text="{store.getLocal('blocks.column.text_enabled')}" checked={setting.global.float} value="1"/>
         </div>
     </div>
     <div class="form-group" id="align">
         <label class="control-label">{store.getLocal('blocks.column.entry_align')}</label>
         <div class="fg-setting">
             <div class="btn-group" data-toggle="buttons">
-                <label each={value, key in store.getOptions('blocks.column.aligns')} class="btn btn-success {setting.global.align == key?'active':''}">
+                <label each={value, key in store.getOptions('blocks.column.aligns')} class="btn btn-success {setting.global.align == key?'active':''}" onClick={changeRadioGroup}>
                     <input type="radio" name="align" value="{key}" checked={setting.global.align == key} onChange={change}>{value}
                 </label>
             </div>
@@ -89,12 +89,20 @@
             this.setting.global[e.target.name] = e.target.value
             this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
         }
+        changeRadioGroup(e){
+            this.setting.global[e.target.childNodes[1].name] = e.target.childNodes[1].value
+            this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
+        }
         this.on('mount', function(){
             $(".switcher[type='checkbox']", this.root).bootstrapSwitch({
                 'onColor': 'success',
                 'onText': this.store.getLocal('blocks.row.text_yes'),
                 'offText': this.store.getLocal('blocks.row.text_no')
             });
+            $(".switcher[type='checkbox']", this.root).on('switchChange.bootstrapSwitch', function(e, state) {
+                this.setting.global[e.target.name] = state
+                this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
+            }.bind(this));
         })
     </script>
 </vd-setting-block-column>

@@ -771,6 +771,12 @@
             </div>
             <div class="tab-pane" id="tab-css-block">
                 <div class="form-group">
+                    <label class="control-label">{store.getLocal('designer.entry_id')}</label>
+                    <div class="fg-setting">
+                        <input type="text" name="id" class="form-control"  value="{setting.global.id}" onchange={change}/>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_additional_css_class')}</label>
                     <div class="fg-setting">
                         <input type="text" name="additional_css_class" class="form-control" value="{setting.global.additional_css_class}" onChange={change}>

@@ -297,7 +297,7 @@
                 border-radius: 5px;
             }
             &.active-control {
-                >.control {
+                & > * > .control, >.control {
                     visibility: visible;
                     opacity: 1;
                     -webkit-animation: bounce-bottom 0.9s  both;
@@ -306,7 +306,7 @@
                 }
             }
             &.deactive-control{
-                > .control{
+                & > * > .control, >.control {
                     -webkit-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                     -moz-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                     animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
@@ -330,14 +330,14 @@
                 opacity: 1;
             }
             &.active-control {
-                >.control {
+                & > * > .control, >.control {
                     visibility: visible;
                     opacity: 1;
                     -webkit-animation: bounce-bottom 0.9s 0.18s  both;
                     -moz-animation: bounce-bottom 0.9s 0.18s both;
                     animation: bounce-bottom 0.9s 0.18s both;
                 }
-                >.control-top-bordered {
+                & > * > .control-top-bordered, >.control-top-bordered {
                     display: -webkit-box;
                     display: -ms-flexbox;
                     display: flex;
@@ -351,7 +351,7 @@
                 }
             }
             &.deactive-control{
-                > .control{
+                & > * > .control, >.control {
                     -webkit-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                     -moz-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                     animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;

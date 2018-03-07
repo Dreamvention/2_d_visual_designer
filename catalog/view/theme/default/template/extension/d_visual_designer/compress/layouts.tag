@@ -1,4 +1,4 @@
-<vd-layout-children class="block-child block-container {className}" id="{opts.block.id}">
+<vd-layout-children class="block-child block-container {className}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
     <div class="control control-{block_config.setting.control_position}" if={permission}>
         <virtual data-is="control-buttons" block={opts.block}/>
     </div>
@@ -8,6 +8,7 @@
         this.top = this.parent ? this.parent.top : this
         this.level = this.parent.level
         this.block_setting = this.opts.block.setting.global
+        this.setting = this.opts.block.setting.global
 
         this.mixin({store:d_visual_designer})
         this.block_config = _.find(this.store.getState().config.blocks, function(block){
@@ -46,7 +47,7 @@
         })
     </script>
 </vd-layout-children>
-<vd-layout-main class="block-parent block-container {className} {opts.block.id}" id={opts.block.id}>
+<vd-layout-main class="block-parent block-container {className} {opts.block.id}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
     <virtual if={permission}>
         <div class="block-mouse-toggle"></div>
         <div class="control control-{block_config.setting.control_position}">
@@ -118,7 +119,7 @@
         })
     </script>
 </vd-layout-main>
-<vd-layout-medium class="block-inner block-container col-md-offset-{block_setting.offset} col-md-{block_setting.size} {className}" id={opts.block.id}>
+<vd-layout-medium class="block-inner block-container col-md-offset-{block_setting.offset} col-md-{block_setting.size} {className}" data-id="{opts.block.id}" id={block_setting.id? block_setting.id:null}>
     <virtual if={permission}>
         <div class="block-mouse-toggle"></div>
         <div class="control control-{block_config.setting.control_position}">

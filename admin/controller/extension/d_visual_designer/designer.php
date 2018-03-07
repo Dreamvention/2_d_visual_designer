@@ -364,6 +364,18 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 'bounce_jump' => $this->language->get('text_bounce_jump')
                 );
 
+        $options['designer']['libraries'] = array(
+            'fontawesome' => 'Font Awesome',
+            'glyphicon' => 'Glyphicons',
+            'ionicons' => 'Open Ionic',
+            'mapicons' => 'Map Icons',
+            'material' => 'Material Design Iconic Font',
+            'typeicon' => 'Typeicons',
+            'elusive' => 'Elusive Icons',
+            'octicon' => 'Octicons',
+            'weather' => 'Weather Icons'
+        );
+
         $blocks = $this->{'model_extension_'.$this->codename.'_designer'}->getBlocks();
 
         $options['blocks'] = array();

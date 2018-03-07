@@ -294,6 +294,18 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 'mk-floating-horizontal' => $this->language->get('text_mk_floating_horizontal'),
                 'bounce_jump' => $this->language->get('text_bounce_jump'),
                 );
+
+            $options['designer']['libraries'] = array(
+                'fontawesome' => 'Font Awesome',
+                'glyphicon' => 'Glyphicons',
+                'ionicons' => 'Open Ionic',
+                'mapicons' => 'Map Icons',
+                'material' => 'Material Design Iconic Font',
+                'typeicon' => 'Typeicons',
+                'elusive' => 'Elusive Icons',
+                'octicon' => 'Octicons',
+                'weather' => 'Weather Icons'
+            );
         }
 
         $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();

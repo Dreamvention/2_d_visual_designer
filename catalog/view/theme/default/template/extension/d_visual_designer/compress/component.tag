@@ -129,10 +129,36 @@
         this.top = this.parent ? this.parent.top : this
         this.level = this.parent.level
         this.mixin({store:d_visual_designer})
+        this.initParentSetting = function(){
+            this.block_parent = this.store.getState().blocks[this.top.opts.id][this.opts.block.parent]
+        }
         this.initStyle = function(){
             var element = this.parent.root
             var setting = this.opts.block.setting.global
-            if( setting.design_margin_top){
+
+            if(this.opts.block.parent !== '' && !_.isUndefined(this.block_parent.setting.global.float) && this.block_parent.setting.global.float){
+                $(element).css({'float': 'left', 'width': 'auto'});
+                if(this.block_parent.setting.global.align) {
+                    if(this.block_parent.setting.global.align == 'left') {
+                        $(element).css({'float': 'left'})
+                    }
+                    if(this.block_parent.setting.global.align == 'right') {
+                        $(element).css({'float': 'right'})
+                    }
+                }
+            } else {
+                $(element).css({'float': '', 'width': ''});
+            }
+
+            if(setting.align && setting.float) {
+                if(setting.align == 'center') {
+                    $(element).children('.block-content').css({'display': 'flex', 'justify-content': 'center'})
+                } else {
+                    $(element).children('.block-content').css({'display': '', 'justify-content': ''})
+                }
+            }
+
+            if(setting.design_margin_top){
                 $(element).css({'margin-top': setting.design_margin_top})
             }
             if( setting.design_margin_left){
@@ -202,8 +228,16 @@
                 }
             }
         }
+        this.initParentSetting();
         this.initStyle();
+
+        this.on('mount', function(){
+            this.initParentSetting();
+            this.initStyle();
+        })
+
         this.on('update', function(){
+            this.initParentSetting()
             this.initStyle()
         })
     </script>
@@ -232,51 +266,6 @@
 
 </script>
 </vd-content>
-<vd-summernote>
-    <textarea class="form-control" name={opts.name}>{opts.riotValue}</textarea>
-<script>
-    this.on('mount', function(){
-        $('textarea', this.root).summernote({
-            height:'200px',
-            disableDragAndDrop: true,
-            toolbar: [
-                ['style', ['style']],
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['height', ['height']],
-                ['insert', ['link']],
-                ['cleaner',['cleaner']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ],
-            cleaner:{
-                notTime: 2400,
-                action: 'both',
-                newline: '<br>',
-                notStyle: 'position:absolute;top:0;left:0;right:0',
-                icon: '<i class="fa fa-eraser" aria-hidden="true"></i>',
-                keepHtml: false,
-                keepClasses: false,
-                badTags: ['style', 'script', 'applet', 'embed', 'noframes', 'noscript', 'html'],
-                badAttributes: ['style', 'start']
-            },
-            onChange: function(contents, $editable) {
-                    this.opts.change(this.opts.name, contents)
-
-            }.bind(this),
-            callbacks : {
-                onChange: function(contents, $editable) {
-                    this.opts.change(this.opts.name, contents)
-                }.bind(this)
-            }
-        });
-    })
-</script>
-</vd-summernote>
 <visual-designer>
     <div class="content vd">
         <div class="vd" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+top.opts.id+" #sortable"}/></div>
@@ -384,7 +373,6 @@
         this.store.dispatch('popup/addBlock', {parent_id: this.parent_id, designer_id: this.top.opts.id, level: this.level});
     }.bind(this)
 
-
     this.initSortable = function (){
         var parent_root = this.opts.selector ? this.opts.selector : this.parent.root
         var that = this;
@@ -400,7 +388,7 @@
                     } else {
                         var type = "child";
                     }
-                    var block_id = $(ui).closest('.block-container').attr('id')
+                    var block_id = $(ui).closest('.block-container').data('id')
                     var block_info = that.store.getState().blocks[that.top.opts.id][block_id]
                     var block_config = _.find(that.store.getState().config.blocks, function(block){
                         return block.type == block_info.type
@@ -419,8 +407,8 @@
                 handle: this.parent_id == ''? ' > .control > .drag' :' .drag',
                 tolerance: 'intersect',
                 receive: function(event, ui) {
-                    var block_id = $(ui.item).closest('.block-container').attr('id')
-                    var parent_id = $(ui.item).parent().closest('.block-container').attr('id')
+                    var block_id = $(ui.item).closest('.block-container').data('id')
+                    var parent_id = $(ui.item).parent().closest('.block-container').data('id')
                     that.store.dispatch('block/move', {block_id: block_id, target: parent_id, designer_id: that.top.opts.id})
                     ui.sender.sortable("cancel");
                 }

@@ -11,7 +11,7 @@
         <label class="control-label">{store.getLocal('blocks.column.entry_offset')}</label>
         <div class="fg-setting">
             <select name="offset" class="form-control" onChange={change}>
-                <option value="0" selected={setting.global.offset == '' || setting.global.offset == 0}>{store.getLocal('blocks.column.text_none')}</option>
+                <option value="" selected={setting.global.offset == ''}>{store.getLocal('blocks.column.text_none')}</option>
                 <option each={value, key in store.getOptions('blocks.column.sizes')} value="{key}" selected={key == setting.global.offset}>{value}</option>
             </select>
         </div>
@@ -71,7 +71,7 @@
         <label class="control-label">{store.getLocal('blocks.column.entry_align')}</label>
         <div class="fg-setting">
             <div class="btn-group" data-toggle="buttons">
-                <label each={value, key in store.getOptions('blocks.column.aligns')} class="btn btn-success {setting.global.align == key?'active':''}">
+                <label each={value, key in store.getOptions('blocks.column.aligns')} class="btn btn-success {setting.global.align == key?'active':''}" onClick={changeRadioGroup}>
                     <input type="radio" name="align" value="{key}" checked={setting.global.align == key} onChange={change}>{value}
                 </label>
             </div>
@@ -87,6 +87,10 @@
         })
         change(e){
             this.setting.global[e.target.name] = e.target.value
+            this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
+        }
+        changeRadioGroup(e){
+            this.setting.global[e.target.childNodes[1].name] = e.target.childNodes[1].value
             this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
         }
         this.on('mount', function(){

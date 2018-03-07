@@ -8823,13 +8823,13 @@
     opacity: 1; }
   .content.vd .block-parent.active-border {
     border-radius: 5px; }
-  .content.vd .block-parent.active-control > .control {
+  .content.vd .block-parent.active-control > * > .control, .content.vd .block-parent.active-control > .control {
     visibility: visible;
     opacity: 1;
     -webkit-animation: bounce-bottom 0.9s  both;
     -moz-animation: bounce-bottom 0.9s  both;
     animation: bounce-bottom 0.9s  both; }
-  .content.vd .block-parent.deactive-control > .control {
+  .content.vd .block-parent.deactive-control > * > .control, .content.vd .block-parent.deactive-control > .control {
     -webkit-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     -moz-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) both; }
@@ -8845,19 +8845,19 @@
   .content.vd .block-inner > .control:hover ~ .vd-border {
     visibility: visible;
     opacity: 1; }
-  .content.vd .block-inner.active-control > .control {
+  .content.vd .block-inner.active-control > * > .control, .content.vd .block-inner.active-control > .control {
     visibility: visible;
     opacity: 1;
     -webkit-animation: bounce-bottom 0.9s 0.18s  both;
     -moz-animation: bounce-bottom 0.9s 0.18s both;
     animation: bounce-bottom 0.9s 0.18s both; }
-  .content.vd .block-inner.active-control > .control-top-bordered {
+  .content.vd .block-inner.active-control > * > .control-top-bordered, .content.vd .block-inner.active-control > .control-top-bordered {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex; }
   .content.vd .block-inner.active-control > .block-content:empty:before {
     z-index: 1003; }
-  .content.vd .block-inner.deactive-control > .control {
+  .content.vd .block-inner.deactive-control > * > .control, .content.vd .block-inner.deactive-control > .control {
     -webkit-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     -moz-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
     animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.55, 0.085, 0.68, 0.53) both; }
