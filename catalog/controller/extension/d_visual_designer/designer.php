@@ -367,7 +367,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $results = $this->{'model_extension_module_'.$this->codename}->getTemplates();
 
         foreach ($results as $template) {
-            if (file_exists(DIR_IMAGE.$template['image'])) {
+            if ($template['image'] && file_exists(DIR_IMAGE.$template['image'])) {
                 $image = $this->model_tool_image->resize($template['image'], 160, 205);
             } else {
                 $image = $this->model_tool_image->resize('no_image.png', 160, 205);
