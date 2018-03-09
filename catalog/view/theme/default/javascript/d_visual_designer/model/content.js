@@ -15,7 +15,6 @@
             type: 'post',
             data: send_data,
             success: function(json){
-                console.log(json)
                 if(json.success) {
                     $('body').trigger('save_content_success');
                 } else {

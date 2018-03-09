@@ -11,7 +11,6 @@
                 iconsPerPage: 1000
             }).on('change', function(e){
                 if(that.opts.riotValue !== $(this).val()) {
-                    console.log(e)
                     $('input[name="'+that.opts.name+'"]', that.root).val($(this).val())
                     that.opts.change(e)
                 }
