@@ -331,16 +331,24 @@
             left: 37px; }
           .content .vd-designer .block-container .control-top > .vd-btn.vd-btn-remove {
             right: 5px; }
-      .content .vd-designer .block-container .control-popup > .vd-btn {
+      .content .vd-designer .block-container .control-popup {
         position: absolute;
-        top: auto;
-        bottom: auto; }
-        .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-edit {
-          left: 5px; }
-        .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-copy {
-          left: 37px; }
-        .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-remove {
-          right: 5px; }
+        display: flex;
+        align-items: center;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0; }
+        .content .vd-designer .block-container .control-popup > .vd-btn {
+          position: absolute;
+          top: auto;
+          bottom: auto; }
+          .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-edit {
+            left: 5px; }
+          .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-copy {
+            left: 37px; }
+          .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-remove {
+            right: 5px; }
       .content .vd-designer .block-container > .block-content {
         position: relative; }
         .content .vd-designer .block-container > .block-content > .vd-new-child-block {
@@ -1294,6 +1302,7 @@ span.module_name {
 
 .helper-sortable {
   position: absolute;
+  cursor: pointer !important;
   z-index: 1006;
   display: flex;
   box-sizing: border-box;

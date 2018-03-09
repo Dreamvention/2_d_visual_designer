@@ -52,15 +52,23 @@
     .control-top > .vd-btn.vd-btn-remove {
       right: 5px; }
 
-.control-popup > .vd-btn {
+.control-popup {
   position: absolute;
-  top: auto;
-  bottom: auto; }
-  .control-popup > .vd-btn.vd-btn-edit {
-    left: 5px; }
-  .control-popup > .vd-btn.vd-btn-copy {
-    left: 37px; }
-  .control-popup > .vd-btn.vd-btn-remove {
-    right: 5px; }
+  display: flex;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  .control-popup > .vd-btn {
+    position: absolute;
+    top: auto;
+    bottom: auto; }
+    .control-popup > .vd-btn.vd-btn-edit {
+      left: 5px; }
+    .control-popup > .vd-btn.vd-btn-copy {
+      left: 37px; }
+    .control-popup > .vd-btn.vd-btn-remove {
+      right: 5px; }
 
 /*# sourceMappingURL=control.css.map */

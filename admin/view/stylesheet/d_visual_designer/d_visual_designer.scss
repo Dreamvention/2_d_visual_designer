@@ -1364,6 +1364,7 @@ span.module_name {
 
 .helper-sortable {
     position: absolute;
+    cursor: pointer!important;
     z-index: 1006;
     display: flex;
     box-sizing: border-box;

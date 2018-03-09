@@ -66,6 +66,13 @@
     }
 }
 .control-popup {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     > .vd-btn {
         position: absolute;
         top:auto;
