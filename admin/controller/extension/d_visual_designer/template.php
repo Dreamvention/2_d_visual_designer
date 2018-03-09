@@ -263,7 +263,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         
         foreach ($results as $result) {
 
-            if(file_exists(DIR_IMAGE.$result['image'])){
+            if($result['image'] && file_exists(DIR_IMAGE.$result['image'])){
                 $image = $this->model_tool_image->resize($result['image'], 50,50);
             }
             else{
@@ -457,7 +457,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         
         $this->load->model('tool/image');
         
-        if(file_exists(DIR_IMAGE.$data['image'])){
+        if($data['image'] && file_exists(DIR_IMAGE.$data['image'])){
             $data['thumb'] = $this->model_tool_image->resize($data['image'], 100, 100);
         }
         else{
