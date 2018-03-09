@@ -287,7 +287,8 @@
             }
         }
         .block-parent {
-            z-index: 2;
+            //TODO unknown property
+            //z-index: 2;
             min-height: 65px;
             >.control:hover~.vd-border {
                 visibility: visible;

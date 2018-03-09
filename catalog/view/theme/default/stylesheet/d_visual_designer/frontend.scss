@@ -20,7 +20,8 @@
 }
 .block-container{
     padding: 0px;
-    z-index:10;
+    //TODO unknown property
+    //z-index:10;
 
     &:not(.show_mobile) {
         @media only screen and (min-device-width : 320px) and (max-device-width : 767px) {

@@ -8816,7 +8816,6 @@
     .content.vd .block-container:not(.show_desktop) {
       opacity: 0.5; } }
 .content.vd .block-parent {
-  z-index: 2;
   min-height: 65px; }
   .content.vd .block-parent > .control:hover ~ .vd-border {
     visibility: visible;

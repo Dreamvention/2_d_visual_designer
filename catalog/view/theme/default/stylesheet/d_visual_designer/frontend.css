@@ -7585,8 +7585,7 @@
     margin-bottom: 0; }
 
 .block-container {
-  padding: 0px;
-  z-index: 10; }
+  padding: 0px; }
   @media only screen and (min-device-width: 320px) and (max-device-width: 767px) {
     .block-container:not(.show_mobile) {
       display: none; } }
