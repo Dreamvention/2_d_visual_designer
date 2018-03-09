@@ -88,7 +88,7 @@
             this.store.dispatch('designer/frontend', {designer_id: this.top.opts.id, form: $(this.root).closest('form')})
         }
         this.on('update', function(){
-          this.emptyDesigner = _.isEmpty(this.store.getState().blocks[this.top.opts.id])
+            this.emptyDesigner = _.isEmpty(this.store.getState().blocks[this.top.opts.id])
         })
 
         this.initMode = function(){
