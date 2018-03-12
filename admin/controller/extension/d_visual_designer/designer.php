@@ -277,6 +277,10 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $local['designer']['text_bottom'] = $this->language->get('text_bottom');
         $local['designer']['text_left'] = $this->language->get('text_left');
 
+        $local['designer']['text_yes'] = $this->language->get('text_yes');
+        $local['designer']['text_no'] = $this->language->get('text_no');
+        $local['designer']['text_enabled'] = $this->language->get('text_enabled');
+
         $local['designer']['text_phone'] = $this->language->get('text_phone');
         $local['designer']['text_tablet'] = $this->language->get('text_tablet');
         $local['designer']['text_desktop'] = $this->language->get('text_desktop');

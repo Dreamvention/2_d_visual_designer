@@ -38,6 +38,10 @@ $_['text_right']                     = 'Справа';
 $_['text_top']                       = 'Вверху';
 $_['text_bottom']                    = 'Низ';
 
+$_['text_yes']                       = 'Да';
+$_['text_no']                        = 'Нет';
+$_['text_enabled']                   = 'Включено';
+
 //positions
 $_['text_position_left']             = 'Слева';
 $_['text_position_right']            = 'Справа';

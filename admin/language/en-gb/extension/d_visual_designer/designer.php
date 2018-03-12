@@ -24,6 +24,10 @@ $_['text_ridge']                     = 'Ridge';
 $_['text_inset']                     = 'Inset';
 $_['text_outset']                    = 'Outset';
 
+$_['text_yes']                       = 'Yes';
+$_['text_no']                        = 'No';
+$_['text_enabled']                   = 'Enabled';
+
 $_['text_left']                      = 'Left';
 $_['text_right']                     = 'Right';
 $_['text_top']                       = 'Top';

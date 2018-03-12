@@ -165,8 +165,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.image.entry_parallax')}</label>
     <div class="fg-setting">
-        <input type="hidden" name="parallax" value="0" />
-        <input type="checkbox" name="parallax" class="switcher" data-label-text="{store.getLocal('blocks.image.text_enabled')}" checked={setting.parallax} value="1" />
+        <vd-switcher name="parallax" value="{setting.global.parallax}" change={change}/>
     </div>
 </div>
 <div id="parallax" hide={!setting.global.parallax}>
@@ -189,16 +188,5 @@
         this.setting.global[e.target.name] = e.target.value
         this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
     }
-       this.on('mount', function(){
-        $(".switcher[type='checkbox']", this.root).bootstrapSwitch({
-            'onColor': 'success',
-            'onText': this.store.getLocal('blocks.image.text_yes'),
-            'offText': this.store.getLocal('blocks.image.text_no')
-        });
-        $(".switcher[type='checkbox']", this.root).on('switchChange.bootstrapSwitch', function(e, state) {
-            this.setting.global[e.target.name] = state
-            this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
-        }.bind(this));
-    })
 </script>
 </vd-setting-block-image>

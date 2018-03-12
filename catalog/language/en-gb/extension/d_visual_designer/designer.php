@@ -26,6 +26,10 @@ $_['text_repeat']                    = 'Repeat';
 $_['text_parallax']                  = 'Parallax';
 $_['text_set_custom']                = 'Set';
 
+$_['text_yes']                       = 'Yes';
+$_['text_no']                        = 'No';
+$_['text_enabled']                   = 'Enabled';
+
 $_['text_left']                      = 'Left';
 $_['text_right']                     = 'Right';
 $_['text_top']                       = 'Top';
