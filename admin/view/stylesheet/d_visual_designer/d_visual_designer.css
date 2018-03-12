@@ -819,7 +819,7 @@
         font-weight: 600; }
       .vd-popup .popup-content .form-group > .fg-setting {
         width: 100%; }
-        .vd-popup .popup-content .form-group > .fg-setting.range {
+        .vd-popup .popup-content .form-group > .fg-setting .range {
           position: relative; }
         .vd-popup .popup-content .form-group > .fg-setting > label.vd-checkbox {
           font-size: 13px;
@@ -876,7 +876,7 @@
               border-top: none;
               border-right: none;
               background: rgba(0, 0, 0, 0); }
-        .vd-popup .popup-content .form-group > .fg-setting > input[type=range] {
+        .vd-popup .popup-content .form-group > .fg-setting input[type=range] {
           position: relative;
           top: 2px;
           display: inline-block;
@@ -886,46 +886,46 @@
           margin: 0;
           padding: 0;
           -webkit-appearance: none; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]:focus {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]:focus {
             outline: none !important;
             box-shadow: none !important; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-webkit-slider-thumb {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             background-color: #2b87da;
             width: 15px;
             height: 15px;
             border-radius: 15px; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-moz-range-track {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-moz-range-track {
             background: transparent;
             border: inherit; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-ms-track {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-ms-track {
             background: transparent;
             border: inherit;
             color: transparent; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-ms-fill-lower, .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-ms-fill-upper {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-ms-fill-lower, .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-ms-fill-upper {
             background: transparent; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-ms-tooltip {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-ms-tooltip {
             display: none; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-webkit-slider-thumb {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             background-color: #2b87da;
             width: 15px;
             height: 15px;
             border: 0;
             border-radius: 15px; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-moz-range-thumb {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-moz-range-thumb {
             background-color: #2b87da;
             width: 15px;
             height: 15px;
             border: 0;
             border-radius: 15px; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range]::-ms-thumb {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range]::-ms-thumb {
             background-color: #2b87da;
             width: 15px;
             height: 15px;
             border: 0;
             border-radius: 15px; }
-          .vd-popup .popup-content .form-group > .fg-setting > input[type=range] + input[type=text] {
+          .vd-popup .popup-content .form-group > .fg-setting input[type=range] + input[type=text] {
             position: absolute;
             top: 0;
             right: 0;
@@ -941,7 +941,7 @@
             margin: 0; }
             .vd-popup .popup-content .form-group > .fg-setting .wrap-setting.wrap-50:last-child {
               padding: 0 0 0 5%; }
-        .vd-popup .popup-content .form-group > .fg-setting > .fg-color {
+        .vd-popup .popup-content .form-group > .fg-setting .fg-color {
           width: 30%; }
   .vd-popup .popup-footer {
     /* padding: 18px;*/

@@ -739,7 +739,7 @@
             }
             >.fg-setting {
                 width: 100%;
-                &.range{
+                .range{
                     position:relative;
                 }
                 > label.vd-checkbox{
@@ -812,7 +812,7 @@
 
                     }
                 }
-                > input[type=range]{
+                input[type=range]{
                     position: relative;
                     top: 2px;
                     display: inline-block;
@@ -892,7 +892,7 @@
                         }
                     }
                 }
-                >.fg-color {
+                .fg-color {
                     width: 30%;
                 }
             }
