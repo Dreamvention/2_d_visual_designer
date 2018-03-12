@@ -7732,10 +7732,13 @@
             background-color: #f23b3b !important;
             border-color: #ea1010 !important; }
         .vd-popup .popup-content .form-group > .fg-setting .range {
-          position: relative; }
+          position: relative;
+          height: 35px;
+          display: flex;
+          align-items: center; }
         .vd-popup .popup-content .form-group > .fg-setting input[type=range] {
           position: relative;
-          top: 2px;
+          top: 0px;
           display: inline-block;
           background-color: #e8eef5;
           width: 74%;

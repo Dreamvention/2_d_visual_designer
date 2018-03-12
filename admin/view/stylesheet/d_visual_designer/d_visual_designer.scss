@@ -741,6 +741,9 @@
                 width: 100%;
                 .range{
                     position:relative;
+                    height: 35px;
+                    display: flex;
+                    align-items: center;
                 }
                 > label.vd-checkbox{
                     font-size: 13px;
@@ -814,7 +817,7 @@
                 }
                 input[type=range]{
                     position: relative;
-                    top: 2px;
+                    top: 0px;
                     display: inline-block;
                     background-color: #e8eef5;
                     width: 74%;

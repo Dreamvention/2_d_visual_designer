@@ -550,10 +550,13 @@
                 }
                 .range{
                     position:relative;
+                    height: 35px;
+                    display: flex;
+                    align-items: center;
                 }
                 input[type=range]{
                     position: relative;
-                    top: 2px;
+                    top: 0px;
                     display: inline-block;
                     background-color: #e8eef5;
                     width: 74%;

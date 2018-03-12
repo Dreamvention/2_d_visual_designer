@@ -820,7 +820,10 @@
       .vd-popup .popup-content .form-group > .fg-setting {
         width: 100%; }
         .vd-popup .popup-content .form-group > .fg-setting .range {
-          position: relative; }
+          position: relative;
+          height: 35px;
+          display: flex;
+          align-items: center; }
         .vd-popup .popup-content .form-group > .fg-setting > label.vd-checkbox {
           font-size: 13px;
           color: #32373c;
@@ -878,7 +881,7 @@
               background: rgba(0, 0, 0, 0); }
         .vd-popup .popup-content .form-group > .fg-setting input[type=range] {
           position: relative;
-          top: 2px;
+          top: 0px;
           display: inline-block;
           background-color: #e8eef5;
           width: 74%;
