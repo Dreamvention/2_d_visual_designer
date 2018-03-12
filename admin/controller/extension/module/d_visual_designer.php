@@ -73,4 +73,8 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
     {
         $this->{'model_extension_module_'.$this->codename}->dropDatabase();
     }
+
+    public function recompress(){
+        $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+    }
 }

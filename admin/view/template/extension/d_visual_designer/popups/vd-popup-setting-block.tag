@@ -84,10 +84,7 @@
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_border_color')}</label>
                     <div class="fg-setting">
-                        <div id="color-input" class="input-group colorpicker-component fg-color">
-                            <input type="text" name="design_border_color" class="form-control" value="{setting.global.design_border_color}" onChange={change}>
-                            <span class="input-group-addon"><i></i></span>
-                        </div>
+                        <vd-color-picker name={'design_border_color'} value={setting.global.design_border_color} change={change}/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -166,10 +163,7 @@
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_background')}</label>
                     <div class="fg-setting">
-                        <div id="color-input" class="input-group colorpicker-component fg-color">
-                            <input type="text" name="design_background" class="form-control" value="{setting.global.design_background}" onChange={change}>
-                            <span class="input-group-addon"><i></i></span>
-                        </div>
+                        <vd-color-picker name={'design_background'} value={setting.global.design_background} change={change}/>
                     </div>
                 </div>
             </div>
@@ -329,18 +323,6 @@
             $('.vd-popup', this.root).css({ 'width': this.width, 'height': this.height });
         }
         $('.vd-popup', this.root).css({ visibility: 'visible', opacity: 1 });
-        var that = this
-        $(this.root).find('[id=color-input]').colorpicker().on('changeColor', function(e) {
-            var d = new Date();
-            var currentTime = d.getTime();
-            if(currentTime - that.previewColorChange > 500){
-                var event = new Event('change');
-                $(this).find('input')[0].dispatchEvent(event);
-
-                var d = new Date();
-                that.previewColorChange = d.getTime();
-            }
-        })
     }.bind(this)
 
     this.on('mount', function(){
