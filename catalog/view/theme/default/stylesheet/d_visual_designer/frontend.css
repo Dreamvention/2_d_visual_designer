@@ -7718,5 +7718,9 @@
     line-height: 28px;
     text-align: left;
     padding: 8px 16px; }
+.block-content:after {
+  display: table;
+  content: '';
+  clear: both; }
 
 /*# sourceMappingURL=frontend.css.map */
