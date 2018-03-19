@@ -6,10 +6,10 @@
     </div>
     <script>
         change(e) {
-            this.opts.change(e)
+            this.opts.evchange(e)
         }
         changeRadioGroup(e){
-            this.opts.change({target: {
+            this.opts.evchange({target: {
                 name: this.opts.name,
                 value: e.target.childNodes[1].value
             }})

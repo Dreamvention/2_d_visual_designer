@@ -31,12 +31,12 @@
                 badAttributes: ['style', 'start']
             },
             onChange: function(contents, $editable) {
-                    this.opts.change(this.opts.name, contents)
+                    this.opts.evchange(this.opts.name, contents)
 
             }.bind(this),
             callbacks : {
                 onChange: function(contents, $editable) {
-                    this.opts.change(this.opts.name, contents)
+                    this.opts.evchange(this.opts.name, contents)
                 }.bind(this)
             }
         });

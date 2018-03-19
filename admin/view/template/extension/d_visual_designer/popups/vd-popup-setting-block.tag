@@ -84,7 +84,7 @@
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_border_color')}</label>
                     <div class="fg-setting">
-                        <vd-color-picker name={'design_border_color'} value={setting.global.design_border_color} change={change}/>
+                        <vd-color-picker name={'design_border_color'} value={setting.global.design_border_color} evchange={change}/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -163,7 +163,7 @@
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_background')}</label>
                     <div class="fg-setting">
-                        <vd-color-picker name={'design_background'} value={setting.global.design_background} change={change}/>
+                        <vd-color-picker name={'design_background'} value={setting.global.design_background} evchange={change}/>
                     </div>
                 </div>
             </div>

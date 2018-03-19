@@ -63,13 +63,13 @@
     <div class="form-group">
         <label class="control-label">{store.getLocal('blocks.column.entry_float')}</label>
         <div class="fg-setting">
-            <vd-switcher name="float" value="{setting.global.float}" change={change}/>
+            <vd-switcher name="float" value="{setting.global.float}" evchange={change}/>
         </div>
     </div>
     <div class="form-group" id="align">
         <label class="control-label">{store.getLocal('blocks.column.entry_align')}</label>
         <div class="fg-setting">
-            <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.image.aligns')} change={change}/>
+            <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.column.aligns')} evchange={change}/>
         </div>
     </div>
     <script>

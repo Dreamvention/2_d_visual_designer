@@ -8,7 +8,7 @@
         this.previewColorChange = d.getTime();
 
         change(e){
-            this.opts.change(e)
+            this.opts.evchange(e)
         }
 
         this.on('mount', function(){

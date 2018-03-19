@@ -2,7 +2,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.text.entry_text')}</label>
     <div class="fg-setting">
-        <vd-summernote name={'text'} value={setting.edit.text} change={change}/>
+        <vd-summernote name={'text'} value={setting.edit.text} evchange={change}/>
     </div>
 </div>
 <script>

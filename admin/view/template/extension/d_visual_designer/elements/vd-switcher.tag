@@ -10,7 +10,7 @@
                 'offText': this.store.getLocal('designer.text_no')
             });
             $(".switcher[type='checkbox']", this.root).on('switchChange.bootstrapSwitch', function(e, state) {
-                this.opts.change({target: {name: e.target.name, value: state}})
+                this.opts.evchange({target: {name: e.target.name, value: state}})
             }.bind(this));
         })
     </script>

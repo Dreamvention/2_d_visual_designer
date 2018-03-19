@@ -6,7 +6,7 @@
         this.mixin({store:d_visual_designer})
         change(e) {
             if(e.target.value !== this.opts.riotValue) {
-                this.opts.change(e)
+                this.opts.evchange(e)
             }
         }
     </script>

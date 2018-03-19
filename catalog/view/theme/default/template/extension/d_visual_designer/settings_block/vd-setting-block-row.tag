@@ -10,7 +10,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.row.entry_background_video')}</label>
     <div class="fg-setting">
-        <vd-switcher name="background_video" value="{setting.global.background_video}" change={change}/>
+        <vd-switcher name="background_video" value="{setting.global.background_video}" evchange={change}/>
     </div>
 </div>
 <div class="form-group">

@@ -82,7 +82,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.image.entry_align')}</label>
     <div class="fg-setting">
-        <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.image.aligns')} change={change}/>
+        <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.image.aligns')} evchange={change}/>
     </div>
 </div>
 <div class="form-group">
@@ -161,7 +161,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.image.entry_parallax')}</label>
     <div class="fg-setting">
-        <vd-switcher name="parallax" value="{setting.global.parallax}" change={change}/>
+        <vd-switcher name="parallax" value="{setting.global.parallax}" evchange={change}/>
     </div>
 </div>
 <div id="parallax" hide={!setting.global.parallax}>

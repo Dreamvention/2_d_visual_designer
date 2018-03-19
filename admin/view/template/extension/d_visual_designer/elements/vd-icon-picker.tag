@@ -12,7 +12,7 @@
             }).on('change', function(e){
                 if(that.opts.riotValue !== $(this).val()) {
                     $('input[name="'+that.opts.name+'"]', that.root).val($(this).val())
-                    that.opts.change(e)
+                    that.opts.evchange(e)
                 }
             })
         })
