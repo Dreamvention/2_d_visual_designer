@@ -220,4 +220,9 @@
             padding: 8px 16px;
         }
     }
+    &:after {
+        display:table;
+        content: '';
+        clear: both;
+    }
 } 
