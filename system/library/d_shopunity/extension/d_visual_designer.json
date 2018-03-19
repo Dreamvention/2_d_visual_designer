@@ -110,6 +110,7 @@
         "admin/view/template/extension/d_visual_designer/elements/vd-range.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-color-picker.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-icon-picker.tag",
+        "admin/view/template/extension/d_visual_designer/elements/vd-radio-btn-group.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-select-icon-library.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-summernote.tag",
 
@@ -190,6 +191,7 @@
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-color-picker.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-icon-picker.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-select-icon-library.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-radio-btn-group.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-summernote.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-main.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-children.tag",

@@ -73,8 +73,8 @@
         <label class="control-label">{store.getLocal('blocks.image.entry_link_target')}</label>
         <div class="fg-setting">
             <select class="form-control" name="link_target" onChange={change}>
-                    <option value="new" selected={setting.global.link_target == 'new'}>{store.getLocal('blocks.image.text_new_window')}</option>
-                    <option value="current" selected={setting.global.link_target == 'current'}>{store.getLocal('blocks.image.text_current_window')}</option>
+                <option value="new" selected={setting.global.link_target == 'new'}>{store.getLocal('blocks.image.text_new_window')}</option>
+                <option value="current" selected={setting.global.link_target == 'current'}>{store.getLocal('blocks.image.text_current_window')}</option>
             </select>
         </div>
     </div>
@@ -82,11 +82,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.image.entry_align')}</label>
     <div class="fg-setting">
-        <div class="btn-group" data-toggle="buttons">
-            <label each={value, key in store.getOptions('blocks.image.aligns')} class="btn btn-success {setting.global.align == key?'active':''}">
-                <input type="radio" name="align" value="{key}" checked={setting.global.align == key} onChange={change}>{value}
-            </label>
-        </div>
+        <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.image.aligns')} change={change}/>
     </div>
 </div>
 <div class="form-group">

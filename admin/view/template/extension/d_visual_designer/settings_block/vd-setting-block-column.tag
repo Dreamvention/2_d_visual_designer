@@ -69,11 +69,7 @@
     <div class="form-group" id="align">
         <label class="control-label">{store.getLocal('blocks.column.entry_align')}</label>
         <div class="fg-setting">
-            <div class="btn-group" data-toggle="buttons">
-                <label each={value, key in store.getOptions('blocks.column.aligns')} class="btn btn-success {setting.global.align == key?'active':''}" onClick={changeRadioGroup}>
-                    <input type="radio" name="align" value="{key}" checked={setting.global.align == key} onChange={change}>{value}
-                </label>
-            </div>
+            <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.column.aligns')} change={change}/>
         </div>
     </div>
     <script>
@@ -86,10 +82,6 @@
         })
         change(e){
             this.setting.global[e.target.name] = e.target.value
-            this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
-        }
-        changeRadioGroup(e){
-            this.setting.global[e.target.childNodes[1].name] = e.target.childNodes[1].value
             this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
         }
     </script>
