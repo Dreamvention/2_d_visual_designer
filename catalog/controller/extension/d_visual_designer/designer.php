@@ -636,7 +636,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
     public function saveInformation($setting)
     {
-        $json = array();
+        $result = false;
 
         $this->load->model('extension/d_opencart_patch/user');
 
@@ -647,15 +647,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         if (isset($setting['content']['information_description'])&&!empty($setting['id'])&&$permission) {
-            $this->{'model_extension_module_'.$this->codename}->editInformation($setting['id'], $setting['content']);
+            $this->{'model_extension_module_' . $this->codename}->editInformation($setting['id'], $setting['content']);
 
-            $json['success'] = 'success';
-        } else {
-            $json['error'] = 'error';
+            $result = true;
         }
 
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        return $result;
     }
     
     protected function validateTemplateForm()

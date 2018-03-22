@@ -38,7 +38,7 @@
     <vd-popup-save-template/>
     <vd-popup-load-template/>
     <vd-popup-codeview/>
-    <textarea style="display:none;" name="{fieldName}">{JSON.stringify(store.getState().blocks[top.opts.id])}</textarea>
+    <textarea style="display:none;" name="{fieldName}">{content}</textarea>
     <script>
         this.mixin({store:d_visual_designer})
         this.top = this.parent ? this.parent.top : this
@@ -65,6 +65,30 @@
         addTextBlock() {
             this.store.dispatch('block/new', {type: 'text', designer_id:this.top.opts.id, target: '', level: 0})
         }
+        this.store.subscribe('block/setting/update/end', function(data){
+            if(this.top.opts.id == data.designer_id) {
+                this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+                $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+            }
+        }.bind(this))
+        this.store.subscribe('block/move/success', function(data){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+        }.bind(this))
+        this.store.subscribe('block/remove/success', function(data){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+        }.bind(this))
+        this.store.subscribe('block/create/success', function(data){
+            if(this.top.opts.id == data.designer_id) {
+                this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+                $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+            }
+        }.bind(this))
+        this.store.subscribe('block/layout/update/success', function(data){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+        }.bind(this))
         fullscreen() {
             if ($('.vd.content', this.root).hasClass('fullscreen')) {
                 $('.vd.content', this.root).removeClass('fullscreen');
@@ -116,6 +140,10 @@
         this.store.subscribe('content/mode/update/success', function(){
             this.initMode();
         }.bind(this))
+
+        this.on('mount', function(){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+        })
 
         $('body').on('designerSave', function(){
             this.store.dispatch('content/save', {designer_id: this.top.opts.id});
