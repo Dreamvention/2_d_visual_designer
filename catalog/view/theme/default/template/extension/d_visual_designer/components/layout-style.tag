@@ -30,49 +30,77 @@
                 } else {
                     $(element).children('.block-content').css({'display': '', 'justify-content': ''})
                 }
+            } else {
+                $(element).children('.block-content').css({'display': '', 'justify-content': ''})
             }
 
             if(setting.design_margin_top){
                 $(element).css({'margin-top': setting.design_margin_top})
+            } else {
+                $(element).css({'margin-top': ''})
             }
             if( setting.design_margin_left){
                 $(element).css({'margin-left': setting.design_margin_left})
             }
             if( setting.design_margin_right){
                 $(element).css({'margin-right': setting.design_margin_right})
+            } else {
+                $(element).css({'margin-right': ''})
             }
             if( setting.design_margin_bottom){
                 $(element).css({'margin-bottom': setting.design_margin_bottom})
+            } else {
+                $(element).css({'margin-bottom': ''})
             }
             if( setting.design_padding_top){
                 $(element).css({'padding-top': setting.design_padding_top})
+            } else {
+                $(element).css({'padding-top': ''})
             }
             if( setting.design_padding_left){
                 $(element).css({'padding-left': setting.design_padding_left})
+            } else {
+                $(element).css({'padding-left': ''})
             }
             if( setting.design_padding_right){
                 $(element).css({'padding-right': setting.design_padding_right})
+            } else {
+                $(element).css({'padding-right': ''})
             }
             if( setting.design_padding_bottom){
                 $(element).css({'padding-bottom': setting.design_padding_bottom})
+            } else {
+                $(element).css({'padding-bottom': ''})
             }
             if( setting.design_border_top){
                 $(element).css({'border-top': setting.design_border_top+' '+setting.design_border_style+' '+setting.design_border_color})
+            } else {
+                $(element).css({'border-top': ''})
             }
             if( setting.design_border_left){
                 $(element).css({'border-left': setting.design_border_left+' '+setting.design_border_style+' '+setting.design_border_color})
+            } else {
+                $(element).css({'border-left': ''})
             }
             if( setting.design_border_right){
                 $(element).css({'border-right': setting.design_border_right+' '+setting.design_border_style+' '+setting.design_border_color})
+            } else {
+                $(element).css({'border-right': ''})
             }
             if( setting.design_border_bottom){
                 $(element).css({'border-bottom': setting.design_border_bottom+' '+setting.design_border_style+' '+setting.design_border_color})
+            } else {
+                $(element).css({'border-bottom': ''})
             }
             if( setting.design_border_radius){
                 $(element).css({'border-radius': setting.design_border_radius})
+            } else {
+                $(element).css({'border-radius': ''})
             }
             if( setting.design_background){
                 $(element).css({'background-color': setting.design_background})
+            } else {
+                $(element).css({'background-color': ''})
             }
             if(setting.design_background_image){
                 $(element).css({'background-image': 'url('+this.opts.block.setting.user.design_background_image+')'})
@@ -100,6 +128,15 @@
                         'background-size': 'cover'
                      })
                 }
+            } else {
+                $(element).css({
+                    'display': '',
+                    'background-attachment': '',
+                    'background-position': '',
+                    'background-repeat': '',
+                    'background-size': '',
+                    'background-image': ''
+                })
             }
         }
         this.initParentSetting();
