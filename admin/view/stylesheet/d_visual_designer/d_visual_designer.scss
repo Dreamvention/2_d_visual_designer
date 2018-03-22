@@ -150,6 +150,12 @@
             }
             &.block-inner {
                 border-radius: 4px;
+                &.level0{
+                    background: #DEE3E7;
+                    > .control {
+                        background-color: #4c5866;
+                    }
+                }
                 > .block-content {
                     padding-left: 15px;
                 }

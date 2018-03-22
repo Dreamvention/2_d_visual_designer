@@ -104,6 +104,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['local'] = $this->prepareLocal(true);
             $data['options'] = $this->prepareOptions(true);
+            $this->prepareScripts(true);
+            $this->prepareStyles(true);
 
             $data['state']['config']['filemanager_url'] = $this->store_url.'index.php?route=extension/'.$this->codename.'/filemanager&'.$url_token;
 
@@ -120,6 +122,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['local'] = $this->prepareLocal(false);
             $data['options'] = $this->prepareOptions(false);
+            $this->prepareScripts(false);
+            $this->prepareStyles(false);
 
             $data['text_edit'] = $this->language->get('text_edit');
             $data['styles'] = $this->styles;
@@ -134,6 +138,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['local'] = $this->prepareLocal(false);
             $data['options'] = $this->prepareOptions(false);
+            $this->prepareScripts(false);
+            $this->prepareStyles(false);
 
             $data['styles'] = $this->styles;
             $data['scripts'] = $this->scripts;
@@ -145,9 +151,36 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
     }
 
+    protected function prepareScripts($permission = false) {
+        $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
+
+        foreach ($blocks as $block) {
+            $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/scripts', $permission);
+            if($output) {
+                $this->scripts = array_merge($this->scripts, $output);
+            }
+        }
+    }
+    protected function prepareStyles($permission = false) {
+        $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
+
+        foreach ($blocks as $block) {
+            $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/styles', $permission);
+            if($output) {
+                $this->styles = array_merge($this->styles, $output);
+            }
+        }
+    }
+
     protected function prepareLocal($permission = false)
     {
         $local = array();
+        $local['designer']['button_cart'] = $this->language->get('button_cart');
+        $local['designer']['button_wishlist'] = $this->language->get('button_wishlist');
+        $local['designer']['button_compare'] = $this->language->get('button_compare');
+
+        $local['designer']['text_tax'] = $this->language->get('text_tax');
+
         if ($permission) {
             $local['designer']['button_add'] = $this->language->get('button_add');
             $local['designer']['button_close'] = $this->language->get('button_close');
@@ -408,7 +441,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader("Content-Type: application/json");
-        $this->response->setOutput(json_encode($json, true));
+        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
     public function save()
@@ -517,7 +550,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
     public function sort_block($a, $b)
@@ -558,7 +591,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
     public function saveProduct($setting)

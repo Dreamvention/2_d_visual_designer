@@ -8509,14 +8509,15 @@
         color: #fff;
         font-size: 13px;
         line-height: 15.6px; }
-  .tour-content > .block-section {
-    display: block;
-    float: right;
+  .tour-content > .vd-tour-wrapper {
     width: calc(100% - 12em);
     padding: 1em 1.4em;
     padding: 1px;
-    border-width: 0;
-    background: #F8F8F8; }
+    float: right;
+    display: block; }
+    .tour-content > .vd-tour-wrapper .block-section {
+      border-width: 0;
+      background: #F8F8F8; }
 
 .tabs-content {
   position: relative;
@@ -8573,7 +8574,7 @@
         text-decoration: none;
         color: #fff;
         font-size: 13px; }
-  .tabs-content > .block-section {
+  .tabs-content .block-section {
     display: block;
     margin-top: 0px;
     color: #333333;
@@ -9067,6 +9068,21 @@ span.module_name {
 
 .vd-btn-small {
   font-size: 9px; }
+
+.vd-tab:not(.tab-control) .vd-btn-drag {
+  background: url(../../image/d_visual_designer/drag-n-drop-gray.svg) no-repeat center; }
+.vd-tab:not(.tab-control) .vd-btn-edit {
+  background: url(../../image/d_visual_designer/settings-gray.svg) no-repeat center; }
+.vd-tab:not(.tab-control) .vd-btn-copy {
+  background: url(../../image/d_visual_designer/copy-gray.svg) no-repeat center; }
+.vd-tab:not(.tab-control) .vd-btn-layout {
+  background: url(../../image/d_visual_designer/layout-gray.svg) no-repeat center; }
+.vd-tab:not(.tab-control) .vd-btn-add-child {
+  background: url(../../image/d_visual_designer/add-gray.svg) no-repeat center; }
+.vd-tab:not(.tab-control) .vd-btn-add {
+  background: url(../../image/d_visual_designer/add-gray.svg) no-repeat center; }
+.vd-tab:not(.tab-control) .vd-btn-remove {
+  background: url(../../image/d_visual_designer/delete-gray.svg) no-repeat center; }
 
 .vd-btn-drag {
   background: url(../../image/d_visual_designer/drag-n-drop.svg) no-repeat center; }

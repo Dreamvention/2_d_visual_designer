@@ -127,14 +127,15 @@
         color: #fff;
         font-size: 13px;
         line-height: 15.6px; }
-  .tour-content > .block-section {
-    display: block;
-    float: right;
+  .tour-content > .vd-tour-wrapper {
     width: calc(100% - 12em);
     padding: 1em 1.4em;
     padding: 1px;
-    border-width: 0;
-    background: #F8F8F8; }
+    float: right;
+    display: block; }
+    .tour-content > .vd-tour-wrapper .block-section {
+      border-width: 0;
+      background: #F8F8F8; }
 
 .tabs-content {
   position: relative;
@@ -191,7 +192,7 @@
         text-decoration: none;
         color: #fff;
         font-size: 13px; }
-  .tabs-content > .block-section {
+  .tabs-content .block-section {
     display: block;
     margin-top: 0px;
     color: #333333;

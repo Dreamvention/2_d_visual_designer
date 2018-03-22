@@ -204,16 +204,16 @@
             }
         }
     }
-    > .block-section{
-        display: block;
-        float:right;
-
+    > .vd-tour-wrapper{
         width: calc(100% - 12em);
         padding: 1em 1.4em;
         padding: 1px;
-
-        border-width: 0;
-        background: #F8F8F8;
+        float:right;
+        display: block;
+        .block-section{
+            border-width: 0;
+            background: #F8F8F8;
+        }
     }
 }
 .tabs-content{
@@ -308,7 +308,7 @@
             }
         }
     }
-    > .block-section{
+     .block-section{
         display: block;
 
         margin-top: 0px;

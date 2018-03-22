@@ -288,7 +288,7 @@
         width: 50px;
         font-size: 32px; }
         .content .vd-designer .block-container .control-advanced ~ .block-content {
-          padding: 15px 15px 40px 65px;
+          padding: 15px 15px 40px 65px !important;
           position: relative; }
           .content .vd-designer .block-container .control-advanced ~ .block-content > .vd-new-child-block {
             left: 75px; }
@@ -379,6 +379,10 @@
           background-color: #56a6e6; }
       .content .vd-designer .block-container.block-inner {
         border-radius: 4px; }
+        .content .vd-designer .block-container.block-inner.level0 {
+          background: #DEE3E7; }
+          .content .vd-designer .block-container.block-inner.level0 > .control {
+            background-color: #4c5866; }
         .content .vd-designer .block-container.block-inner > .block-content {
           padding-left: 15px; }
         .content .vd-designer .block-container.block-inner > .control {

@@ -407,7 +407,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
+        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
     public function updateSetting()
@@ -430,7 +430,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader("Content-Type: application/json");
-        $this->response->setOutput(json_encode($json, true));
+        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
     public function frontend()
