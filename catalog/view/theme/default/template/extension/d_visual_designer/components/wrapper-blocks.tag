@@ -74,14 +74,14 @@
     }
 
     this.initBlocks()
-    if(this.store.getState().config.permission){
+    if(this.store.getState().config.permission[this.top.opts.id]){
         this.initSortable()
     }
 
     this.on('update', function(){
         this.parent_id = this.opts.block? this.opts.block.id : ''
         this.initBlocks()
-        if(this.store.getState().config.permission){
+        if(this.store.getState().config.permission[this.top.opts.id]){
             this.initSortable()
         }
     }.bind(this))

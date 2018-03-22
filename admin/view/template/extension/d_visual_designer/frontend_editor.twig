@@ -38,9 +38,11 @@
                     var state = $('iframe')[0].contentWindow.d_visual_designer.state
 
                     for (var designer_id in state.blocks){
-                        designers.items.push(designer_id)
-                        designers.title[designer_id] =state.config.route[designer_id]
-                        designers.id[designer_id] =state.config.id[designer_id]
+                        if(state.config.permission[designer_id]) {
+                            designers.items.push(designer_id)
+                            designers.title[designer_id] = state.config.route[designer_id]
+                            designers.id[designer_id] = state.config.id[designer_id]
+                        }
                     }
 
                     if(designers.items.length > 0) {

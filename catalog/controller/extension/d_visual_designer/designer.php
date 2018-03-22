@@ -70,6 +70,9 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $data['state']['config'] = array();
 
         $data['state']['config']['blocks'] = $this->prepareBlocksConfig();
+        $data['state']['config']['route'] = array($data['designer_id'] => $setting['config']);
+        $data['state']['config']['id'] = array($data['designer_id'] => $setting['id']);
+        $data['state']['config']['field_name'] = array($data['designer_id'] => $setting['field_name']);
 
         $this->addScript('javascript/d_visual_designer/main.js');
 
@@ -94,10 +97,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $data['state']['config']['save_change'] = $setting_module['save_change'];
 
             $data['state']['history'] = array($data['designer_id'] => array());
-            $data['state']['config']['route'] = array($data['designer_id'] => $setting['config']);
-            $data['state']['config']['id'] = array($data['designer_id'] => $setting['id']);
-            $data['state']['config']['field_name'] = array($data['designer_id'] => $setting['field_name']);
-            $data['state']['config']['permission'] = true;
+
+            $data['state']['config']['permission'] = array($data['designer_id'] => true);
             $data['state']['config']['notify'] = $this->{'model_extension_module_'.$this->codename}->checkCompleteVersion();
 
             $data['state']['templates'] = $this->prepareTemplate();
@@ -130,7 +131,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $data['scripts'] = $this->scripts;
             $data['content'] = $setting['content'];
 
-            $data['state']['config']['permission'] = false;
+            $data['state']['config']['permission'] = array($data['designer_id'] => false);
 
             return $this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/frontend', $data);
         } else {
@@ -145,7 +146,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $data['scripts'] = $this->scripts;
             $data['content'] = $setting['content'];
 
-            $data['state']['config']['permission'] = false;
+            $data['state']['config']['permission'] = array($data['designer_id'] => false);
 
             return $this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/frontend', $data);
         }
@@ -550,7 +551,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
+        $this->response->setOutput(json_encode($json));
     }
 
     public function sort_block($a, $b)
@@ -591,7 +592,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
+        $this->response->setOutput(json_encode($json));
     }
 
     public function saveProduct($setting)

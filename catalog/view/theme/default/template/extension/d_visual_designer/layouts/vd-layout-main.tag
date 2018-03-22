@@ -20,10 +20,9 @@
             return block.type == opts.block.type
         })
 
-
         this.checkPermission = function(){
             this.permission = false
-            if(this.store.getState().config.permission && this.block_config.setting.display_control){
+            if(this.store.getState().config.permission[this.top.opts.id] && this.block_config.setting.display_control){
                 this.permission = true
             }
         }

@@ -1,7 +1,7 @@
 <visual-designer>
     <div class="content vd">
         <div class="vd" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+top.opts.id+" #sortable"}/></div>
-        <virtual if={store.getState().config.permission}>
+        <virtual if={store.getState().config.permission[top.opts.id]}>
             <div class="vd-helper">
                 <a id="vd-add-button" class="vd-button vd-add-block vd-btn-add" onClick={addBlock}></a>
             </div>
@@ -33,7 +33,7 @@
             this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.top.opts.id});
         }
         this.initHover = function(designer_id){
-            if(this.store.getState().config.permission){
+            if(this.store.getState().config.permission[this.top.opts.id]){
                 $('#sortable',this.root).find('.block-container').off( "mouseenter mouseleave" );
                 $('#sortable',this.root).find('.block-container').hover(function(){
                     if($(this).hasClass('block-child')){
@@ -73,20 +73,26 @@
             this.initHover();
         }.bind(this))
         $('body').on('designerSave', function(e, data){
-            this.store.dispatch('content/save', {designer_id: data.designer_id});
+            if(this.top.opts.id == data.designer_id) {
+                this.store.dispatch('content/save', {designer_id: data.designer_id});
+            }
         }.bind(this));
         $('body').on('designerTemplate', function(e, data){
-            this.store.dispatch('template/list', {designer_id: data.designer_id});
+            if(this.top.opts.id == data.designer_id) {
+                this.store.dispatch('template/list', {designer_id: data.designer_id});
+            }
         }.bind(this));
         $('body').on('designerSaveTemplate', function(e, data){
             this.store.dispatch('template/save/popup', {designer_id: data.designer_id});
         }.bind(this));
         $('body').on('designerAddBlock',function(e, data){
-            this.store.dispatch('popup/addBlock', {level: 0, target: '', designer_id: data.designer_id});
+            if(this.top.opts.id == data.designer_id) {
+                this.store.dispatch('popup/addBlock', {level: 0, target: '', designer_id: data.designer_id});
+            }
         }.bind(this))
         this.on('mount', function(){
             this.initHover();
-            if(!this.store.getState().config.permission){
+            if(!this.store.getState().config.permission[this.top.opts.id]){
                 $('.vd-frontent-text').hide();
             }
         })

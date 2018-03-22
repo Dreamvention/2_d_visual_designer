@@ -3,7 +3,21 @@ function vd() {
     riot.observable(this);
 
     this.initState = function(state){
-        this.state = state;
+        if(!_.isUndefined(this.state)){
+            this.state.blocks = _.extend(this.state.blocks, state.blocks)
+            this.state.config.field_name = _.extend(this.state.config.field_name, state.config.field_name)
+            this.state.config.id = _.extend(this.state.config.id, state.config.id)
+            this.state.config.route = _.extend(this.state.config.route, state.config.route)
+            this.state.config.permission = _.extend(this.state.config.permission, state.config.permission)
+            if(_.isUndefined(this.state.history)){
+                this.state.history = state.history
+            } else {
+                this.state.history = _.extend(this.state.history, state.history)
+            }
+            
+        } else {
+            this.state = state;
+        }
     };
 
     this.initLocal = function(local){
