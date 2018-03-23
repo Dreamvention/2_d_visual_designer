@@ -1,6 +1,6 @@
 /*!
- * Font Awesome Pro 5.0.4 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
+ * Font Awesome Pro 5.0.8 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license (Commercial License)
  */
 .vd, .block-container {
   /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
@@ -179,6 +179,8 @@
     content: "\f036"; }
   .vd .fa-align-right:before, .block-container .fa-align-right:before {
     content: "\f038"; }
+  .vd .fa-allergies:before, .block-container .fa-allergies:before {
+    content: "\f461"; }
   .vd .fa-amazon:before, .block-container .fa-amazon:before {
     content: "\f270"; }
   .vd .fa-amazon-pay:before, .block-container .fa-amazon-pay:before {
@@ -349,12 +351,28 @@
     content: "\f24e"; }
   .vd .fa-ban:before, .block-container .fa-ban:before {
     content: "\f05e"; }
+  .vd .fa-band-aid:before, .block-container .fa-band-aid:before {
+    content: "\f462"; }
   .vd .fa-bandcamp:before, .block-container .fa-bandcamp:before {
     content: "\f2d5"; }
   .vd .fa-barcode:before, .block-container .fa-barcode:before {
     content: "\f02a"; }
+  .vd .fa-barcode-alt:before, .block-container .fa-barcode-alt:before {
+    content: "\f463"; }
+  .vd .fa-barcode-read:before, .block-container .fa-barcode-read:before {
+    content: "\f464"; }
+  .vd .fa-barcode-scan:before, .block-container .fa-barcode-scan:before {
+    content: "\f465"; }
   .vd .fa-bars:before, .block-container .fa-bars:before {
     content: "\f0c9"; }
+  .vd .fa-baseball:before, .block-container .fa-baseball:before {
+    content: "\f432"; }
+  .vd .fa-baseball-ball:before, .block-container .fa-baseball-ball:before {
+    content: "\f433"; }
+  .vd .fa-basketball-ball:before, .block-container .fa-basketball-ball:before {
+    content: "\f434"; }
+  .vd .fa-basketball-hoop:before, .block-container .fa-basketball-hoop:before {
+    content: "\f435"; }
   .vd .fa-bath:before, .block-container .fa-bath:before {
     content: "\f2cd"; }
   .vd .fa-battery-bolt:before, .block-container .fa-battery-bolt:before {
@@ -421,10 +439,24 @@
     content: "\f02d"; }
   .vd .fa-bookmark:before, .block-container .fa-bookmark:before {
     content: "\f02e"; }
+  .vd .fa-bowling-ball:before, .block-container .fa-bowling-ball:before {
+    content: "\f436"; }
+  .vd .fa-bowling-pins:before, .block-container .fa-bowling-pins:before {
+    content: "\f437"; }
+  .vd .fa-box:before, .block-container .fa-box:before {
+    content: "\f466"; }
+  .vd .fa-box-check:before, .block-container .fa-box-check:before {
+    content: "\f467"; }
+  .vd .fa-boxes:before, .block-container .fa-boxes:before {
+    content: "\f468"; }
+  .vd .fa-boxing-glove:before, .block-container .fa-boxing-glove:before {
+    content: "\f438"; }
   .vd .fa-braille:before, .block-container .fa-braille:before {
     content: "\f2a1"; }
   .vd .fa-briefcase:before, .block-container .fa-briefcase:before {
     content: "\f0b1"; }
+  .vd .fa-briefcase-medical:before, .block-container .fa-briefcase-medical:before {
+    content: "\f469"; }
   .vd .fa-browser:before, .block-container .fa-browser:before {
     content: "\f37e"; }
   .vd .fa-btc:before, .block-container .fa-btc:before {
@@ -437,6 +469,8 @@
     content: "\f0a1"; }
   .vd .fa-bullseye:before, .block-container .fa-bullseye:before {
     content: "\f140"; }
+  .vd .fa-burn:before, .block-container .fa-burn:before {
+    content: "\f46a"; }
   .vd .fa-buromobelexperte:before, .block-container .fa-buromobelexperte:before {
     content: "\f37f"; }
   .vd .fa-bus:before, .block-container .fa-bus:before {
@@ -467,6 +501,8 @@
     content: "\f332"; }
   .vd .fa-camera-retro:before, .block-container .fa-camera-retro:before {
     content: "\f083"; }
+  .vd .fa-capsules:before, .block-container .fa-capsules:before {
+    content: "\f46b"; }
   .vd .fa-car:before, .block-container .fa-car:before {
     content: "\f1b9"; }
   .vd .fa-caret-circle-down:before, .block-container .fa-caret-circle-down:before {
@@ -535,6 +571,38 @@
     content: "\f058"; }
   .vd .fa-check-square:before, .block-container .fa-check-square:before {
     content: "\f14a"; }
+  .vd .fa-chess:before, .block-container .fa-chess:before {
+    content: "\f439"; }
+  .vd .fa-chess-bishop:before, .block-container .fa-chess-bishop:before {
+    content: "\f43a"; }
+  .vd .fa-chess-bishop-alt:before, .block-container .fa-chess-bishop-alt:before {
+    content: "\f43b"; }
+  .vd .fa-chess-board:before, .block-container .fa-chess-board:before {
+    content: "\f43c"; }
+  .vd .fa-chess-clock:before, .block-container .fa-chess-clock:before {
+    content: "\f43d"; }
+  .vd .fa-chess-clock-alt:before, .block-container .fa-chess-clock-alt:before {
+    content: "\f43e"; }
+  .vd .fa-chess-king:before, .block-container .fa-chess-king:before {
+    content: "\f43f"; }
+  .vd .fa-chess-king-alt:before, .block-container .fa-chess-king-alt:before {
+    content: "\f440"; }
+  .vd .fa-chess-knight:before, .block-container .fa-chess-knight:before {
+    content: "\f441"; }
+  .vd .fa-chess-knight-alt:before, .block-container .fa-chess-knight-alt:before {
+    content: "\f442"; }
+  .vd .fa-chess-pawn:before, .block-container .fa-chess-pawn:before {
+    content: "\f443"; }
+  .vd .fa-chess-pawn-alt:before, .block-container .fa-chess-pawn-alt:before {
+    content: "\f444"; }
+  .vd .fa-chess-queen:before, .block-container .fa-chess-queen:before {
+    content: "\f445"; }
+  .vd .fa-chess-queen-alt:before, .block-container .fa-chess-queen-alt:before {
+    content: "\f446"; }
+  .vd .fa-chess-rook:before, .block-container .fa-chess-rook:before {
+    content: "\f447"; }
+  .vd .fa-chess-rook-alt:before, .block-container .fa-chess-rook-alt:before {
+    content: "\f448"; }
   .vd .fa-chevron-circle-down:before, .block-container .fa-chevron-circle-down:before {
     content: "\f13a"; }
   .vd .fa-chevron-circle-left:before, .block-container .fa-chevron-circle-left:before {
@@ -577,6 +645,10 @@
     content: "\f1ce"; }
   .vd .fa-clipboard:before, .block-container .fa-clipboard:before {
     content: "\f328"; }
+  .vd .fa-clipboard-check:before, .block-container .fa-clipboard-check:before {
+    content: "\f46c"; }
+  .vd .fa-clipboard-list:before, .block-container .fa-clipboard-list:before {
+    content: "\f46d"; }
   .vd .fa-clock:before, .block-container .fa-clock:before {
     content: "\f017"; }
   .vd .fa-clone:before, .block-container .fa-clone:before {
@@ -639,6 +711,10 @@
     content: "\f20e"; }
   .vd .fa-contao:before, .block-container .fa-contao:before {
     content: "\f26d"; }
+  .vd .fa-conveyor-belt:before, .block-container .fa-conveyor-belt:before {
+    content: "\f46e"; }
+  .vd .fa-conveyor-belt-alt:before, .block-container .fa-conveyor-belt-alt:before {
+    content: "\f46f"; }
   .vd .fa-copy:before, .block-container .fa-copy:before {
     content: "\f0c5"; }
   .vd .fa-copyright:before, .block-container .fa-copyright:before {
@@ -653,6 +729,8 @@
     content: "\f389"; }
   .vd .fa-credit-card-front:before, .block-container .fa-credit-card-front:before {
     content: "\f38a"; }
+  .vd .fa-cricket:before, .block-container .fa-cricket:before {
+    content: "\f449"; }
   .vd .fa-crop:before, .block-container .fa-crop:before {
     content: "\f125"; }
   .vd .fa-crosshairs:before, .block-container .fa-crosshairs:before {
@@ -665,6 +743,8 @@
     content: "\f1b2"; }
   .vd .fa-cubes:before, .block-container .fa-cubes:before {
     content: "\f1b3"; }
+  .vd .fa-curling:before, .block-container .fa-curling:before {
+    content: "\f44a"; }
   .vd .fa-cut:before, .block-container .fa-cut:before {
     content: "\f0c4"; }
   .vd .fa-cuttlefish:before, .block-container .fa-cuttlefish:before {
@@ -689,6 +769,8 @@
     content: "\f390"; }
   .vd .fa-deviantart:before, .block-container .fa-deviantart:before {
     content: "\f1bd"; }
+  .vd .fa-diagnoses:before, .block-container .fa-diagnoses:before {
+    content: "\f470"; }
   .vd .fa-diamond:before, .block-container .fa-diamond:before {
     content: "\f219"; }
   .vd .fa-digg:before, .block-container .fa-digg:before {
@@ -699,12 +781,24 @@
     content: "\f392"; }
   .vd .fa-discourse:before, .block-container .fa-discourse:before {
     content: "\f393"; }
+  .vd .fa-dna:before, .block-container .fa-dna:before {
+    content: "\f471"; }
   .vd .fa-dochub:before, .block-container .fa-dochub:before {
     content: "\f394"; }
   .vd .fa-docker:before, .block-container .fa-docker:before {
     content: "\f395"; }
   .vd .fa-dollar-sign:before, .block-container .fa-dollar-sign:before {
     content: "\f155"; }
+  .vd .fa-dolly:before, .block-container .fa-dolly:before {
+    content: "\f472"; }
+  .vd .fa-dolly-empty:before, .block-container .fa-dolly-empty:before {
+    content: "\f473"; }
+  .vd .fa-dolly-flatbed:before, .block-container .fa-dolly-flatbed:before {
+    content: "\f474"; }
+  .vd .fa-dolly-flatbed-alt:before, .block-container .fa-dolly-flatbed-alt:before {
+    content: "\f475"; }
+  .vd .fa-dolly-flatbed-empty:before, .block-container .fa-dolly-flatbed-empty:before {
+    content: "\f476"; }
   .vd .fa-dot-circle:before, .block-container .fa-dot-circle:before {
     content: "\f192"; }
   .vd .fa-download:before, .block-container .fa-download:before {
@@ -719,6 +813,8 @@
     content: "\f16b"; }
   .vd .fa-drupal:before, .block-container .fa-drupal:before {
     content: "\f1a9"; }
+  .vd .fa-dumbbell:before, .block-container .fa-dumbbell:before {
+    content: "\f44b"; }
   .vd .fa-dyalog:before, .block-container .fa-dyalog:before {
     content: "\f399"; }
   .vd .fa-earlybirds:before, .block-container .fa-earlybirds:before {
@@ -815,6 +911,8 @@
     content: "\f1ac"; }
   .vd .fa-female:before, .block-container .fa-female:before {
     content: "\f182"; }
+  .vd .fa-field-hockey:before, .block-container .fa-field-hockey:before {
+    content: "\f44c"; }
   .vd .fa-fighter-jet:before, .block-container .fa-fighter-jet:before {
     content: "\f0fb"; }
   .vd .fa-file:before, .block-container .fa-file:before {
@@ -837,6 +935,10 @@
     content: "\f31a"; }
   .vd .fa-file-image:before, .block-container .fa-file-image:before {
     content: "\f1c5"; }
+  .vd .fa-file-medical:before, .block-container .fa-file-medical:before {
+    content: "\f477"; }
+  .vd .fa-file-medical-alt:before, .block-container .fa-file-medical-alt:before {
+    content: "\f478"; }
   .vd .fa-file-minus:before, .block-container .fa-file-minus:before {
     content: "\f318"; }
   .vd .fa-file-pdf:before, .block-container .fa-file-pdf:before {
@@ -863,6 +965,8 @@
     content: "\f134"; }
   .vd .fa-firefox:before, .block-container .fa-firefox:before {
     content: "\f269"; }
+  .vd .fa-first-aid:before, .block-container .fa-first-aid:before {
+    content: "\f479"; }
   .vd .fa-first-order:before, .block-container .fa-first-order:before {
     content: "\f2b0"; }
   .vd .fa-firstdraft:before, .block-container .fa-firstdraft:before {
@@ -875,6 +979,8 @@
     content: "\f0c3"; }
   .vd .fa-flickr:before, .block-container .fa-flickr:before {
     content: "\f16e"; }
+  .vd .fa-flipboard:before, .block-container .fa-flipboard:before {
+    content: "\f44d"; }
   .vd .fa-fly:before, .block-container .fa-fly:before {
     content: "\f417"; }
   .vd .fa-folder:before, .block-container .fa-folder:before {
@@ -893,6 +999,12 @@
     content: "\f280"; }
   .vd .fa-fonticons-fi:before, .block-container .fa-fonticons-fi:before {
     content: "\f3a2"; }
+  .vd .fa-football-ball:before, .block-container .fa-football-ball:before {
+    content: "\f44e"; }
+  .vd .fa-football-helmet:before, .block-container .fa-football-helmet:before {
+    content: "\f44f"; }
+  .vd .fa-forklift:before, .block-container .fa-forklift:before {
+    content: "\f47a"; }
   .vd .fa-fort-awesome:before, .block-container .fa-fort-awesome:before {
     content: "\f286"; }
   .vd .fa-fort-awesome-alt:before, .block-container .fa-fort-awesome-alt:before {
@@ -953,6 +1065,10 @@
     content: "\f0ac"; }
   .vd .fa-gofore:before, .block-container .fa-gofore:before {
     content: "\f3a7"; }
+  .vd .fa-golf-ball:before, .block-container .fa-golf-ball:before {
+    content: "\f450"; }
+  .vd .fa-golf-club:before, .block-container .fa-golf-club:before {
+    content: "\f451"; }
   .vd .fa-goodreads:before, .block-container .fa-goodreads:before {
     content: "\f3a8"; }
   .vd .fa-goodreads-g:before, .block-container .fa-goodreads-g:before {
@@ -995,6 +1111,8 @@
     content: "\f1d4"; }
   .vd .fa-hacker-news-square:before, .block-container .fa-hacker-news-square:before {
     content: "\f3af"; }
+  .vd .fa-hand-holding-box:before, .block-container .fa-hand-holding-box:before {
+    content: "\f47b"; }
   .vd .fa-hand-lizard:before, .block-container .fa-hand-lizard:before {
     content: "\f258"; }
   .vd .fa-hand-paper:before, .block-container .fa-hand-paper:before {
@@ -1011,6 +1129,8 @@
     content: "\f0a6"; }
   .vd .fa-hand-pointer:before, .block-container .fa-hand-pointer:before {
     content: "\f25a"; }
+  .vd .fa-hand-receiving:before, .block-container .fa-hand-receiving:before {
+    content: "\f47c"; }
   .vd .fa-hand-rock:before, .block-container .fa-hand-rock:before {
     content: "\f255"; }
   .vd .fa-hand-scissors:before, .block-container .fa-hand-scissors:before {
@@ -1033,16 +1153,26 @@
     content: "\f21e"; }
   .vd .fa-hexagon:before, .block-container .fa-hexagon:before {
     content: "\f312"; }
+  .vd .fa-hips:before, .block-container .fa-hips:before {
+    content: "\f452"; }
   .vd .fa-hire-a-helper:before, .block-container .fa-hire-a-helper:before {
     content: "\f3b0"; }
   .vd .fa-history:before, .block-container .fa-history:before {
     content: "\f1da"; }
+  .vd .fa-hockey-puck:before, .block-container .fa-hockey-puck:before {
+    content: "\f453"; }
+  .vd .fa-hockey-sticks:before, .block-container .fa-hockey-sticks:before {
+    content: "\f454"; }
   .vd .fa-home:before, .block-container .fa-home:before {
     content: "\f015"; }
   .vd .fa-hooli:before, .block-container .fa-hooli:before {
     content: "\f427"; }
   .vd .fa-hospital:before, .block-container .fa-hospital:before {
     content: "\f0f8"; }
+  .vd .fa-hospital-alt:before, .block-container .fa-hospital-alt:before {
+    content: "\f47d"; }
+  .vd .fa-hospital-symbol:before, .block-container .fa-hospital-symbol:before {
+    content: "\f47e"; }
   .vd .fa-hotjar:before, .block-container .fa-hotjar:before {
     content: "\f3b1"; }
   .vd .fa-hourglass:before, .block-container .fa-hourglass:before {
@@ -1065,6 +1195,8 @@
     content: "\f2c1"; }
   .vd .fa-id-card:before, .block-container .fa-id-card:before {
     content: "\f2c2"; }
+  .vd .fa-id-card-alt:before, .block-container .fa-id-card-alt:before {
+    content: "\f47f"; }
   .vd .fa-image:before, .block-container .fa-image:before {
     content: "\f03e"; }
   .vd .fa-images:before, .block-container .fa-images:before {
@@ -1093,6 +1225,8 @@
     content: "\f16d"; }
   .vd .fa-internet-explorer:before, .block-container .fa-internet-explorer:before {
     content: "\f26b"; }
+  .vd .fa-inventory:before, .block-container .fa-inventory:before {
+    content: "\f480"; }
   .vd .fa-ioxhost:before, .block-container .fa-ioxhost:before {
     content: "\f208"; }
   .vd .fa-italic:before, .block-container .fa-italic:before {
@@ -1207,6 +1341,8 @@
     content: "\f176"; }
   .vd .fa-low-vision:before, .block-container .fa-low-vision:before {
     content: "\f2a8"; }
+  .vd .fa-luchador:before, .block-container .fa-luchador:before {
+    content: "\f455"; }
   .vd .fa-lyft:before, .block-container .fa-lyft:before {
     content: "\f3c3"; }
   .vd .fa-magento:before, .block-container .fa-magento:before {
@@ -1317,6 +1453,8 @@
     content: "\f419"; }
   .vd .fa-node-js:before, .block-container .fa-node-js:before {
     content: "\f3d3"; }
+  .vd .fa-notes-medical:before, .block-container .fa-notes-medical:before {
+    content: "\f481"; }
   .vd .fa-npm:before, .block-container .fa-npm:before {
     content: "\f3d4"; }
   .vd .fa-ns8:before, .block-container .fa-ns8:before {
@@ -1353,6 +1491,10 @@
     content: "\f1fc"; }
   .vd .fa-palfed:before, .block-container .fa-palfed:before {
     content: "\f3d8"; }
+  .vd .fa-pallet:before, .block-container .fa-pallet:before {
+    content: "\f482"; }
+  .vd .fa-pallet-alt:before, .block-container .fa-pallet-alt:before {
+    content: "\f483"; }
   .vd .fa-paper-plane:before, .block-container .fa-paper-plane:before {
     content: "\f1d8"; }
   .vd .fa-paperclip:before, .block-container .fa-paperclip:before {
@@ -1381,6 +1523,8 @@
     content: "\f040"; }
   .vd .fa-pencil-alt:before, .block-container .fa-pencil-alt:before {
     content: "\f303"; }
+  .vd .fa-pennant:before, .block-container .fa-pennant:before {
+    content: "\f456"; }
   .vd .fa-percent:before, .block-container .fa-percent:before {
     content: "\f295"; }
   .vd .fa-periscope:before, .block-container .fa-periscope:before {
@@ -1397,12 +1541,16 @@
     content: "\f098"; }
   .vd .fa-phone-volume:before, .block-container .fa-phone-volume:before {
     content: "\f2a0"; }
+  .vd .fa-php:before, .block-container .fa-php:before {
+    content: "\f457"; }
   .vd .fa-pied-piper:before, .block-container .fa-pied-piper:before {
     content: "\f2ae"; }
   .vd .fa-pied-piper-alt:before, .block-container .fa-pied-piper-alt:before {
     content: "\f1a8"; }
   .vd .fa-pied-piper-pp:before, .block-container .fa-pied-piper-pp:before {
     content: "\f1a7"; }
+  .vd .fa-pills:before, .block-container .fa-pills:before {
+    content: "\f484"; }
   .vd .fa-pinterest:before, .block-container .fa-pinterest:before {
     content: "\f0d2"; }
   .vd .fa-pinterest-p:before, .block-container .fa-pinterest-p:before {
@@ -1441,8 +1589,14 @@
     content: "\f154"; }
   .vd .fa-power-off:before, .block-container .fa-power-off:before {
     content: "\f011"; }
+  .vd .fa-prescription-bottle:before, .block-container .fa-prescription-bottle:before {
+    content: "\f485"; }
+  .vd .fa-prescription-bottle-alt:before, .block-container .fa-prescription-bottle-alt:before {
+    content: "\f486"; }
   .vd .fa-print:before, .block-container .fa-print:before {
     content: "\f02f"; }
+  .vd .fa-procedures:before, .block-container .fa-procedures:before {
+    content: "\f487"; }
   .vd .fa-product-hunt:before, .block-container .fa-product-hunt:before {
     content: "\f288"; }
   .vd .fa-pushed:before, .block-container .fa-pushed:before {
@@ -1461,12 +1615,18 @@
     content: "\f059"; }
   .vd .fa-question-square:before, .block-container .fa-question-square:before {
     content: "\f2fd"; }
+  .vd .fa-quidditch:before, .block-container .fa-quidditch:before {
+    content: "\f458"; }
+  .vd .fa-quinscape:before, .block-container .fa-quinscape:before {
+    content: "\f459"; }
   .vd .fa-quora:before, .block-container .fa-quora:before {
     content: "\f2c4"; }
   .vd .fa-quote-left:before, .block-container .fa-quote-left:before {
     content: "\f10d"; }
   .vd .fa-quote-right:before, .block-container .fa-quote-right:before {
     content: "\f10e"; }
+  .vd .fa-racquet:before, .block-container .fa-racquet:before {
+    content: "\f45a"; }
   .vd .fa-random:before, .block-container .fa-random:before {
     content: "\f074"; }
   .vd .fa-ravelry:before, .block-container .fa-ravelry:before {
@@ -1543,6 +1703,12 @@
     content: "\f41e"; }
   .vd .fa-save:before, .block-container .fa-save:before {
     content: "\f0c7"; }
+  .vd .fa-scanner:before, .block-container .fa-scanner:before {
+    content: "\f488"; }
+  .vd .fa-scanner-keyboard:before, .block-container .fa-scanner-keyboard:before {
+    content: "\f489"; }
+  .vd .fa-scanner-touchscreen:before, .block-container .fa-scanner-touchscreen:before {
+    content: "\f48a"; }
   .vd .fa-schlix:before, .block-container .fa-schlix:before {
     content: "\f3ea"; }
   .vd .fa-scribd:before, .block-container .fa-scribd:before {
@@ -1585,6 +1751,10 @@
     content: "\f2f7"; }
   .vd .fa-ship:before, .block-container .fa-ship:before {
     content: "\f21a"; }
+  .vd .fa-shipping-fast:before, .block-container .fa-shipping-fast:before {
+    content: "\f48b"; }
+  .vd .fa-shipping-timed:before, .block-container .fa-shipping-timed:before {
+    content: "\f48c"; }
   .vd .fa-shirtsinbulk:before, .block-container .fa-shirtsinbulk:before {
     content: "\f214"; }
   .vd .fa-shopping-bag:before, .block-container .fa-shopping-bag:before {
@@ -1595,6 +1765,8 @@
     content: "\f07a"; }
   .vd .fa-shower:before, .block-container .fa-shower:before {
     content: "\f2cc"; }
+  .vd .fa-shuttlecock:before, .block-container .fa-shuttlecock:before {
+    content: "\f45b"; }
   .vd .fa-sign-in:before, .block-container .fa-sign-in:before {
     content: "\f090"; }
   .vd .fa-sign-in-alt:before, .block-container .fa-sign-in-alt:before {
@@ -1633,6 +1805,8 @@
     content: "\f1e7"; }
   .vd .fa-smile:before, .block-container .fa-smile:before {
     content: "\f118"; }
+  .vd .fa-smoking:before, .block-container .fa-smoking:before {
+    content: "\f48d"; }
   .vd .fa-snapchat:before, .block-container .fa-snapchat:before {
     content: "\f2ab"; }
   .vd .fa-snapchat-ghost:before, .block-container .fa-snapchat-ghost:before {
@@ -1675,6 +1849,8 @@
     content: "\f1bc"; }
   .vd .fa-square:before, .block-container .fa-square:before {
     content: "\f0c8"; }
+  .vd .fa-square-full:before, .block-container .fa-square-full:before {
+    content: "\f45c"; }
   .vd .fa-stack-exchange:before, .block-container .fa-stack-exchange:before {
     content: "\f18d"; }
   .vd .fa-stack-overflow:before, .block-container .fa-stack-overflow:before {
@@ -1743,8 +1919,12 @@
     content: "\f021"; }
   .vd .fa-sync-alt:before, .block-container .fa-sync-alt:before {
     content: "\f2f1"; }
+  .vd .fa-syringe:before, .block-container .fa-syringe:before {
+    content: "\f48e"; }
   .vd .fa-table:before, .block-container .fa-table:before {
     content: "\f0ce"; }
+  .vd .fa-table-tennis:before, .block-container .fa-table-tennis:before {
+    content: "\f45d"; }
   .vd .fa-tablet:before, .block-container .fa-tablet:before {
     content: "\f10a"; }
   .vd .fa-tablet-alt:before, .block-container .fa-tablet-alt:before {
@@ -1753,6 +1933,10 @@
     content: "\f3fb"; }
   .vd .fa-tablet-android-alt:before, .block-container .fa-tablet-android-alt:before {
     content: "\f3fc"; }
+  .vd .fa-tablet-rugged:before, .block-container .fa-tablet-rugged:before {
+    content: "\f48f"; }
+  .vd .fa-tablets:before, .block-container .fa-tablets:before {
+    content: "\f490"; }
   .vd .fa-tachometer:before, .block-container .fa-tachometer:before {
     content: "\f0e4"; }
   .vd .fa-tachometer-alt:before, .block-container .fa-tachometer-alt:before {
@@ -1771,6 +1955,8 @@
     content: "\f3fe"; }
   .vd .fa-tencent-weibo:before, .block-container .fa-tencent-weibo:before {
     content: "\f1d5"; }
+  .vd .fa-tennis-ball:before, .block-container .fa-tennis-ball:before {
+    content: "\f45e"; }
   .vd .fa-terminal:before, .block-container .fa-terminal:before {
     content: "\f120"; }
   .vd .fa-text-height:before, .block-container .fa-text-height:before {
@@ -1785,6 +1971,8 @@
     content: "\f00b"; }
   .vd .fa-themeisle:before, .block-container .fa-themeisle:before {
     content: "\f2b2"; }
+  .vd .fa-thermometer:before, .block-container .fa-thermometer:before {
+    content: "\f491"; }
   .vd .fa-thermometer-empty:before, .block-container .fa-thermometer-empty:before {
     content: "\f2cb"; }
   .vd .fa-thermometer-full:before, .block-container .fa-thermometer-full:before {
@@ -1943,6 +2131,10 @@
     content: "\f2a9"; }
   .vd .fa-viadeo-square:before, .block-container .fa-viadeo-square:before {
     content: "\f2aa"; }
+  .vd .fa-vial:before, .block-container .fa-vial:before {
+    content: "\f492"; }
+  .vd .fa-vials:before, .block-container .fa-vials:before {
+    content: "\f493"; }
   .vd .fa-viber:before, .block-container .fa-viber:before {
     content: "\f409"; }
   .vd .fa-video:before, .block-container .fa-video:before {
@@ -1959,6 +2151,8 @@
     content: "\f189"; }
   .vd .fa-vnv:before, .block-container .fa-vnv:before {
     content: "\f40b"; }
+  .vd .fa-volleyball-ball:before, .block-container .fa-volleyball-ball:before {
+    content: "\f45f"; }
   .vd .fa-volume-down:before, .block-container .fa-volume-down:before {
     content: "\f027"; }
   .vd .fa-volume-mute:before, .block-container .fa-volume-mute:before {
@@ -1969,10 +2163,16 @@
     content: "\f028"; }
   .vd .fa-vuejs:before, .block-container .fa-vuejs:before {
     content: "\f41f"; }
+  .vd .fa-warehouse:before, .block-container .fa-warehouse:before {
+    content: "\f494"; }
+  .vd .fa-warehouse-alt:before, .block-container .fa-warehouse-alt:before {
+    content: "\f495"; }
   .vd .fa-watch:before, .block-container .fa-watch:before {
     content: "\f2e1"; }
   .vd .fa-weibo:before, .block-container .fa-weibo:before {
     content: "\f18a"; }
+  .vd .fa-weight:before, .block-container .fa-weight:before {
+    content: "\f496"; }
   .vd .fa-weixin:before, .block-container .fa-weixin:before {
     content: "\f1d7"; }
   .vd .fa-whatsapp:before, .block-container .fa-whatsapp:before {
@@ -1981,6 +2181,8 @@
     content: "\f40c"; }
   .vd .fa-wheelchair:before, .block-container .fa-wheelchair:before {
     content: "\f193"; }
+  .vd .fa-whistle:before, .block-container .fa-whistle:before {
+    content: "\f460"; }
   .vd .fa-whmcs:before, .block-container .fa-whmcs:before {
     content: "\f40d"; }
   .vd .fa-wifi:before, .block-container .fa-wifi:before {
@@ -2015,6 +2217,8 @@
     content: "\f298"; }
   .vd .fa-wrench:before, .block-container .fa-wrench:before {
     content: "\f0ad"; }
+  .vd .fa-x-ray:before, .block-container .fa-x-ray:before {
+    content: "\f497"; }
   .vd .fa-xbox:before, .block-container .fa-xbox:before {
     content: "\f412"; }
   .vd .fa-xing:before, .block-container .fa-xing:before {
@@ -2057,58 +2261,59 @@
     width: auto; }
 
 /*!
- * Font Awesome Pro 5.0.4 by @fontawesome - http://fontawesome.com
+ * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
  * License - http://fontawesome.com/license (Commercial License)
  */
-@font-face {
-  font-family: 'Font Awesome 5 Brands';
-  font-style: normal;
-  font-weight: normal;
-  src: url("./fonts/fa-brands-400.eot");
-  src: url("./fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-brands-400.woff2") format("woff2"), url("./fonts/fa-brands-400.woff") format("woff"), url("./fonts/fa-brands-400.ttf") format("truetype"), url("./fonts/fa-brands-400.svg#fontawesome") format("svg"); }
-.vd .fab, .block-container .fab {
-  font-family: 'Font Awesome 5 Brands'; }
-
-/*!
- * Font Awesome Pro 5.0.4 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
-@font-face {
-  font-family: 'Font Awesome 5 Pro';
-  font-style: normal;
-  font-weight: 300;
-  src: url("./fonts/fa-light-300.eot");
-  src: url("./fonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-light-300.woff2") format("woff2"), url("./fonts/fa-light-300.woff") format("woff"), url("./fonts/fa-light-300.ttf") format("truetype"), url("./fonts/fa-light-300.svg#fontawesome") format("svg"); }
-.vd .fal, .block-container .fal {
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 300; }
-
-/*!
- * Font Awesome Pro 5.0.4 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
-@font-face {
-  font-family: 'Font Awesome 5 Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: url("./fonts/fa-regular-400.eot");
-  src: url("./fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-regular-400.woff2") format("woff2"), url("./fonts/fa-regular-400.woff") format("woff"), url("./fonts/fa-regular-400.ttf") format("truetype"), url("./fonts/fa-regular-400.svg#fontawesome") format("svg"); }
-.vd .far, .block-container .far {
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 400; }
-
-/*!
- * Font Awesome Pro 5.0.4 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
-@font-face {
-  font-family: 'Font Awesome 5 Pro';
-  font-style: normal;
-  font-weight: 900;
-  src: url("./fonts/fa-solid-900.eot");
-  src: url("./fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-solid-900.woff2") format("woff2"), url("./fonts/fa-solid-900.woff") format("woff"), url("./fonts/fa-solid-900.ttf") format("truetype"), url("./fonts/fa-solid-900.svg#fontawesome") format("svg"); }
-.vd .fa,
-.vd .fas, .block-container .fa,
-.block-container .fas {
-  font-family: 'Font Awesome 5 Pro';
-  font-weight: 900; }
+ @font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-style: normal;
+    font-weight: normal;
+    src: url("./fonts/fa-brands-400.eot");
+    src: url("./fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-brands-400.woff2") format("woff2"), url("./fonts/fa-brands-400.woff") format("woff"), url("./fonts/fa-brands-400.ttf") format("truetype"), url("./fonts/fa-brands-400.svg#fontawesome") format("svg"); }
+  .vd .fab, .block-container .fab {
+    font-family: 'Font Awesome 5 Brands'; }
+  
+  /*!
+   * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
+   * License - http://fontawesome.com/license (Commercial License)
+   */
+  @font-face {
+    font-family: 'Font Awesome 5 Pro';
+    font-style: normal;
+    font-weight: 300;
+    src: url("./fonts/fa-light-300.eot");
+    src: url("./fonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-light-300.woff2") format("woff2"), url("./fonts/fa-light-300.woff") format("woff"), url("./fonts/fa-light-300.ttf") format("truetype"), url("./fonts/fa-light-300.svg#fontawesome") format("svg"); }
+  .vd .fal, .block-container .fal {
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 300; }
+  
+  /*!
+   * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
+   * License - http://fontawesome.com/license (Commercial License)
+   */
+  @font-face {
+    font-family: 'Font Awesome 5 Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url("./fonts/fa-regular-400.eot");
+    src: url("./fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-regular-400.woff2") format("woff2"), url("./fonts/fa-regular-400.woff") format("woff"), url("./fonts/fa-regular-400.ttf") format("truetype"), url("./fonts/fa-regular-400.svg#fontawesome") format("svg"); }
+  .vd .far, .block-container .far {
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 400; }
+  
+  /*!
+   * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
+   * License - http://fontawesome.com/license (Commercial License)
+   */
+  @font-face {
+    font-family: 'Font Awesome 5 Pro';
+    font-style: normal;
+    font-weight: 900;
+    src: url("./fonts/fa-solid-900.eot");
+    src: url("./fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-solid-900.woff2") format("woff2"), url("./fonts/fa-solid-900.woff") format("woff"), url("./fonts/fa-solid-900.ttf") format("truetype"), url("./fonts/fa-solid-900.svg#fontawesome") format("svg"); }
+  .vd .fa,
+  .vd .fas, .block-container .fa,
+  .block-container .fas {
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 900; }
+  
