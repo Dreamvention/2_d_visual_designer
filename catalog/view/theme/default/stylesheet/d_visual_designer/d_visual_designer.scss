@@ -9,10 +9,12 @@
 
 #tab-description {
     overflow: visible;
-    .vd {
-        div:not(.form-group),
-        p {
+    .vd.content {
+        .vd#sortable, .vd-helper, .vd-welcome{
             margin-bottom: 0;
+            div, p {
+                margin-bottom: 0;
+            }
         }
     }
 }

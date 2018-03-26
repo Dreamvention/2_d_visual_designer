@@ -84,6 +84,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['local'] = $this->prepareLocal();
             $data['options'] = $this->prepareOptions();
+            $this->prepareScripts();
+            $this->prepareStyles();
 
             $data['base'] = $this->store_url;
 
@@ -142,6 +144,27 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             
         $this->response->addHeader("Content-Type: application/json");
         $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
+    }
+
+    protected function prepareScripts() {
+        $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
+
+        foreach ($blocks as $block) {
+            $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/scripts');
+            if($output) {
+                $this->scripts = array_merge($this->scripts, $output);
+            }
+        }
+    }
+    protected function prepareStyles() {
+        $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
+
+        foreach ($blocks as $block) {
+            $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/styles');
+            if($output) {
+                $this->styles = array_merge($this->styles, $output);
+            }
+        }
     }
 
     public function prepareBlocksConfig()

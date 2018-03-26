@@ -8614,9 +8614,10 @@
   src: url("fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("fonts/glyphicons-halflings-regular.woff") format("woff"); }
 #tab-description {
   overflow: visible; }
-  #tab-description .vd div:not(.form-group),
-  #tab-description .vd p {
+  #tab-description .vd.content .vd#sortable, #tab-description .vd.content .vd-helper, #tab-description .vd.content .vd-welcome {
     margin-bottom: 0; }
+    #tab-description .vd.content .vd#sortable div, #tab-description .vd.content .vd#sortable p, #tab-description .vd.content .vd-helper div, #tab-description .vd.content .vd-helper p, #tab-description .vd.content .vd-welcome div, #tab-description .vd.content .vd-welcome p {
+      margin-bottom: 0; }
 
 #modal-image {
   position: fixed; }
