@@ -212,7 +212,7 @@
         var blocks = this.getState().blocks
         var block_id = type+'_'+Math.random().toString(36).substring(2, 9)
         blocks[designer_id][block_id] = {
-            setting: _.extend({}, block_config.setting_default),
+            setting: JSON.parse(JSON.stringify(block_config.setting_default)),
             parent: target,
             id: block_id,
             type: type,
