@@ -147,7 +147,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
     }
 
     protected function prepareScripts() {
-        $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
+        $blocks = $this->{'model_extension_'.$this->codename.'_designer'}->getBlocks();
 
         foreach ($blocks as $block) {
             $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/scripts');
@@ -157,7 +157,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
     }
     protected function prepareStyles() {
-        $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
+        $blocks = $this->{'model_extension_'.$this->codename.'_designer'}->getBlocks();
 
         foreach ($blocks as $block) {
             $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/styles');
