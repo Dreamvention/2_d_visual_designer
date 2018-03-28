@@ -26,6 +26,17 @@ $_['button_copy']      = true ;
 $_['button_collapse']  = true;
 //Кнопка удаления
 $_['button_remove']    = true;
+//Типы полей
+$_['types']            = array(
+    'size' => 'number',
+    'offset' => 'string',
+    'float' => 'boolean',
+    'align' => 'string',
+    'size_phone' => 'string',
+    'size_tablet' => 'string',
+    'offset_phone' => 'string',
+    'offset_tablet' => 'string'
+);
 //Настройки по умолчанию
 $_['setting']          = array(
     'size'   => 12,

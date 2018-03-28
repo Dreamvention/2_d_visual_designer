@@ -26,6 +26,27 @@ $_['button_copy']     = true ;
 $_['button_collapse'] = true;
 //Кнопка удаления
 $_['button_remove']   = true;
+//Типы полей
+$_['types'] = array(
+    'image' => 'string',
+    'title' => 'string',
+    'image_alt' => 'string',
+    'image_title' => 'string',
+    'link' => 'string',
+    'parallax' => 'boolean',
+    'parallax_height' => 'string',
+    'width' => 'string',
+    'height' => 'string',
+    'style' => 'string',
+    'align' => 'string',
+    'animate' => 'string',
+    'size' => 'string',
+    'onclick' => 'string',
+    'size_phone' => 'number',
+    'size_tablet' => 'number',
+    'align_phone' => 'string',
+    'align_tablet' => 'string'
+);
 //Настройки по умолчанию
 $_['setting'] = array(
     'image' => '',

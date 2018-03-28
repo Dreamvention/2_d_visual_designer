@@ -28,6 +28,10 @@ $_['button_collapse']  = true;
 $_['button_remove']    = true;
 //Текстовый блок
 $_['text']             = 'text';
+//Типы полей
+$_['types'] = array(
+    'text' => 'string'
+);
 //Настройки по умолчанию
 $_['setting'] = array(
     'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in erat eu lacus varius venenatis ut ac urna.'

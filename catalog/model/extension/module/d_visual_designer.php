@@ -484,7 +484,19 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
         if(!empty($setting)){
             foreach ($setting as $key => $value) {
-                $result[$key] = $value;
+                if(!is_array($value) && !empty($setting_default['types'][$key])){
+                    if($setting_default['types'][$key] == 'boolean'){
+                        $result[$key] = $value? true : false;
+                    } else if($setting_default['types'][$key] == 'number'){
+                        $result[$key] = (int)$value;
+                    } else if($setting_default['types'][$key] == 'string'){
+                        $result[$key] = (string)$value;
+                    } else {
+                        $result[$key] = $value;
+                    }
+                } else {
+                    $result[$key] = $value;
+                }
             }
         }
 

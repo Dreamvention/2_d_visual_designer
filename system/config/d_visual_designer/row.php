@@ -30,6 +30,12 @@ $_['button_copy']      = true ;
 $_['button_collapse']  = true;
 //Кнопка удаления
 $_['button_remove']    = true;
+//Типы полей
+$_['types'] = array(
+    'row_stretch' => 'string',
+    'background_video' => 'boolean',
+    'link' => 'string',
+);
 //Настройки по умолчанию
 $_['setting'] = array(
     'row_stretch' => '',
