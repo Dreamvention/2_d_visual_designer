@@ -101,7 +101,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         }
         $data['version'] = $this->extension['version'];
         $data['token'] =  $this->model_extension_d_opencart_patch_user->getToken();
-        
+        $data['url_token'] =  $this->model_extension_d_opencart_patch_user->getUrlToken();
+
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_disabled'] = $this->language->get('text_disabled');
         $data['text_yes'] = $this->language->get('text_yes');
