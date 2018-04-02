@@ -6,23 +6,7 @@
 class ModelExtensionDVisualDesignerDesigner extends Model
 {
     private $codename = 'd_visual_designer';
-
-    private $settingJS;
-
-    private $settingChild;
-
-    private $parent = '';
-
-    private $parents = array();
-
-    private $level = 0;
-
-    private $sort_order = 0;
     
-    private $sort_orders = array();
-
-    private $parent_clear = false;
-
     private $error = array();
 
     /**

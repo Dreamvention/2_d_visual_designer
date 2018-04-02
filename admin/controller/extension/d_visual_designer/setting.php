@@ -35,7 +35,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             $this->uninstallEvents();
             
-            if (!empty($this->request->post[$this->codename.'_status'])) {
+            if (!empty($this->request->post[$this->codename.'_status']) && !empty($this->request->post[$this->codename.'_setting']['use'])) {
                 $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
             }
 

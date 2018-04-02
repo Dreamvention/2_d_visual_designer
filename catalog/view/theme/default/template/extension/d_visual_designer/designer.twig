@@ -12,7 +12,7 @@
     $(document).ready(function(){
         d_visual_designer.initLocal({{local|json_encode(constant('JSON_FORCE_OBJECT'))}})
         d_visual_designer.initOptions({{options|json_encode(constant('JSON_FORCE_OBJECT'))}})
-        d_visual_designer.initState({{state|json_encode(constant('JSON_FORCE_OBJECT'))|raw}})
+        d_visual_designer.initState({{state|json_encode(constant('JSON_FORCE_OBJECT') b-or constant('JSON_NUMERIC_CHECK'))|raw}})
         riot.mount(document.getElementById('{{ designer_id }}'));
     })
 </script>
