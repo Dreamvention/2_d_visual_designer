@@ -5,6 +5,8 @@ $_['text_description']                   = 'Row';
 $_['text_default']                       = 'Default';
 $_['text_stretch_row']                   = 'Stretch row';
 $_['text_stretch_row_content']           = 'Stretch row and content';
+$_['text_stretch_row_content_right']     = 'Stretch row and content in Right';
+$_['text_stretch_row_content_left']      = 'Stretch row and content in Left';
 $_['text_stretch_row_content_no_spaces'] = 'Stretch row and content (no paddings)';
 //entry
 $_['entry_size']                         = 'Size';

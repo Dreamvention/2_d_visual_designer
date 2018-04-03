@@ -67,6 +67,12 @@
                     content.css('padding-left',left+'px');
                     content.css('padding-right',right+'px');
                 }
+                if(this.setting.global.row_stretch === 'stretch_row_content_left'){
+                    content.css('padding-right',right+'px');
+                }
+                if(this.setting.global.row_stretch === 'stretch_row_content_right'){
+                    content.css('padding-left',left+'px');
+                }
             }
             if(this.getLink() && this.setting.global.background_video){
                 var video = $('.video-background', this.root);

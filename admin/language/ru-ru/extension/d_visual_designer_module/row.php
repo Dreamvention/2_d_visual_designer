@@ -5,6 +5,8 @@ $_['text_description']                   = 'Ряд';
 $_['text_default']                       = 'По умолчания';
 $_['text_stretch_row']                   = 'Растянуть ряд';
 $_['text_stretch_row_content']           = 'Растянуть ряд и содержимое';
+$_['text_stretch_row_content_right']     = 'Растянуть ряд и содержимое в правой части';
+$_['text_stretch_row_content_left']      = 'Растянуть ряд и содержимое в левой части';
 $_['text_stretch_row_content_no_spaces'] = 'Растянуть ряд и содержимое (без отступов)';
 //entry
 $_['entry_size']                         = 'Размер';

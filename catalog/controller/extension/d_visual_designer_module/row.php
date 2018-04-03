@@ -22,6 +22,8 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller
                 '' => $this->language->get('text_default'),
                 'stretch_row' => $this->language->get('text_stretch_row'),
                 'stretch_row_content' => $this->language->get('text_stretch_row_content'),
+                'stretch_row_content_left' => $this->language->get('text_stretch_row_content_left'),
+                'stretch_row_content_right' => $this->language->get('text_stretch_row_content_right'),
                 'stretch_row_content_no_spaces' => $this->language->get('text_stretch_row_content_no_spaces')
             );
             $data['layout_sizes'] = array('12', '6+6', '4+4+4', '3+3+3+3', '8+4', '4+8', '3+9', '9+3', '6+3+3', '3+3+6', '3+6+3');
