@@ -7405,7 +7405,12 @@
     margin-bottom: 0; }
     .vd-popup .note-editor.note-frame.panel.panel-default .note-btn {
       color: #333 !important;
-      background: white !important; }
+      background: white !important;
+      border: 1px solid #ccc !important;
+      line-height: 1.5 !important;
+      padding: 5px 10px !important;
+      border-radius: 3px !important;
+      height: 30px !important; }
     .vd-popup .note-editor.note-frame.panel.panel-default .modal.in .modal-dialog .modal-content .modal-header h4.modal-title {
       padding: 0;
       margin: 0 20px 0 0;
@@ -7424,8 +7429,12 @@
       background-color: #f7cd32; }
   .vd-popup.inner .popup-tabs .vd-nav {
     background: #FFD434; }
-    .vd-popup.inner .popup-tabs .vd-nav li > a:hover {
-      background-color: #FFD434; }
+    .vd-popup.inner .popup-tabs .vd-nav li {
+      max-height: 38px; }
+      .vd-popup.inner .popup-tabs .vd-nav li > a:hover {
+        background-color: #FFD434; }
+        .vd-popup.inner .popup-tabs .vd-nav li > a:hover div {
+          font-size: 12px; }
     .vd-popup.inner .popup-tabs .vd-nav li.active > a {
       background-color: #FFDD5F; }
   .vd-popup.child > .popup-header {
@@ -7654,6 +7663,28 @@
         max-width: 100%; }
       .vd-popup .popup-content .form-group > .fg-setting {
         width: 100%; }
+        .vd-popup .popup-content .form-group > .fg-setting:after {
+          display: table;
+          clear: both;
+          content: ''; }
+        .vd-popup .popup-content .form-group > .fg-setting .btn-group > label.btn.btn-success {
+          height: auto;
+          text-transform: none; }
+        .vd-popup .popup-content .form-group > .fg-setting div.input-group input[type=text] {
+          height: 34px !important;
+          border: 1px solid #ccc !important;
+          padding: 6px 12px !important;
+          width: 100% !important;
+          background-color: #fff !important;
+          border-bottom-left-radius: 4px;
+          border-top-left-radius: 4px; }
+        .vd-popup .popup-content .form-group > .fg-setting > input[type=text], .vd-popup .popup-content .form-group > .fg-setting div:not(.input-group) input[type=text] {
+          height: 34px !important;
+          border: 1px solid #ccc !important;
+          padding: 6px 12px !important;
+          width: 100% !important;
+          background-color: #fff !important;
+          border-radius: 4px !important; }
         .vd-popup .popup-content .form-group > .fg-setting > label.vd-checkbox {
           font-size: 13px;
           color: #32373c;
@@ -7707,6 +7738,14 @@
               border-top: none;
               border-right: none;
               background: rgba(0, 0, 0, 0); }
+        .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover > button {
+          border-width: 1px;
+          border-style: solid;
+          padding: 6px 12px;
+          border-radius: 4px;
+          width: 40px;
+          height: 34px;
+          line-height: 34px; }
         .vd-popup .popup-content .form-group > .fg-setting .img-thumbnail + .popover .btn-default {
           color: #333 !important;
           background: #fff !important;
@@ -7998,26 +8037,32 @@
     -webkit-box-flex: 0;
     -ms-flex: 0 0 auto;
     flex: 0 0 auto; }
-    .vd-popup .popup-footer .vd-btn-group.btn-4 > .vd-btn {
-      width: 25%; }
-    .vd-popup .popup-footer .vd-btn-group > .vd-btn:first-child {
-      border-bottom-left-radius: 5px; }
-    .vd-popup .popup-footer .vd-btn-group > .vd-btn:last-child {
-      border-bottom-right-radius: 5px; }
-    .vd-popup .popup-footer .vd-btn-group > .vd-btn {
-      border-radius: 0px;
-      float: left;
-      width: auto; }
-    .vd-popup .popup-footer .vd-btn-group::after {
-      display: table;
-      content: '';
-      clear: both; }
+    .vd-popup .popup-footer .vd-btn-group {
+      display: flex;
+      flex-flow: row; }
+      .vd-popup .popup-footer .vd-btn-group.btn-4 > .vd-btn {
+        width: 25%; }
+      .vd-popup .popup-footer .vd-btn-group > .vd-btn:first-child {
+        border-bottom-left-radius: 5px; }
+      .vd-popup .popup-footer .vd-btn-group > .vd-btn:last-child {
+        border-bottom-right-radius: 5px; }
+      .vd-popup .popup-footer .vd-btn-group > .vd-btn {
+        border-radius: 0px;
+        float: left;
+        width: auto;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
+      .vd-popup .popup-footer .vd-btn-group::after {
+        display: table;
+        content: '';
+        clear: both; }
     .vd-popup .popup-footer a {
       position: relative;
       display: inline-block;
       box-sizing: border-box;
       width: 100%;
-      min-width: 100px;
       margin: 0;
       padding: 10px 21px;
       cursor: pointer;
@@ -8345,7 +8390,8 @@
   white-space: nowrap;
   border: 0 solid transparent;
   border-radius: 3px;
-  font-size: 0 !important; }
+  font-size: 0 !important;
+  word-spacing: normal; }
   .vd .control-popup > .block-button {
     padding-top: 10px;
     margin: 0px; }
@@ -8626,6 +8672,25 @@
   #modal-image .modal-dialog.modal-lg {
     position: static;
     width: 65%; }
+    #modal-image .modal-dialog.modal-lg .modal-header button.close {
+      height: auto; }
+    #modal-image .modal-dialog.modal-lg .modal-footer .pagination li {
+      margin-left: 0;
+      width: 100%;
+      height: 31px; }
+      #modal-image .modal-dialog.modal-lg .modal-footer .pagination li span, #modal-image .modal-dialog.modal-lg .modal-footer .pagination li a {
+        font-weight: 400;
+        width: auto;
+        height: 31px;
+        line-height: normal; }
+    #modal-image .modal-dialog.modal-lg .modal-body .folder a i {
+      font-size: 96px; }
+    #modal-image .modal-dialog.modal-lg .modal-body .folder + label {
+      font-size: 12px;
+      color: #666; }
+    #modal-image .modal-dialog.modal-lg .modal-body .thumbnail + label {
+      font-size: 12px;
+      color: #666; }
     #modal-image .modal-dialog.modal-lg .btn-default {
       color: #333 !important;
       background: #fff !important;
@@ -8653,7 +8718,8 @@
     #modal-image .modal-dialog.modal-lg #button-search {
       height: 34px; }
     #modal-image .modal-dialog.modal-lg .btn {
-      height: auto;
+      height: 34px;
+      width: 38px;
       margin: 0;
       padding: 6px 12px;
       margin-bottom: 0;

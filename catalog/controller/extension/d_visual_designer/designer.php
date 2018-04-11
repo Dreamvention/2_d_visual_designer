@@ -121,12 +121,13 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['edit_url'] = $this->store_url.'admin/index.php?route=extension/d_visual_designer/designer/frontend&'.$url_token.'&config='.$setting['config'].'&id='.$setting['id'];
 
+            $data['text_edit'] = $this->language->get('text_edit');
+
             $data['local'] = $this->prepareLocal(false);
             $data['options'] = $this->prepareOptions(false);
             $this->prepareScripts(false);
             $this->prepareStyles(false);
 
-            $data['text_edit'] = $this->language->get('text_edit');
             $data['styles'] = $this->styles;
             $data['scripts'] = $this->scripts;
             $data['content'] = $setting['content'];
@@ -462,7 +463,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $field_name = $this->request->post['field_name'];
         }
 
-        if (!empty($setting) && !empty($route) && !empty($id) && !empty($field_name)) {
+        if (!empty($setting) && !empty($route) && isset($id) && !empty($field_name)) {
             $content = $this->{'model_extension_module_'.$this->codename}->parseSetting($setting);
 
             $content_text = $this->{'model_extension_module_'.$this->codename}->getText($setting);

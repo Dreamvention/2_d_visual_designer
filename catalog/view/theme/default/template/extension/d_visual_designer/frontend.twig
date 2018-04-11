@@ -7,16 +7,17 @@
  {% for riot_tag in riot_tags %}
 <script src="{{riot_tag}}" type="riot/tag"></script>
 {% endfor %}
-{% if edit_url %}
-    <div class="btn-group-xs btn-edit" >
-        <a class="btn btn-default" href="{{edit_url}}" target="_blank">
-            <i class="fa fa-pencil"></i>{{text_edit}}
-        </a>
-        <br/><br/>
-    </div>
-{% endif %}
-<div class="vd-frontent-text">{{content}}</div>
-<visual-designer id="{{designer_id}}"></visual-designer>
+<div class="vd-frontend">
+    {% if edit_url %}
+        <div class="vd-btn-frontend-edit btn-group-xs btn-edit" >
+            <a class="btn btn-default" href="{{edit_url}}" target="_blank">
+                <i class="fa fa-pencil"></i>{{text_edit}}
+            </a>
+        </div>
+    {% endif %}
+    <div class="vd-frontent-text">{{content}}</div>
+    <visual-designer id="{{designer_id}}"></visual-designer>
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
         d_visual_designer.initLocal({{local|json_encode(constant('JSON_FORCE_OBJECT'))}})

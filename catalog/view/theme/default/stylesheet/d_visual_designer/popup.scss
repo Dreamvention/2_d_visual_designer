@@ -74,6 +74,11 @@
         .note-btn {
             color: #333!important;
             background: white!important;
+            border: 1px solid #ccc!important;
+            line-height: 1.5!important;
+            padding: 5px 10px!important;
+            border-radius: 3px!important;
+            height: 30px!important;
         }
         .modal.in {
             .modal-dialog {
@@ -117,9 +122,13 @@
             .vd-nav {
                 background: #FFD434;
                 li {
+                    max-height: 38px;
                     >a {
                         &:hover {
                             background-color: #FFD434;
+                            div {
+                                font-size: 12px;
+                            }
                         }
                     }
                 }
@@ -449,6 +458,25 @@
             }
             >.fg-setting {
                 width: 100%;
+                &:after{
+                    display: table;
+                    clear: both;
+                    content:'';
+                }
+                .btn-group{
+                    > label.btn.btn-success{
+                        height: auto;
+                        text-transform: none;
+                    }
+                }
+                input {
+                    height: 34px!important;
+                    border: 1px solid #ccc!important;
+                    padding: 6px 12px!important;
+                    width: 100%!important;
+                    background-color: #fff!important;
+                    border-radius: 4px!important;
+                }
                 > label.vd-checkbox{
                     font-size: 13px;
                     color: #32373c;
@@ -517,6 +545,15 @@
                     }
                 }
                 .img-thumbnail+.popover{
+                    > button{
+                        border-width: 1px;
+                        border-style: solid;
+                        padding: 6px 12px;
+                        border-radius: 4px;
+                        width: 40px;
+                        height: 34px;
+                        line-height: 34px;
+                    }
                     .btn-default {
                         color: #333!important;
                         background: #fff!important;
@@ -894,6 +931,8 @@
         -ms-flex: 0 0 auto;
         flex: 0 0 auto;
         .vd-btn-group {
+            display: flex;
+            flex-flow: row;
             &.btn-4 {
                 > .vd-btn {
                     width: 25%;
@@ -909,6 +948,10 @@
                 border-radius: 0px;
                 float: left;
                 width: auto;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             &::after{
                 display: table;
@@ -921,7 +964,6 @@
             display: inline-block;
             box-sizing: border-box;
             width: 100%;
-            min-width: 100px;
             margin: 0;
             padding: 10px 21px;
             cursor: pointer;
