@@ -62,12 +62,15 @@
     }
 
     this.subscribe('block/move', function(data){
-        var blocks = JSON.parse(JSON.stringify(this.getState().blocks))
         var block_info = this.getState().blocks[data.designer_id][data.block_id]
         this.updateSortOrder(data.designer_id, block_info.parent)
-        this.updateSortOrder(data.designer_id, data.target)
-        blocks[data.designer_id][data.block_id].parent = data.target
-        this.updateState({blocks: blocks})
+        if(block_info.parent != data.target) {
+            this.updateSortOrder(data.designer_id, data.target)
+            var blocks = JSON.parse(JSON.stringify(this.getState().blocks))
+            blocks[data.designer_id][data.block_id].parent = data.target
+            this.updateState({blocks: blocks})
+        }
+        data.success()
         this.dispatch('block/move/success')
     })
     this.subscribe('block/layout/update', function(data){
@@ -173,11 +176,18 @@
      * Update param sort_order in child blocks for selected block
      */
     this.updateSortOrder = function(designer_id, block_id){
-        var blocks = this.getState().blocks
-        $('#'+designer_id).find('#'+block_id).children('.block-content').children('.block-container').each(function(index, value){
-            var child_block_id = $(value).attr('id')
-            blocks[designer_id][child_block_id].sort_order = index
-        })
+        var blocks = JSON.parse(JSON.stringify(this.getState().blocks))
+        if(!_.isEmpty(block_id)){
+            var container =$('#'+designer_id).find('[data-id='+block_id+']').children('.block-content')
+        } else {
+            var container = $('#'+designer_id).find('#sortable')
+        }
+
+        for (var i = 0; i < container.get(0).children.length; i++) {
+            var index = container.get(0).children[i].dataset.id
+            blocks[designer_id][index].sort_order = i
+        }
+
         this.updateState({blocks: blocks})
     }
 
