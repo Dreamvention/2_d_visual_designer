@@ -9,7 +9,7 @@
             }
             $.ajax({
                 url: 'index.php?route=extension/d_visual_designer/designer/loadSetting&'+this.getState().config.url_token,
-                data: send_data,
+                data: {setting: JSON.stringify(send_data)},
                 type: 'post',
                 dataType: 'json',
                 context: this,

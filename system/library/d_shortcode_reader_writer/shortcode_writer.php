@@ -19,13 +19,13 @@ class shortcode_writer
         $items = $this->getItemsByParent($parent);
         
         if (!empty($items)) {
-            foreach ($items as $itemId => $item) {
-                $subItems = $this->getItemsByParent($itemId);
+            foreach ($items as $item) {
+                $subItems = $this->getItemsByParent($item['id']);
                 if (!empty($subItems)) {
-                    $childContent = $this->getContent($itemId);
+                    $childContent = $this->getContent($item['id']);
                     $content .= $this->getShortcode($item, $childContent);
                 } else {
-                    $content .= $this->getContent($itemId);
+                    $content .= $this->getContent($item['id']);
                 }
             }
         } else {
@@ -102,6 +102,13 @@ class shortcode_writer
     {
         $items = array_filter($this->setting, function ($v) use ($parent_id) {
             return $v['parent'] == $parent_id;
+        });
+
+        usort($items, function($a, $b) {
+            if ($a['sort_order'] == $b['sort_order']) {
+                return 0;
+            }
+            return ($a['sort_order'] < $b['sort_order']) ? -1 : 1;
         });
 
         return $items;

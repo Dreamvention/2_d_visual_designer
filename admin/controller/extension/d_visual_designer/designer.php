@@ -101,31 +101,35 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
     public function loadSetting(){
         $json = array();
 
-        if(!empty($this->request->post['route'])){
-            $route = $this->request->post['route'];
+        if(!empty($this->request->post['setting'])) {
+            $setting = json_decode(html_entity_decode($this->request->post['setting'], ENT_QUOTES, 'UTF-8'), true);
         }
 
-        if(!empty($this->request->post['field_name'])){
-            $field_name = $this->request->post['field_name'];
+        if(isset($setting['route'])){
+            $route = $setting['route'];
         }
 
-        if(isset($this->request->post['content'])){
-            $content = $this->request->post['content'];
+        if(isset($setting['field_name'])){
+            $field_name = $setting['field_name'];
         }
 
-        if(!empty($this->request->post['id'])){
-            $id = $this->request->post['id'];
+        if(isset($setting['content'])){
+            $content = $setting['content'];
+        }
+
+        if(isset($setting['id'])){
+            $id = $setting['id'];
         }
 
         if(isset($route) && isset($field_name) && isset($content) && isset($id)) {
-
-            $result = $this->{'model_extension_'.$this->codename.'_designer'}->getContent($route, $id, $field_name);
+            if($id){
+                $result = $this->{'model_extension_'.$this->codename.'_designer'}->getContent($route, $id, $field_name);
+                if (!empty($result)) {
+                    $content = $result['content'];
+                }
+            }
 
             $shortcode = false;
-
-            if (!empty($result)) {
-                $content = $result['content'];
-            }
 
             $block_setting = $this->{'model_extension_'.$this->codename.'_designer'}->parseContent($content, array(&$shortcode));
      
