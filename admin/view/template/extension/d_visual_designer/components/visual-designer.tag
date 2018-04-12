@@ -68,26 +68,30 @@
         this.store.subscribe('block/setting/update/end', function(data){
             if(this.top.opts.id == data.designer_id) {
                 this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
-                $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+                $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
             }
         }.bind(this))
         this.store.subscribe('block/move/success', function(data){
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
-            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
         }.bind(this))
         this.store.subscribe('block/remove/success', function(data){
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
-            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
+        }.bind(this))
+        this.store.subscribe('designer/update/blocks/success', function(data){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
         }.bind(this))
         this.store.subscribe('block/create/success', function(data){
             if(this.top.opts.id == data.designer_id) {
                 this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
-                $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+                $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
             }
         }.bind(this))
         this.store.subscribe('block/layout/update/success', function(data){
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
-            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content)
+           $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
         }.bind(this))
         fullscreen() {
             if ($('.vd.content', this.root).hasClass('fullscreen')) {

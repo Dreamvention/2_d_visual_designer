@@ -122,7 +122,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         if(isset($route) && isset($field_name) && isset($content) && isset($id)) {
-            if($id){
+            if($id != ''){
                 $result = $this->{'model_extension_'.$this->codename.'_designer'}->getContent($route, $id, $field_name);
                 if (!empty($result)) {
                     $content = $result['content'];
