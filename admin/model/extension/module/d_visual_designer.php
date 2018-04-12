@@ -1,6 +1,6 @@
 <?php
 /*
-*	location: admin/model
+*   location: admin/model
 */
 
 class ModelExtensionModuleDVisualDesigner extends Model
@@ -49,12 +49,24 @@ class ModelExtensionModuleDVisualDesigner extends Model
 
     public function compressRiotTag()
     {
+        if (in_array($this->config->get('config_theme'), array('theme_default', 'default'))) {
+            $theme = $this->config->get('theme_default_directory');
+        } else {
+            $ttheme = $this->config->get('config_theme');
+        }
+
+        if(!$theme){
+            $theme = $this->config->get('config_template');
+        }
+
         $this->compressRiotTagByFolder(DIR_TEMPLATE.'extension/d_visual_designer/');
-        $this->compressRiotTagByFolder(DIR_CATALOG.'view/theme/default/template/extension/d_visual_designer/');
+        $this->compressRiotTagByFolder(DIR_CATALOG.'view/theme/default/template/extension/d_visual_designer/', DIR_CATALOG.'view/theme/'.$theme.'/template/extension/d_visual_designer/');
     }
 
-    protected function compressRiotTagByFolder($folder)
+    protected function compressRiotTagByFolder($folder, $subfolder = false)
     {
+
+
         if (is_dir($folder."compress")) {
             array_map('unlink', glob($folder."compress/*"));
         } else {
@@ -70,6 +82,9 @@ class ModelExtensionModuleDVisualDesigner extends Model
         $files = glob($folder . 'elements/*.tag', GLOB_BRACE);
 
         foreach ($files as $file) {
+            if ($subfolder && file_exists($subfolder.'elements/'.basename($file))) {
+                $file = subfolder.'elements/'.basename($file);
+            }
             file_put_contents($folder."compress/elements.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
 
@@ -84,6 +99,9 @@ class ModelExtensionModuleDVisualDesigner extends Model
         }
         $files = glob($folder . 'content_blocks/*.tag', GLOB_BRACE);
         foreach ($files as $file) {
+            if ($subfolder && file_exists($subfolder.'content_blocks/'.basename($file))) {
+                $file = $subfolder.'content_blocks/'.basename($file);
+            }
             file_put_contents($folder."compress/content_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
         $files = glob($folder . 'settings_block/*.tag', GLOB_BRACE);

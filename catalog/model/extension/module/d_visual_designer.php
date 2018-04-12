@@ -537,6 +537,17 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
     public function getRiotTags(){
         $result = array();
+
+        if (in_array($this->config->get('config_theme'), array('theme_default', 'default'))) {
+            $this->theme = $this->config->get('theme_default_directory');
+        } else {
+            $this->theme = $this->config->get('config_theme');
+        }
+
+        if(!$this->theme){
+            $this->theme = $this->config->get('config_template');
+        }
+
         if (!is_dir(DIR_TEMPLATE."default/template/extension/d_visual_designer/compress")) {
             $this->compressRiotTag();
         }
@@ -551,7 +562,11 @@ class ModelExtensionModuleDVisualDesigner extends Model {
             $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,elements,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
 
             foreach ($files as $file) {
-                $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
+                if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file))) {
+                    $result[] = DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
+                } else {
+                    $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
+                }
             }
         }
 
@@ -578,6 +593,9 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         $files = glob($folder . 'elements/*.tag', GLOB_BRACE);
 
         foreach($files as $file){
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/elements/'.basename($file))) {
+                $file = DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/elements/'.basename($file);
+            }
             file_put_contents($folder."compress/elements.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
 
@@ -592,6 +610,9 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         }
         $files = glob($folder . 'content_blocks/*.tag', GLOB_BRACE);
         foreach($files as $file){
+            if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/content_blocks/'.basename($file))) {
+                $file = DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/content_blocks/'.basename($file);
+            }
             file_put_contents($folder."compress/content_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
         $files = glob($folder . 'settings_block/*.tag', GLOB_BRACE);

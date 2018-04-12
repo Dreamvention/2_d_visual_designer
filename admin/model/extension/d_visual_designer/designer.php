@@ -1,6 +1,6 @@
 <?php
 /*
-*	location: admin/model
+*   location: admin/model
 */
 
 class ModelExtensionDVisualDesignerDesigner extends Model
@@ -375,6 +375,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     public function getRiotTags()
     {
         $this->load->model('extension/module/d_visual_designer');
+
         $result = array();
         if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
             $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
