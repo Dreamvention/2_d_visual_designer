@@ -6,7 +6,7 @@
             url: 'index.php?route=extension/d_visual_designer/designer/updateContent&'+this.getState().config.url_token,
             dataType: 'json',
             type: 'post',
-            data: {content: contents[data.designer_id].content},
+            data: {content: contents[data.designer_id]},
             context: this,
             success: function(json){
                 if(json.success) {
