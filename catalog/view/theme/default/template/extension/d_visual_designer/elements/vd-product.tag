@@ -1,4 +1,4 @@
-<vd-product>
+<vd-product >
     <div class="image">
         <a href="{opts.product.href}">
             <img src="{opts.product.thumb}" alt="{opts.product.name}" title="{opts.product.name}" class="img-responsive" />
@@ -13,11 +13,11 @@
                     <span if={opts.product.rating >= rating} class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
             </virtual>
         </div>
-        <virtual if={opts.product.price}>
-            <virtual if={!opts.product.special}>{opts.product.price}</virtual>
-            <span if={opts.product.special} class="price-new">{opts.product.special}</span> <span class="price-old">{opts.product.price}</span>
-            <span if={opts.product.tax} class="price-tax">{store.getLocal('designer.text_tax')} {opts.product.tax}</span>
-        </virtual>
+        <p if={opts.product.price} class="price">
+            <virtual if={!opts.product.special}>{opts.product.symbolLeft}{opts.product.price}{opts.product.symbolRight}</virtual>
+            <span if={opts.product.special} class="price-new">{opts.product.symbolLeft}{opts.product.special}{opts.product.symbolRight}</span> <span class="price-old">{opts.product.symbolLeft}{opts.product.price}{opts.product.symbolRight}</span>
+            <span if={opts.product.tax} class="price-tax">{store.getLocal('designer.text_tax')} {opts.product.symbolLeft}{opts.product.tax}{opts.product.symbolRight}</span>
+        </p>
     </div>
     <div class="button-group">
         <button type="button" onclick="cart.add('{opts.product.product_id}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{store.getLocal('designer.button_cart')}</span></button>
