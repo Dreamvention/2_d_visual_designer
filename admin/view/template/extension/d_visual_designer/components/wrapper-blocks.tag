@@ -48,11 +48,17 @@
                 cursorAt: { top: 20, left: 16 },
                 handle: this.parent_id == ''? ' > .control.drag' :'> .control.drag',
                 tolerance: 'intersect',
-                receive: function(event, ui) {
+                stop: function(event, ui){
                     var block_id = $(ui.item).closest('.block-container').attr('id')
-                    var parent_id = $(ui.item).parent().closest('.block-container').attr('id')
-                    that.store.dispatch('block/move', {block_id: block_id, target: parent_id, designer_id: that.top.opts.id})
-                    ui.sender.sortable("cancel");
+                    if(that.parent_id == '') {
+                        var parent_id = ''
+                    }  else {
+                        var parent_id = $(ui.item).parent().closest('.block-container').attr('id')
+                    }
+
+                    that.store.dispatch('block/move', {block_id: block_id, target: parent_id, designer_id: that.top.opts.id, success: function(){
+                            $(parent_root).sortable('cancel')
+                        }.bind(this)})
                 }
             })
     }

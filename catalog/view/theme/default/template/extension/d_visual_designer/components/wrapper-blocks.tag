@@ -45,7 +45,7 @@
                 handle: this.parent_id == ''? ' > .control > .drag' :' .drag',
                 tolerance: 'intersect',
                 stop: function(event, ui){
-                        var block_id = $(ui.item).closest('.block-container').data('id')
+                    var block_id = $(ui.item).closest('.block-container').data('id')
                     if(that.parent_id == '') {
                         var parent_id = ''
                     }  else {
@@ -53,7 +53,7 @@
                     }
 
                     that.store.dispatch('block/move', {block_id: block_id, target: parent_id, designer_id: that.top.opts.id, success: function(){
-                        $(parent_root).sortable('cancel')
+                            $(parent_root).sortable('cancel')
                     }.bind(this)})
                 }
             })
