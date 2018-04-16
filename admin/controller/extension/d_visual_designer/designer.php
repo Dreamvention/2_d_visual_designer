@@ -532,11 +532,11 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         if(isset($setting)) {
-            $json['content'] = $content = $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($setting);
+            $json['content'] = str_replace('"', '&quot;', $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($setting));
             $json['success'] = 'success';
         }
         else{
-            $json['errorr'] = 'error';
+            $json['error'] = 'error';
         }
 
         $this->response->addHeader('Content-Type: application/json');

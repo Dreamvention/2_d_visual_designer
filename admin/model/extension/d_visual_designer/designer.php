@@ -10,8 +10,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     private $error = array();
 
     /**
-    * Converts shortcodes to settings
-    */
+     * Converts shortcodes to settings
+     * @param $text
+     * @return array
+     */
     public function parseContent($text)
     {
         $blocks = $this->getBlocks();
@@ -35,6 +37,8 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
     /**
      * Converts settings to shortcodes
+     * @param $setting
+     * @return string
      */
     public function parseSetting($setting)
     {
@@ -58,6 +62,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
     /**
      * Returns the shortcodes for the specified config
+     * @param $route
+     * @param $id
+     * @param $field_name
+     * @return array
      */
     public function getContent($route, $id, $field_name)
     {
@@ -65,8 +73,13 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
         return $query->row;
     }
+
     /**
      * Keeps shortcodes in the database
+     * @param $content
+     * @param $route
+     * @param $id
+     * @param $field_name
      */
     public function saveContent($content, $route, $id, $field_name)
     {
@@ -78,8 +91,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             $this->db->query("INSERT INTO `".DB_PREFIX."visual_designer_content` SET `content`= '".$this->db->escape($content)."', `route` ='".$route."', `id` = '".(int)$id."', `field` = '".$field_name."'");
         }
     }
+
     /**
      * Converts shortcodes to text
+     * @param $setting
+     * @return string
      */
     public function getText($setting)
     {
@@ -96,6 +112,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     }
 
 
+    /**
+     * Prepare setting for user
+     * @param $setting
+     * @return array
+     */
     public function prepareUserSetting($setting)
     {
         $data = array();
@@ -111,6 +132,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return $data;
     }
 
+    /**
+     * Prepare setting for edit
+     * @param $setting
+     * @return array
+     */
     public function prepareEditSetting($setting)
     {
         $data = array();
@@ -129,6 +155,12 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return $data;
     }
 
+    /**
+     * Get full setting
+     * @param $setting
+     * @param $type
+     * @return array
+     */
     public function getSetting($setting, $type)
     {
         $this->config->load('d_visual_designer');
@@ -186,6 +218,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return array('global'=>$result, 'user' => $userSetting, 'edit' => $editSetting);
     }
 
+    /**
+     * Get all blocks
+     * @return array
+     */
     public function getBlocks()
     {
         $dir = DIR_APPLICATION.'controller/extension/d_visual_designer_module';
@@ -199,6 +235,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return $result;
     }
 
+    /**
+     * Get config for block type
+     * @param $type
+     * @return array
+     */
     public function getSettingBlock($type)
     {
         $results = array();
@@ -215,6 +256,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return $results;
     }
 
+    /**
+     * Get Route By Backend Route
+     * @param $backend_route
+     * @return array
+     */
     public function getRouteByBackendRoute($backend_route)
     {
         $this->load->model('setting/setting');
@@ -239,6 +285,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return array();
     }
 
+    /**
+     * Get all routes
+     * @return array
+     */
     public function getRoutes()
     {
         $dir = DIR_CONFIG.'d_visual_designer_route/*.php';
@@ -257,6 +307,12 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     }
 
 
+    /**
+     *
+     * @param $a
+     * @param $b
+     * @return int
+     */
     public function compareRoute($a, $b)
     {
         if ($a['name'] > $b['name']) {
@@ -268,6 +324,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         }
     }
 
+    /**
+     * Get Route by name
+     * @param $name
+     * @return array
+     */
     public function getRoute($name)
     {
         $results = array();
@@ -287,6 +348,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return $results;
     }
 
+    /**
+     * Check permission
+     * @return bool
+     */
     public function checkPermission()
     {
         $this->load->model('extension/module/d_visual_designer');
@@ -307,25 +372,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return false;
     }
 
-    public function addScript()
-    {
-        if (!empty($setting)) {
-            if (!empty($setting['limit_access_user'])) {
-                if (!empty($setting['access_user']) && in_array($this->user->getId(), $setting['access_user'])) {
-                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
-                }
-            } elseif (!empty($setting['limit_access_user_group'])) {
-                if (!empty($setting['access_user_group']) && in_array($this->user->getGroupId(), $setting['access_user_group'])) {
-                    $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
-                }
-            } else {
-                $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
-            }
-        } else {
-            $this->document->addScript('view/javascript/d_visual_designer/d_visual_designer.js?'.rand(5, 10));
-        }
-    }
-
+    /**
+     * Check complete version
+     * @return bool
+     */
     public function checkCompleteVersion()
     {
         $return = false;
@@ -339,6 +389,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return $return;
     }
 
+    /**
+     * Validate access
+     * @param $config_name
+     * @return bool
+     */
     public function validateEdit($config_name)
     {
         $this->error = array();
@@ -372,6 +427,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         return !$this->error;
     }
 
+    /**
+     * Get all Riot Tags
+     * @return array
+     */
     public function getRiotTags()
     {
         $this->load->model('extension/module/d_visual_designer');
