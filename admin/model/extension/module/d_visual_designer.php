@@ -83,7 +83,7 @@ class ModelExtensionModuleDVisualDesigner extends Model
 
         foreach ($files as $file) {
             if ($subfolder && file_exists($subfolder.'elements/'.basename($file))) {
-                $file = subfolder.'elements/'.basename($file);
+                $file = $subfolder.'elements/'.basename($file);
             }
             file_put_contents($folder."compress/elements.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }

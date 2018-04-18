@@ -466,11 +466,11 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $config = html_entity_decode($this->request->get['config']);
         }
 
-        if (!empty($this->request->get['id'])) {
+        if (isset($this->request->get['id'])) {
             $id = html_entity_decode($this->request->get['id']);
         }
 
-        if (!empty($id)&& !empty($config)) {
+        if (isset($id)&& !empty($config)) {
             $data['button_add_block'] = $this->language->get('button_add_block');
             $data['button_add_template'] = $this->language->get('button_add_template');
             $data['button_save_template'] = $this->language->get('button_save_template');
