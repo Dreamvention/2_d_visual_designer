@@ -21,7 +21,7 @@
             if(currentTime - this.previewRangeChange > 100){
                 this.opts.evchange({target:{
                     name: opts.name,
-                    value: e.target.value
+                    value: e.target.value+'px'
                 }});
 
                 var d = new Date();
