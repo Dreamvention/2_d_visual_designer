@@ -64,7 +64,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         }
     }
 
-    public function model_imageResize_before(&$route, &$data, &$output)
+    public function model_imageResize_before(&$route, &$data)
     {
         if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
                 $server = $this->config->get('config_ssl');
