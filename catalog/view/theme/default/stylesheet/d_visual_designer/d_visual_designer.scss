@@ -104,7 +104,6 @@
             width: 38px;
             margin: 0;
             padding: 6px 12px;
-            margin-bottom: 0;
             font-size: 14px!important;
             font-weight: normal!important;
             >i {
@@ -141,7 +140,7 @@
     }
     &.vd {
         .glyphicon {
-            font-family: 'Glyph';
+            font-family: 'Glyph', sans-serif;
         }
         > .vd#sortable{
             &:empty {
@@ -222,10 +221,10 @@
         .block-mouse-toggle {
             position: absolute;
             z-index: 0;
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
             display: block;
             -webkit-transition: border 0.5s;
             transition: border 0.5s;
@@ -240,7 +239,7 @@
         }
         [class*=col-] {
             &:not(.product-layout) {
-                padding: 0px;
+                padding: 0;
             }
         }
         .block-content {
@@ -274,8 +273,7 @@
                     transform-origin: 50% 50%;
                     border: none !important;
                     border-radius: 50%;
-                    background: url(../../image/d_visual_designer/add.svg) no-repeat center;
-                    background-color: #72b338;
+                    background: #72b338 url(../../image/d_visual_designer/add.svg) no-repeat center;
                 }
             }
         }
@@ -359,7 +357,7 @@
                 position: relative;
             }
             &>.block-content {
-                padding: 0px;
+                padding: 0;
                 background-color: transparent;
             }
         }
@@ -410,7 +408,7 @@
             &>.block-content {
                 min-height: 40px;
                 background-color: transparent;
-                padding:0px;
+                padding:0;
                 .block-content-empty {
                     display: -webkit-box;
                     display: -ms-flexbox;
@@ -429,9 +427,8 @@
         }
         .block-section {
             min-height: 50px;
-            margin: 0px;
-            margin-top: 0px;
-            padding: 0px;
+            margin: 0;
+            padding: 0;
             &.active-control {
                 >.control {
                     visibility: visible;
@@ -444,7 +441,7 @@
             }
             &.accordion {
                 display: block;
-                margin-top: 0px;
+                margin-top: 0;
                 margin-bottom: 2px!important;
                 color: #333333;
                 background: #ffffff;
@@ -454,8 +451,8 @@
                 }
                 &.active {
                     >.vd-panel-heading {
-                        border-bottom-left-radius: 0px;
-                        border-bottom-right-radius: 0px;
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
                     }
                 }
                 >.vd-panel-heading {
@@ -465,11 +462,10 @@
                     transition: background .2s ease-in-out;
                     background-color: #4c5866;
                     text-align: left;
-                    border: solid transparent;
-                    border-width: 0;
+                    border: 0 solid transparent;
                     border-radius: 5px;
                     height: 43px;
-                    margin-bottom: 0px!important;
+                    margin-bottom: 0!important;
                     >.control {
                         visibility: visible;
                         opacity: 1;
@@ -517,10 +513,6 @@
                     border: 1px solid #4c5866;
                     display: none;
                     min-height: 65px;
-                    &>top {
-                        right: 0;
-                        left: auto;
-                    }
                 }
             }
             &.active {
@@ -583,7 +575,7 @@
                 min-height: 35px;
                 word-break: break-word;
                 background-color: transparent;
-                padding: 0px;
+                padding: 0;
                 .block-title {
                     font-weight: 600;
                 }
@@ -663,7 +655,7 @@ span.module_name {
 .vd-btn-small {
     font-size: 9px;
 }
-.vd-tab:not(.tab-control) {
+.vd-tab:not(.tab-control,.accordion-control) {
     .vd-btn-drag {
         background: url(../../image/d_visual_designer/drag-n-drop-gray.svg) no-repeat center;
     }
@@ -766,9 +758,7 @@ span.module_name {
         transition-property: none;
         border: none !important;
         border-radius: 6px;
-        background-color: #C9C9C9;
-        background-repeat: no-repeat;
-        background-position: center;
+        background: #C9C9C9 no-repeat center;
         &:hover {
             opacity: 0.7;
         }
@@ -814,8 +804,6 @@ span.module_name {
             -webkit-transition-duration: .2s;
             transition-duration: .2s;
             -webkit-transition-property: color, background, border, opacity, -webkit-transform;
-            transition-property: color, background, border, opacity, -webkit-transform;
-            transition-property: color, background, border, opacity, transform;
             transition-property: color, background, border, opacity, transform, -webkit-transform;
             text-align: center;
             vertical-align: middle;
@@ -829,19 +817,14 @@ span.module_name {
             font-size: 14px;
             font-weight: 400;
             &#vd-add-button{
-                background-image: url(../../image/d_visual_designer/add-block.svg);
-                background-repeat: no-repeat;
-                background-position: 25% center;
+                background: url(../../image/d_visual_designer/add-block.svg) no-repeat 25% center;
             }
             
             &.vd-add-text-block {
                 background-color: #73C02A;
             }
             &.vd-add-template {
-                background-color: #FEB710;
-                background-image: url(../../image/d_visual_designer/template-add.svg);
-                background-repeat: no-repeat;
-                background-position: 15% center;
+                background: #FEB710 url(../../image/d_visual_designer/template-add.svg) no-repeat 15% center;
             }
         }
     }

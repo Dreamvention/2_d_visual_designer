@@ -113,7 +113,7 @@
              if(item.setting.level_min <= this.level && item.setting.level_max >= this.level) {
                  return true
              }
-             if(this.level == 0 && item.setting.level_min == 2){
+            if(this.level == 0 && item.setting.level_min == 2 && (item.setting.helper_insert || _.isUndefined(item.setting.helper_insert))){
                  return true
              }
              return false

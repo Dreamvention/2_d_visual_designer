@@ -1,39 +1,36 @@
 .vd {
     .control-advanced {
         position: absolute;
-        z-index: 99;
         z-index: 1002;
-        top: 0px;
-        left: 0px;
+        top: 0;
+        left: 0;
         visibility: hidden;
         height: 40px;
         opacity: 0;
         background: transparent;
-        border-radius: 3px;
-        border-top-left-radius: 0px;
+        border-radius: 0 3px 3px 3px;
         // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
         &:hover {
-            &>a {
+            & > a {
                 &:first-child {
-                    border-top-left-radius: 0px;
-                    border-bottom-left-radius: 0px;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
                 }
                 &:last-child {
-                    border-top-right-radius: 0px;
+                    border-top-right-radius: 0;
                     border-bottom-right-radius: 3px;
                 }
             }
         }
-        &>a {
+        & > a {
             float: left;
             width: 40px;
             height: 40px;
-            padding: 0px;
-            padding: 12px 0px;
-            border: 0px;
-            border-radius: 0px;
+            padding: 12px 0;
+            border: 0;
+            border-radius: 0;
             background-color: #308cd6;
-            margin: 0!important;
+            margin: 0 !important;
             &:first-child {
                 border-top-left-radius: 3px;
                 border-bottom-left-radius: 3px;
@@ -51,18 +48,72 @@
             }
         }
     }
+    .control-advanced-bottom {
+        position: absolute;
+        z-index: 1002;
+        bottom: 0;
+        left: 0;
+        visibility: hidden;
+        height: 40px;
+        opacity: 0;
+        background: transparent;
+        border-radius: 0 3px 3px 3px;
+        // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
+        &.control ~ .vd-border.vd-border {
+            background-color: #4c5866;
+        }
+        &:hover {
+            & > a {
+                &:first-child {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+                &:last-child {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 3px;
+                }
+            }
+        }
+        & > a {
+            float: left;
+            width: 40px;
+            height: 40px;
+            padding: 12px 0;
+            border: 0;
+            border-radius: 0;
+            background-color: #4c5866;
+            margin: 0 !important;
+            &:first-child {
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+            &:last-child {
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+            &.drag {
+                cursor: move;
+            }
+            &:hover {
+                color: #fff;
+                -webkit-filter: brightness(120%);
+                filter: brightness(120%);
+                background-color: #4c5866;
+            }
+        }
+    }
     .control-section-accordion {
         position: absolute;
         right: 0;
         top: 0;
-        &>a {
-            float: left!important;
-            width: 40px!important;
-            height: 40px!important;
-            padding: 12px 0px!important;
-            border: 0px;
-            margin: 0!important;
-            border-radius: 0px;
+        & > a {
+            float: left !important;
+            width: 40px !important;
+            height: 40px !important;
+            padding: 12px 0 !important;
+            border: 0;
+            margin: 0 !important;
+            border-radius: 0;
             background-color: #4c5866;
             &:last-child {
                 border-top-right-radius: 5px;
@@ -74,8 +125,7 @@
         }
     }
     .accordion-control {
-        display: block;
-        margin-top: 0px;
+        margin-top: 0;
         color: #333333;
         border: 1px solid #dddddd;
         background: #4c5866;
@@ -84,14 +134,14 @@
         align-items: center;
         justify-content: center;
         border-radius: 5px;
-        &>a {
-            float: left!important;
-            width: 40px!important;
-            height: 40px!important;
-            padding: 12px 0px!important;
-            border: 0px;
-            margin: 0!important;
-            border-radius: 0px;
+        & > a {
+            float: left !important;
+            width: 40px !important;
+            height: 40px !important;
+            padding: 12px 0 !important;
+            border: 0;
+            margin: 0 !important;
+            border-radius: 0;
             background-color: #4c5866;
             &:hover {
                 background-color: #4c5866;
@@ -99,14 +149,14 @@
         }
     }
     .tab-control {
-        &>a {
-            float: left!important;
-            width: 40px!important;
-            height: 40px!important;
-            padding: 12px 0px!important;
-            border: 0px;
-            margin: 0!important;
-            border-radius: 0px;
+        & > a {
+            float: left !important;
+            width: 40px !important;
+            height: 40px !important;
+            padding: 12px 0 !important;
+            border: 0;
+            margin: 0 !important;
+            border-radius: 0;
             background-color: #4c5866;
             &:hover {
                 background-color: #4c5866;
@@ -122,20 +172,19 @@
     .control-section {
         position: absolute;
         z-index: 1003;
-        top: 0px;
+        top: 0;
         right: -80px;
         visibility: hidden;
         width: 80px;
         opacity: 0;
-        &>a {
+        & > a {
             float: left;
             width: 40px;
             height: 40px;
-            padding: 0px;
-            padding: 12px 0px;
-            border: 0px;
-            margin: 0!important;
-            border-radius: 0px;
+            padding: 12px 0;
+            border: 0;
+            margin: 0 !important;
+            border-radius: 0;
             background-color: #f4c000;
             &:hover {
                 background-color: #f7cd32;
@@ -153,25 +202,23 @@
     .control-top {
         position: absolute;
         z-index: 1003;
-        top: 0px;
-        right: 0px;
+        top: 0;
+        right: 0;
         display: block;
         visibility: hidden;
         height: 40px;
         opacity: 0;
         background: transparent;
-        border-radius: 3px;
-        border-top-right-radius: 0px;
+        border-radius: 3px 0 3px 3px;
         // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
-        &>a {
+        & > a {
             float: left;
             width: 40px;
             height: 40px;
-            padding: 0px;
-            padding: 12px 0px;
-            margin: 0!important;
-            border: 0px;
-            border-radius: 0px;
+            padding: 12px 0;
+            margin: 0 !important;
+            border: 0;
+            border-radius: 0;
             background-color: #f4c000;
             &:hover {
                 background-color: #f7cd32;
@@ -181,7 +228,42 @@
                 border-bottom-left-radius: 3px;
             }
             &:last-child {
-                border-top-right-radius: 0px;
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 3px;
+            }
+        }
+    }
+
+    .control-bottom {
+        position: absolute;
+        z-index: 1003;
+        bottom: 0;
+        right: 0;
+        display: block;
+        visibility: hidden;
+        height: 40px;
+        opacity: 0;
+        background: transparent;
+        border-radius: 3px 0 3px 3px;
+        // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
+        & > a {
+            float: left;
+            width: 40px;
+            height: 40px;
+            padding: 12px 0;
+            margin: 0 !important;
+            border: 0;
+            border-radius: 0;
+            background-color: #f4c000;
+            &:hover {
+                background-color: #f7cd32;
+            }
+            &:first-child {
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+            &:last-child {
+                border-top-right-radius: 0;
                 border-bottom-right-radius: 3px;
             }
         }
@@ -202,16 +284,16 @@
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        &>a {
+        & > a {
             position: relative;
             float: left;
             width: 40px;
             height: 40px;
             cursor: pointer;
-            border: 0px;
-            margin: 0!important;
-            border-radius: 0px;
-            background-color: #72b338!important;
+            border: 0;
+            margin: 0 !important;
+            border-radius: 0;
+            background-color: #72b338 !important;
             &:hover {
                 cursor: pointer;
                 background-color: #84c24d;
@@ -229,12 +311,12 @@
         border: 0 solid transparent;
         border-radius: 3px;
         // background-color: #afd23e;
-        font-size: 0!important;
+        font-size: 0 !important;
         word-spacing: normal;
-        &>.block-button {
+        & > .block-button {
             padding-top: 10px;
-            margin:0px;
-            &>a {
+            margin: 0;
+            & > a {
                 display: block;
                 width: 28px;
                 height: 28px;
@@ -248,22 +330,22 @@
                 }
             }
         }
-        >a {
+        > a {
             display: inline-block;
             width: 40px;
             height: 40px;
-            cursor: pointer!important;
-            border: 0px;
-            margin: 0!important;
-            border-radius: 0px;
+            cursor: pointer !important;
+            border: 0;
+            margin: 0 !important;
+            border-radius: 0;
             background-color: #72b338;
-            font-size: 16px!important;
-            line-height: 1px!important;
+            font-size: 16px !important;
+            line-height: 1px !important;
             &:first-child {
                 border-top-left-radius: 3px;
                 border-bottom-left-radius: 3px;
             }
-            &:last-of-type{
+            &:last-of-type {
                 border-top-right-radius: 3px;
                 border-bottom-right-radius: 3px;
             }

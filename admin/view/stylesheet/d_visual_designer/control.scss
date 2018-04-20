@@ -66,25 +66,20 @@
     }
 }
 .control-popup {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    > .title {
+        line-height: 32px;
+        min-height: 32px;
+    }
     > .vd-btn {
-        position: absolute;
-        top:auto;
-        bottom: auto;
         &.vd-btn-edit{
-            left: 5px;
+            float: left;
         }
         &.vd-btn-copy{
-            left: 37px;
+            float:left;
         }
         &.vd-btn-remove{
-            right: 5px;
+            float: right;
         }
     }
 }

@@ -332,23 +332,16 @@
           .content .vd-designer .block-container .control-top > .vd-btn.vd-btn-remove {
             right: 5px; }
       .content .vd-designer .block-container .control-popup {
-        position: absolute;
-        display: flex;
-        align-items: center;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0; }
-        .content .vd-designer .block-container .control-popup > .vd-btn {
-          position: absolute;
-          top: auto;
-          bottom: auto; }
-          .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-edit {
-            left: 5px; }
-          .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-copy {
-            left: 37px; }
-          .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-remove {
-            right: 5px; }
+        position: relative; }
+        .content .vd-designer .block-container .control-popup > .title {
+          line-height: 32px;
+          min-height: 32px; }
+        .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-edit {
+          float: left; }
+        .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-copy {
+          float: left; }
+        .content .vd-designer .block-container .control-popup > .vd-btn.vd-btn-remove {
+          float: right; }
       .content .vd-designer .block-container > .block-content {
         position: relative; }
         .content .vd-designer .block-container > .block-content > .vd-new-child-block {

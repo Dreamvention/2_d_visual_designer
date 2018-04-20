@@ -109,12 +109,12 @@
         var items = this.store.getState().config.blocks
 
         this.blocks = _.pick(items, function(item){
-             if(item.setting.level_min <= this.level && item.setting.level_max >= this.level) {
+            if(item.setting.level_min <= this.level && item.setting.level_max >= this.level) {
                  return true
-             }
-             if(this.level == 0 && item.setting.level_min == 2){
+            }
+            if(this.level == 0 && item.setting.level_min == 2 && (item.setting.helper_insert || _.isUndefined(item.setting.helper_insert))){
                  return true
-             }
+            }
              return false
         }.bind(this))
         for(var key in this.blocks) {
