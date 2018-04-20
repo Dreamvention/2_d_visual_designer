@@ -9244,7 +9244,11 @@ span.module_name {
     transition-property: none;
     border: none !important;
     border-radius: 6px;
-    background: #C9C9C9 no-repeat center; }
+    background: #C9C9C9 no-repeat center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff; }
     .vd-helper > .vd-button:hover {
       opacity: 0.7; }
 

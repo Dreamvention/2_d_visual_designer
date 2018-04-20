@@ -3,7 +3,7 @@
         <div class="vd" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+top.opts.id+" #sortable"}/></div>
         <virtual if={store.getState().config.permission[top.opts.id]}>
             <div class="vd-helper">
-                <a id="vd-add-button" class="vd-button vd-add-block vd-btn-add" onClick={addBlock}></a>
+                <a id="vd-add-button" class="vd-button vd-add-block vd-btn-add" onClick={addBlock}><i class="far fa-plus"></i></a>
             </div>
             <div class="vd-welcome">
                 <div class="vd-welcome-header"><formatted-message path='designer.text_welcome_header'/></div>
