@@ -428,6 +428,23 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     }
 
     /**
+     * Get all Custom Icon Set
+     * @return array
+     */
+    public function getIconSets(){
+        $files = glob(DIR_APPLICATION."view/javascript/d_visual_designer/iconset/*.js", GLOB_BRACE);
+
+        $result = array();
+
+        foreach ($files as $file) {
+            $result[] = basename($file, '.js');
+        }
+
+        return $result;
+    }
+
+
+    /**
      * Get all Riot Tags
      * @return array
      */

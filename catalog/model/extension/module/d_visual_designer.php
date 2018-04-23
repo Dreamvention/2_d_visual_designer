@@ -535,6 +535,18 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         return $return;
     }
 
+    public function getIconSets(){
+        $files = glob(DIR_APPLICATION."view/javascript/d_visual_designer/iconset/*.js", GLOB_BRACE);
+
+        $result = array();
+
+        foreach ($files as $file) {
+            $result[] = basename($file, '.js');
+        }
+
+        return $result;
+    }
+
     public function getRiotTags(){
         $result = array();
 

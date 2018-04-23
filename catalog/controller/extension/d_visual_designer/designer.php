@@ -345,6 +345,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 'octicon' => 'Octicons',
                 'weather' => 'Weather Icons'
             );
+
+            $iconSets = $this->{'model_extension_module_'.$this->codename}->getIconSets();
+
+            foreach ($iconSets as $value) {
+                $options['designer']['libraries'][$value] = $value;
+            }
         }
 
         $blocks = $this->{'model_extension_module_'.$this->codename}->getBlocks();
