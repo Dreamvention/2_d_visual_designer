@@ -350,6 +350,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             foreach ($iconSets as $value) {
                 $options['designer']['libraries'][$value] = $value;
+                $this->scripts[] = 'catalog/view/javascript/'.$this->codename."/iconset/".$value.'.js';
             }
         }
 

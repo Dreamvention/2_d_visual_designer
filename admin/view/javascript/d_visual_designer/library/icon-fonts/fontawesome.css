@@ -1,5 +1,5 @@
 /*!
- * Font Awesome Pro 5.0.8 by @fontawesome - https://fontawesome.com
+ * Font Awesome Pro 5.0.9 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license (Commercial License)
  */
 .vd, .block-container {
@@ -419,6 +419,8 @@
     content: "\f27e"; }
   .vd .fa-blackberry:before, .block-container .fa-blackberry:before {
     content: "\f37b"; }
+  .vd .fa-blanket:before, .block-container .fa-blanket:before {
+    content: "\f498"; }
   .vd .fa-blind:before, .block-container .fa-blind:before {
     content: "\f29d"; }
   .vd .fa-blogger:before, .block-container .fa-blogger:before {
@@ -437,6 +439,8 @@
     content: "\f1e2"; }
   .vd .fa-book:before, .block-container .fa-book:before {
     content: "\f02d"; }
+  .vd .fa-book-heart:before, .block-container .fa-book-heart:before {
+    content: "\f499"; }
   .vd .fa-bookmark:before, .block-container .fa-bookmark:before {
     content: "\f02e"; }
   .vd .fa-bowling-ball:before, .block-container .fa-bowling-ball:before {
@@ -445,10 +449,26 @@
     content: "\f437"; }
   .vd .fa-box:before, .block-container .fa-box:before {
     content: "\f466"; }
+  .vd .fa-box-alt:before, .block-container .fa-box-alt:before {
+    content: "\f49a"; }
   .vd .fa-box-check:before, .block-container .fa-box-check:before {
     content: "\f467"; }
+  .vd .fa-box-fragile:before, .block-container .fa-box-fragile:before {
+    content: "\f49b"; }
+  .vd .fa-box-full:before, .block-container .fa-box-full:before {
+    content: "\f49c"; }
+  .vd .fa-box-heart:before, .block-container .fa-box-heart:before {
+    content: "\f49d"; }
+  .vd .fa-box-open:before, .block-container .fa-box-open:before {
+    content: "\f49e"; }
+  .vd .fa-box-up:before, .block-container .fa-box-up:before {
+    content: "\f49f"; }
+  .vd .fa-box-usd:before, .block-container .fa-box-usd:before {
+    content: "\f4a0"; }
   .vd .fa-boxes:before, .block-container .fa-boxes:before {
     content: "\f468"; }
+  .vd .fa-boxes-alt:before, .block-container .fa-boxes-alt:before {
+    content: "\f4a1"; }
   .vd .fa-boxing-glove:before, .block-container .fa-boxing-glove:before {
     content: "\f438"; }
   .vd .fa-braille:before, .block-container .fa-braille:before {
@@ -697,8 +717,50 @@
     content: "\f075"; }
   .vd .fa-comment-alt:before, .block-container .fa-comment-alt:before {
     content: "\f27a"; }
+  .vd .fa-comment-alt-check:before, .block-container .fa-comment-alt-check:before {
+    content: "\f4a2"; }
+  .vd .fa-comment-alt-dots:before, .block-container .fa-comment-alt-dots:before {
+    content: "\f4a3"; }
+  .vd .fa-comment-alt-edit:before, .block-container .fa-comment-alt-edit:before {
+    content: "\f4a4"; }
+  .vd .fa-comment-alt-exclamation:before, .block-container .fa-comment-alt-exclamation:before {
+    content: "\f4a5"; }
+  .vd .fa-comment-alt-lines:before, .block-container .fa-comment-alt-lines:before {
+    content: "\f4a6"; }
+  .vd .fa-comment-alt-minus:before, .block-container .fa-comment-alt-minus:before {
+    content: "\f4a7"; }
+  .vd .fa-comment-alt-plus:before, .block-container .fa-comment-alt-plus:before {
+    content: "\f4a8"; }
+  .vd .fa-comment-alt-slash:before, .block-container .fa-comment-alt-slash:before {
+    content: "\f4a9"; }
+  .vd .fa-comment-alt-smile:before, .block-container .fa-comment-alt-smile:before {
+    content: "\f4aa"; }
+  .vd .fa-comment-alt-times:before, .block-container .fa-comment-alt-times:before {
+    content: "\f4ab"; }
+  .vd .fa-comment-check:before, .block-container .fa-comment-check:before {
+    content: "\f4ac"; }
+  .vd .fa-comment-dots:before, .block-container .fa-comment-dots:before {
+    content: "\f4ad"; }
+  .vd .fa-comment-edit:before, .block-container .fa-comment-edit:before {
+    content: "\f4ae"; }
+  .vd .fa-comment-exclamation:before, .block-container .fa-comment-exclamation:before {
+    content: "\f4af"; }
+  .vd .fa-comment-lines:before, .block-container .fa-comment-lines:before {
+    content: "\f4b0"; }
+  .vd .fa-comment-minus:before, .block-container .fa-comment-minus:before {
+    content: "\f4b1"; }
+  .vd .fa-comment-plus:before, .block-container .fa-comment-plus:before {
+    content: "\f4b2"; }
+  .vd .fa-comment-slash:before, .block-container .fa-comment-slash:before {
+    content: "\f4b3"; }
+  .vd .fa-comment-smile:before, .block-container .fa-comment-smile:before {
+    content: "\f4b4"; }
+  .vd .fa-comment-times:before, .block-container .fa-comment-times:before {
+    content: "\f4b5"; }
   .vd .fa-comments:before, .block-container .fa-comments:before {
     content: "\f086"; }
+  .vd .fa-comments-alt:before, .block-container .fa-comments-alt:before {
+    content: "\f4b6"; }
   .vd .fa-compass:before, .block-container .fa-compass:before {
     content: "\f14e"; }
   .vd .fa-compress:before, .block-container .fa-compress:before {
@@ -709,6 +771,8 @@
     content: "\f326"; }
   .vd .fa-connectdevelop:before, .block-container .fa-connectdevelop:before {
     content: "\f20e"; }
+  .vd .fa-container-storage:before, .block-container .fa-container-storage:before {
+    content: "\f4b7"; }
   .vd .fa-contao:before, .block-container .fa-contao:before {
     content: "\f26d"; }
   .vd .fa-conveyor-belt:before, .block-container .fa-conveyor-belt:before {
@@ -719,6 +783,8 @@
     content: "\f0c5"; }
   .vd .fa-copyright:before, .block-container .fa-copyright:before {
     content: "\f1f9"; }
+  .vd .fa-couch:before, .block-container .fa-couch:before {
+    content: "\f4b8"; }
   .vd .fa-cpanel:before, .block-container .fa-cpanel:before {
     content: "\f388"; }
   .vd .fa-creative-commons:before, .block-container .fa-creative-commons:before {
@@ -799,8 +865,12 @@
     content: "\f475"; }
   .vd .fa-dolly-flatbed-empty:before, .block-container .fa-dolly-flatbed-empty:before {
     content: "\f476"; }
+  .vd .fa-donate:before, .block-container .fa-donate:before {
+    content: "\f4b9"; }
   .vd .fa-dot-circle:before, .block-container .fa-dot-circle:before {
     content: "\f192"; }
+  .vd .fa-dove:before, .block-container .fa-dove:before {
+    content: "\f4ba"; }
   .vd .fa-download:before, .block-container .fa-download:before {
     content: "\f019"; }
   .vd .fa-draft2digital:before, .block-container .fa-draft2digital:before {
@@ -1015,6 +1085,8 @@
     content: "\f04e"; }
   .vd .fa-foursquare:before, .block-container .fa-foursquare:before {
     content: "\f180"; }
+  .vd .fa-fragile:before, .block-container .fa-fragile:before {
+    content: "\f4bb"; }
   .vd .fa-free-code-camp:before, .block-container .fa-free-code-camp:before {
     content: "\f2c5"; }
   .vd .fa-freebsd:before, .block-container .fa-freebsd:before {
@@ -1111,8 +1183,20 @@
     content: "\f1d4"; }
   .vd .fa-hacker-news-square:before, .block-container .fa-hacker-news-square:before {
     content: "\f3af"; }
+  .vd .fa-hand-heart:before, .block-container .fa-hand-heart:before {
+    content: "\f4bc"; }
+  .vd .fa-hand-holding:before, .block-container .fa-hand-holding:before {
+    content: "\f4bd"; }
   .vd .fa-hand-holding-box:before, .block-container .fa-hand-holding-box:before {
     content: "\f47b"; }
+  .vd .fa-hand-holding-heart:before, .block-container .fa-hand-holding-heart:before {
+    content: "\f4be"; }
+  .vd .fa-hand-holding-seedling:before, .block-container .fa-hand-holding-seedling:before {
+    content: "\f4bf"; }
+  .vd .fa-hand-holding-usd:before, .block-container .fa-hand-holding-usd:before {
+    content: "\f4c0"; }
+  .vd .fa-hand-holding-water:before, .block-container .fa-hand-holding-water:before {
+    content: "\f4c1"; }
   .vd .fa-hand-lizard:before, .block-container .fa-hand-lizard:before {
     content: "\f258"; }
   .vd .fa-hand-paper:before, .block-container .fa-hand-paper:before {
@@ -1137,8 +1221,18 @@
     content: "\f257"; }
   .vd .fa-hand-spock:before, .block-container .fa-hand-spock:before {
     content: "\f259"; }
+  .vd .fa-hands:before, .block-container .fa-hands:before {
+    content: "\f4c2"; }
+  .vd .fa-hands-heart:before, .block-container .fa-hands-heart:before {
+    content: "\f4c3"; }
+  .vd .fa-hands-helping:before, .block-container .fa-hands-helping:before {
+    content: "\f4c4"; }
+  .vd .fa-hands-usd:before, .block-container .fa-hands-usd:before {
+    content: "\f4c5"; }
   .vd .fa-handshake:before, .block-container .fa-handshake:before {
     content: "\f2b5"; }
+  .vd .fa-handshake-alt:before, .block-container .fa-handshake-alt:before {
+    content: "\f4c6"; }
   .vd .fa-hashtag:before, .block-container .fa-hashtag:before {
     content: "\f292"; }
   .vd .fa-hdd:before, .block-container .fa-hdd:before {
@@ -1149,6 +1243,10 @@
     content: "\f025"; }
   .vd .fa-heart:before, .block-container .fa-heart:before {
     content: "\f004"; }
+  .vd .fa-heart-circle:before, .block-container .fa-heart-circle:before {
+    content: "\f4c7"; }
+  .vd .fa-heart-square:before, .block-container .fa-heart-square:before {
+    content: "\f4c8"; }
   .vd .fa-heartbeat:before, .block-container .fa-heartbeat:before {
     content: "\f21e"; }
   .vd .fa-hexagon:before, .block-container .fa-hexagon:before {
@@ -1165,6 +1263,8 @@
     content: "\f454"; }
   .vd .fa-home:before, .block-container .fa-home:before {
     content: "\f015"; }
+  .vd .fa-home-heart:before, .block-container .fa-home-heart:before {
+    content: "\f4c9"; }
   .vd .fa-hooli:before, .block-container .fa-hooli:before {
     content: "\f427"; }
   .vd .fa-hospital:before, .block-container .fa-hospital:before {
@@ -1261,6 +1361,8 @@
     content: "\f3bc"; }
   .vd .fa-korvue:before, .block-container .fa-korvue:before {
     content: "\f42f"; }
+  .vd .fa-lamp:before, .block-container .fa-lamp:before {
+    content: "\f4ca"; }
   .vd .fa-language:before, .block-container .fa-language:before {
     content: "\f1ab"; }
   .vd .fa-laptop:before, .block-container .fa-laptop:before {
@@ -1273,6 +1375,8 @@
     content: "\f203"; }
   .vd .fa-leaf:before, .block-container .fa-leaf:before {
     content: "\f06c"; }
+  .vd .fa-leaf-heart:before, .block-container .fa-leaf-heart:before {
+    content: "\f4cb"; }
   .vd .fa-leanpub:before, .block-container .fa-leanpub:before {
     content: "\f212"; }
   .vd .fa-lemon:before, .block-container .fa-lemon:before {
@@ -1339,6 +1443,8 @@
     content: "\f178"; }
   .vd .fa-long-arrow-up:before, .block-container .fa-long-arrow-up:before {
     content: "\f176"; }
+  .vd .fa-loveseat:before, .block-container .fa-loveseat:before {
+    content: "\f4cc"; }
   .vd .fa-low-vision:before, .block-container .fa-low-vision:before {
     content: "\f2a8"; }
   .vd .fa-luchador:before, .block-container .fa-luchador:before {
@@ -1499,6 +1605,8 @@
     content: "\f1d8"; }
   .vd .fa-paperclip:before, .block-container .fa-paperclip:before {
     content: "\f0c6"; }
+  .vd .fa-parachute-box:before, .block-container .fa-parachute-box:before {
+    content: "\f4cd"; }
   .vd .fa-paragraph:before, .block-container .fa-paragraph:before {
     content: "\f1dd"; }
   .vd .fa-paste:before, .block-container .fa-paste:before {
@@ -1525,16 +1633,26 @@
     content: "\f303"; }
   .vd .fa-pennant:before, .block-container .fa-pennant:before {
     content: "\f456"; }
+  .vd .fa-people-carry:before, .block-container .fa-people-carry:before {
+    content: "\f4ce"; }
   .vd .fa-percent:before, .block-container .fa-percent:before {
     content: "\f295"; }
   .vd .fa-periscope:before, .block-container .fa-periscope:before {
     content: "\f3da"; }
+  .vd .fa-person-carry:before, .block-container .fa-person-carry:before {
+    content: "\f4cf"; }
+  .vd .fa-person-dolly:before, .block-container .fa-person-dolly:before {
+    content: "\f4d0"; }
+  .vd .fa-person-dolly-empty:before, .block-container .fa-person-dolly-empty:before {
+    content: "\f4d1"; }
   .vd .fa-phabricator:before, .block-container .fa-phabricator:before {
     content: "\f3db"; }
   .vd .fa-phoenix-framework:before, .block-container .fa-phoenix-framework:before {
     content: "\f3dc"; }
   .vd .fa-phone:before, .block-container .fa-phone:before {
     content: "\f095"; }
+  .vd .fa-phone-plus:before, .block-container .fa-phone-plus:before {
+    content: "\f4d2"; }
   .vd .fa-phone-slash:before, .block-container .fa-phone-slash:before {
     content: "\f3dd"; }
   .vd .fa-phone-square:before, .block-container .fa-phone-square:before {
@@ -1549,6 +1667,8 @@
     content: "\f1a8"; }
   .vd .fa-pied-piper-pp:before, .block-container .fa-pied-piper-pp:before {
     content: "\f1a7"; }
+  .vd .fa-piggy-bank:before, .block-container .fa-piggy-bank:before {
+    content: "\f4d3"; }
   .vd .fa-pills:before, .block-container .fa-pills:before {
     content: "\f484"; }
   .vd .fa-pinterest:before, .block-container .fa-pinterest:before {
@@ -1627,12 +1747,16 @@
     content: "\f10e"; }
   .vd .fa-racquet:before, .block-container .fa-racquet:before {
     content: "\f45a"; }
+  .vd .fa-ramp-loading:before, .block-container .fa-ramp-loading:before {
+    content: "\f4d4"; }
   .vd .fa-random:before, .block-container .fa-random:before {
     content: "\f074"; }
   .vd .fa-ravelry:before, .block-container .fa-ravelry:before {
     content: "\f2d9"; }
   .vd .fa-react:before, .block-container .fa-react:before {
     content: "\f41b"; }
+  .vd .fa-readme:before, .block-container .fa-readme:before {
+    content: "\f4d5"; }
   .vd .fa-rebel:before, .block-container .fa-rebel:before {
     content: "\f1d0"; }
   .vd .fa-rectangle-landscape:before, .block-container .fa-rectangle-landscape:before {
@@ -1681,6 +1805,8 @@
     content: "\f079"; }
   .vd .fa-retweet-alt:before, .block-container .fa-retweet-alt:before {
     content: "\f361"; }
+  .vd .fa-ribbon:before, .block-container .fa-ribbon:before {
+    content: "\f4d6"; }
   .vd .fa-road:before, .block-container .fa-road:before {
     content: "\f018"; }
   .vd .fa-rocket:before, .block-container .fa-rocket:before {
@@ -1689,6 +1815,8 @@
     content: "\f3e8"; }
   .vd .fa-rockrms:before, .block-container .fa-rockrms:before {
     content: "\f3e9"; }
+  .vd .fa-route:before, .block-container .fa-route:before {
+    content: "\f4d7"; }
   .vd .fa-rss:before, .block-container .fa-rss:before {
     content: "\f09e"; }
   .vd .fa-rss-square:before, .block-container .fa-rss-square:before {
@@ -1723,6 +1851,8 @@
     content: "\f00e"; }
   .vd .fa-searchengin:before, .block-container .fa-searchengin:before {
     content: "\f3eb"; }
+  .vd .fa-seedling:before, .block-container .fa-seedling:before {
+    content: "\f4d8"; }
   .vd .fa-sellcast:before, .block-container .fa-sellcast:before {
     content: "\f2da"; }
   .vd .fa-sellsy:before, .block-container .fa-sellsy:before {
@@ -1767,6 +1897,8 @@
     content: "\f2cc"; }
   .vd .fa-shuttlecock:before, .block-container .fa-shuttlecock:before {
     content: "\f45b"; }
+  .vd .fa-sign:before, .block-container .fa-sign:before {
+    content: "\f4d9"; }
   .vd .fa-sign-in:before, .block-container .fa-sign-in:before {
     content: "\f090"; }
   .vd .fa-sign-in-alt:before, .block-container .fa-sign-in-alt:before {
@@ -1805,6 +1937,8 @@
     content: "\f1e7"; }
   .vd .fa-smile:before, .block-container .fa-smile:before {
     content: "\f118"; }
+  .vd .fa-smile-plus:before, .block-container .fa-smile-plus:before {
+    content: "\f4da"; }
   .vd .fa-smoking:before, .block-container .fa-smoking:before {
     content: "\f48d"; }
   .vd .fa-snapchat:before, .block-container .fa-snapchat:before {
@@ -1945,6 +2079,8 @@
     content: "\f02b"; }
   .vd .fa-tags:before, .block-container .fa-tags:before {
     content: "\f02c"; }
+  .vd .fa-tape:before, .block-container .fa-tape:before {
+    content: "\f4db"; }
   .vd .fa-tasks:before, .block-container .fa-tasks:before {
     content: "\f0ae"; }
   .vd .fa-taxi:before, .block-container .fa-taxi:before {
@@ -2037,6 +2173,16 @@
     content: "\f2eb"; }
   .vd .fa-truck:before, .block-container .fa-truck:before {
     content: "\f0d1"; }
+  .vd .fa-truck-container:before, .block-container .fa-truck-container:before {
+    content: "\f4dc"; }
+  .vd .fa-truck-couch:before, .block-container .fa-truck-couch:before {
+    content: "\f4dd"; }
+  .vd .fa-truck-loading:before, .block-container .fa-truck-loading:before {
+    content: "\f4de"; }
+  .vd .fa-truck-moving:before, .block-container .fa-truck-moving:before {
+    content: "\f4df"; }
+  .vd .fa-truck-ramp:before, .block-container .fa-truck-ramp:before {
+    content: "\f4e0"; }
   .vd .fa-tty:before, .block-container .fa-tty:before {
     content: "\f1e4"; }
   .vd .fa-tumblr:before, .block-container .fa-tumblr:before {
@@ -2139,6 +2285,10 @@
     content: "\f409"; }
   .vd .fa-video:before, .block-container .fa-video:before {
     content: "\f03d"; }
+  .vd .fa-video-plus:before, .block-container .fa-video-plus:before {
+    content: "\f4e1"; }
+  .vd .fa-video-slash:before, .block-container .fa-video-slash:before {
+    content: "\f4e2"; }
   .vd .fa-vimeo:before, .block-container .fa-vimeo:before {
     content: "\f40a"; }
   .vd .fa-vimeo-square:before, .block-container .fa-vimeo-square:before {
@@ -2203,6 +2353,8 @@
     content: "\f2d2"; }
   .vd .fa-windows:before, .block-container .fa-windows:before {
     content: "\f17a"; }
+  .vd .fa-wine-glass:before, .block-container .fa-wine-glass:before {
+    content: "\f4e3"; }
   .vd .fa-won-sign:before, .block-container .fa-won-sign:before {
     content: "\f159"; }
   .vd .fa-wordpress:before, .block-container .fa-wordpress:before {
@@ -2260,60 +2412,4 @@
     position: static;
     width: auto; }
 
-/*!
- * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
- * License - http://fontawesome.com/license (Commercial License)
- */
- @font-face {
-    font-family: 'Font Awesome 5 Brands';
-    font-style: normal;
-    font-weight: normal;
-    src: url("./fonts/fa-brands-400.eot");
-    src: url("./fonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-brands-400.woff2") format("woff2"), url("./fonts/fa-brands-400.woff") format("woff"), url("./fonts/fa-brands-400.ttf") format("truetype"), url("./fonts/fa-brands-400.svg#fontawesome") format("svg"); }
-  .vd .fab, .block-container .fab {
-    font-family: 'Font Awesome 5 Brands'; }
-  
-  /*!
-   * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
-   * License - http://fontawesome.com/license (Commercial License)
-   */
-  @font-face {
-    font-family: 'Font Awesome 5 Pro';
-    font-style: normal;
-    font-weight: 300;
-    src: url("./fonts/fa-light-300.eot");
-    src: url("./fonts/fa-light-300.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-light-300.woff2") format("woff2"), url("./fonts/fa-light-300.woff") format("woff"), url("./fonts/fa-light-300.ttf") format("truetype"), url("./fonts/fa-light-300.svg#fontawesome") format("svg"); }
-  .vd .fal, .block-container .fal {
-    font-family: 'Font Awesome 5 Pro';
-    font-weight: 300; }
-  
-  /*!
-   * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
-   * License - http://fontawesome.com/license (Commercial License)
-   */
-  @font-face {
-    font-family: 'Font Awesome 5 Pro';
-    font-style: normal;
-    font-weight: 400;
-    src: url("./fonts/fa-regular-400.eot");
-    src: url("./fonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-regular-400.woff2") format("woff2"), url("./fonts/fa-regular-400.woff") format("woff"), url("./fonts/fa-regular-400.ttf") format("truetype"), url("./fonts/fa-regular-400.svg#fontawesome") format("svg"); }
-  .vd .far, .block-container .far {
-    font-family: 'Font Awesome 5 Pro';
-    font-weight: 400; }
-  
-  /*!
-   * Font Awesome Pro 5.0.8 by @fontawesome - http://fontawesome.com
-   * License - http://fontawesome.com/license (Commercial License)
-   */
-  @font-face {
-    font-family: 'Font Awesome 5 Pro';
-    font-style: normal;
-    font-weight: 900;
-    src: url("./fonts/fa-solid-900.eot");
-    src: url("./fonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("./fonts/fa-solid-900.woff2") format("woff2"), url("./fonts/fa-solid-900.woff") format("woff"), url("./fonts/fa-solid-900.ttf") format("truetype"), url("./fonts/fa-solid-900.svg#fontawesome") format("svg"); }
-  .vd .fa,
-  .vd .fas, .block-container .fa,
-  .block-container .fas {
-    font-family: 'Font Awesome 5 Pro';
-    font-weight: 900; }
-  
+/*# sourceMappingURL=fontawesome.css.map */
