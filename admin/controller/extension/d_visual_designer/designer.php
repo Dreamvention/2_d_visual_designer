@@ -57,7 +57,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $this->scripts[] = 'view/javascript/d_visual_designer/model/block.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/model/history.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/model/template.js';
-            
             $this->scripts[] = 'view/javascript/summernote/summernote.js';
             $this->styles[] = 'view/javascript/summernote/summernote.css';
             
