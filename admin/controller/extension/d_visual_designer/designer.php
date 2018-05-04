@@ -57,19 +57,39 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $this->scripts[] = 'view/javascript/d_visual_designer/model/block.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/model/history.js';
             $this->scripts[] = 'view/javascript/d_visual_designer/model/template.js';
+            
+            $this->scripts[] = 'view/javascript/summernote/summernote.js';
+            $this->styles[] = 'view/javascript/summernote/summernote.css';
+            
+            if (VERSION>='2.3.0.0') {
+                $this->scripts[] = 'view/javascript/summernote/opencart.js';
+            }
+
             $this->scripts[] = 'view/javascript/d_visual_designer/vd-libraries.min.js';
 
-            $data['riot_tags'] = $this->{'model_extension_'.$this->codename.'_designer'}->getRiotTags();
+            $this->load->model('setting/setting');
+
+            $setting_module = $this->model_setting_setting->getSetting($this->codename);
+        
+            if (!empty($setting_module[$this->codename.'_setting'])) {
+                $setting_module = $setting_module[$this->codename.'_setting'];
+            } else {
+                $this->load->config($this->codename);
+                $setting_module = $this->config->get($this->codename.'_setting');
+            }
+
+            $data['riot_tags'] = $this->{'model_extension_'.$this->codename.'_designer'}->getRiotTags($setting_module['compress_files']);
 
             $data['state']['config'] = array();
             $data['state']['blocks'] = array();
             $data['state']['content'] = array();
             $data['state']['history'] = array();
-
+            
             $data['state']['config']['notify'] = $this->{'model_extension_'.$this->codename.'_designer'}->checkCompleteVersion();
 
             $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($setting['config']);
 
+            $data['state']['config']['independent'] = array();
             $data['state']['config']['mode'] = array();
             $data['state']['config']['route'] = $setting['config'];
             $data['state']['config']['route_info'] = $route_info;
@@ -98,31 +118,32 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
     }
 
-    public function loadSetting(){
+    public function loadSetting()
+    {
         $json = array();
 
-        if(!empty($this->request->post['setting'])) {
+        if (!empty($this->request->post['setting'])) {
             $setting = json_decode(html_entity_decode($this->request->post['setting'], ENT_QUOTES, 'UTF-8'), true);
         }
 
-        if(isset($setting['route'])){
+        if (isset($setting['route'])) {
             $route = $setting['route'];
         }
 
-        if(isset($setting['field_name'])){
+        if (isset($setting['field_name'])) {
             $field_name = $setting['field_name'];
         }
 
-        if(isset($setting['content'])){
+        if (isset($setting['content'])) {
             $content = $setting['content'];
         }
 
-        if(isset($setting['id'])){
+        if (isset($setting['id'])) {
             $id = $setting['id'];
         }
 
-        if(isset($route) && isset($field_name) && isset($content) && isset($id)) {
-            if($id != ''){
+        if (isset($route) && isset($field_name) && isset($content) && isset($id)) {
+            if ($id != '') {
                 $result = $this->{'model_extension_'.$this->codename.'_designer'}->getContent($route, $id, $field_name);
                 if (!empty($result)) {
                     $content = $result['content'];
@@ -135,7 +156,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
      
             $json['designer_id'] = substr(md5(rand()), 0, 7);
             $json['content'] = $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($block_setting);
-            if($shortcode){
+            if ($shortcode) {
                 $json['text'] = $this->{'model_extension_'.$this->codename.'_designer'}->getText($block_setting);
             }
 
@@ -150,22 +171,24 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
-    protected function prepareScripts() {
+    protected function prepareScripts()
+    {
         $blocks = $this->{'model_extension_'.$this->codename.'_designer'}->getBlocks();
 
         foreach ($blocks as $block) {
             $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/scripts');
-            if($output) {
+            if ($output) {
                 $this->scripts = array_merge($this->scripts, $output);
             }
         }
     }
-    protected function prepareStyles() {
+    protected function prepareStyles()
+    {
         $blocks = $this->{'model_extension_'.$this->codename.'_designer'}->getBlocks();
 
         foreach ($blocks as $block) {
             $output = $this->load->controller('extension/d_visual_designer_module/'.$block.'/styles');
-            if($output) {
+            if ($output) {
                 $this->styles = array_merge($this->styles, $output);
             }
         }
@@ -413,7 +436,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $options['designer']['libraries'][$value] = $value;
             $this->scripts[] = 'view/javascript/'.$this->codename."/iconset/".$value.'.js';
         }
-
+        
         $blocks = $this->{'model_extension_'.$this->codename.'_designer'}->getBlocks();
 
         $options['blocks'] = array();
@@ -425,18 +448,18 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         return $options;
     }
 
-    public function updateContent() {
+    public function updateContent()
+    {
         $json = array();
 
         if (isset($this->request->post['content'])) {
             $content = $this->request->post['content'];
         }
 
-        if(isset($content)) {
+        if (isset($content)) {
             $json['setting'] = $content = $this->{'model_extension_'.$this->codename.'_designer'}->parseContent($content);
             $json['success'] = 'success';
-        }
-        else{
+        } else {
             $json['errorr'] = 'error';
         }
 
@@ -538,11 +561,10 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $setting = json_decode(html_entity_decode($this->request->post['setting'], ENT_QUOTES, 'UTF-8'), true);
         }
 
-        if(isset($setting)) {
+        if (isset($setting)) {
             $json['content'] = str_replace('"', '&quot;', $this->{'model_extension_'.$this->codename.'_designer'}->parseSetting($setting));
             $json['success'] = 'success';
-        }
-        else{
+        } else {
             $json['error'] = 'error';
         }
 

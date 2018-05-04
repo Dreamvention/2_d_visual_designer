@@ -47,7 +47,16 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             }
         }
 
-        $data['riot_tags'] = $this->{'model_extension_module_'.$this->codename}->getRiotTags();
+        $this->load->model('setting/setting');
+        $setting_module = $this->model_setting_setting->getSetting($this->codename);
+        
+        if(!empty($setting_module[$this->codename.'_setting'])){
+            $setting_module = $setting_module[$this->codename.'_setting'];
+        } else {
+            $setting_module = $this->config->get($this->codename.'_setting');
+        }
+
+        $data['riot_tags'] = $this->{'model_extension_module_'.$this->codename}->getRiotTags($setting_module['compress_files']);
 
         $result = $this->{'model_extension_module_'.$this->codename}->getContent($setting['config'], $setting['id'], $setting['field_name']);
 

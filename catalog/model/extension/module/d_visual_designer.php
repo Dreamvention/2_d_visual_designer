@@ -547,7 +547,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         return $result;
     }
 
-    public function getRiotTags(){
+    public function getRiotTags($compress = true){
         $result = array();
 
         if (in_array($this->config->get('config_theme'), array('theme_default', 'default'))) {
@@ -560,22 +560,23 @@ class ModelExtensionModuleDVisualDesigner extends Model {
             $this->theme = $this->config->get('config_template');
         }
 
-        if (!is_dir(DIR_TEMPLATE."default/template/extension/d_visual_designer/compress")) {
-            $this->compressRiotTag();
-        }
+        if($compress) {
+            if (!is_dir(DIR_TEMPLATE."default/template/extension/d_visual_designer/compress")) {
+                $this->compressRiotTag();
+            }
 
-        $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/compress/*.tag", GLOB_BRACE);
-
-        foreach ($files as $file) {
-            $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/compress/'.basename($file);
-        }
-        
-        if (empty($result)) {
-            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,elements,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
+            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/compress/*.tag", GLOB_BRACE);
 
             foreach ($files as $file) {
+                $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/compress/'.basename($file);
+            }
+        }
+        
+        if (!$compress || empty($result)) {
+            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,elements,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
+            foreach ($files as $file) {
                 if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file))) {
-                    $result[] = DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
+                    $result[] = 'catalog/view/theme/' . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
                 } else {
                     $result[] = 'catalog/view/theme/default/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
                 }

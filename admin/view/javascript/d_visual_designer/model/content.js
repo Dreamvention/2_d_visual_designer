@@ -1,12 +1,19 @@
 (function(){
     this.initContent = function(){
-        $('.d_visual_designer').each(function(index, el){
+        $('.d_visual_designer, .d_visual_designer_backend').each(function(index, el){
+
             var send_data = {
-                field_name: el.name,
-                content: el.value,
                 id: this.getState().config.id,
                 route: this.getState().config.route
             }
+            if(el.classList.contains('d_visual_designer_backend')){
+                send_data['field_name'] = el.dataset["name"]
+                send_data['content'] = ''
+            } else {
+                send_data['field_name'] = el.name
+                send_data['content'] = el.value
+            }
+
             $.ajax({
                 url: 'index.php?route=extension/d_visual_designer/designer/loadSetting&'+this.getState().config.url_token,
                 data: {setting: JSON.stringify(send_data)},
@@ -14,28 +21,33 @@
                 dataType: 'json',
                 context: this,
                 beforeSend: function() {
-                    $(el).closest('div').append('<div id="visual-designer-loader" class="la-ball-scale-ripple-multiple la-dark la-2x"><div></div><div></div><div></div></div>');
-                    if ($(el).next().hasClass('note-editor')) {
-                        $(el).next().fadeTo('slow', 0.5);
-                    }else if ($(el).next().hasClass('cke')) {
-                        $(el).next().fadeTo('slow', 0.5);
-                    }  else {
-                        $(el).fadeTo('slow', 0.5);
+                    if(el.classList.contains('d_visual_designer')){
+                        $(el).closest('div').append('<div id="visual-designer-loader" class="la-ball-scale-ripple-multiple la-dark la-2x"><div></div><div></div><div></div></div>');
+                        if ($(el).next().hasClass('note-editor')) {
+                            $(el).next().fadeTo('slow', 0.5);
+                        }else if ($(el).next().hasClass('cke')) {
+                            $(el).next().fadeTo('slow', 0.5);
+                        }  else {
+                            $(el).fadeTo('slow', 0.5);
+                        }
+                    } else {
+                        $(el).closest('div').append('<div id="visual-designer-static" class="la-ball-scale-ripple-multiple la-dark la-2x"><div></div><div></div><div></div></div>');
                     }
                 },
                 success: function(json){
                    if(json.success) {
+                        var config = this.getState().config
+                        config.independent[json.designer_id] = el.classList.contains('d_visual_designer_backend')?true: false
+                        this.updateState({config: config})
+
                         var content = this.getState().content
                         content[json.designer_id] = json.content
                         this.updateState({content: content})
 
-                        if(json.text) {
-                            this.dispatch('content/update/text', {designer_id: json.designer_id, text: json.text})
-                        }
-
                         var blocks = this.getState().blocks
                         blocks[json.designer_id] = json.blocks
                         this.updateState({blocks: blocks})
+
                         $(el).before('<visual-designer id="'+json.designer_id+'" class="'+json.designer_id+'"></visual-designer>');
                         riot.mount('visual-designer')
                         this.dispatch('content/designer/init', {designer_id: json.designer_id})
@@ -46,13 +58,17 @@
                    }
                 },
                 complete: function(){
-                    $(el).closest('div').find('div#visual-designer-loader').remove();
-                    if ($(el).next().hasClass('note-editor')) {
-                        $(el).next().fadeTo('slow', 1);
-                    } else if ($(el).next().hasClass('cke')) {
-                        $(el).next().fadeTo('slow', 1);
+                    if(el.classList.contains('d_visual_designer')){
+                        $(el).closest('div').find('div#visual-designer-loader').remove();
+                        if ($(el).next().hasClass('note-editor')) {
+                            $(el).next().fadeTo('slow', 1);
+                        } else if ($(el).next().hasClass('cke')) {
+                            $(el).next().fadeTo('slow', 1);
+                        } else {
+                            $(el).fadeTo('slow', 1);
+                        }
                     } else {
-                        $(el).fadeTo('slow', 1);
+                        $(el).closest('div').find('div#visual-designer-static').remove();
                     }
                 }
             })

@@ -4,6 +4,7 @@ $_['d_visual_designer_setting'] = array(
     'config' => 'd_visual_designer', 
     'save_change' => 0,
     'save_text' => 0,
+    'compress_files' => 1,
     'use' => array('category', 'information', 'product', 'template'),
     'limit_access_user' => 0,
     'limit_access_user_group' => 0,

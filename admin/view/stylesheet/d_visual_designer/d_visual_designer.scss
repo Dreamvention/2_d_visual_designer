@@ -1,6 +1,6 @@
-@import 'loader.css';
+@import 'loader.scss';
 @import 'component.scss';
-@import 'animation.css';
+@import 'animation.scss';
 @font-face {
     font-family: 'Glyph';
     src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
@@ -50,6 +50,9 @@
 .modal-backdrop {
     display: none;
 }
+#visual-designer-static{
+    margin: 0 auto;
+}
 
 .content {
     position: relative;
@@ -94,7 +97,7 @@
     .vd-designer {
         position: relative;
         background: white;
-        padding: 30px 30px 50px 30px;
+        padding: 30px 30px 15px;
         .block-container{
             background: #fafcfd;
             margin: 0 0 15px;
@@ -209,6 +212,13 @@
             margin-right: 1px;
             border-radius: 0px;
             box-shadow: none;
+            &.vd-btn-text{
+                font-weight: bold;
+                width: auto;
+                color: #fff;
+                line-height: 60px;
+                padding: 0 20px;
+            }
             &#button_add {
                 background-color: #F5C000;
                 &:hover {

@@ -10,8 +10,10 @@ $_['entry_limit_access_user']       = 'Разрешить использоват
 $_['entry_limit_access_user_group'] = 'Разрешить использовать только выбранным группам пользователей';
 $_['entry_user']                    = 'Пользователь';
 $_['entry_user_group']              = 'Группа пользователей';
+$_['entry_compress_files']          = 'Сжатие файлов';
 
 $_['help_save_text']                = 'При активации описание будет заменено описанием из Visual Designer. Если неактивно, вы можете создавать описание отдельно от Visual Designer';
+$_['help_compress_files']           = 'Эта опция позволяет сжать все файлы тегов Riot в один файл с мини-js. Это может решить некоторые проблемы с параллельной загрузкой на некоторых веб-серверах и увеличить скорость первой загрузки';
 
 $_['text_success']                  = 'Success: You have modified settings!';
 $_['text_product']                  = 'Товаров';
@@ -24,3 +26,4 @@ $_['button_support_email']          = 'Поддержка';
 $_['button_save_and_stay']          = 'Сохранить и остаться';
 $_['button_increase_fields']        = 'Увеличить описание';
 $_['button_decrease_fields']        = 'Уменьшить описание';
+$_['button_compress_update']        = 'Обновить';

@@ -177,14 +177,14 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             }
         }
 
-        if(!empty($setting)){
+        if (!empty($setting)) {
             foreach ($setting as $key => $value) {
-                if(!is_array($value) && !empty($setting_default['types'][$key])){
-                    if($setting_default['types'][$key] == 'boolean'){
+                if (!is_array($value) && !empty($setting_default['types'][$key])) {
+                    if ($setting_default['types'][$key] == 'boolean') {
                         $result[$key] = $value? true : false;
-                    } else if($setting_default['types'][$key] == 'number'){
+                    } elseif ($setting_default['types'][$key] == 'number') {
                         $result[$key] = (int)$value;
-                    } else if($setting_default['types'][$key] == 'string'){
+                    } elseif ($setting_default['types'][$key] == 'string') {
                         $result[$key] = (string)$value;
                     } else {
                         $result[$key] = $value;
@@ -390,6 +390,81 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     }
 
     /**
+     * Check config enabled
+     */
+    public function checkConfig($config_name)
+    {
+        $this->load->model('extension/d_opencart_patch/extension');
+
+        if(!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
+            return false;
+        }
+
+        $this->load->model('setting/setting');
+
+        $setting_module = $this->model_setting_setting->getSetting($this->codename);
+        
+        if(!empty($setting_module[$this->codename.'_setting'])){
+            $setting = $setting_module[$this->codename.'_setting'];
+        } else {
+            $this->load->config($this->codename);
+            $setting = $this->config->get($this->codename.'_setting');
+        }
+
+        if(!in_array($config_name, $setting['use'])) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Install config VD
+     */
+    public function installConfig($config_name) {
+        $this->load->model('extension/d_opencart_patch/extension');
+        $this->load->model('extension/d_opencart_patch/setting');
+        $this->load->model('extension/d_opencart_patch/user');
+
+        if(!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
+            $this->model_extension_d_opencart_patch_extension->install($this->codename);
+
+			$this->load->model('user/user_group');
+
+			$this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->codename);
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/module/' . $this->codename);
+            
+            $this->load->controller('extension/module/'.$this->codename);
+        }
+
+        $this->load->model('setting/setting');
+
+        $setting_module = $this->model_extension_d_opencart_patch_setting->getSetting($this->codename);
+
+        if(!empty($setting_module[$this->codename.'_setting'])){
+            $setting = $setting_module[$this->codename.'_setting'];
+            
+            if(!in_array($config_name, $setting['use'])) {
+                $setting['use'][] = $config_name;
+                $this->load->controller('extension/'.$this->codename.'/setting/uninstallEvents');
+                $this->load->controller('extension/'.$this->codename.'/setting/installEvents', $setting['use']);
+                $setting_module[$this->codename.'_setting'] = $setting;
+                $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $setting_module);
+            }
+        } else {
+            $this->load->config($this->codename);
+            $setting = $this->config->get($this->codename.'_setting');
+
+            $setting['use'][] = $config_name;
+            $this->load->controller('extension/'.$this->codename.'/setting/installEvents', $setting['use']);
+            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, array(
+                $this->codename.'_setting'=> $setting,
+                $this->codename.'_status' => 1
+            ));
+        }
+    }
+
+    /**
      * Validate access
      * @param $config_name
      * @return bool
@@ -431,7 +506,8 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * Get all Custom Icon Set
      * @return array
      */
-    public function getIconSets(){
+    public function getIconSets()
+    {
         $files = glob(DIR_APPLICATION."view/javascript/d_visual_designer/iconset/*.js", GLOB_BRACE);
 
         $result = array();
@@ -448,22 +524,24 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * Get all Riot Tags
      * @return array
      */
-    public function getRiotTags()
+    public function getRiotTags($compress)
     {
-        $this->load->model('extension/module/d_visual_designer');
+        if ($compress) {
+            $this->load->model('extension/module/d_visual_designer');
 
-        $result = array();
-        if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
-            $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+            $result = array();
+            if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
+                $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+            }
+
+            $files = glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*.tag", GLOB_BRACE);
+
+            foreach ($files as $file) {
+                $result[] = 'view/template/extension/'.$this->codename.'/compress/'.basename($file);
+            }
         }
 
-        $files = glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*.tag", GLOB_BRACE);
-
-        foreach ($files as $file) {
-            $result[] = 'view/template/extension/'.$this->codename.'/compress/'.basename($file);
-        }
-
-        if (empty($result)) {
+        if (!$compress || empty($result)) {
             $files = glob(DIR_TEMPLATE."extension/d_visual_designer/{components,elements,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
 
             foreach ($files as $file) {

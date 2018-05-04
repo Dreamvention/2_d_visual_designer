@@ -11,9 +11,9 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     {
         parent::__construct($registry);
         
-        $this->load->language('extension/module/d_visual_designer');
+        $this->load->language('extension/module/'.$this->codename);
         $this->load->language($this->route);
-        $this->load->model('extension/module/d_visual_designer');
+        $this->load->model('extension/module/'.$this->codename);
         
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->d_event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
@@ -38,8 +38,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
             if (!empty($this->request->post[$this->codename.'_status']) && !empty($this->request->post[$this->codename.'_setting']['use'])) {
                 $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
             }
-
-            $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
             
             $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
@@ -122,6 +120,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['button_save_and_stay'] = $this->language->get('button_save_and_stay');
         $data['button_cancel'] = $this->language->get('button_cancel');
         $data['button_remove'] = $this->language->get('button_remove');
+        $data['button_compress_update'] = $this->language->get('button_compress_update');
         
         // Entry
         $data['entry_status'] = $this->language->get('entry_status');
@@ -131,10 +130,12 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['entry_access'] = $this->language->get('entry_access');
         $data['entry_limit_access_user'] = $this->language->get('entry_limit_access_user');
         $data['entry_limit_access_user_group'] = $this->language->get('entry_limit_access_user_group');
+        $data['entry_compress_files'] = $this->language->get('entry_compress_files');
         $data['entry_user'] = $this->language->get('entry_user');
         $data['entry_user_group'] = $this->language->get('entry_user_group');
         
         $data['help_save_text'] = $this->language->get('help_save_text');
+        $data['help_compress_files'] = $this->language->get('help_compress_files');
         
         // Text
         $data['text_enabled'] = $this->language->get('text_enabled');
@@ -159,6 +160,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['action'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/setting', $url);
         
         $data['cancel'] =$this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
+
+        $data['compress_action'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/compress_update');
         
         
         $data['tab_setting'] = $this->language->get('tab_setting');
@@ -269,6 +272,21 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         return true;
     }
+
+    public function compress_update(){
+        $json = array();
+
+        try {
+            $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
+            $json['success'] = $this->language->get('text_compress_success');
+        } catch (Exception $e) {
+            $json['error'] = $e->getMessage();
+        }
+            
+        $this->response->addHeader("Content-Type: application/json");
+        $this->response->setOutput(json_encode($json));
+    }
+    
     public function autocompleteUser()
     {
         $json = array();

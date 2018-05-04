@@ -157,6 +157,19 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-compress-files"><span data-toggle="tooltip" title="{{help_compress_files}}">{{entry_compress_files}}</span></label>
+                                <div class="col-sm-2">
+                                    <input type="hidden" name="{{codename}}_setting[compress_files]" value="0" />
+                                    <input type="checkbox" name="{{codename}}_setting[compress_files]" class="switcher" data-label-text="{{text_enabled}}" id="input-compress-files" {{ setting.compress_files ? 'checked="checked"' }} value="1" />
+                                </div>
+                                <div class="col-sm-2">
+                                    <button class="btn btn-primary btn-block" id="compress_update"><i class="fa fa-refresh"></i> {{button_compress_update}}</button>
+                                </div>
+                                <div id="compress-notification" class="col-sm-offset-4 help-block col-sm-8" >
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label" for="button_support_email">{{entry_support}}</label>
                                 <div class="col-sm-2">
                                     <a href="mailto:{{support_email}}?Subject=Request Support:{{heading_title}}&body=Shop: {{HTTP_SERVER}}" id="button_support_email" class="btn btn-primary btn-block"><i class="fa fa-support"></i> {{button_support_email}}</a>
@@ -307,6 +320,30 @@
                     console.log( response );
                 }
             });  
+        });
+
+         $('body').on('click', '#compress_update', function (e) {
+            $.ajax({
+                url: '{{compress_action}}',
+                type: 'post',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#form').fadeTo('slow', 0.5);
+                },
+                complete: function () {
+                    $('#form').fadeTo('slow', 1);
+                },
+                success: function (json) {
+                    $('.alert').remove();
+                    if (json['success']) {
+                        $('#compress-notification').prepend('<div class="alert alert-success alert-inline">' + json['success'] + '</div>')
+                    }
+                    if (json['error']) {
+                        $('#compress-notification').prepend('<div class="alert alert-warning alert-inline">' + json['error'] + '</div>')
+                    }
+                }
+            });
+            e.preventDefault();
         });
     });
 </script>
