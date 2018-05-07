@@ -12,7 +12,12 @@
                 <a id="button_save_template" class="btn btn-default" onClick={saveTemplate}></a>
             </div>
             <div class="pull-right">
-                <a class="btn btn-default vd-btn-text" onClick={frontend} if={store.getState().config.route_info.frontend_status && store.getState().config.id}><formatted-message path='designer.text_frontend_editor'/></a>
+                <a class="btn btn-default vd-btn-text" 
+                    onClick={frontend} 
+                    if={store.getState().config.route_info.frontend_status && store.getState().config.id} 
+                    hide={!store.getState().config.independent[opts.id]}>
+                    <formatted-message path='designer.text_frontend_editor'/>
+                </a>
                 <a id="button_code_view" class="btn btn-default" onClick={codeView}></a>
                 <a id="button_full_screen" class="btn btn-default" onclick={fullscreen}></a>
             </div>
