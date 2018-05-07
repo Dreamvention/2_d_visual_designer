@@ -161,7 +161,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         $data['cancel'] =$this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
 
-        $data['compress_action'] = $this->model_extension_d_opencart_patch_url->link($this->route.'/compress_update');
+        $data['compress_action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/compress_update');
         
         
         $data['tab_setting'] = $this->language->get('tab_setting');
