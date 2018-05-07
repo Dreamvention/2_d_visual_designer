@@ -439,7 +439,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 			$this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->codename);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/module/' . $this->codename);
             
-            $this->load->controller('extension/module/'.$this->codename);
+            $this->load->controller('extension/module/'.$this->codename.'/install');
         }
 
         $this->load->model('setting/setting');
