@@ -2,7 +2,7 @@
     <div class="vd mode_switch btn-group" role="group" if={!store.getState().config.independent[opts.id]}>
         <a id="button_classic" class="btn btn-default" hide={store.getState().config.mode[opts.id] == 'classic'} onClick={modeClassic}><formatted-message path='designer.text_classic_mode'/></a>
         <a id="button_vd" class="btn btn-default" hide={!store.getState().config.mode[opts.id] || store.getState().config.mode[opts.id] == 'designer'} onClick={modeDesigner}><formatted-message path='designer.text_backend_editor'/></a>
-        <a id="button_frontend" class="btn btn-default" onClick={frontend} if={store.getState().config.route_info.frontend_status && store.getState().config.id}><formatted-message path='designer.text_frontend_editor'/></a>
+        <a class="btn btn-default" onClick={frontend} if={store.getState().config.route_info.frontend_status && store.getState().config.id}><formatted-message path='designer.text_frontend_editor'/></a>
     </div>
     <div class="content vd" hide={store.getState().config.mode[opts.id] == 'classic'}>
         <div class="row" id="d_visual_designer_nav">
@@ -12,7 +12,7 @@
                 <a id="button_save_template" class="btn btn-default" onClick={saveTemplate}></a>
             </div>
             <div class="pull-right">
-                <a id="button_frontend" class="btn btn-default vd-btn-text" onClick={frontend} if={store.getState().config.route_info.frontend_status && store.getState().config.id}><formatted-message path='designer.text_frontend_editor'/></a>
+                <a class="btn btn-default vd-btn-text" onClick={frontend} if={store.getState().config.route_info.frontend_status && store.getState().config.id}><formatted-message path='designer.text_frontend_editor'/></a>
                 <a id="button_code_view" class="btn btn-default" onClick={codeView}></a>
                 <a id="button_full_screen" class="btn btn-default" onclick={fullscreen}></a>
             </div>

@@ -391,6 +391,9 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
     /**
      * Check config enabled
+     * @param $config_name
+     * @return bool
+     * @throws Exception
      */
     public function checkConfig($config_name)
     {
@@ -420,6 +423,8 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
     /**
      * Install config VD
+     * @param $config_name
+     * @throws Exception
      */
     public function installConfig($config_name) {
         $this->load->model('extension/d_opencart_patch/extension');
@@ -427,7 +432,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         $this->load->model('extension/d_opencart_patch/user');
 
         if(!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
-            $this->model_extension_d_opencart_patch_extension->install($this->codename);
+            $this->model_extension_d_opencart_patch_extension->install('module', $this->codename);
 
 			$this->load->model('user/user_group');
 
@@ -522,14 +527,16 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
     /**
      * Get all Riot Tags
+     * @param $compress
      * @return array
      */
     public function getRiotTags($compress)
     {
+        $result = array();
+
         if ($compress) {
             $this->load->model('extension/module/d_visual_designer');
 
-            $result = array();
             if (count(glob(DIR_TEMPLATE."extension/d_visual_designer/compress/*")) === 0) {
                 $this->{'model_extension_module_'.$this->codename}->compressRiotTag();
             }

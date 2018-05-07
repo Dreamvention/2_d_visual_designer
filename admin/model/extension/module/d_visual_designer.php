@@ -5,7 +5,6 @@
 
 class ModelExtensionModuleDVisualDesigner extends Model
 {
-    private $subversions = array('lite', 'light', 'free');
     
     public function createDatabase()
     {
@@ -19,7 +18,7 @@ class ModelExtensionModuleDVisualDesigner extends Model
          PRIMARY KEY (`template_id`)
          )
          COLLATE='utf8_general_ci' ENGINE=MyISAM;");
-        $this->db->query("CREATE TABLE `".DB_PREFIX."visual_designer_content` (
+        $this->db->query("CREATE TABLE IF NOT EXISTS `".DB_PREFIX."visual_designer_content` (
             `id` INT(11) NOT NULL,
             `route` VARCHAR(64) NOT NULL,
             `field` VARCHAR(256) NOT NULL,
@@ -35,24 +34,12 @@ class ModelExtensionModuleDVisualDesigner extends Model
         $this->db->query("DROP TABLE IF EXISTS ".DB_PREFIX."visual_designer_content");
     }
 
-    public function getComponents($data)
-    {
-        $result = array();
-        $files = glob(DIR_APPLICATION . 'view/template/extension/d_visual_designer/component/*.twig', GLOB_BRACE);
-
-        foreach ($files as $file) {
-            $result[basename($file, '.twig')] = 'extension/d_visual_designer/component/'.basename($file);
-        }
-        
-        return $result;
-    }
-
     public function compressRiotTag()
     {
         if (in_array($this->config->get('config_theme'), array('theme_default', 'default'))) {
             $theme = $this->config->get('theme_default_directory');
         } else {
-            $ttheme = $this->config->get('config_theme');
+            $theme = $this->config->get('config_theme');
         }
 
         if(!$theme){
@@ -63,7 +50,7 @@ class ModelExtensionModuleDVisualDesigner extends Model
         $this->compressRiotTagByFolder(DIR_CATALOG.'view/theme/default/template/extension/d_visual_designer/', DIR_CATALOG.'view/theme/'.$theme.'/template/extension/d_visual_designer/');
     }
 
-    protected function compressRiotTagByFolder($folder, $subfolder = false)
+    protected function compressRiotTagByFolder($folder, $subFolder = false)
     {
 
 
@@ -82,8 +69,8 @@ class ModelExtensionModuleDVisualDesigner extends Model
         $files = glob($folder . 'elements/*.tag', GLOB_BRACE);
 
         foreach ($files as $file) {
-            if ($subfolder && file_exists($subfolder.'elements/'.basename($file))) {
-                $file = $subfolder.'elements/'.basename($file);
+            if ($subFolder && file_exists($subFolder.'elements/'.basename($file))) {
+                $file = $subFolder.'elements/'.basename($file);
             }
             file_put_contents($folder."compress/elements.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
@@ -99,8 +86,8 @@ class ModelExtensionModuleDVisualDesigner extends Model
         }
         $files = glob($folder . 'content_blocks/*.tag', GLOB_BRACE);
         foreach ($files as $file) {
-            if ($subfolder && file_exists($subfolder.'content_blocks/'.basename($file))) {
-                $file = $subfolder.'content_blocks/'.basename($file);
+            if ($subFolder && file_exists($subFolder.'content_blocks/'.basename($file))) {
+                $file = $subFolder.'content_blocks/'.basename($file);
             }
             file_put_contents($folder."compress/content_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
@@ -181,12 +168,6 @@ class ModelExtensionModuleDVisualDesigner extends Model
             return $codename;
         }
 
-        foreach ($this->subversions as $subversion) {
-            if (file_exists(DIR_SYSTEM . 'config/'. $codename . '_' . $subversion . '.php')) {
-                return $codename . '_' . $subversion;
-            }
-        }
-        
         return false;
     }
 
