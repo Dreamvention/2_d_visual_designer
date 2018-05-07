@@ -15,7 +15,8 @@
                 <a class="btn btn-default vd-btn-text" 
                     onClick={frontend} 
                     if={store.getState().config.route_info.frontend_status && store.getState().config.id} 
-                    hide={!store.getState().config.independent[opts.id]}>
+                    hide={!store.getState().config.independent[opts.id]}
+                >
                     <formatted-message path='designer.text_frontend_editor'/>
                 </a>
                 <a id="button_code_view" class="btn btn-default" onClick={codeView}></a>
