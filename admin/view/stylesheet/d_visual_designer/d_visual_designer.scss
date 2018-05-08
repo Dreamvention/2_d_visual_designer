@@ -240,6 +240,12 @@
                     background-color: #f7cd32;
                 }
             }
+            &.vd-btn-text{
+                background-color: #308cd6;
+                &:hover {
+                    background-color: #56a6e6;
+                }
+            }
             &.btn-template {
                 background: url('../../image/d_visual_designer/template-add.svg') no-repeat center #308cd6;
                 &:hover {

@@ -6,7 +6,7 @@
 class ModelExtensionDVisualDesignerDesigner extends Model
 {
     private $codename = 'd_visual_designer';
-    
+
     private $error = array();
 
     /**
@@ -21,7 +21,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         $d_shortcode_reader_writer = new d_shortcode_reader_writer($blocks);
 
         $setting = $d_shortcode_reader_writer->readShortcode($text);
-        
+
         if (!empty($text) && empty($setting)) {
             $text = "[vd_row][vd_column][vd_text text='".$d_shortcode_reader_writer->escape($text)."'][/vd_column][/vd_row]";
             $setting = $d_shortcode_reader_writer->readShortcode($text);
@@ -200,11 +200,11 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         if (!$userSetting) {
             $userSetting = array();
         }
-        
+
         $globalUserSetting = $this->prepareUserSetting($result);
 
         $userSetting = array_merge($globalUserSetting, $userSetting);
-        
+
         $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
 
         if (!$editSetting) {
@@ -406,7 +406,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         $this->load->model('setting/setting');
 
         $setting_module = $this->model_setting_setting->getSetting($this->codename);
-        
+
         if(!empty($setting_module[$this->codename.'_setting'])){
             $setting = $setting_module[$this->codename.'_setting'];
         } else {
@@ -448,7 +448,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->codename);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/module/' . $this->codename);
-            
+
             $this->load->controller('extension/module/'.$this->codename.'/install');
         }
 
@@ -458,15 +458,17 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
         if(!empty($setting_module[$this->codename.'_setting'])){
             $setting = $setting_module[$this->codename.'_setting'];
-            
+
             if(!in_array($config_name, $setting['use'])) {
                 $setting['use'][] = $config_name;
-                $this->load->controller('extension/'.$this->codename.'/setting/uninstallEvents');
-                $this->load->controller('extension/'.$this->codename.'/setting/installEvents', $setting['use']);
                 $setting_module[$this->codename.'_setting'] = $setting;
-                $setting_module[$this->codename.'_status'] = 1;
-                $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $setting_module);
             }
+
+            $this->load->controller('extension/'.$this->codename.'/setting/uninstallEvents');
+            $this->load->controller('extension/'.$this->codename.'/setting/installEvents', $setting['use']);
+
+            $setting_module[$this->codename.'_status'] = 1;
+            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $setting_module);
         } else {
             $this->load->config($this->codename);
             $setting = $this->config->get($this->codename.'_setting');
