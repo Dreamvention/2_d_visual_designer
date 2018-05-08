@@ -52,7 +52,11 @@
         this.emptyDesigner = _.isEmpty(this.store.getState().blocks[this.top.opts.id])
         this.loading = true
         this.initName = function(){
-            this.fieldName = $(this.root).closest('.form-group').find('.d_visual_designer').attr('name')
+            if(!this.store.getState().config.independent[this.top.opts.id]) {
+                this.fieldName = $(this.root).closest('.form-group').find('.d_visual_designer').attr('name')
+            } else {
+                this.fieldName = $(this.root).closest('.form-group').find('.d_visual_designer_backend').data('name')
+            }
 
             this.fieldName = 'vd_content[' + escape(this.fieldName) + ']'
         }
