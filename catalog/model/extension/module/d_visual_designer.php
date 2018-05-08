@@ -32,6 +32,11 @@ class ModelExtensionModuleDVisualDesigner extends Model {
      * Converts settings to shortcodes
      */
     public function parseSetting($setting) {
+
+        if(empty($setting)){
+            return '';
+        }
+
         $blocks = $this->getBlocks();
 
         $that = $this;

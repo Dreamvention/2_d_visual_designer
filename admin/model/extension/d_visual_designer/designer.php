@@ -418,6 +418,16 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             return false;
         }
 
+        if(!empty($setting_module[$this->codename.'_status'])){
+            $status = $setting_module[$this->codename.'_status'];
+        } else {
+            $status = false;
+        }
+
+        if(!$status) {
+            return false;
+        }
+
         return true;
     }
 
@@ -434,9 +444,9 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         if(!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
             $this->model_extension_d_opencart_patch_extension->install('module', $this->codename);
 
-			$this->load->model('user/user_group');
+            $this->load->model('user/user_group');
 
-			$this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->codename);
+            $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/module/' . $this->codename);
             $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/module/' . $this->codename);
             
             $this->load->controller('extension/module/'.$this->codename.'/install');
@@ -454,6 +464,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
                 $this->load->controller('extension/'.$this->codename.'/setting/uninstallEvents');
                 $this->load->controller('extension/'.$this->codename.'/setting/installEvents', $setting['use']);
                 $setting_module[$this->codename.'_setting'] = $setting;
+                $setting_module[$this->codename.'_status'] = 1;
                 $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $setting_module);
             }
         } else {

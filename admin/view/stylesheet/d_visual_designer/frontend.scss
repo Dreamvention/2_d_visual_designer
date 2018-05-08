@@ -32,7 +32,7 @@ span.notify{
     position:relative;
     height:60px;
     background-color:#1F7DC7;
-    box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0.707px 0.707px 3px 0 rgba(0, 0, 0, 0.2);
     z-index: 3;
 }
 [id=visual-designer-preloader]{
@@ -103,7 +103,7 @@ span.notify{
     
     &.right-bar{
         float:right;
-        box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 0.707px 0.707px 3px 0 rgba(0, 0, 0, 0.2);
         border-radius: 3px;
         background-color: #1F7DC7;
         > .vd-switcher {
@@ -201,34 +201,22 @@ span.notify{
         }
     }
     .vd-btn-add-block{
-        background-image:url('../../image/d_visual_designer/add-block.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('../../image/d_visual_designer/add-block.svg') no-repeat center;
     }
     .vd-btn-add-template{
-        background-image:url('../../image/d_visual_designer/template-add.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('../../image/d_visual_designer/template-add.svg') no-repeat center;
     }
     .vd-btn-mobile{
-        background-image:url('../../image/d_visual_designer/phone.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('../../image/d_visual_designer/phone.svg') no-repeat center;
     }
     .vd-btn-tablet{
-        background-image:url('../../image/d_visual_designer/tablet.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('../../image/d_visual_designer/tablet.svg') no-repeat center;
     }
     .vd-btn-desktop{
-        background-image:url('../../image/d_visual_designer/desktop.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('../../image/d_visual_designer/desktop.svg') no-repeat center;
     }
     .vd-btn-save-template{
-        background-image:url('../../image/d_visual_designer/template-save.svg');
-        background-repeat: no-repeat;
-        background-position: center;
+        background: url('../../image/d_visual_designer/template-save.svg') no-repeat center;
     }
 }
 

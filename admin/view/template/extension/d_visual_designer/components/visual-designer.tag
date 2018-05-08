@@ -7,9 +7,9 @@
     <div class="content vd" hide={store.getState().config.mode[opts.id] == 'classic'}>
         <div class="row" id="d_visual_designer_nav">
             <div class="pull-left">
-                <a id="button_add" class="btn btn-default" onClick={addBlock}></a>
-                <a id="button_template" class="btn btn-default" onClick={addTemplate}></a>
-                <a id="button_save_template" class="btn btn-default" onClick={saveTemplate}></a>
+                <a class="btn btn-add btn-default" onClick={addBlock}></a>
+                <a class="btn btn-template btn-default" onClick={addTemplate}></a>
+                <a class="btn btn-save-template btn-default" onClick={saveTemplate}></a>
             </div>
             <div class="pull-right">
                 <a class="btn btn-default vd-btn-text" 
@@ -19,8 +19,8 @@
                 >
                     <formatted-message path='designer.text_frontend_editor'/>
                 </a>
-                <a id="button_code_view" class="btn btn-default" onClick={codeView}></a>
-                <a id="button_full_screen" class="btn btn-default" onclick={fullscreen}></a>
+                <a class="btn btn-code-view btn-default" onClick={codeView}></a>
+                <a class="btn btn-full-screen btn-default" onclick={fullscreen}></a>
             </div>
         </div>
         <div class="vd-designer" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+top.opts.id+" #sortable"}/></div>
@@ -103,11 +103,11 @@
         fullscreen() {
             if ($('.vd.content', this.root).hasClass('fullscreen')) {
                 $('.vd.content', this.root).removeClass('fullscreen');
-                $(this.root).find('#d_visual_designer_nav').find('#button_full_screen').removeClass('active');
+                $(this.root).find('#d_visual_designer_nav').find('.btn-full-screen').removeClass('active');
                 $('body').removeAttr('style');
             } else {
                 $('.vd.content', this.root).addClass('fullscreen');
-                $(this.root).find('#d_visual_designer_nav').find('#button_full_screen').addClass('active');
+                $(this.root).find('#d_visual_designer_nav').find('.btn-full-screen').addClass('active');
                 $('body').attr('style', 'overflow:hidden');
             }
         }

@@ -117,7 +117,7 @@
 
     display: flex;
 
-    padding: 0px!important;
+    padding: 0!important;
     > .control{
         padding-bottom: 10px;
     }
@@ -139,9 +139,7 @@
 
             width: 100%;
             margin: 0 0 1px 0;
-            padding: 0;
-            padding-right: .1em;
-            padding-bottom: 0;
+            padding: 0 .1em 0 0;
 
             list-style: none;
 
@@ -150,10 +148,7 @@
             color: #fff;
             border-right-width: 0 !important;
             border-bottom-width: 1px !important;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-            border-bottom-left-radius: 5px;
+            border-radius: 5px 0 0 5px;
             background: #4c5866;
 
             font-weight: normal;
@@ -206,7 +201,6 @@
     }
     > .vd-tour-wrapper{
         width: calc(100% - 12em);
-        padding: 1em 1.4em;
         padding: 1px;
         float:right;
         display: block;
@@ -222,7 +216,7 @@
     padding: .2em;
     > ul.vd-tabs-list{
         margin: 0;
-        padding: 0px;
+        padding: 0;
         
         &:after{
             display:table;
@@ -247,8 +241,7 @@
             float: left;
 
             margin: 1px 1px 0 0;
-            padding: 0;
-            padding-bottom: 1;
+            padding: 0 0 1px;
 
             list-style: none;
 
@@ -311,7 +304,7 @@
      .block-section{
         display: block;
 
-        margin-top: 0px;
+        margin-top: 0;
 
         color: #333333;
         background: #F8F8F8;

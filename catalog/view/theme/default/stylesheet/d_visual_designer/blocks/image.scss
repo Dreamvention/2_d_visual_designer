@@ -61,9 +61,7 @@
             }
             .parallax-window {
                 display: block;
-                background-attachment: fixed;
-                background-position: center;
-                background-repeat: no-repeat;
+                background: no-repeat fixed center;
                 background-size: cover;
             }
             &.vd-image-style-rounded  img {
@@ -102,7 +100,7 @@
                     position: absolute;
                     z-index: -1;
                     right: 50%;
-                    bottom: 0px;
+                    bottom: 0;
                     left: 5px;
                     height: 30%;
                     content: "";
@@ -121,7 +119,7 @@
                     position: absolute;
                     z-index: -1;
                     right: 5px;
-                    bottom: 0px;
+                    bottom: 0;
                     left: 50%;
                     height: 30%;
                     content: "";

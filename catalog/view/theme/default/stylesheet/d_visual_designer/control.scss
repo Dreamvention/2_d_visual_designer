@@ -203,11 +203,12 @@
         position: absolute;
         z-index: 1003;
         top: 0;
-        right: 0;
-        display: block;
+        display: flex;
+        flex-flow: row;
         visibility: hidden;
         height: 40px;
         opacity: 0;
+        right: 0;
         background: transparent;
         border-radius: 3px 0 3px 3px;
         // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);

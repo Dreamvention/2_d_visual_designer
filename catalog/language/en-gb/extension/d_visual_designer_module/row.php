@@ -14,3 +14,8 @@ $_['entry_background_video']             = 'Use video background';
 $_['entry_video_link']                   = 'Video link';
 $_['entry_row_stretch']                  = 'Row stretch';
 $_['text_enabled']                       = 'Enabled';
+$_['entry_align']                        = 'Aligns';
+//Align
+$_['text_left']             = 'Left';
+$_['text_center']           = 'Center';
+$_['text_right']            = 'Right';

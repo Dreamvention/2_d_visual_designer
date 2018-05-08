@@ -19,6 +19,12 @@
         <input type="text" class="form-control" name="link" value="{setting.global.link}" onChange={change}/>
     </div>
 </div>
+    <div class="form-group" id="align">
+        <label class="control-label">{store.getLocal('blocks.row.entry_align')}</label>
+        <div class="fg-setting">
+            <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.row.aligns')} evchange={change}/>
+        </div>
+    </div>
 <script>
     this.top = this.parent ? this.parent.top : this
     this.level = this.parent.level

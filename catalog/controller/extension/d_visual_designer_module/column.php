@@ -19,6 +19,8 @@ class ControllerExtensionDVisualDesignerModuleColumn extends Controller
         $data = array();
         if($permission) {
             $data['sizes'] = array(
+                'auto' => 'auto',
+                'fill' => 'fill',
                 '1' => '1/12',
                 '2' => '2/12',
                 '3' => '3/12',

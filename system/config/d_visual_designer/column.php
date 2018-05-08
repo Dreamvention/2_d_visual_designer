@@ -28,7 +28,7 @@ $_['button_collapse']  = true;
 $_['button_remove']    = true;
 //Типы полей
 $_['types']            = array(
-    'size' => 'number',
+    'size' => 'string',
     'offset' => 'string',
     'float' => 'boolean',
     'align' => 'string',

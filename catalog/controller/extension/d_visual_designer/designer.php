@@ -479,7 +479,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $field_name = $this->request->post['field_name'];
         }
 
-        if (!empty($setting) && !empty($route) && isset($id) && !empty($field_name)) {
+        if (isset($setting) && !empty($route) && isset($id) && !empty($field_name)) {
             $content = $this->{'model_extension_module_'.$this->codename}->parseSetting($setting);
 
             $content_text = $this->{'model_extension_module_'.$this->codename}->getText($setting);

@@ -35,10 +35,12 @@ $_['types'] = array(
     'row_stretch' => 'string',
     'background_video' => 'boolean',
     'link' => 'string',
+    'align' => 'string',
 );
 //Настройки по умолчанию
 $_['setting'] = array(
     'row_stretch' => '',
+    'align' => 'left',
     'background_video' => 0,
     'link' => '',
     // 'link' => 'https://vimeo.com/51589652',

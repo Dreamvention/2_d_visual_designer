@@ -4,7 +4,7 @@
         <h2 class="title"><formatted-message path='designer.text_add_block'/></h2>
         <div class="search">
             <i class="fa fa-search" aria-hidden="true"></i>
-            <input type="text" name="search" placeholder="{this.store.getLocal('designer.text_search')}" onInput={searchBlock} value=""/>
+            <input type="text" name="search" value="{search}" placeholder="{this.store.getLocal('designer.text_search')}" onInput={searchBlock}/>
         </div>
         <a class="close" onClick={close}><i class="fal fa-times"></i></a>
     </div>
@@ -56,7 +56,7 @@
     this.store.subscribe('block/create/success', function(){
         this.status = false
     }.bind(this))
-    addBlock(e) {
+    addBlock(e){
         this.store.dispatch('block/new', {type: e.item.block.type, designer_id:this.parent.top.opts.id, target: this.parent_id, level: this.level})
     }
     this.initPopup = function() {
@@ -139,11 +139,11 @@
         }
     })
 
-    categoryChange(e) {
+    categoryChange(e){
         this.category = e.item.category
     }
 
-    categoryReset(e) {
+    categoryReset(e){
         this.category = '*'
     }
 

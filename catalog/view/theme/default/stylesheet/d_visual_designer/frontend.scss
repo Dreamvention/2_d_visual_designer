@@ -1,5 +1,6 @@
 @import "component.scss";
 @import "bootstrap.scss";
+@import "bootstrap-grid.scss";
 
 @font-face {
     font-family: 'Glyph';
@@ -29,9 +30,7 @@
             height: auto;
             color: #777;
             text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-            background-color: #e7e7e7;
-            background-image: linear-gradient(to bottom, #eeeeee, #dddddd);
-            background-repeat: repeat-x;
+            background: #e7e7e7 linear-gradient(to bottom, #eeeeee, #dddddd) repeat-x;
             border-color: #dddddd #dddddd #b3b3b3 #b7b7b7;
             font-weight: 400;
             font-family: "Open Sans", sans-serif;
@@ -51,7 +50,7 @@
     overflow: visible;
     .vd{
         .glyphicon {
-            font-family: 'Glyph';
+            font-family: 'Glyph', sans-serif;
         }
         div,p{
             margin-bottom: 0;
@@ -59,7 +58,7 @@
     }
 }
 .block-container{
-    padding: 0px;
+    padding: 0;
     //TODO unknown property
     //z-index:10;
 
@@ -82,7 +81,7 @@
     }
 
     .glyphicon {
-        font-family: 'Glyph';
+        font-family: 'Glyph', sans-serif;
     }
     &.video{
         position: relative;
@@ -102,7 +101,7 @@
     }
     &[class*=col-]{
         &:not(.product-layout){
-            padding: 0px;
+            padding: 0;
         }
     }
     &:after{
@@ -136,7 +135,7 @@
 
         display: block;
 
-        margin-top: 0px;
+        margin-top: 0;
         margin-bottom: 2px;
 
         color: #333333;
@@ -147,8 +146,8 @@
         }
         &.active {
             > .vd-panel-heading {
-                border-bottom-left-radius: 0px;
-                border-bottom-right-radius: 0px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
             }
         }
         > .vd-panel-heading {
@@ -160,11 +159,10 @@
             background-color: #4c5866;
             text-align: left;
 
-            border: solid transparent;
-            border-width: 0;
+            border: 0 solid transparent;
             border-radius: 5px;
             height: 43px;
-            margin-bottom: 0px !important;
+            margin-bottom: 0 !important;
 
             > h4.vd-panel-title {
                 margin: 0;
@@ -252,6 +250,10 @@
     }
 }
 .block-content {
+    &.child {
+        display: flex;
+        flex-wrap: wrap;
+    }
     > .progress {
         height: 44px;
         >.progress-bar {

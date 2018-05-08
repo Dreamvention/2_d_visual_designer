@@ -24,7 +24,7 @@ span.notify {
   position: relative;
   height: 60px;
   background-color: #1F7DC7;
-  box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0.707px 0.707px 3px 0 rgba(0, 0, 0, 0.2);
   z-index: 3; }
 
 [id=visual-designer-preloader] {
@@ -72,7 +72,7 @@ span.notify {
       background-color: #56a6e6; }
 .vd-navbar.right-bar {
   float: right;
-  box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0.707px 0.707px 3px 0 rgba(0, 0, 0, 0.2);
   border-radius: 3px;
   background-color: #1F7DC7; }
   .vd-navbar.right-bar > .vd-switcher {
@@ -149,29 +149,17 @@ span.notify {
     visibility: hidden;
     transition: 1ms; }
 .vd-navbar .vd-btn-add-block {
-  background-image: url("../../image/d_visual_designer/add-block.svg");
-  background-repeat: no-repeat;
-  background-position: center; }
+  background: url("../../image/d_visual_designer/add-block.svg") no-repeat center; }
 .vd-navbar .vd-btn-add-template {
-  background-image: url("../../image/d_visual_designer/template-add.svg");
-  background-repeat: no-repeat;
-  background-position: center; }
+  background: url("../../image/d_visual_designer/template-add.svg") no-repeat center; }
 .vd-navbar .vd-btn-mobile {
-  background-image: url("../../image/d_visual_designer/phone.svg");
-  background-repeat: no-repeat;
-  background-position: center; }
+  background: url("../../image/d_visual_designer/phone.svg") no-repeat center; }
 .vd-navbar .vd-btn-tablet {
-  background-image: url("../../image/d_visual_designer/tablet.svg");
-  background-repeat: no-repeat;
-  background-position: center; }
+  background: url("../../image/d_visual_designer/tablet.svg") no-repeat center; }
 .vd-navbar .vd-btn-desktop {
-  background-image: url("../../image/d_visual_designer/desktop.svg");
-  background-repeat: no-repeat;
-  background-position: center; }
+  background: url("../../image/d_visual_designer/desktop.svg") no-repeat center; }
 .vd-navbar .vd-btn-save-template {
-  background-image: url("../../image/d_visual_designer/template-save.svg");
-  background-repeat: no-repeat;
-  background-position: center; }
+  background: url("../../image/d_visual_designer/template-save.svg") no-repeat center; }
 
 iframe {
   display: block !important;

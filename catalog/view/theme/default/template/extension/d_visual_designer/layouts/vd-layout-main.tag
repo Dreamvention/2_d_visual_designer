@@ -10,7 +10,7 @@
         <div class="vd-border vd-border-bottom"></div>
     </virtual>
     <layout-style block={opts.block}/>
-    <div class="block-content {block_config.setting.child? 'child' : ''}" data-is="vd-block-{opts.block.type}" block={opts.block} ref="content"></div>
+    <div class="block-content {contentClassName}" data-is="vd-block-{opts.block.type}" block={opts.block} ref="content"></div>
     <script>
         this.top = this.parent ? this.parent.top : this
         this.level = this.parent.level
@@ -29,9 +29,24 @@
 
         this.initClassNames = function(){
             this.className = []
+            this.contentClassName = []
 
             if(this.setting.background_video){
                 this.className.push('video')
+            }
+            if(this.block_config.setting.child) {
+                this.contentClassName.push('child')
+            }
+            if(this.setting.align){
+                if(this.setting.align == 'left'){
+                    this.contentClassName.push('justify-content-start')
+                }
+                if(this.setting.align == 'center'){
+                    this.contentClassName.push('justify-content-center')
+                }
+                if(this.setting.align == 'right'){
+                    this.contentClassName.push('justify-content-end')
+                }
             }
             if(this.setting.design_show_on){
                 this.className.push(_.map(this.setting.design_show_on, function(value){ return value }).join(' '))
@@ -43,6 +58,7 @@
                 this.className.push(this.setting.additional_css_class)
             }
             this.className = this.className.join(' ')
+            this.contentClassName = this.contentClassName.join(' ')
         }
 
         this.initChildBlocks = function(){
