@@ -1,12 +1,14 @@
-@import "component.scss";
-@import "bootstrap.scss";
-@import "bootstrap-grid.scss";
+@import "core/bootstrap.scss";
+@import "core/bootstrap-grid.scss";
+@import "core/component.scss";
+@import "core/animate.scss";
 
 @font-face {
     font-family: 'Glyph';
-    src:  url('fonts/glyphicons-halflings-regular.woff2') format('woff2'),
-    url('fonts/glyphicons-halflings-regular.woff') format('woff');
+    src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
 }
+
+
 .vd-frontend{
     position: relative;
     &:hover {
@@ -15,6 +17,7 @@
             visibility: visible;
         }
     }
+
     .vd-btn-frontend-edit.btn-group-xs.btn-edit{
         z-index: 2;
         position: absolute;

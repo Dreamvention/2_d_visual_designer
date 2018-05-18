@@ -1,0 +1,7 @@
+@import "core/bootstrap.scss";
+@import "core/bootstrap-grid.scss";
+@import "core/component.scss";
+@if $mode == 'full' {
+    @import "core/popup.scss";
+    @import "core/control.scss";
+}

@@ -6,7 +6,7 @@
     padding:1px !important;
 }
 .select2-results__options li div {
-    background: url("fontsList.gif") !important;
+    background: url("img/fontsList.gif") !important;
     background-repeat: no-repeat;
     overflow: hidden;
     text-indent: -999px;

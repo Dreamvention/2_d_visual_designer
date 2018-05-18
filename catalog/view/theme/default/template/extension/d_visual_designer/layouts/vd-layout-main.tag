@@ -1,14 +1,12 @@
-<vd-layout-main class="block-parent block-container {className} {opts.block.id}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
-    <virtual if={permission}>
-        <div class="block-mouse-toggle"></div>
-        <div class="control control-{block_config.setting.control_position}">
-            <virtual data-is="control-buttons" block={opts.block}/>
-        </div>
-        <div class="vd-border vd-border-left"></div>
-        <div class="vd-border vd-border-top"></div>
-        <div class="vd-border vd-border-right"></div>
-        <div class="vd-border vd-border-bottom"></div>
-    </virtual>
+<vd-layout-main class="block-parent block-container {className} {opts.block.id} {activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
+    <div class="block-mouse-toggle" if={permission}></div>
+    <div class="control control-{block_config.setting.control_position} {upControl?'control-up':null}"  if={permission}>
+        <virtual data-is="control-buttons" block={opts.block}/>
+    </div>
+    <div class="vd-border vd-border-left" if={permission}></div>
+    <div class="vd-border vd-border-top" if={permission}></div>
+    <div class="vd-border vd-border-right" if={permission}></div>
+    <div class="vd-border vd-border-bottom" if={permission}></div>
     <layout-style block={opts.block}/>
     <div class="block-content {contentClassName}" data-is="vd-block-{opts.block.type}" block={opts.block} ref="content"></div>
     <script>
@@ -16,9 +14,25 @@
         this.level = this.parent.level
         this.mixin({store:d_visual_designer})
         this.setting = this.opts.block.setting.global
+        this.activeControl = false
+        this.upControl = false
         this.block_config = _.find(this.store.getState().config.blocks, function(block){
             return block.type == opts.block.type
         })
+
+        this.store.subscribe('block/control/up', function(data){
+            if(data.id == this.opts.block.id) {
+                this.upControl = true
+                this.update()
+            }
+        }.bind(this))
+
+        this.store.subscribe('block/control/normal', function(data){
+            if(data.id == this.opts.block.id && !this.activeControl) {
+                this.upControl = false
+                this.update()
+            }
+        }.bind(this))
 
         this.checkPermission = function(){
             this.permission = false
@@ -26,6 +40,22 @@
                 this.permission = true
             }
         }
+
+        $(this.root).mouseenter(function(){
+            if(!this.activeControl) {
+                this.activeControl = true;
+                this.store.dispatch('block/control/active', {id: this.opts.block.id})
+                this.update()
+            }
+        }.bind(this))
+        $(this.root).mouseleave(function(e){
+            var relatedTarget = $(e.target)
+            if(this.activeControl) {
+                this.activeControl = false;
+                this.store.dispatch('block/control/deactive', {id: this.opts.block.id})
+                this.update()
+            }
+        }.bind(this))
 
         this.initClassNames = function(){
             this.className = []

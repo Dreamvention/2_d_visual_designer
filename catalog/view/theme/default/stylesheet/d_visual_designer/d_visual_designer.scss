@@ -1,13 +1,15 @@
-@import "bootstrap.scss";
-@import "bootstrap-grid.scss";
-@import "popup.scss";
-@import "control.scss";
-@import "component.scss";
+@import "core/control.scss";
+@import "core/bootstrap.scss";
+@import "core/bootstrap-grid.scss";
+@import "core/component.scss";
+@import "core/popup.scss";
+@import "core/animate.scss";
 
 @font-face {
     font-family: 'Glyph';
     src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
 }
+
 
 #tab-description {
     overflow: visible;
@@ -336,7 +338,6 @@
         .block-parent {
             //TODO unknown property
             //z-index: 2;
-            min-height: 65px;
             > .control:hover ~ .vd-border {
                 visibility: visible;
                 opacity: 1;
@@ -348,16 +349,6 @@
                 & > * > .control, > .control {
                     visibility: visible;
                     opacity: 1;
-                    -webkit-animation: bounce-bottom 0.9s both;
-                    -moz-animation: bounce-bottom 0.9s both;
-                    animation: bounce-bottom 0.9s both;
-                }
-            }
-            &.deactive-control {
-                & > * > .control, > .control {
-                    -webkit-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                    -moz-animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                    animation: slide-out-bottom 0.2s 0.3s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
                 }
             }
             &.video {
@@ -369,7 +360,6 @@
             }
         }
         .block-inner {
-            min-height: 65px;
             > .vd-border {
                 background-color: #f4c000;
             }
@@ -381,9 +371,6 @@
                 & > * > .control, > .control {
                     visibility: visible;
                     opacity: 1;
-                    -webkit-animation: bounce-bottom 0.9s 0.18s both;
-                    -moz-animation: bounce-bottom 0.9s 0.18s both;
-                    animation: bounce-bottom 0.9s 0.18s both;
                 }
                 & > * > .control-top-bordered, > .control-top-bordered {
                     display: -webkit-box;
@@ -398,13 +385,6 @@
                     }
                 }
             }
-            &.deactive-control {
-                & > * > .control, > .control {
-                    -webkit-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                    -moz-animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                    animation: slide-out-bottom 0.2s 0.15s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                }
-            }
             &.col-sm-1,
             &.col-sm-2,
             &.col-sm-3 {
@@ -413,7 +393,6 @@
                 }
             }
             & > .block-content {
-                min-height: 40px;
                 background-color: transparent;
                 padding: 0;
                 .block-content-empty {
@@ -433,7 +412,6 @@
             }
         }
         .block-section {
-            min-height: 50px;
             margin: 0;
             padding: 0;
             &.active-control {
@@ -442,6 +420,7 @@
                     opacity: 1;
                 }
             }
+            
 
             &:not(.accordion) {
                 display: none;
@@ -539,7 +518,6 @@
         }
         .block-child {
             position: relative;
-            min-height: 60px;
             & > .block-button {
                 position: absolute;
                 z-index: 1002;
@@ -564,22 +542,7 @@
                     }
                 }
             }
-            &.active-control {
-                > .control {
-                    -webkit-animation: bounce-bottom 0.9s 0.36s both;
-                    -moz-animation: bounce-bottom 0.9s 0.36s both;
-                    animation: bounce-bottom 0.9s 0.36s both;
-                }
-            }
-            &.deactive-control {
-                > .control {
-                    -webkit-animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                    -moz-animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                    animation: slide-out-bottom 0.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-                }
-            }
             & > .block-content {
-                min-height: 35px;
                 word-break: break-word;
                 background-color: transparent;
                 padding: 0;

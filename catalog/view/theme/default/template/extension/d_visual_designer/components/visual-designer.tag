@@ -32,46 +32,6 @@
         addBlock() {
             this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.top.opts.id});
         }
-        this.initHover = function(designer_id){
-            if(this.store.getState().config.permission[this.top.opts.id]){
-                $('#sortable',this.root).find('.block-container').off( "mouseenter mouseleave" );
-                $('#sortable',this.root).find('.block-container').hover(function(){
-                    if($(this).hasClass('block-child')){
-                        var margin_left = (-1)*($(this).children('.control').width()/2);
-                        var margin_top = (-1)*($(this).children('.control').height()/2);
-                        $(this).children('.control').css({
-                            'margin-left': margin_left,
-                            'margin-top': margin_top
-                        })
-                    }
-                    $(this).removeClass('deactive-control');
-                    $(this).addClass('active-control');
-                }, function(){
-                    $(this).addClass('deactive-control');
-                    $(this).removeClass('active-control');
-                });
-                $('#sortable',this.root).off('mouseover', '.block-button')
-                $('#sortable',this.root).on('mouseover', '.block-button', function(){
-                    $(this).closest('.block-container').addClass('active-border');
-                });
-                $('#sortable',this.root).off('mouseout',  '.block-button')
-                $('#sortable',this.root).on('mouseout', '.block-button', function(){
-                    $(this).closest('.block-container').removeClass('active-border');
-                });
-            }
-        }
-        this.store.subscribe('block/create/success', function(){
-            this.initHover();
-        }.bind(this))
-        this.store.subscribe('block/move/success', function(){
-            this.initHover();
-        }.bind(this))
-        this.store.subscribe('block/clone/success', function(){
-            this.initHover();
-        }.bind(this))
-        this.store.subscribe('block/layout/update/success', function(){
-            this.initHover();
-        }.bind(this))
         $('body').on('designerSave', function(e, data){
             if(this.top.opts.id == data.designer_id) {
                 this.store.dispatch('content/save', {designer_id: data.designer_id});
@@ -91,7 +51,6 @@
             }
         }.bind(this))
         this.on('mount', function(){
-            this.initHover();
             if(!this.store.getState().config.permission[this.top.opts.id]){
                 $('.vd-frontent-text').hide();
             }

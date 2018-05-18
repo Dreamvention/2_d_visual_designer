@@ -1,6 +1,6 @@
-@import 'loader.scss';
-@import 'component.scss';
-@import 'animation.scss';
+@import 'core/loader.scss';
+@import 'core/component.scss';
+@import 'core/animation.scss';
 @font-face {
     font-family: 'Glyph';
     src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
@@ -123,7 +123,7 @@
                 max-width: 100%;
             }
 
-            @import 'control.scss';
+            @import 'core/control.scss';
 
             > .block-content {
                 position: relative;

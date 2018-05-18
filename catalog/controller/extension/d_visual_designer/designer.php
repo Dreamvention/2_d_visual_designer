@@ -67,8 +67,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
 
         $this->scripts[] = 'catalog/view/javascript/d_riot/riotcompiler.min.js';
-        $this->scripts[] = 'catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.js';
-        $this->styles[] = 'catalog/view/javascript/d_visual_designer/vd-basic-libraries.min.css';
+        $this->scripts[] = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.js';
+        $this->styles[] = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.css';
 
         $data['designer_id'] = substr(md5(rand()), 0, 7);
 
@@ -92,8 +92,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $this->addScript('javascript/d_visual_designer/model/template.js');
             $this->addScript('javascript/d_visual_designer/model/history.js');
 
-            $this->scripts[] = 'catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.js';
-            $this->styles[] = 'catalog/view/javascript/d_visual_designer/vd-secondary-libraries.min.css';
+            $this->scripts[] = 'catalog/view/javascript/d_visual_designer/dist/vd-secondary-libraries.min.js';
+            $this->styles[] = 'catalog/view/javascript/d_visual_designer/dist/vd-secondary-libraries.min.css';
             $this->load->model('setting/setting');
             $setting_module = $this->model_setting_setting->getSetting($this->codename);
 
