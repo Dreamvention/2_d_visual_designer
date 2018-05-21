@@ -87,9 +87,35 @@
         visibility: hidden;
         height: 40px;
         opacity: 0;
-        background: transparent;
+        background: #4c5866;
         border-radius: 0 3px 3px 3px;
         // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
+        &.control-up {
+            bottom: -40px;
+            border-radius: 0 0 3px 3px;
+            &:hover {
+                & > a {
+                    &:first-child {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 3px;
+                    }
+                    &:last-child {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 3px;
+                    }
+                }
+            }
+            > a{
+                &:first-child {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 3px;
+                }
+                &:last-child {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 3px;
+                }
+            }
+        }
         &.control ~ .vd-border.vd-border {
             background-color: #4c5866;
         }
@@ -114,6 +140,11 @@
             border-radius: 0;
             background-color: #4c5866;
             margin: 0 !important;
+            transform: scale(0);
+            transition: transform 0.4s ease;
+            &.animate{
+                transform: scale(1);
+            }
             &:first-child {
                 border-top-left-radius: 3px;
                 border-bottom-left-radius: 3px;
@@ -294,9 +325,23 @@
         visibility: hidden;
         height: 40px;
         opacity: 0;
-        background: transparent;
+        background: #f4c000;
         border-radius: 3px 0 3px 3px;
         // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
+        &.control-down {
+            bottom: -40px;
+            border-radius: 0 0 3px 3px;
+            & > a {
+                &:first-child {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 3px;
+                }
+                &:last-child {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 3px;
+                }
+            }
+        }
         & > a {
             float: left;
             width: 40px;
@@ -306,6 +351,11 @@
             border: 0;
             border-radius: 0;
             background-color: #f4c000;
+            transform: scale(0);
+            transition: transform 0.4s ease;
+            &.animate{
+                transform: scale(1);
+            }
             &:hover {
                 background-color: #f7cd32;
             }

@@ -626,33 +626,35 @@ span.module_name {
     font-size: 9px;
 }
 
-.vd-tab:not(.tab-control,.accordion-control) {
-    .vd-btn-drag {
-        background: url(../../image/d_visual_designer/drag-n-drop-gray.svg) no-repeat center;
-    }
+.vd-tab {
+    &:not(.tab-control):not(.accordion-control){
+        .vd-btn-drag {
+            background: url(../../image/d_visual_designer/drag-n-drop-gray.svg) no-repeat center;
+        }
 
-    .vd-btn-edit {
-        background: url(../../image/d_visual_designer/settings-gray.svg) no-repeat center;
-    }
+        .vd-btn-edit {
+            background: url(../../image/d_visual_designer/settings-gray.svg) no-repeat center;
+        }
 
-    .vd-btn-copy {
-        background: url(../../image/d_visual_designer/copy-gray.svg) no-repeat center;
-    }
+        .vd-btn-copy {
+            background: url(../../image/d_visual_designer/copy-gray.svg) no-repeat center;
+        }
 
-    .vd-btn-layout {
-        background: url(../../image/d_visual_designer/layout-gray.svg) no-repeat center;
-    }
+        .vd-btn-layout {
+            background: url(../../image/d_visual_designer/layout-gray.svg) no-repeat center;
+        }
 
-    .vd-btn-add-child {
-        background: url(../../image/d_visual_designer/add-gray.svg) no-repeat center;
-    }
+        .vd-btn-add-child {
+            background: url(../../image/d_visual_designer/add-gray.svg) no-repeat center;
+        }
 
-    .vd-btn-add {
-        background: url(../../image/d_visual_designer/add-gray.svg) no-repeat center;
-    }
+        .vd-btn-add {
+            background: url(../../image/d_visual_designer/add-gray.svg) no-repeat center;
+        }
 
-    .vd-btn-remove {
-        background: url(../../image/d_visual_designer/delete-gray.svg) no-repeat center;
+        .vd-btn-remove {
+            background: url(../../image/d_visual_designer/delete-gray.svg) no-repeat center;
+        }
     }
 }
 
