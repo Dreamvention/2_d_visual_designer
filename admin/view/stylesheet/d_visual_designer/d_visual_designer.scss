@@ -191,6 +191,9 @@
                 margin: 0 0 9px;
                 min-height: 30px;
                 box-sizing: content-box;
+                &.price-table-section {
+                    flex: 1;
+                }
                 &:after {
                     display: table;
                     clear: both;
