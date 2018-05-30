@@ -41,7 +41,6 @@ class ModelExtensionDVisualDesignerTemplate extends Model {
         category='".$data['category']."',
         sort_order='".$data['sort_order']."'
         WHERE template_id='".$template_id."'");
-
     }
 
     /**

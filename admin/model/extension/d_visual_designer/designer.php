@@ -93,6 +93,20 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     }
 
     /**
+     * Save config to Route
+     * @param $config_name
+     * @param $template_id
+     * @param $route
+     * @param $id
+     * @param $field_name
+     */
+    public function saveConfig($config_name, $template_id, $route, $id, $field_name) {
+        $this->load->model('extension/'.$this->codename.'template');
+        $content = $this->model_extension_d_visual_designer_template->getConfigTemplate($template_id, $config_name);
+        $this->saveContent($content, $route, $id, $field_name);
+    }
+
+    /**
      * Converts shortcodes to text
      * @param $setting
      * @return string
@@ -388,6 +402,10 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
         return $return;
     }
+
+    /**
+     * Install template
+     */
 
     /**
      * Check config enabled

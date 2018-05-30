@@ -887,8 +887,10 @@
         flex: 0 0 auto;
         .vd-btn-group {
             &.btn-4 {
+                display:flex;
+                flex-flow: row;
                 > .vd-btn {
-                    width: 25%;
+                    flex: 1;
                 }
             }
             > .vd-btn:first-child {
@@ -913,7 +915,6 @@
             display: inline-block;
             box-sizing: border-box;
             width: 100%;
-            min-width: 100px;
             margin: 0;
             padding: 10px 21px;
             cursor: pointer;

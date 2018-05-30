@@ -1,43 +1,50 @@
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var cleanCSS = require('gulp-clean-css');
-var del = require('del');
-var sass = require('gulp-sass');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
+/*jslint node: true */
+"use strict";
+
+var gulp = require("gulp");
+var concat = require("gulp-concat");
+var uglify = require("gulp-uglify");
+var cleanCSS = require("gulp-clean-css");
+var del = require("del");
+var sass = require("gulp-sass");
+var sourcemaps = require("gulp-sourcemaps");
+var autoprefixer = require("gulp-autoprefixer");
+var browserSync = require("browser-sync");
+var path = require("path");
 
 //script paths
-var jsDest = '../dist/';
+var jsDest = "../dist/";
 
-var sassDest = '../../../theme/default/stylesheet/d_visual_designer/'
+var sassDest = "../../../theme/default/stylesheet/d_visual_designer/";
 
-gulp.task('clean', function(){
-    return del(jsDest+'**', {force:true});
+var baseDir = path.resolve(__dirname, "../../../../");
+
+gulp.task("clean", function () {
+    return del(jsDest + "**", {force: true});
 });
 
-gulp.task('copy', ['copy-fonts', 'copy-img'], function(){
-    gulp.start(['basic-scripts', 'secondary-scripts', 'basic-styles', 'secondary-styles'])
+gulp.task("copy", ["copy-fonts", "copy-img"], function () {
+    gulp.start(["basic-scripts", "secondary-scripts", "basic-styles", "secondary-styles"]);
 });
 
-gulp.task('copy-fonts',function(){
+gulp.task("copy-fonts", function () {
     return gulp.src([
         "../library/icon-fonts/fonts/*",
         "../library/fontIconPicker/fonts/*",
         "../library/summernote/fonts/*"
     ])
-    .pipe(gulp.dest(jsDest+'fonts/'));
+        .pipe(gulp.dest(jsDest + "fonts/"));
 });
 
-gulp.task('copy-img', function(){
+gulp.task("copy-img", function () {
     return gulp.src([
         "../library/bootstrap-colorpicker/img/*",
         "../library/select2/img/*"
     ])
-    .pipe(gulp.dest(jsDest+'img/'));
+        .pipe(gulp.dest(jsDest + "img/"));
 });
 
-gulp.task('basic-scripts', function() {
+gulp.task("basic-scripts", function () {
     return gulp.src([
         "../library/sharrre/jquery.sharrre.min.js",
         "../library/magnific/jquery.magnific-popup.min.js",
@@ -48,12 +55,12 @@ gulp.task('basic-scripts', function() {
         "../library/webfont.js",
         "../library/underscore-min.js"
     ])
-        .pipe(concat('vd-basic-libraries.min.js'))
+        .pipe(concat("vd-basic-libraries.min.js"))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('secondary-scripts', function() {
+gulp.task("secondary-scripts", function () {
     return gulp.src([
         "../library/bootstrap-switch/bootstrap-switch.js",
         "../library/fontIconPicker/iconset.js",
@@ -66,12 +73,12 @@ gulp.task('secondary-scripts', function() {
         "../library/select2/select2.full.min.js",
         "../library/fontset.js"
     ])
-        .pipe(concat('vd-secondary-libraries.min.js'))
+        .pipe(concat("vd-secondary-libraries.min.js"))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('basic-styles', function() {
+gulp.task("basic-styles", function () {
     return gulp.src([
         "../library/sharrre/style.css",
         "../library/magnific/magnific-popup.css",
@@ -87,12 +94,12 @@ gulp.task('basic-styles', function() {
         "../library/icon-fonts/octicons.css",
         "../library/icon-fonts/weather-icons.css"
     ])
-        .pipe(concat('vd-basic-libraries.min.css'))
+        .pipe(concat("vd-basic-libraries.min.css"))
         .pipe(cleanCSS())
         .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('secondary-styles', function() {
+gulp.task("secondary-styles", function () {
     return gulp.src([
         "../library/owl-carousel/owl.transitions.css",
         "../library/bootstrap-switch/bootstrap-switch.min.css",
@@ -104,28 +111,45 @@ gulp.task('secondary-styles', function() {
         "../library/select2/select2.font.css",
         "../library/select2/select2.min.css"
     ])
-        .pipe(concat('vd-secondary-libraries.min.css'))
+        .pipe(concat("vd-secondary-libraries.min.css"))
         .pipe(cleanCSS())
         .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('build_library', ['clean'], function(){
-    gulp.start('copy')
+gulp.task("build_library", ["clean"], function () {
+    gulp.start("copy")
 });
 
-gulp.task('sass', function () {
-    return gulp.src(sassDest+'*.scss')
-      .pipe(sourcemaps.init())
-      .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-      .pipe(autoprefixer({
-        browsers: ['last 2 versions']
-    }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest(sassDest));
-  });
-   
-  gulp.task('sass:watch', function () {
-    gulp.watch([sassDest+'*.scss', sassDest+'core/*.scss'], ['sass']);
-  });
+gulp.task("sass", function () {
+    return gulp.src(sassDest + "*.scss")
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
+        .pipe(autoprefixer({
+            browsers: ["last 2 versions"]
+        }))
+        .pipe(sourcemaps.write("./"))
+        .pipe(gulp.dest(sassDest))
+        .pipe(browserSync.reload({stream: true}));;
+});
 
-gulp.task('build_sass', ['sass', 'sass:watch'])
+gulp.task("sass:watch", function () {
+    gulp.watch([sassDest + "*.scss", sassDest + "core/*.scss"], ["sass"]);
+});
+
+gulp.task("browser_sync_init", function () {
+    if (typeof process.env.HOST !== "undefined") {
+        browserSync({
+            proxy: process.env.HOST
+        });
+    }
+})
+
+gulp.task("build_sass", ["browser_sync_init"], function () {
+    if (typeof process.env.HOST !== "undefined") {
+        gulp.watch([
+            baseDir + "/controller/extension/d_visual_designer/**/*.php",
+            baseDir + "/view/theme/default/template/extension/d_visual_designer/**/*.tag"
+        ], browserSync.reload);
+    }
+    gulp.start(["sass", "sass:watch"]);
+})

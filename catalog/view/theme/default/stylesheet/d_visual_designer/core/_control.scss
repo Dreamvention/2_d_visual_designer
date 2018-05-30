@@ -1,5 +1,5 @@
 .vd {
- .control-advanced {
+    .control-advanced {
         position: absolute;
         z-index: 1002;
         top: 0;
@@ -10,6 +10,36 @@
         background: #308cd6;
         border-radius: 0 3px 3px 3px;
         // box-shadow: 0.707px 0.707px 3px 0px rgba(0, 0, 0, 0.5);
+        & > a {
+            float: left;
+            width: 40px;
+            height: 40px;
+            padding: 12px 0;
+            border: 0;
+            border-radius: 0;
+            background-color: #308cd6;
+            margin: 0 !important;
+            transform: scale(0);
+            transition: transform 0.4s ease;
+            &.animate{
+                transform: scale(1);
+            }
+            &:first-child {
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+            }
+            &:last-child {
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
+            &.drag {
+                cursor: move;
+            }
+            &:hover {
+                color: #fff;
+                background-color: #56a6e6;
+            }
+        }
         &.control-up {
             top: -40px;
             border-radius: 3px 3px 0 0;
@@ -48,36 +78,7 @@
                 }
             }
         }
-        & > a {
-            float: left;
-            width: 40px;
-            height: 40px;
-            padding: 12px 0;
-            border: 0;
-            border-radius: 0;
-            background-color: #308cd6;
-            margin: 0 !important;
-            transform: scale(0);
-            transition: transform 0.4s ease;
-            &.animate{
-                transform: scale(1);
-            }
-            &:first-child {
-                border-top-left-radius: 3px;
-                border-bottom-left-radius: 3px;
-            }
-            &:last-child {
-                border-top-right-radius: 3px;
-                border-bottom-right-radius: 3px;
-            }
-            &.drag {
-                cursor: move;
-            }
-            &:hover {
-                color: #fff;
-                background-color: #56a6e6;
-            }
-        }
+
     }
     .control-advanced-bottom {
         position: absolute;
