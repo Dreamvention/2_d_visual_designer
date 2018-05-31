@@ -160,6 +160,11 @@
         "admin/view/template/extension/d_visual_designer/content_blocks/vd-block-image.tag",
         "admin/view/template/extension/d_visual_designer/settings_block/vd-setting-block-image.tag",
 
+        "admin/view/template/extension/d_visual_designer_module/column.twig",
+        "admin/view/template/extension/d_visual_designer_module/column_inner.twig",
+        "admin/view/template/extension/d_visual_designer_module/image.twig",
+        "admin/view/template/extension/d_visual_designer_module/row.twig",
+        "admin/view/template/extension/d_visual_designer_module/row_inner.twig",
         "admin/view/template/extension/d_visual_designer_module/text.twig",
 
         "catalog/controller/extension/d_visual_designer_module/row.php",
@@ -214,6 +219,11 @@
         "catalog/view/theme/default/template/extension/d_visual_designer/settings_block/vd-setting-block-image.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-image.tag",
 
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/column.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/column_inner.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/image.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/row.twig",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/row_inner.twig",
         "catalog/view/theme/default/template/extension/d_visual_designer_module/text.twig",
 
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-switcher.tag",

@@ -13,10 +13,30 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         parent::__construct($registry);
         
         $this->load->language($this->route);
+        $this->load->model($this->route);
+    }
+
+    public function index($setting)
+    {
+        $this->load->model('tool/image');
+
+        if (!empty($setting['image']) && is_file(DIR_IMAGE . $setting['image'])) {
+            $image = $setting['image'];
+        } else {
+            $image = 'no_image.png';
+        }
+
+        list($width, $height) = getimagesize(DIR_IMAGE . $image);
+
+        $data['thumb'] = $this->model_tool_image->resize($image, $width, $height);
+
+        return $data;
     }
 
     public function options(){
         $data = array();
+
+        $this->load->model('tool/image');
 
         $data['placeholder'] = $this->model_tool_image->resize('no_image.png', 100, 100);
 

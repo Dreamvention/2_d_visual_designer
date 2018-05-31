@@ -40,9 +40,4 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
 
         return $data;
     }
-
-    public function text($setting){
-        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
-        return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
-    }
 }

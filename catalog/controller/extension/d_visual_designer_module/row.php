@@ -13,6 +13,7 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller
         parent::__construct($registry);
         
         $this->load->language($this->route);
+        $this->load->model('extension/d_opencart_patch/load');
     }
 
     public function options($permission){

@@ -80,6 +80,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
                 if (!empty($data[1]['vd_content'][$field_name])) {
                     $setting = json_decode(html_entity_decode($data[1]['vd_content'][$field_name], ENT_QUOTES, 'UTF-8'), true);
                     $data[1]['product_description'][$language['language_id']]['description'] = $this->{'model_extension_'.$this->codename.'_designer'}->getText($setting);
+
                 }
             }
         }

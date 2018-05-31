@@ -71,23 +71,58 @@ class ModelExtensionModuleDVisualDesigner extends Model {
             $this->db->query("INSERT INTO `".DB_PREFIX."visual_designer_content` SET `content`= '".$this->db->escape($content)."', `route` ='".$route."', `id` = '".(int)$id."', `field` = '".$field_name."'");
         }
     }
+
     /**
      * Converts shortcodes to text
+     * @param $setting
+     * @return string
      */
     public function getText($setting){
-        
-        $content = '';
-
-        foreach($setting as $block_id => $block_setting) {
-            $output = $this->load->controller('extension/d_visual_designer_module/'.$block_setting['type'].'/text', $block_setting['setting']['global']);
-            if($output){
-                $content .= $output;
-            }
-        }
+        $content = $this->preRenderLevel('', $setting);
 
         return $content;
     }
 
+    /**
+     * Pre-render content from settings by Parent ID
+     * @param $parent
+     * @param $setting
+     * @return string
+     */
+    public function preRenderLevel($parent, $setting) {
+
+        $blocks = $this->getBlocksByParent($parent, $setting);
+        $this->load->model('extension/d_opencart_patch/load');
+        $result = '';
+        foreach ($blocks as $block_info) {
+            $renderData = array(
+                'setting' => $block_info['setting'],
+                'local' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/local', false),
+                'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
+                'children' => $this->preRenderLevel($block_info['id'], $setting)
+            );
+
+            $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
+        }
+        return $result;
+    }
+
+    /**
+     * Get list blocks by Parent ID
+     * @param $parent
+     * @param $setting
+     * @return array
+     */
+    public function getBlocksByParent($parent, $setting) {
+        return array_filter($setting, function($value) use ($parent) {
+            return $value['parent'] == $parent;
+        });
+    }
+
+    /**
+     * Get list of all blocks
+     * @return array
+     */
     public function getBlocks(){
         $dir = DIR_APPLICATION.'controller/extension/d_visual_designer_module';
         $files = scandir($dir);
