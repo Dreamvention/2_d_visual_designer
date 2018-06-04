@@ -1,6 +1,6 @@
 <?php
-class ControllerExtensionDVisualDesignerFileManager extends Controller {
-
+class ControllerExtensionDVisualDesignerFileManager extends Controller
+{
     public $codename = 'd_visual_designer';
     public $route = 'extension/d_visual_designer/filemanager';
 
@@ -11,9 +11,9 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $this->load->language($this->route);
     }
 
-    public function index() {
-
-        if(!$this->validateFileManager()){
+    public function index()
+    {
+        if (!$this->validateFileManager()) {
             return ;
         }
 
@@ -106,7 +106,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
             }
         }
 
-        if(!empty($data['images'])){
+        if (!empty($data['images'])) {
             $data['images'] = array_chunk($data['images'], 4);
         }
 
@@ -251,9 +251,9 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
-    public function upload() {
-
-        if(!$this->validateFileManager()){
+    public function upload()
+    {
+        if (!$this->validateFileManager()) {
             return ;
         }
 
@@ -327,9 +327,9 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function folder() {
-
-        if(!$this->validateFileManager()){
+    public function folder()
+    {
+        if (!$this->validateFileManager()) {
             return ;
         }
 
@@ -373,9 +373,9 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function delete() {
-
-        if(!$this->validateFileManager()){
+    public function delete()
+    {
+        if (!$this->validateFileManager()) {
             return ;
         }
 
@@ -409,7 +409,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
                 if (is_file($path)) {
                     unlink($path);
 
-                // If path is a directory beging deleting each file and sub folder
+                    // If path is a directory beging deleting each file and sub folder
                 } elseif (is_dir($path)) {
                     $files = array();
 
@@ -439,7 +439,7 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
                         if (is_file($file)) {
                             unlink($file);
 
-                        // If directory use the remove directory function
+                            // If directory use the remove directory function
                         } elseif (is_dir($file)) {
                             rmdir($file);
                         }
@@ -454,11 +454,11 @@ class ControllerExtensionDVisualDesignerFileManager extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-    public function validateFileManager(){
-        if(VERSION >= '2.2.0.0'){
+    public function validateFileManager()
+    {
+        if (VERSION >= '2.2.0.0') {
             $user = new Cart\User($this->registry);
-        }
-        else{
+        } else {
             $user = new User($this->registry);
         }
 

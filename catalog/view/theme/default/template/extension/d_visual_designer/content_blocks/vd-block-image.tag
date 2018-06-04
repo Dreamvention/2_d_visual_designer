@@ -1,5 +1,4 @@
 <vd-block-image>
-<link rel="stylesheet" href="catalog/view/theme/default/stylesheet/d_visual_designer/blocks/image.css">
     <div class="vd-image-container vd-image-align-{setting.global.align} {classContainer}">
         <div class="vd-image-title" if={setting.global.title}>
             <h2>{setting.global.title}</h2>

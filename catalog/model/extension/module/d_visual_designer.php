@@ -78,7 +78,19 @@ class ModelExtensionModuleDVisualDesigner extends Model {
      * @return string
      */
     public function getText($setting){
-        $content = $this->preRenderLevel('', $setting);
+        $content = $this->preRenderLevel('', $setting, true);
+
+        return $content;
+    }
+
+    /**
+     * Full Pre-render
+     * @param $setting
+     * @return string
+     * @throws Exception
+     */
+    public function preRender($setting) {
+        $content = $this->preRenderLevel('', $setting, false);
 
         return $content;
     }
@@ -87,22 +99,36 @@ class ModelExtensionModuleDVisualDesigner extends Model {
      * Pre-render content from settings by Parent ID
      * @param $parent
      * @param $setting
+     * @param bool $html
      * @return string
+     * @throws Exception
      */
-    public function preRenderLevel($parent, $setting) {
+    public function preRenderLevel($parent, $setting, $html = false) {
 
         $blocks = $this->getBlocksByParent($parent, $setting);
         $this->load->model('extension/d_opencart_patch/load');
         $result = '';
         foreach ($blocks as $block_info) {
-            $renderData = array(
-                'setting' => $block_info['setting'],
-                'local' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/local', false),
-                'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
-                'children' => $this->preRenderLevel($block_info['id'], $setting)
-            );
 
-            $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
+            $block_config = $this->getSettingBlock($block_info['type']);
+
+            //Full Pre-render
+            $fullPreRender = !empty($block_config['pre_render']) && !$html;
+            //Save to HTML
+            $saveToHtml = !empty($block_config['pre_render']) && !empty($block_config['save_html']) && $html;
+
+            if($fullPreRender || $saveToHtml) {
+                $renderData = array(
+                    'setting' => $block_info['setting'],
+                    'local' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/local', false),
+                    'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
+                    'children' => $this->preRenderLevel($block_info['id'], $setting)
+                );
+
+                $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
+            } else {
+                $result .= '';
+            }
         }
         return $result;
     }

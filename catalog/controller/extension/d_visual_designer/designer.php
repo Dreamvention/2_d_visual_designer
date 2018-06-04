@@ -139,8 +139,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['styles'] = $this->styles;
             $data['scripts'] = $this->scripts;
-            $data['content'] = $setting['content'];
-            $data['content'] = $this->{'model_extension_module_'.$this->codename}->getText($blocks_setting);
+            $data['content'] = $this->{'model_extension_module_'.$this->codename}->preRender($blocks_setting);
 
             $data['state']['config']['permission'] = array($data['designer_id'] => false);
 
@@ -155,8 +154,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['styles'] = $this->styles;
             $data['scripts'] = $this->scripts;
-            $data['content'] = $setting['content'];
-            $data['content'] = $this->{'model_extension_module_'.$this->codename}->getText($blocks_setting);
+            $data['content'] = $this->{'model_extension_module_'.$this->codename}->preRender($blocks_setting);
 
             $data['state']['config']['permission'] = array($data['designer_id'] => false);
 

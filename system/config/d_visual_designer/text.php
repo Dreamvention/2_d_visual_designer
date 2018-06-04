@@ -26,8 +26,10 @@ $_['button_copy']      = true ;
 $_['button_collapse']  = true;
 //Кнопка удаления
 $_['button_remove']    = true;
-//Текстовый блок
-$_['text']             = 'text';
+//Доступен пре-рендер
+$_['pre_render'] = true;
+//Доступно сохранение в html
+$_['save_html'] = true;
 //Типы полей
 $_['types'] = array(
     'text' => 'string'
