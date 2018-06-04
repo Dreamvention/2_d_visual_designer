@@ -137,7 +137,7 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         return $data;
     }
 
-    public function styles($permission) {
+    public function catalog_styles($permission) {
         $data = array();
 
         $data[] = 'catalog/view/theme/default/stylesheet/d_visual_designer/blocks/image.css';
