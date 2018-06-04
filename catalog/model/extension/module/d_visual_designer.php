@@ -6,6 +6,8 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
     private $order = 'ASC';
 
+    private $styles = array();
+
     /**
      * Converts shortcodes to settings
      */
@@ -79,7 +81,14 @@ class ModelExtensionModuleDVisualDesigner extends Model {
      */
     public function getText($setting){
         $content = $this->preRenderLevel('', $setting, true);
-
+        $styles = '<style type="text/css">';
+        if(!empty($this->styles)) {
+            foreach ($this->styles as $style) {
+                $styles .= file_get_contents(DIR_CATALOG.'../'.$style);
+            }
+        }
+        $styles = '</style>';
+        $content = $styles.$content;
         return $content;
     }
 
@@ -124,6 +133,8 @@ class ModelExtensionModuleDVisualDesigner extends Model {
                     'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
                     'children' => $this->preRenderLevel($block_info['id'], $setting)
                 );
+
+                $this->styles =array_merge($this->styles, $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/styles', false));
 
                 $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
             } else {
