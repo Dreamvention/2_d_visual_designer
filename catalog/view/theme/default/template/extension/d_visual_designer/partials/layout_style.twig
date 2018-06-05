@@ -41,7 +41,7 @@
     background-color: {{setting.global.design_background}};
 {% endif %}
 {% if setting.global.design_background_image %}
-    background-image: url({{setting.global.design_background_image}});
+    background-image: url({{setting.user.design_background_image}});
     {% if setting.global.design_background_image_position_vertical and setting.global.design_background_image_position_horizontal %}
         background-position: {{setting.global.design_background_image_position_vertical}} {{setting.global.design_background_image_position_horizontal}};
     {% endif %}
