@@ -272,6 +272,7 @@
         "catalog/view/theme/default/template/extension/d_visual_designer/popups",
         "catalog/view/theme/default/stylesheet/d_visual_designer",
         "catalog/view/theme/default/image/d_visual_designer",
+        "catalog/view/theme/default/template/extension/d_visual_designer/partials",
         "catalog/view/javascript/d_visual_designer/dist",
 
         "system/library/d_shortcode_reader_writer"

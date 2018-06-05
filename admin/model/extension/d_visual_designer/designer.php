@@ -166,11 +166,18 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             $saveToHtml = !empty($block_config['pre_render']) && !empty($block_config['save_html']) && $html;
 
             if($fullPreRender || $saveToHtml) {
+
+                $styles = $this->load->view('extension/d_visual_designer/partials/layout_style', $block_info);
+
+                $styles = trim(str_replace(array("\n","\r"), '', $styles));
+                $styles = preg_replace("/(\\;\\s+)/", ';', $styles);
+
                 $renderData = array(
                     'setting' => $block_info['setting'],
                     'local' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/local', false),
                     'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
-                    'children' => $this->preRenderLevel($block_info['id'], $setting)
+                    'children' => $this->preRenderLevel($block_info['id'], $setting),
+                    'styles' => $styles
                 );
 
                 $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
