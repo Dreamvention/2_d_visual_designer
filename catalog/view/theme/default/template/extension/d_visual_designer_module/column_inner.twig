@@ -1,1 +1,1 @@
-<div class="col-md-{{ setting.global.size }}" style="{{ styles }}">{{ children }}</div>
+<div class="col-md{{ setting.global.size != 'fill'?'-'~setting.global.size }}" style="{{ styles }}">{{ children }}</div>
