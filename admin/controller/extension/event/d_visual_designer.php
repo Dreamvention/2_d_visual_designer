@@ -22,6 +22,14 @@ class ControllerExtensionEventDVisualDesigner extends Controller
 
     public function view_product_after(&$route, &$data, &$output)
     {
+        $designer_data = array(
+            'config' => 'product',
+            'output' => &$output,
+            'id' => !empty($this->request->get['product_id'])?$this->request->get['product_id']:false
+        );
+
+        $vd_content = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+
         $html_dom = new d_simple_html_dom();
         $html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
@@ -33,12 +41,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $html_dom->find('textarea[name^="product_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
-        $designer_data = array(
-            'config' => 'product',
-            'id' => !empty($this->request->get['product_id'])?$this->request->get['product_id']:false
-            );
-
-        $html_dom->find('body', 0)->innertext .= $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+        $html_dom->find('body', 0)->innertext .= $vd_content;
 
 
         $output = (string)$html_dom;
@@ -96,6 +99,14 @@ class ControllerExtensionEventDVisualDesigner extends Controller
 
     public function view_category_after(&$route, &$data, &$output)
     {
+        $designer_data = array(
+            'config' => 'category',
+            'output' => &$output,
+            'id' => !empty($this->request->get['category_id'])?$this->request->get['category_id']:false
+        );
+
+        $vs_content = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+
         $html_dom = new d_simple_html_dom();
         $html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
@@ -107,12 +118,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $html_dom->find('textarea[name^="category_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
-        $designer_data = array(
-            'config' => 'category',
-            'id' => !empty($this->request->get['category_id'])?$this->request->get['category_id']:false
-            );
-
-        $html_dom->find('body', 0)->innertext .= $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+        $html_dom->find('body', 0)->innertext .= $vs_content;
 
         $output = (string)$html_dom;
     }
@@ -168,6 +174,15 @@ class ControllerExtensionEventDVisualDesigner extends Controller
 
     public function view_information_after(&$route, &$data, &$output)
     {
+
+        $designer_data = array(
+            'config' => 'information',
+            'output' => &$output,
+            'id' => !empty($this->request->get['information_id'])?$this->request->get['information_id']:false
+        );
+
+        $vd_content = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+
         $html_dom = new d_simple_html_dom();
         $html_dom->load($output, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
@@ -179,12 +194,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $html_dom->find('textarea[name^="information_description['.$language['language_id'].'][description]"]', 0)->class .=' d_visual_designer';
         }
 
-        $designer_data = array(
-            'config' => 'information',
-            'id' => !empty($this->request->get['information_id'])?$this->request->get['information_id']:false
-            );
-
-        $html_dom->find('body', 0)->innertext .= $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
+        $html_dom->find('body', 0)->innertext .= $vd_content;
 
         $output = (string)$html_dom;
     }

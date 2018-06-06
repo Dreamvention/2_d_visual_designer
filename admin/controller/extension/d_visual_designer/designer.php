@@ -107,13 +107,51 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['base'] = $this->store_url;
 
-            $data['scripts'] = $this->scripts;
-            $data['styles'] = $this->styles;
+            if ($setting['output']) {
+                $output = $this->parseHeader($setting['output']);
+
+                if($output) {
+                    $setting['output'] = $output;
+                }
+            } else {
+                $this->parseHeader();
+            }
             
             return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
         } else {
             return '';
         }
+    }
+
+    protected function parseHeader($header = false)
+    {
+        if ($header) {
+            $html_dom = new d_simple_html_dom();
+            $html_dom->load($header, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+
+            foreach ($this->scripts as $script) {
+                if (!$html_dom->find('head', 0)->find('script[src="' . $script . '"]')) {
+                    $html_dom->find('head', 0)->innertext .= '<script src="' . $script . '" type="text/javascript"></script>';
+                }
+            }
+
+            foreach ($this->styles as $style) {
+                if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
+                    $html_dom->find('head', 0)->innertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
+                }
+            }
+            return (string)$html_dom;
+        } else {
+            foreach ($this->scripts as $script) {
+                $this->document->addScript($script);
+            }
+
+            foreach ($this->styles as $style) {
+                $this->document->addStyle($style);
+            }
+        }
+
+        return false;
     }
 
     public function loadSetting()

@@ -16,14 +16,17 @@ class ControllerExtensionEventDVisualDesigner extends Controller
     public function view_product_before(&$view, &$data, &$output)
     {
         if(isset($data['description'])){
+
             $designer_data = array(
                 'config' => 'product',
                 'content' => $data['description'],
+                'header' => &$data['header'],
                 'field_name' => 'product_description['.(int)$this->config->get('config_language_id').'][description]',
                 'id' => $data['product_id']
                 );
+
             $data['description'] = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
-            
+
             $data['description'] = html_entity_decode($data['description'], ENT_QUOTES, 'UTF-8');
         }
     }
@@ -38,6 +41,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $designer_data = array(
                 'config' => 'category',
                 'content' => $data['description'],
+                'header' => &$data['header'],
                 'field_name' => 'category_description['.(int)$this->config->get('config_language_id').'][description]',
                 'id' => $category_id
                 );
@@ -51,15 +55,15 @@ class ControllerExtensionEventDVisualDesigner extends Controller
     public function view_information_before(&$view, &$data, &$output)
     {
         if(isset($data['description']) && !empty($this->request->get['information_id'])){
-            $designer_data = array(
+             $designer_data = array(
                 'config' => 'information',
                 'content' => $data['description'],
+                'header' => &$data['header'],
                 'field_name' => 'information_description['.(int)$this->config->get('config_language_id').'][description]',
                 'id' => (int)$this->request->get['information_id']
                 );
-                
             $data['description'] = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
-            
+
             $data['description'] = html_entity_decode($data['description'], ENT_QUOTES, 'UTF-8');
         }
     }

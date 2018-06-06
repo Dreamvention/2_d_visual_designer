@@ -1,10 +1,4 @@
-{% for style in styles %}
-    <link href="{{style}}" rel="stylesheet" />
-{% endfor %}
-{% for script in scripts %}
-    <script type="text/javascript" src="{{script}}"></script>
-{% endfor %}
- {% for riot_tag in riot_tags %}
+{% for riot_tag in riot_tags %}
 <script src="{{riot_tag}}" type="riot/tag"></script>
 {% endfor %}
 <visual-designer id="{{designer_id}}"></visual-designer>
