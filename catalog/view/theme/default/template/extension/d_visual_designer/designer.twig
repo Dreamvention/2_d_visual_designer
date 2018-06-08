@@ -1,8 +1,8 @@
-{% for riot_tag in riot_tags %}
-<script src="{{riot_tag}}" type="riot/tag"></script>
-{% endfor %}
 <visual-designer id="{{designer_id}}"></visual-designer>
 <script type="text/javascript">
+    {% for riot_tag in riot_tags %}
+        riot.compile("{{riot_tag}}")
+    {% endfor %}
     $(document).ready(function(){
         d_visual_designer.initLocal({{local|json_encode(constant('JSON_FORCE_OBJECT'))}})
         d_visual_designer.initOptions({{options|json_encode(constant('JSON_FORCE_OBJECT'))}})

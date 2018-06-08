@@ -53,7 +53,8 @@ gulp.task("basic-scripts", function () {
         "../library/circle-progress.js",
         "../library/owl-carousel/owl.carousel.min.js",
         "../library/webfont.js",
-        "../library/underscore-min.js"
+        "../library/underscore-min.js",
+        "../library/fastclone.js"
     ])
         .pipe(concat("vd-basic-libraries.min.js"))
         .pipe(uglify())
@@ -85,15 +86,16 @@ gulp.task("basic-styles", function () {
         "../library/owl-carousel/owl.carousel.css",
         "../library/owl-carousel/owl.transitions.css",
         "../library/animate.css",
-        "../library/icon-fonts/ionicons.css",
-        "../library/icon-fonts/fontawesome.css",
-        "../library/icon-fonts/map-icons.css",
-        "../library/icon-fonts/material-design-iconic-font.css",
-        "../library/icon-fonts/typicons.css",
-        "../library/icon-fonts/elusive-icons.css",
-        "../library/icon-fonts/octicons.css",
-        "../library/icon-fonts/weather-icons.css"
+        "../library/icon-fonts/elusive-icons.scss",
+        "../library/icon-fonts/fontawesome.scss",
+        "../library/icon-fonts/ionicons.scss",
+        "../library/icon-fonts/map-icons.scss",
+        "../library/icon-fonts/material-design-iconic-font.scss",
+        "../library/icon-fonts/octicons.scss",
+        "../library/icon-fonts/typicons.scss",
+        "../library/icon-fonts/weather-icons.scss"
     ])
+        .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
         .pipe(concat("vd-basic-libraries.min.css"))
         .pipe(cleanCSS())
         .pipe(gulp.dest(jsDest));
