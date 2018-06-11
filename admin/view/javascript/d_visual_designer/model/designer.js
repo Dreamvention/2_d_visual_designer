@@ -58,13 +58,19 @@
 
     this.subscribe('designer/frontend',function(data){
         var config = this.getState().config
+
+        var url_param = ''
+
+        if(!_.isUndefined(config.route_info['frontend_full_param']) && config.route_info.frontend_full_param){
+            url_param = '&field_name='+data.fieldName
+        }
         $.ajax({
             type: 'post',
             url: data.form.attr('action'),
             data: data.form.serialize(),
             context: this,
             success: function(response) {
-                window.location.href = config.frontend
+                window.location.href = config.frontend+url_param
             }
         });
     })

@@ -9,13 +9,13 @@
     <visual-designer id="{{designer_id}}"><div class="vd">{{ content }}</div></visual-designer>
 </div>
 <script type="text/javascript">
-    {% for riot_tag in riot_tags %}
-        riot.compile("{{riot_tag}}")
-    {% endfor %}
+
     $(document).ready(function(){
         d_visual_designer.initLocal({{local|json_encode(constant('JSON_FORCE_OBJECT'))}})
         d_visual_designer.initOptions({{options|json_encode(constant('JSON_FORCE_OBJECT'))}})
         d_visual_designer.initState({{state|json_encode(constant('JSON_FORCE_OBJECT'))|raw}})
-        riot.mount(document.getElementById('{{ designer_id }}'));
+        riot.compile({{riot_tags|json_encode}}, function(){
+            riot.mount(document.getElementById('{{ designer_id }}'));
+        })
     })
 </script>

@@ -234,6 +234,9 @@
         this.status = false;
         this.block_id = '';
         this.block_type = '';
+
+        $('body').removeAttr('style');
+        $(window).trigger('resize')
         this.update();
     }.bind(this)
 
@@ -324,6 +327,7 @@
                 }
                 
                 $('.vd-popup', this.root).css({ 'max-height': '' });
+                this.update();
             }.bind(this),
             stop: function( event, ui ) {
                 this.width = ui.size.width;

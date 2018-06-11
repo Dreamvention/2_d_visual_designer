@@ -7,6 +7,7 @@ $_['text_backend_editor']            = 'Backend Editor';
 $_['text_frontend_editor']           = 'Frontend Editor';
 $_['text_add_template']              = 'Templates';
 $_['text_edit']                      = 'Edit';
+$_['text_error']                     = 'Content not found!';
 
 $_['text_default']                   = 'Default';
 $_['text_dotted']                    = 'Dotted';

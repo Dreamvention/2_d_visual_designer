@@ -492,6 +492,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $designer_data = array(
             'config' => 'template',
+            'output' => false,
             'id' => !empty($this->request->get['template_id'])?$this->request->get['template_id']:false
             );
 

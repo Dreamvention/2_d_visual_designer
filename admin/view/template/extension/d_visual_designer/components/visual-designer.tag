@@ -2,7 +2,6 @@
     <div class="vd mode_switch btn-group" role="group" if={!store.getState().config.independent[opts.id]}>
         <a id="button_classic" class="btn btn-default" hide={store.getState().config.mode[opts.id] == 'classic'} onClick={modeClassic}><formatted-message path='designer.text_classic_mode'/></a>
         <a id="button_vd" class="btn btn-default" hide={!store.getState().config.mode[opts.id] || store.getState().config.mode[opts.id] == 'designer'} onClick={modeDesigner}><formatted-message path='designer.text_backend_editor'/></a>
-        <a class="btn btn-default" onClick={frontend} if={store.getState().config.route_info.frontend_status && store.getState().config.id}><formatted-message path='designer.text_frontend_editor'/></a>
     </div>
     <div class="content vd" hide={store.getState().config.mode[opts.id] == 'classic'}>
         <div class="row" id="d_visual_designer_nav">
@@ -15,7 +14,6 @@
                 <a class="btn btn-default vd-btn-text" 
                     onClick={frontend} 
                     if={store.getState().config.route_info.frontend_status && store.getState().config.id} 
-                    hide={!store.getState().config.independent[opts.id]}
                 >
                     <formatted-message path='designer.text_frontend_editor'/>
                 </a>
@@ -124,7 +122,14 @@
         }
 
         frontend() {
-            this.store.dispatch('designer/frontend', {designer_id: this.top.opts.id, form: $(this.root).closest('form')})
+
+            if(!this.store.getState().config.independent[this.top.opts.id]) {
+                var fieldName = $(this.root).closest('.form-group').find('.d_visual_designer').attr('name')
+            } else {
+                var fieldName = $(this.root).closest('.form-group').find('.d_visual_designer_backend').data('name')
+            }
+
+            this.store.dispatch('designer/frontend', {designer_id: this.top.opts.id, fieldName: fieldName, form: $(this.root).closest('form')})
         }
         this.on('update', function(){
             this.emptyDesigner = _.isEmpty(this.store.getState().blocks[this.top.opts.id])

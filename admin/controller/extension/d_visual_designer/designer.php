@@ -532,6 +532,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $config = html_entity_decode($this->request->get['config']);
         }
 
+        if (!empty($this->request->get['field_name'])) {
+            $field_name = html_entity_decode($this->request->get['field_name']);
+        } else {
+            $field_name = false;
+        }
+
         if (isset($this->request->get['id'])) {
             $id = html_entity_decode($this->request->get['id']);
         }
@@ -558,13 +564,21 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($config);
             
+            $param = array();
+
             if (!empty($route_info['frontend_param'])&!empty($id)) {
-                $param = $route_info['frontend_param'].'='.$id;
-            } else {
-                $param = '';
+                $param[] = $route_info['frontend_param'].'='.$id;
             }
 
-            $data['url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.$param;
+            if (!empty($route_info['frontend_full_param']) && $field_name) {
+                $param[] = 'field_name=' . $field_name;
+            }
+
+            if (!empty($route_info['frontend_full_param']) && $config) {
+                $param[] = 'config=' . $config;
+            }
+
+            $data['url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.implode('&', $param);
 
             if (!empty($route_info['backend_param'])&!empty($id)) {
                 $param = $route_info['backend_param'].'='.$id;

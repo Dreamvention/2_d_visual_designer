@@ -60,7 +60,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         } else {
             $content = $setting['content'];
         }
-
+        
         $this->scripts[] = 'catalog/view/javascript/d_riot/riotcompiler.min.js';
         $this->scripts[] = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.js';
         $this->styles[]  = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.css';
@@ -179,6 +179,64 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             }
 
             return $this->model_extension_d_opencart_patch_load->view('extension/' . $this->codename . '/frontend', $data);
+        }
+    }
+
+    public function frontend() {
+        $this->load->model('extension/d_opencart_patch/load');
+
+        if(isset($this->request->get['id'])){
+            $id = $this->request->get['id'];
+        }
+
+        if(isset($this->request->get['config'])){
+            $config = $this->request->get['config'];
+        }
+
+        
+        if(isset($this->request->get['field_name'])){
+            $field_name = $this->request->get['field_name'];
+        }
+
+        if(isset($id) && isset($config) && isset($field_name)) {
+            $designer_data = array(
+                'config' => $config,
+                'content' => '',
+                'header' => false,
+                'field_name' => $field_name,
+                'id' => $id
+                );
+
+            $data['content'] = $this->index($designer_data);
+
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
+            $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/content', $data));
+        } else {
+            $data['breadcrumbs'][] = array(
+				'text' => $this->language->get('text_error'),
+				'href' => $this->url->link('extension/'.$this->codename.'/designer/frontend')
+			);
+
+			$this->document->setTitle($this->language->get('text_error'));
+
+			$data['heading_title'] = $this->language->get('text_error');
+
+			$data['text_error'] = $this->language->get('text_error');
+
+			$data['button_continue'] = $this->language->get('button_continue');
+
+			$data['continue'] = $this->url->link('common/home');
+
+			$this->response->addHeader($this->request->server['SERVER_PROTOCOL'] . ' 404 Not Found');
+
+			$data['column_left'] = $this->load->controller('common/column_left');
+			$data['column_right'] = $this->load->controller('common/column_right');
+			$data['content_top'] = $this->load->controller('common/content_top');
+			$data['content_bottom'] = $this->load->controller('common/content_bottom');
+            $data['footer'] = $this->load->controller('common/footer');
+            $data['header'] = $this->load->controller('common/header');
+            $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('error/not_found', $data));
         }
     }
 

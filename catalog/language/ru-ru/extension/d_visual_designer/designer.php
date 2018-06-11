@@ -8,6 +8,7 @@ $_['text_frontend_editor']           = 'Frontend Редактор';
 $_['text_add_template']              = 'Шаблоны';
 $_['text_save_template']             = 'Сохранить Шаблон';
 $_['text_search']                    = 'Поиск';
+$_['text_error']                     = 'Контент не найден!';
 
 $_['text_dotted']                    = 'Точечный';
 $_['text_dashed']                    = 'Пунктирный';
