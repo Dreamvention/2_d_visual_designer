@@ -80,6 +80,10 @@
                 $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
             }
         }.bind(this))
+        this.store.subscribe('template/load/success', function(data){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
+        }.bind(this))
         this.store.subscribe('block/move/success', function(data){
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
             $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
