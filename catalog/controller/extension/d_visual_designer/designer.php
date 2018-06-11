@@ -79,6 +79,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $data['state']['config']['field_name'] = array($data['designer_id'] => $setting['field_name']);
 
         $this->addScript('javascript/d_visual_designer/main.js');
+        $this->addScript('javascript/d_visual_designer/model/style.js');
 
         if ($this->{'model_extension_module_' . $this->codename}->validateEdit($setting['config'])) {
             $this->addStyle('stylesheet/d_visual_designer/d_visual_designer.css');
