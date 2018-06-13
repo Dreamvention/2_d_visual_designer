@@ -1,22 +1,28 @@
 <layout-style>
     <script>
-        this.top = this.parent ? this.parent.top : this
-        this.level = this.parent.level
-        this.mixin({store:d_visual_designer})
+        this.mixin(new vd_component(this))
+        this.initState({
+            block_parent: {},
+        })
         this.initParentSetting = function(){
-            this.block_parent = this.store.getState().blocks[this.top.opts.id][this.opts.block.parent]
+            var top = this.getState().top
+            if(this.opts.block.parent != ''){
+                this.setState('block_parent', this.store.getState().blocks[top.opts.id][this.opts.block.parent])
+            }
         }
         this.initStyle = function(){
             var element = this.parent.root
             var setting = this.opts.block.setting.global
+            var block_parent = this.getState().block_parent
 
-            if(this.opts.block.parent !== '' && !_.isUndefined(this.block_parent.setting.global.float) && this.block_parent.setting.global.float){
+
+            if(this.opts.block.parent !== '' && !_.isUndefined(block_parent.setting.global.float) && block_parent.setting.global.float){
                 $(element).css({'float': 'left', 'width': 'auto'});
-                if(this.block_parent.setting.global.align) {
-                    if(this.block_parent.setting.global.align == 'left') {
+                if(block_parent.setting.global.align) {
+                    if(block_parent.setting.global.align == 'left') {
                         $(element).css({'float': 'left'})
                     }
-                    if(this.block_parent.setting.global.align == 'right') {
+                    if(block_parent.setting.global.align == 'right') {
                         $(element).css({'float': 'right'})
                     }
                 }

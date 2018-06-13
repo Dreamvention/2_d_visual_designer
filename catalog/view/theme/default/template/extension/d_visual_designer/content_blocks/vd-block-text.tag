@@ -1,8 +1,6 @@
 <vd-block-text>
-        <raw html={opts.block.setting.user.text}/>
+    <raw html={getState().setting.user.text}/>
     <script>
-        this.top = this.parent ? this.parent.top : this
-        this.level = this.parent.level
-        this.mixin({store:d_visual_designer})
+        this.mixin(new vd_block(this))
     </script>
 </vd-block-text>

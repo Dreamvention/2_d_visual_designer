@@ -1,8 +1,6 @@
 <vd-block-column_inner>
     <virtual data-is="wrapper-blocks" block={opts.block}></virtual>
     <script>
-        this.top = this.parent ? this.parent.top : this
-        this.level = this.parent.level
-        this.mixin({store:d_visual_designer})
+        this.mixin(new vd_block(this, false))
     </script>
 </vd-block-column_inner>

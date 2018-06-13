@@ -43,7 +43,7 @@
     this.top = ''
 
     this.store.subscribe('template/list', function(data){
-        if(data.designer_id == this.parent.top.opts.id){
+        if(data.designer_id == this.parent.getState().top.opts.id){
             this.status = true
             this.level = data.level
             this.parent_id = data.parent_id
@@ -55,7 +55,7 @@
         this.update()
     }.bind(this))
     addTemplate(e) {
-        this.store.dispatch('template/load', {config: e.item.template.config, designer_id:this.parent.top.opts.id, template_id: e.item.template.template_id})
+        this.store.dispatch('template/load', {config: e.item.template.config, designer_id:this.parent.getState().top.opts.id, template_id: e.item.template.template_id})
     }
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({

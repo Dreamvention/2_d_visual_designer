@@ -53,7 +53,7 @@
     }
 
     this.store.subscribe('template/save/popup', function(data){
-        if(data.designer_id == this.parent.top.opts.id){
+        if(data.designer_id == this.parent.getState().top.opts.id){
             this.status = true
             this.update()
         }
@@ -66,7 +66,7 @@
 
     saveTemplate(e) {
         $('.vd-btn.save', this.root).button('loading')
-        this.store.dispatch('template/save', {setting: this.setting, designer_id: this.parent.top.opts.id})
+        this.store.dispatch('template/save', {setting: this.setting, designer_id: this.parent.getState().top.opts.id})
     }
 
     change(e) {

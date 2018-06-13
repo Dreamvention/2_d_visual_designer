@@ -1,7 +1,7 @@
 <visual-designer>
     <div class="content vd">
-        <div class="vd" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+top.opts.id+" #sortable"}/></div>
-        <virtual if={store.getState().config.permission[top.opts.id]}>
+        <div class="vd" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+getState().top.opts.id+" #sortable"}/></div>
+        <virtual if={store.getState().config.permission[getState().top.opts.id]}>
             <div class="vd-helper">
                 <a id="vd-add-button" class="vd-button vd-add-block vd-btn-add" onClick={addBlock}><i class="far fa-plus"></i></a>
             </div>
@@ -27,18 +27,17 @@
     <vd-popup-save-template/>
     <vd-popup-load-template/>
     <script>
-        this.mixin({store:d_visual_designer})
-        this.top = this.parent ? this.parent.top : this
+        this.mixin(new vd_component(this, false))
         addBlock() {
-            this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.top.opts.id});
+            this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.getState().top.opts.id});
         }
         $('body').on('designerSave', function(e, data){
-            if(this.top.opts.id == data.designer_id) {
+            if(this.getState().top.opts.id == data.designer_id) {
                 this.store.dispatch('content/save', {designer_id: data.designer_id});
             }
         }.bind(this));
         $('body').on('designerTemplate', function(e, data){
-            if(this.top.opts.id == data.designer_id) {
+            if(this.getState().top.opts.id == data.designer_id) {
                 this.store.dispatch('template/list', {designer_id: data.designer_id});
             }
         }.bind(this));
@@ -46,14 +45,17 @@
             this.store.dispatch('template/save/popup', {designer_id: data.designer_id});
         }.bind(this));
         $('body').on('designerAddBlock',function(e, data){
-            if(this.top.opts.id == data.designer_id) {
+            if(this.getState().top.opts.id == data.designer_id) {
                 this.store.dispatch('popup/addBlock', {level: 0, target: '', designer_id: data.designer_id});
             }
         }.bind(this))
         this.on('mount', function(){
-            if(!this.store.getState().config.permission[this.top.opts.id]){
+            if(!this.store.getState().config.permission[this.getState().top.opts.id]){
                 $('.vd-frontent-text').hide();
             }
+        })
+        this.on('update', function(){
+            this.setState('asdasd', 'asdasd')
         })
     </script>
 </visual-designer>

@@ -46,7 +46,7 @@
     this.top = ''
 
     this.store.subscribe('popup/addBlock', function(data){
-        if(data.designer_id == this.parent.top.opts.id){
+        if(data.designer_id == this.parent.getState().top.opts.id){
             this.status = true
             this.level = data.level
             this.parent_id = data.parent_id
@@ -57,7 +57,7 @@
         this.status = false
     }.bind(this))
     addBlock(e){
-        this.store.dispatch('block/new', {type: e.item.block.type, designer_id:this.parent.top.opts.id, target: this.parent_id, level: this.level})
+        this.store.dispatch('block/new', {type: e.item.block.type, designer_id:this.parent.getState().top.opts.id, target: this.parent_id, level: this.level})
     }
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
