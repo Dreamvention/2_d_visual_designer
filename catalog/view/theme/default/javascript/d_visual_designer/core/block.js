@@ -40,14 +40,15 @@ function vd_block(tag) {
     }
 
     tag.setState = function(){
+        tag.state_updated = false
         if(_.isObject(arguments[0])){
             for(var key in arguments[0]){
+                tag.state_updated = !_.isEqual(arguments[0][key], tag.state[key])
                 tag.state[key] = arguments[0][key]
             }
         } else {
+            tag.state_updated = !_.isEqual(arguments[1], tag.state[arguments[0]])
             tag.state[arguments[0]] = arguments[1]
         }
-
-        tag.state_updated = true
     }
 }
