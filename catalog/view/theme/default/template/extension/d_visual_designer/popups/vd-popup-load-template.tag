@@ -61,6 +61,8 @@
         $('.vd-popup', this.root).resizable({
             resize: function(event, ui) {
                 if(!$('.vd-popup', this.root).hasClass('drag')){
+                    this.height = $('.vd-popup', this.root).height()
+                    $('.vd-popup', this.root).css({'height': this.height });
                     $('.vd-popup', this.root).addClass('drag')
                 }
                 
@@ -75,9 +77,11 @@
             handle: '.popup-header',
             drag: function(event, ui) {
                 if (!ui.helper.hasClass('drag')) {
+                    this.height = ui.helper.height()
+                    $('.vd-popup', this.root).css({'height': this.height });
                     ui.helper.addClass('drag');
                 }
-            },
+            }.bind(this),
             stop: function(event, ui) {
                 if (ui.position.top < 0) {
                     ui.helper.css({ 'top': '10px' });

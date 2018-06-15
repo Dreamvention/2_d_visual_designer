@@ -85,6 +85,8 @@
                     this.stick_left = false
                 }
                 if(!$('.vd-popup', this.root).hasClass('drag')){
+                    this.height = $('.vd-popup', this.root).height()
+                    $('.vd-popup', this.root).css({'height': this.height });
                     $('.vd-popup', this.root).addClass('drag')
                 }
                 
@@ -103,6 +105,8 @@
                     this.stick_left = false
                 }
                 if (!ui.helper.hasClass('drag')) {
+                    this.height = ui.helper.height()
+                    $('.vd-popup', this.root).css({'height': this.height });
                     ui.helper.addClass('drag');
                 }
             },
