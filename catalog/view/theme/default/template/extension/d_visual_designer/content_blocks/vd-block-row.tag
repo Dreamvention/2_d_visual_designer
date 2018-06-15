@@ -6,6 +6,7 @@
     </div>
     <script>
         this.mixin(new vd_block(this, false))
+        
         this.on('updated', function(){
             this.reCalculate()
         })

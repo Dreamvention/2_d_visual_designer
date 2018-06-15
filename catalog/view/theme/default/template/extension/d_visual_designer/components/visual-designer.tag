@@ -28,6 +28,9 @@
     <vd-popup-load-template/>
     <script>
         this.mixin(new vd_component(this, false))
+        this.initState({
+            level: -1
+        })
         addBlock() {
             this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.getState().top.opts.id});
         }

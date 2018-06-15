@@ -1,7 +1,7 @@
-<vd-layout-row_inner class="block-inner block-container {className} {opts.block.id} {activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id={setting.id? setting.id:null}>
-    <virtual if={permission}>
+<vd-layout-row_inner class="block-inner block-container {getState().className} {opts.block.id} {getState().activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id={getState().setting.id? getState().setting.id:null}>
+    <virtual if={getState().permission}>
         <div class="block-mouse-toggle"></div>
-        <div class="control control-{block_config.setting.control_position} {downControl?'control-down':null}">
+        <div class="control control-{getState().block_config.setting.control_position} {getState().downControl?'control-down':null}">
             <virtual data-is="control-buttons" block={opts.block}/>
         </div>
         <div class="vd-border vd-border-left"></div>
@@ -12,106 +12,108 @@
     <layout-style block={opts.block}/>
     <div class="block-content {contentClassName}" data-is="vd-block-{opts.block.type}" block={opts.block} ref="content"></div>
     <script>
-        this.top = this.parent ? this.parent.top : this
-        this.level = this.parent.level
-        this.mixin({store:d_visual_designer})
-        this.setting = this.opts.block.setting.global
-        this.activeControl = false
-        this.downControl = false
-        this.block_config = _.find(this.store.getState().config.blocks, function(block){
-            return block.type == opts.block.type
+        this.mixin(new vd_component(this, false))
+        this.initState({
+            setting: this.opts.block.setting.global,
+            activeControl: false,
+            downControl: false,
+            permission: false,
+            className: '',
+            contentClassName: '',
+            block_config: _.find(this.store.getState().config.blocks, function(block){
+                return block.type == opts.block.type
+            })
         })
 
         this.store.subscribe('block/control/down', function(data){
             if(data.id == this.opts.block.id) {
-                this.downControl = true
+                this.setState({downControl: true})
                 this.update()
             }
         }.bind(this))
 
         this.store.subscribe('block/control/normal', function(data){
             if(data.id == this.opts.block.id && !this.activeControl) {
-                this.downControl = false
+                this.setState({downControl: false})
                 this.update()
             }
         }.bind(this))
 
         this.checkPermission = function(){
-            this.permission = false
-            if(this.store.getState().config.permission[this.top.opts.id] && this.block_config.setting.display_control){
-                this.permission = true
+            var top = this.getState().top
+            var block_config = this.getState().block_config
+            if(this.store.getState().config.permission[top.opts.id] && block_config.setting.display_control){
+                this.setState('permission', true)
             }
         }
 
         $(this.root).mouseenter(function(){
-            if(!this.activeControl) {
-                this.activeControl = true;
+            if(!this.getState().activeControl) {
+                this.setState('activeControl', true)
                 this.store.dispatch('block/control/active', {id: this.opts.block.id})
                 this.update()
             }
         }.bind(this))
         $(this.root).mouseleave(function(e){
             var relatedTarget = $(e.target)
-            if(this.activeControl) {
-                this.activeControl = false;
+            if(this.getState().activeControl) {
+                this.setState('activeControl', false)
                 this.store.dispatch('block/control/deactive', {id: this.opts.block.id})
                 this.update()
             }
         }.bind(this))
 
         this.initClassNames = function(){
-            this.className = []
-            this.contentClassName = []
+            var className = []
+            var contentClassName = []
 
-            if(this.setting.background_video){
-                this.className.push('video')
+            var setting = this.getState().setting
+            var block_config = this.getState().block_config
+
+
+            if(setting.background_video){
+                className.push('video')
             }
-            if(this.block_config.setting.child) {
-                this.contentClassName.push('child')
+            if(block_config.setting.child) {
+                contentClassName.push('child')
             }
-            if(this.setting.align){
-                if(this.setting.align == 'left'){
-                    this.contentClassName.push('justify-content-start')
+            if(setting.align){
+                if(setting.align == 'left'){
+                    contentClassName.push('justify-content-start')
                 }
-                if(this.setting.align == 'center'){
-                    this.contentClassName.push('justify-content-center')
+                if(setting.align == 'center'){
+                    contentClassName.push('justify-content-center')
                 }
-                if(this.setting.align == 'right'){
-                    this.contentClassName.push('justify-content-end')
+                if(setting.align == 'right'){
+                    contentClassName.push('justify-content-end')
                 }
             }
-            if(this.setting.design_show_on){
-                this.className.push(_.map(this.setting.design_show_on, function(value){ return value }).join(' '))
+            if(setting.design_show_on){
+                className.push(_.map(setting.design_show_on, function(value){ return value }).join(' '))
             }
-            if(this.setting.design_animate){
-                this.className.push('animated '+this.setting.design_animate)
+            if(setting.design_animate){
+                className.push('animated '+setting.design_animate)
             }
-            if(this.setting.additional_css_class){
-                this.className.push(this.setting.additional_css_class)
+            if(setting.additional_css_class){
+                className.push(setting.additional_css_class)
             }
-            this.className = this.className.join(' ')
-            this.contentClassName = this.contentClassName.join(' ')
+            this.setState({
+                className: className.join(' '),
+                contentClassName: contentClassName.join(' ')
+            })
         }
 
-        this.initChildBlocks = function(){
-            this.childBlocks = this.store.getBlocks(this.parent.top.opts.id, this.opts.block.id)
-
-            for (var key in this.childBlocks) {
-                var childItems = this.store.getBlocks(this.parent.top.opts.id, key)
-            }
-        }
-
-        this.initChildBlocks()
         this.checkPermission()
         this.initClassNames()
 
 
         this.on('update', function(){
-            this.block_config = _.find(this.store.getState().config.blocks, function(block){
-                return block.type == opts.block.type
+            this.setState({
+                block_config: _.find(this.store.getState().config.blocks, function(block){
+                    return block.type == opts.block.type
+                }),
+                setting: this.opts.block.setting.global
             })
-            this.setting = this.opts.block.setting.global
-            this.initChildBlocks()
             this.checkPermission()
             this.initClassNames()
         })

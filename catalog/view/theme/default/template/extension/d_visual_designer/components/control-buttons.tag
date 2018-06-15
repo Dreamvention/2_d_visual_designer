@@ -121,7 +121,8 @@
          this.store.dispatch('block/new', {type: this.getState().block_config.setting.child, designer_id:this.parent.top.opts.id, target: this.opts.block.id, level: this.getState().level})
     }
     addBottomBlock(e) {
-        this.store.dispatch('popup/addBlock', {parent_id: this.opts.block.parent, designer_id: this.getState().top.opts.id, level: this.parent.level});
+        console.log({parent_id: this.opts.block.parent, designer_id: this.getState().top.opts.id, level: this.parent.getState().level})
+        this.store.dispatch('popup/addBlock', {parent_id: this.opts.block.parent, designer_id: this.getState().top.opts.id, level: this.parent.getState().level});
     }
     layoutBlock (e) {
         this.store.dispatch('block/layout/begin', {block_id: this.opts.block.id, type: this.opts.block.type, designer_id: this.getState().top.opts.id})
