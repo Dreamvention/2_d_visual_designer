@@ -53,6 +53,10 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
         $data['riot_tags'] = $this->{'model_extension_module_' . $this->codename}->getRiotTags($setting_module['compress_files']);
 
+        if($setting_module['bootstrap']) {
+            $this->styles[]  = 'catalog/view/theme/default/stylesheet/d_visual_designer/bootstrap.css';
+        }
+
         $result = $this->{'model_extension_module_' . $this->codename}->getContent($setting['config'], $setting['id'], $setting['field_name']);
 
         if (!empty($result)) {

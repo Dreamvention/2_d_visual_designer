@@ -15,6 +15,7 @@ class ControllerExtensionDVisualDesignerInstruction extends Controller {
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
+        $this->d_admin_style = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_admin_style.json'));
         
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
     }
@@ -25,6 +26,12 @@ class ControllerExtensionDVisualDesignerInstruction extends Controller {
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 
         $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
+
+        if($this->d_admin_style){
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
 
         $this->load->model('setting/setting');
         $this->load->model('extension/d_opencart_patch/url');

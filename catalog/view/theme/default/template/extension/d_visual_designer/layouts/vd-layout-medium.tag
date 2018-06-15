@@ -28,7 +28,7 @@
         this.store.subscribe('block/control/active', function(data){
             if(data.id == this.opts.block.id) {
                 var parent = this.opts.block.parent
-                if($(this.root).children('.block-content').height() < 60 && $(this.root).children('.block-content').width() < 240) {
+                if($(this.root).children('.block-content').height() < 60) {
                     this.store.dispatch('block/control/up', {id: parent})
                     this.setState('upControl', true)
                 } else {
@@ -49,7 +49,6 @@
             if(this.getState().activeControl) {
                 this.setState('activeControl', false)
                 this.store.dispatch('block/control/deactive', {id: this.opts.block.id})
-                this.store.dispatch('block/control/normal', {id: this.opts.block.parent})
                 this.setState('upControl', false)
                 this.update()
             }

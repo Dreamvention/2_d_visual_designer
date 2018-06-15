@@ -3,6 +3,7 @@
 $_['text_edit_template']    = 'Редактирование';
 $_['text_add_template']     = 'Добавить';
 $_['text_file_manager']     = 'Файловый менеджер';
+$_['text_list_template']    = 'Список шаблонов';
 
 //column
 $_['column_name']           = 'Название';

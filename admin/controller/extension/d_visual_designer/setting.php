@@ -18,6 +18,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->d_event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
+        $this->d_admin_style = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_admin_style.json'));
 
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
     }
@@ -31,26 +32,21 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('extension/d_opencart_patch/user');
         
-        //save post
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-            $this->uninstallEvents();
-            
-            if (!empty($this->request->post[$this->codename.'_status']) && !empty($this->request->post[$this->codename.'_setting']['use'])) {
-                $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
-            }
-            
-            $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
-            $this->session->data['success'] = $this->language->get('text_success');
-
-            $this->response->redirect($this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module'));
-        }
-        
-        // styles and scripts
+         // styles and scripts
         $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
         
         $this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
         $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
+        $this->document->addScript('view/javascript/d_visual_designer/libraryMain/alertify/alertify.min.js');
+        $this->document->addStyle('view/javascript/d_visual_designer/libraryMain/alertify/alertify.min.css');
+        $this->document->addStyle('view/javascript/d_visual_designer/libraryMain/alertify/bootstrap-theme.cstm.min.css');
+
+        if($this->d_admin_style){
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
         
         $url_params = array();
         
@@ -133,9 +129,11 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['entry_compress_files'] = $this->language->get('entry_compress_files');
         $data['entry_user'] = $this->language->get('entry_user');
         $data['entry_user_group'] = $this->language->get('entry_user_group');
+        $data['entry_bootstrap'] = $this->language->get('entry_bootstrap');
         
         $data['help_save_text'] = $this->language->get('help_save_text');
         $data['help_compress_files'] = $this->language->get('help_compress_files');
+        $data['help_bootstrap'] = $this->language->get('help_bootstrap');
         
         // Text
         $data['text_enabled'] = $this->language->get('text_enabled');
@@ -157,12 +155,13 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         //action
         $data['module_link'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/'.$this->codename);
         
-        $data['action'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/setting', $url);
+        $data['action'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/setting/save', $url);
         
-        $data['cancel'] =$this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module');
+        $data['cancel'] =$this->model_extension_d_opencart_patch_url->getExtensionLink('module');
+
+        $data['get_cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
 
         $data['compress_action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/compress_update');
-        
         
         $data['tab_setting'] = $this->language->get('tab_setting');
         //support
@@ -233,6 +232,41 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['footer'] = $this->load->controller('common/footer');
         
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
+    }
+
+    public function save()
+    {
+        $this->load->model('setting/setting');
+
+        if (isset($this->request->get['store_id'])) {
+            $store_id = $this->request->get['store_id'];
+        } else {
+            $store_id = 0;
+        }
+
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
+
+            $this->uninstallEvents();
+            
+            if (!empty($this->request->post[$this->codename.'_status']) && !empty($this->request->post[$this->codename.'_setting']['use'])) {
+                $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
+            }
+            
+            $this->model_setting_setting->editSetting($this->codename, $this->request->post, $this->store_id);
+
+            $this->session->data['success'] = $this->language->get('text_success');
+        }
+
+        $data['error'] = $this->error;
+
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
+
+        $this->response->setOutput(json_encode($data));
     }
     
     public function installEvents($status)

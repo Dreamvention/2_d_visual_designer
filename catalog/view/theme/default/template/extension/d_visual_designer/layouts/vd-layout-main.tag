@@ -23,9 +23,6 @@
             })
         })
 
-        this.activeControl = false
-        this.permission = false
-
         this.store.subscribe('block/control/up', function(data){
             if(data.id == this.opts.block.id) {
                 this.setState('upControl', true)
@@ -56,7 +53,6 @@
             }
         }.bind(this))
         $(this.root).mouseleave(function(e){
-            var relatedTarget = $(e.target)
             if(this.getState().activeControl) {
                 this.setState('activeControl', false)
                 this.store.dispatch('block/control/deactive', {id: this.opts.block.id})

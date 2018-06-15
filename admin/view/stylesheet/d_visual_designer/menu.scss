@@ -1,18 +1,23 @@
- #content {
-     .nav.menu > li {
-         float: left;
-         &.active{
-             a{
-                 color: rgb(30, 145, 207);
-             }
-         }
-         a{
-             color: rgb(153, 153, 153);
-         }
-     }
-     .table{
-         input , button, select, textarea{
-             width: 100%;
-         }
-     }
- }
+.form-group{
+    .bootstrap-switch.bootstrap-switch.bootstrap-switch {
+        .bootstrap-switch-handle-off, .bootstrap-switch-handle-on, .bootstrap-switch-label {
+            display: table-cell!important;
+        }
+    }
+}
+
+.table {
+    tr {
+        td {
+            input.form-control[type="checkbox"]{
+                min-height: auto;
+            }
+        }
+    }
+}
+a#button-menu{
+    -webkit-appearance: none!important;
+}
+.panel .note-toolbar.panel-heading {
+    justify-content: left;
+}

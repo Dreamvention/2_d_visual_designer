@@ -1,3 +1,3 @@
-#content .nav.menu>li{float:left}#content .nav.menu>li.active a{color:#1e91cf}#content .nav.menu>li a{color:#999}#content .table input,#content .table button,#content .table select,#content .table textarea{width:100%}
+.form-group .bootstrap-switch.bootstrap-switch.bootstrap-switch .bootstrap-switch-handle-off,.form-group .bootstrap-switch.bootstrap-switch.bootstrap-switch .bootstrap-switch-handle-on,.form-group .bootstrap-switch.bootstrap-switch.bootstrap-switch .bootstrap-switch-label{display:table-cell !important}.table tr td input.form-control[type="checkbox"]{min-height:auto}a#button-menu{-webkit-appearance:none !important}.panel .note-toolbar.panel-heading{-webkit-box-pack:left;-ms-flex-pack:left;justify-content:left}
 
 /*# sourceMappingURL=menu.css.map */

@@ -18,6 +18,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
+        $this->d_admin_style = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_admin_style.json'));
         
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
     }
@@ -140,6 +141,12 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
         $this->document->setTitle($this->language->get('heading_title_main'));
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
 
+        if($this->d_admin_style){
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
+
         $this->load->model('setting/setting');
 
         if (isset($this->request->get['sort'])) {
@@ -210,6 +217,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $data['text_no_results'] = $this->language->get('text_no_results');
         $data['text_confirm'] = $this->language->get('text_confirm');
+        $data['text_list_template'] = $this->language->get('text_list_template');
 
         $data['text_templates'] = $this->language->get('text_templates');
         $data['text_setting'] = $this->language->get('text_setting');
@@ -337,6 +345,12 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
 
         $this->document->setTitle($this->language->get('heading_title_main'));
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
+
+        if($this->d_admin_style){
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
 
         if(VERSION>='2.3.0.0'){
             $this->document->addScript('view/javascript/summernote/summernote.js');

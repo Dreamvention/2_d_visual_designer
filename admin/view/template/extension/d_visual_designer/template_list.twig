@@ -28,15 +28,14 @@
         {% endif %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
-                    <ul class="nav menu">
-                        <li><a href="{{href_setting}}" class="htab-item"><i class="fa fa-cog fa-fw"></i> {{text_setting}}</a></li>
-                        <li class="active"><a href="{{href_templates}}" class="htab-item"><i class="fa fa-list"></i> {{text_templates}}</a></li>
-                        <li><a href="{{href_instruction}}" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> {{text_instructions}}</a></li>
-                    </ul>
-                </h3>
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{text_list_template}}</h3>
             </div>
             <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li><a href="{{href_setting}}" class="htab-item"><i class="fa fa-cog fa-fw"></i> {{text_setting}}</a></li>
+                    <li class="active"><a href="{{href_templates}}" class="htab-item"><i class="fa fa-list"></i> {{text_templates}}</a></li>
+                    <li><a href="{{href_instruction}}" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> {{text_instructions}}</a></li>
+                </ul>
                 <form action="{{delete}}" method="post" enctype="multipart/form-data" id="form-template">
                     {% if notify %}
                         <style>

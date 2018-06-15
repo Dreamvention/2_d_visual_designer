@@ -11,9 +11,11 @@ $_['entry_limit_access_user_group'] = 'Allow used for only selected user groups'
 $_['entry_user']                    = 'User';
 $_['entry_user_group']              = 'User Group';
 $_['entry_compress_files']          = 'Compress files';
+$_['entry_bootstrap']               = 'Force Bootstrap';
 
 $_['help_save_text']                = 'When activated, we will render the Visual Designer description and update the default description with this data. If inactive, you can keep the default description separately from the Visual Designer';
 $_['help_compress_files']           = 'This option allows you to compress all Riot Tag files into one minified js file. This can solve some parallel loading issues on some webservers and increase the speed of the first load';
+$_['help_bootstrap']                = 'If you are experiancing style issues, you may whant to try this option. It will force a default bootstrap only for the visual designer';
 
 $_['text_success']                  = 'Success: You have modified settings!';
 $_['text_product']                  = 'Products';

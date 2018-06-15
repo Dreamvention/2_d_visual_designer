@@ -15,7 +15,7 @@
                     </select>
                 {% endif %}
                 <button id="save_and_stay" data-toggle="tooltip" title="{{button_save_and_stay}}" class="btn btn-success"><i class="fa fa-save"></i></button>
-                <button type="submit" form="form" data-toggle="tooltip" title="{{button_save}}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+                <button id="save_and_exit" data-toggle="tooltip" title="{{button_save}}" class="btn btn-primary"><i class="fa fa-save"></i></button>
                 <a href="{{cancel}}" data-toggle="tooltip" title="{{button_cancel}}" class="btn btn-default"><i class="fa fa-reply"></i></a>
             </div>
             <h1>{{heading_title}} {{version}}</h1>
@@ -39,15 +39,14 @@
         {% endif %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
-                    <ul class="nav menu">
-                        <li class="active"><a href="{{href_setting}}" class="htab-item"><i class="fa fa-cog fa-fw"></i> {{text_setting}}</a></li>
-                        <li><a href="{{href_templates}}" class="htab-item"><i class="fa fa-list"></i> {{text_templates}}</a></li>
-                        <li><a href="{{href_instruction}}" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> {{text_instructions}}</a></li>
-                    </ul>
-                </h3>
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> {{text_edit}}</h3>
             </div>
             <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="{{href_setting}}" class="htab-item"><i class="fa fa-cog fa-fw"></i> {{text_setting}}</a></li>
+                    <li><a href="{{href_templates}}" class="htab-item"><i class="fa fa-list"></i> {{text_templates}}</a></li>
+                    <li><a href="{{href_instruction}}" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> {{text_instructions}}</a></li>
+                </ul>
                 {% if notify %}
                     <style>
                         .notify > a{
@@ -157,6 +156,14 @@
                             </div>
 
                             <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-compress-files"><span data-toggle="tooltip" title="{{help_bootstrap}}">{{entry_bootstrap}}</span></label>
+                                <div class="col-sm-10">
+                                    <input type="hidden" name="{{codename}}_setting[bootstrap]" value="0" />
+                                    <input type="checkbox" name="{{codename}}_setting[bootstrap]" class="switcher" data-label-text="{{text_enabled}}" id="input-compress-files" {{ setting.bootstrap ? 'checked="checked"' }} value="1" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label" for="input-compress-files"><span data-toggle="tooltip" title="{{help_compress_files}}">{{entry_compress_files}}</span></label>
                                 <div class="col-sm-2">
                                     <input type="hidden" name="{{codename}}_setting[compress_files]" value="0" />
@@ -217,6 +224,23 @@
     </div>
 </div>
 <script type="text/javascript">
+
+    var action_status = 0;
+
+    function alert_handler(json)
+    {
+        if (json['error']) {
+
+            for (i in json['error']) {
+                alertify.error(i);
+            }
+        }
+
+        if (json['success']) {
+            alertify.success(json['success']);
+        }
+    }
+    
     $(document).ready(function(){
 
         $(".switcher[type='checkbox']").bootstrapSwitch({
@@ -305,22 +329,62 @@
             $(this).parent().remove();
         });
 
-        $('body').on('click', '#save_and_stay', function(){
+        $('body').on('click', '#save_and_stay', function() {
+            if (!action_status) {
+                action_status = 1;
+
+                $.ajax( {
+                    type: 'post',
+                    url: $('#form').attr('action'),
+                    data: $('#form').serialize(),
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $('#content').fadeTo('slow', 0.5);
+                    },
+                    complete: function() {
+                        $('#content').fadeTo('slow', 1);
+                        action_status = 0;
+                    },
+                    success: function(json) {
+                        alert_handler(json);
+
+                    },
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                    }
+                });
+            }
+        });
+
+    $('body').on('click', '#save_and_exit', function() {
+        if (!action_status) {
+            action_status = 1;
+
             $.ajax( {
                 type: 'post',
-                url: $('#form').attr('action') + '&save',
+                url: $('#form').attr('action'),
                 data: $('#form').serialize(),
+                dataType: 'json',
                 beforeSend: function() {
-                    $('#form').fadeTo('slow', 0.5);
+                    $('#content').fadeTo('slow', 0.5);
                 },
                 complete: function() {
-                    $('#form').fadeTo('slow', 1);
+                    $('#content').fadeTo('slow', 1);
+                    action_status = 0;
                 },
-                success: function( response ) {
-                    console.log( response );
+                success: function(json) {
+                    alert_handler(json);
+
+                    window.setTimeout(function() {
+                        if (json['success']) location = '{{ get_cancel }}';
+                    }, 300);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
                 }
-            });  
-        });
+            });
+        }
+    });
 
          $('body').on('click', '#compress_update', function (e) {
             $.ajax({
