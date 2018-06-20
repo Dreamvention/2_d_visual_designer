@@ -38,9 +38,9 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         $this->document->addScript('view/javascript/d_bootstrap_switch/js/bootstrap-switch.min.js');
         $this->document->addStyle('view/javascript/d_bootstrap_switch/css/bootstrap-switch.css');
-        $this->document->addScript('view/javascript/d_visual_designer/libraryMain/alertify/alertify.min.js');
-        $this->document->addStyle('view/javascript/d_visual_designer/libraryMain/alertify/alertify.min.css');
-        $this->document->addStyle('view/javascript/d_visual_designer/libraryMain/alertify/bootstrap-theme.cstm.min.css');
+        $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
+        $this->document->addStyle('view/javascript/d_alertify/css/alertify.min.css');
+        $this->document->addStyle('view/javascript/d_alertify/css/themes/semantic.min.css');
 
         if($this->d_admin_style){
             $this->load->model('extension/d_admin_style/style');

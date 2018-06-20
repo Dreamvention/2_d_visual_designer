@@ -48,7 +48,8 @@
         "d_bootstrap_switch": ">= 3.3.5",
         "d_riot": ">= 3.5.0",
         "d_twig_partial": ">= 1.0.0",
-        "d_admin_style": ">= 1.0.0"
+        "d_admin_style": ">= 1.0.0",
+        "d_alertify": ">= 1.11.1"
     },
     "files": [
         "system/library/d_shopunity/extension/d_visual_designer.json",
@@ -267,7 +268,6 @@
         "admin/view/stylesheet/d_visual_designer",
         "admin/view/image/d_visual_designer",
         "admin/view/javascript/d_visual_designer/dist",
-        "admin/view/javascript/d_visual_designer/libraryMain",
 
         "catalog/controller/extension/d_visual_designer",
         "catalog/language/en-gb/extension/d_visual_designer",
