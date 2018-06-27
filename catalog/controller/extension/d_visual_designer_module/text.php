@@ -31,6 +31,11 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
         return $data;
     }
 
+    public function options($permission) 
+    {
+        return array();
+    }
+
     public function local($permission)
     {
         $data = array();
@@ -39,5 +44,15 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
         }
 
         return $data;
+    }
+
+    public function scripts($permission) 
+    {
+        return array();
+    }
+
+    public function styles($permission) 
+    {
+        return array();
     }
 }

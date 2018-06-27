@@ -15,7 +15,7 @@ $_['control_position'] = 'bottom';
 //Отображение кнопок управления
 $_['display_control']  = true;
 //Кнопка перетаскивания
-$_['button_drag']      = false;
+$_['button_drag']      = true;
 //Кнопка редатирования
 $_['button_edit']      = true;
 //Кнопка копирования
@@ -27,9 +27,9 @@ $_['button_remove']    = true;
 //Свой шаблон
 $_['custom_layout']    = 'column_inner';
 //Доступен пре-рендер
-$_['pre_render'] = true;
+$_['pre_render']       = true;
 //Доступно сохранение в html
-$_['save_html'] = true;
+$_['save_html']        = true;
 //Типы полей
 $_['types']            = array(
     'size' => 'string',

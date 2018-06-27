@@ -1,5 +1,5 @@
-<vd-layout-children class="block-child block-container {getState().className} {activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id="{getState().setting.id? getState().setting.id:null}">
-    <div class="control control-{getState().block_config.setting.control_position}" if={getState().permission} style={getState().controlStyle}>
+<vd-layout-children class="block-child block-container {getState().className}" data-id="{opts.block.id}" id="{getState().setting.id? getState().setting.id:null}">
+    <div class="control control-{getState().block_config.setting.control_position}" if="{getState().permission && !getState().drag}" style="{getState().controlStyle}">
         <virtual data-is="control-buttons" block={opts.block}/>
     </div>
     <layout-style block={opts.block}/>
@@ -8,43 +8,27 @@
         this.mixin(new vd_component(this, false))
         this.initState({
             setting: this.opts.block.setting.global,
-            activeControl: false,
             controlStyle: '',
             permission: false,
             className: '',
             block_config: _.find(this.store.getState().config.blocks, function(block){
                 return block.type == opts.block.type
-            })
+            }),
+            drag: false
         })
 
-        $(this.root).on('active-control', function(){
-            var block = this.opts.block
+        this.checkControl = function () {
             var parent = this.opts.block.parent
-            var parentHeigth = $('[data-id='+parent+']').height()
-            var parentRight = parentBlock.offset().left + parentBlock.width()
-            var currentRight = $(this.root).offset().left + $(this.root).width()
-            var currentControlWidth = $(this.root).children('.control').width()
-
-            if((currentRight - currentControlWidth) < parentRight) {
-                $('[data-id='+parent+'] > .control-top').css({'top': '-40px'})
+            if($(this.root).height() < 100) {
+                this.store.dispatch('block/control/up', {id: parent})
             } else {
-                $('[data-id='+parent+'] > .control-advanced').css({'top': ''})
+                this.store.dispatch('block/control/normal', {id: parent})
             }
-            this.update()
-        }.bind(this))
+        }
 
-        $(this.root).mouseenter(function(){
-            if(!this.getState().activeControl) {
-                this.setState('activeControl', true);
-                this.store.dispatch('block/control/active', {id: this.opts.block.id})
-                this.update()
-            }
-        }.bind(this))
-        $(this.root).mouseleave(function(e, e1){
-            if(this.getState().activeControl) {
-                this.setState('activeControl', false);
-                this.store.dispatch('block/control/deactive', {id: this.opts.block.id})
-                this.update()
+        $(this.root).on('mouseenter', function () {
+            if(!this.getState().drag){
+                this.checkControl()
             }
         }.bind(this))
 
@@ -80,11 +64,15 @@
             })
         })
         this.on('update', function(){
+            var margin_left = (-1)*($(this.root).children('.control').width()/2);
+            var margin_top = (-1)*($(this.root).children('.control').height()/2)
             this.setState({
                 block_config: _.find(this.store.getState().config.blocks, function(block){
                     return block.type == opts.block.type
                 }),
-                setting: this.opts.block.setting.global
+                setting: this.opts.block.setting.global,
+                drag: this.store.getState().drag[this.getState().top.opts.id],
+                controlStyle: 'margin:'+margin_top+'px 0 0 '+margin_left+'px;'
             })
             this.initClassNames()
             this.checkPermission()

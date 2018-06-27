@@ -1,6 +1,6 @@
 <visual-designer>
     <div class="content vd">
-        <div class="vd" id="sortable"><virtual data-is="wrapper-blocks" selector={"#"+getState().top.opts.id+" #sortable"}/></div>
+        <div class="vd {getState().drag?'dragging': ''}" data-vd_id="{getState().top.opts.id}" id="sortable" data-id=""><virtual data-is="wrapper-blocks" selector={"#"+getState().top.opts.id+" #sortable"}/></div>
         <virtual if={store.getState().config.permission[getState().top.opts.id]}>
             <div class="vd-helper">
                 <a id="vd-add-button" class="vd-button vd-add-block vd-btn-add" onClick={addBlock}><i class="far fa-plus"></i></a>
@@ -29,7 +29,9 @@
     <script>
         this.mixin(new vd_component(this, false))
         this.initState({
-            level: -1
+            level: -1,
+            drag: false,
+            sortable: null
         })
         addBlock() {
             this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.getState().top.opts.id});
@@ -55,10 +57,14 @@
         this.on('mount', function(){
             if(!this.store.getState().config.permission[this.getState().top.opts.id]){
                 $('.vd-frontent-text').hide();
+            } else {
+                this.setState({sortable: new vd_sortable({designer_id: this.getState().top.opts.id})});
             }
+            
         })
+
         this.on('update', function(){
-            this.setState('asdasd', 'asdasd')
+            this.setState({drag: this.store.getState().drag[this.getState().top.opts.id]})
         })
     </script>
 </visual-designer>

@@ -1,9 +1,9 @@
+@import "core/mixin.scss";
 @import "core/control.scss";
 @import "core/bootstrap-grid.scss";
 @import "core/component.scss";
 @import "core/popup.scss";
 @import "core/animate.scss";
-
 
 @font-face {
     font-family: 'Glyph';
@@ -40,6 +40,19 @@
         }
 
         > .vd#sortable {
+            &.dragging{
+                user-select: none;
+                /*.block-content {
+                    flex-flow: row;
+                    > div[class~=col-md] {
+                        max-width: auto;
+                        flex: 1;
+                    }
+                }*/
+                .vd-welcome {
+                    display: none;
+                }
+            }
             &:empty {
                 display: none;
 
@@ -49,6 +62,13 @@
                     & + .vd-welcome {
                         display: block;
                     }
+                }
+            }
+            > .element-placeholder{
+                border: 2px solid rgb(48,140,214);
+                background: rgba(48,140,214, 0.4);
+                &:hover{
+                    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(48,140,214,0.4);
                 }
             }
         }
@@ -144,7 +164,21 @@
                 clear: both;
             }
 
-            &:empty,
+            &:empty {
+                position: relative;
+                min-height: 100px !important; 
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: 10px;
+                    right: 10px;
+                    top: 10px;
+                    bottom: 10px;
+                    background: rgba(210, 210, 210, 0.4);              border-radius: 6px;
+                    border: 2px solid rgb(210, 210, 210);
+                }
+            }
+
             .vd-new-child-block {
                 position: relative;
                 min-height: 100px !important;
@@ -187,15 +221,39 @@
             }
         }
 
+
         .row-placeholder {
             height: 100px;
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat;
         }
+        div[data-is="placeholder"] {
+            width: 100%;
+        }
 
         .element-placeholder {
-            height: 30px;
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat;
+            border: 2px solid rgb(114,179,56);
+            background: rgba(114,179,56, 0.4);
+            opacity: 0.8;
+            border-radius: 6px;
+            &.type-row{
+                width: 100%;
+                height: 30px;
+            }
+            &.type-column{
+                flex: 0 0 50px;
+                max-width: 50px;
+                min-height: 100px;
+            }
+            &::after {
+                content: '';
+                clear: both;
+                display: table;
+            }
+            &:hover{
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(114,179,56,0.4);
+            }
         }
+
 
         .block-container {
             position: relative;
@@ -244,9 +302,7 @@
                 left: 50%;
                 visibility: hidden;
                 padding-top: 20px;
-                -webkit-transition: visibility 0s, opacity 0.5s linear;
                 transition: visibility 0s, opacity 0.5s linear;
-                -webkit-transform: translate(-50%, -50%);
                 transform: translate(-50%, -50%);
                 opacity: 0;
 
@@ -278,6 +334,7 @@
                 > .control {
                     visibility: visible;
                     opacity: 1;
+                    @include control-animation(0.015,20);
                 }
             }
         }
@@ -315,11 +372,13 @@
                 border-radius: 5px;
             }
 
-            &.active-control {
+            //&.active-control {
+            &:hover {
                 & > * > .control,
                 > .control {
                     visibility: visible;
                     opacity: 1;
+                    @include control-animation(0.015,20);
                 }
             }
 
@@ -330,6 +389,13 @@
             & > .block-content {
                 padding: 0;
                 background-color: transparent;
+                > .element-placeholder{
+                    border: 2px solid rgb(244,192,0);
+                    background: rgba(244,192,0, 0.4);
+                    &:hover{
+                        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(244,192,0,0.4);
+                    }
+                }
             }
         }
 
@@ -337,10 +403,12 @@
             margin: 0;
             padding: 0;
 
-            &.active-control {
+            //&.active-control {
+            &:hover {
                 > .control {
                     visibility: visible;
                     opacity: 1;
+                    @include control-animation(0.015,20);
                 }
             }
 
@@ -465,6 +533,7 @@
                 background-color: transparent;
                 padding: 0;
 
+
                 .block-content-empty {
                     display: -webkit-box;
                     display: -ms-flexbox;
@@ -481,11 +550,13 @@
                 }
             }
 
-            &.active-control {
+            //&.active-control {
+            &:hover {
                 & > * > .control,
                 > .control {
                     visibility: visible;
                     opacity: 1;
+                    @include control-animation(0.015,20);
                 }
 
                 & > * > .control-top-bordered,
@@ -526,23 +597,27 @@ span.module_name {
     border-radius: 4px;
     background: #16f;
 }
-
 .helper-sortable {
     position: absolute;
+    height: 42px;
     z-index: 1006;
     display: flex;
     box-sizing: border-box;
     width: auto !important;
-    height: auto !important;
-    padding: 4px 15px 4px 30px;
+    /* height: auto !important; */
+    margin-top: -20px;
+    margin-left: -10px;
+    padding: 0 15px 0 30px;
     vertical-align: middle;
     color: #fff;
-    border: 1px solid #afd23e;
+    /* border: 1px solid #afd23e; */
     border-radius: 3px;
     background-color: #afd23e;
     font-size: 11px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    pointer-events: none;
 
     &.main {
         border: 1px solid #308cd6;

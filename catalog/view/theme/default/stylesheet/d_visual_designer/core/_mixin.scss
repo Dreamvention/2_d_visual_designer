@@ -1,0 +1,17 @@
+@mixin control-animation($delay, $count) {
+    > a.vd-btn {
+        transform: scale(1);
+        @for $i from 1 through $count {
+            &:nth-child(#{$i - 1}) {
+                transition-delay: #{($i - 1)*$delay}s;
+            }
+        }
+    }
+    > .block-button {
+        > a.vd-btn {
+            &:after {
+                transform: scale(1);
+            }
+        }
+    }
+}

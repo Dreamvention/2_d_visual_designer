@@ -110,7 +110,7 @@ class shortcode_writer
             }
             return ($a['sort_order'] < $b['sort_order']) ? -1 : 1;
         });
-
+        
         return $items;
     }
 }

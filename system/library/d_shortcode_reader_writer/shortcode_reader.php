@@ -25,6 +25,7 @@ class shortcode_reader
     }
 
     protected function do_shortcode_tag($m) {
+
         if ( $m[1] == '[' && $m[6] == ']' ) {
             return substr($m[0], 1, -1);
         }
@@ -39,13 +40,6 @@ class shortcode_reader
 
             $current_block = $type.'_'.$this->getRandomString();
 
-            if(!isset($this->sort_orders[$this->level])){
-                $this->sort_orders[$this->level] = 0;
-            }
-            else{
-                $this->sort_orders[$this->level]++;
-            }
-
             if(!empty($this->parents))
             {
                 $parent_id = current(array_slice($this->parents, -1));
@@ -54,11 +48,18 @@ class shortcode_reader
                 $parent_id = '';
             }
 
+            if(!isset($this->sort_orders[$parent_id])){
+                $this->sort_orders[$parent_id] = 0;
+            }
+            else{
+                $this->sort_orders[$parent_id]++;
+            }
+
             $this->setting[$current_block] = array(
                 'setting' => $attr,
                 'id' => $current_block,
                 'parent' => $parent_id,
-                'sort_order' => $this->sort_orders[$this->level],
+                'sort_order' => $this->sort_orders[$parent_id],
                 'type' => $type
                 );
 
@@ -70,12 +71,22 @@ class shortcode_reader
 
         } else {
             $current_block = $type.'_'.$this->getRandomString();
+
             $parent_id = current(array_slice($this->parents, -1));
+
+            if(!isset($this->sort_orders[$parent_id])){
+                $this->sort_orders[$parent_id] = 0;
+            }
+            else{
+                $this->sort_orders[$parent_id]++;
+            }
+
+
             $this->setting[$current_block] = array(
                 'setting' => $attr,
                 'id' => $current_block,
                 'parent' => $parent_id,
-                'sort_order' => $this->sort_order++,
+                'sort_order' => $this->sort_orders[$parent_id],
                 'type' => $type
                 );
 
@@ -84,7 +95,7 @@ class shortcode_reader
     }
 
     public function parseDescriptionHelper($description){
-        $this->sort_orders[$this->level] = -1;
+        // $this->sort_orders[$this->level] = -1;
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', array( &$this, "do_shortcode_tag" ), $description);
         array_pop($this->parents);
         $this->level--;

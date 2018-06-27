@@ -1,6 +1,6 @@
-<vd-layout-main class="block-parent block-container {getState().className} {opts.block.id} {getState().activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id={getState().setting.id? getState().setting.id:null}>
+<vd-layout-main class="block-parent block-container {getState().className} {opts.block.id}" data-id="{opts.block.id}" id="{getState().setting.id? getState().setting.id:null}">
     <div class="block-mouse-toggle" if={getState().permission}></div>
-    <div class="control control-{getState().block_config.setting.control_position} {getState().upControl?'control-up':null}"  if={getState().permission}>
+    <div class="control control-{getState().block_config.setting.control_position} {getState().upControl?'control-up':null}"  if={getState().permission && !getState().drag}>
         <virtual data-is="control-buttons" block={opts.block}/>
     </div>
     <div class="vd-border vd-border-left" if={getState().permission}></div>
@@ -13,14 +13,14 @@
         this.mixin(new vd_component(this, false))
         this.initState({
             setting: this.opts.block.setting.global,
-            activeControl: false,
             upControl: false,
             permission: false,
             className: '',
             contentClassName: '',
             block_config: _.find(this.store.getState().config.blocks, function(block){
                 return block.type == opts.block.type
-            })
+            }),
+            drag: false
         })
 
         this.store.subscribe('block/control/up', function(data){
@@ -31,7 +31,7 @@
         }.bind(this))
 
         this.store.subscribe('block/control/normal', function(data){
-            if(data.id == this.opts.block.id && !this.activeControl) {
+            if(data.id == this.opts.block.id) {
                 this.setState('upControl', false)
                 this.update()
             }
@@ -45,21 +45,6 @@
             }
         }
 
-        $(this.root).mouseenter(function(){
-            if(!this.getState().activeControl) {
-                this.setState('activeControl', true)
-                this.store.dispatch('block/control/active', {id: this.opts.block.id})
-                this.update()
-            }
-        }.bind(this))
-        $(this.root).mouseleave(function(e){
-            if(this.getState().activeControl) {
-                this.setState('activeControl', false)
-                this.store.dispatch('block/control/deactive', {id: this.opts.block.id})
-                this.update()
-            }
-        }.bind(this))
-
         this.initClassNames = function(){
             var className = []
             var contentClassName = []
@@ -71,6 +56,9 @@
             }
             if(this.getState().block_config.setting.child) {
                 contentClassName.push('child')
+            }
+            if(this.getState().block_config.setting.child_blocks) {
+                contentClassName.push('child-blocks')
             }
             if(setting.align){
                 if(setting.align == 'left'){
@@ -107,7 +95,8 @@
                 block_config: _.find(this.store.getState().config.blocks, function(block){
                     return block.type == opts.block.type
                 }),
-                setting: this.opts.block.setting.global
+                setting: this.opts.block.setting.global,
+                drag: this.store.getState().drag[this.getState().top.opts.id]
             })
             this.checkPermission()
             this.initClassNames()

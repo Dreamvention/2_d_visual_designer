@@ -16,6 +16,14 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller
         $this->load->model('extension/d_opencart_patch/load');
     }
 
+    public function index($setting) {
+        return array();
+    }
+
+    public function setting($setting) {
+        return array();
+    }
+
     public function options($permission){
         $data = array();
         if ($permission) {
@@ -53,5 +61,15 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller
             $data['text_set_custom'] = $this->language->get('text_set_custom');
         }
         return $data;
+    }
+
+    public function scripts($permission) 
+    {
+        return array();
+    }
+    
+    public function styles($permission) 
+    {
+        return array();
     }
 }

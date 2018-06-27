@@ -131,7 +131,7 @@ gulp.task("sass", function () {
         }))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest(sassDest))
-        .pipe(browserSync.reload({stream: true}));;
+        .pipe(browserSync.reload({stream: true}));
 });
 
 gulp.task("sass:watch", function () {

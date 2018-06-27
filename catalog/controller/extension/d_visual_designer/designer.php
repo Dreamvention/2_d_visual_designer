@@ -27,6 +27,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         } else {
             $this->store_url = HTTP_SERVER;
         }
+
+
     }
 
     public function index($setting)
@@ -68,12 +70,18 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $this->scripts[] = 'catalog/view/javascript/d_riot/riotcompiler.min.js';
         $this->scripts[] = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.js';
         $this->styles[]  = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.css';
+        $this->scripts[]  = 'catalog/view/javascript/d_visual_designer/dist/sortable/jquery.sortable.min.js';
 
         $data['designer_id'] = substr(md5(rand()), 0, 7);
 
         $blocks_setting = $this->{'model_extension_module_' . $this->codename}->parseContent($content);
 
         $data['state']['blocks'] = array($data['designer_id'] => $blocks_setting);
+
+        $data['state']['drag'] = array();
+        $data['state']['drag']= array(
+            $data['designer_id'] => false
+        );
 
         $data['state']['config'] = array();
 
@@ -85,11 +93,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $this->addScript('javascript/d_visual_designer/main.js');
         $this->addScript('javascript/d_visual_designer/core/block.js');
         $this->addScript('javascript/d_visual_designer/core/component.js');
+        $this->addScript('javascript/d_visual_designer/core/sortable.js');
         $this->addScript('javascript/d_visual_designer/model/style.js');
-
         if ($this->{'model_extension_module_' . $this->codename}->validateEdit($setting['config'])) {
             $this->addStyle('stylesheet/d_visual_designer/d_visual_designer.css');
             $this->addScript('javascript/d_visual_designer/model/block.js');
+            $this->addScript('javascript/d_visual_designer/model/drag.js');
             $this->addScript('javascript/d_visual_designer/model/content.js');
             $this->addScript('javascript/d_visual_designer/model/template.js');
             $this->addScript('javascript/d_visual_designer/model/history.js');
@@ -135,18 +144,18 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             return $this->model_extension_d_opencart_patch_load->view($this->route, $data);
         } elseif ($this->{'model_extension_module_' . $this->codename}->validateEdit($setting['config'], false) && !empty($setting['id'])) {
+
             $this->addStyle('stylesheet/d_visual_designer/frontend.css');
 
             $data['edit_url'] = $this->store_url . 'admin/index.php?route=extension/d_visual_designer/designer/frontend&' . $url_token . '&config=' . $setting['config'] . '&id=' . $setting['id'];
 
             $data['text_edit'] = $this->language->get('text_edit');
-
             $data['local']   = $this->prepareLocal(false);
             $data['options'] = $this->prepareOptions(false);
             $this->prepareScripts(false);
             $this->prepareStyles(false);
 
-            $data['content'] = $this->{'model_extension_module_' . $this->codename}->preRender($blocks_setting);
+            $data['content'] = $this->{'model_extension_module_' . $this->codename}->preRender($blocks_setting, $content);
 
             $data['state']['config']['permission'] = array($data['designer_id'] => false);
 
@@ -170,7 +179,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $this->prepareScripts(false);
             $this->prepareStyles(false);
 
-            $data['content'] = $this->{'model_extension_module_' . $this->codename}->preRender($blocks_setting);
+            $data['content'] = $this->{'model_extension_module_' . $this->codename}->preRender($blocks_setting, $content);
 
             $data['state']['config']['permission'] = array($data['designer_id'] => false);
 
@@ -282,7 +291,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $blocks = $this->{'model_extension_module_' . $this->codename}->getBlocks();
 
         foreach ($blocks as $block) {
-            $output = $this->load->controller('extension/d_visual_designer_module/' . $block . '/scripts', $permission);
+            $output = $this->vd_block->load($block, 'scripts', $permission);;
+            // $output = $this->load->controller('extension/d_visual_designer_module/' . $block . '/scripts', $permission);
             if ($output) {
                 $this->scripts = array_merge($this->scripts, $output);
             }
@@ -294,7 +304,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $blocks = $this->{'model_extension_module_' . $this->codename}->getBlocks();
 
         foreach ($blocks as $block) {
-            $output = $this->load->controller('extension/d_visual_designer_module/' . $block . '/styles', $permission);
+            $output = $this->vd_block->load($block, 'styles', $permission);
+            // $output = $this->load->controller('extension/d_visual_designer_module/' . $block . '/styles', $permission);
             if ($output) {
                 $this->styles = array_merge($this->styles, $output);
             }
@@ -395,7 +406,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $local['blocks'] = array();
 
         foreach ($blocks as $block) {
-            $local['blocks'][$block] = $this->load->controller('extension/d_visual_designer_module/' . $block . '/local', $permission);
+            $local['blocks'][$block] = $this->vd_block->load($block, 'local', $permission);
+            // $local['blocks'][$block] = $this->load->controller('extension/d_visual_designer_module/' . $block . '/local', $permission);
         }
 
         return $local;
@@ -486,9 +498,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $options['blocks'] = array();
 
         foreach ($blocks as $block) {
-            $options['blocks'][$block] = $this->load->controller('extension/d_visual_designer_module/' . $block . '/options', $permission);
+            $options['blocks'][$block] = $this->vd_block->load($block, 'options', $permission);
         }
-
 
         return $options;
     }

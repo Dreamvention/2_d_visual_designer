@@ -1,4 +1,29 @@
 <?php
+class VDBlockLoader {
+    private $registry;
+    public function __construct($registry)
+    {
+        $this->registry = $registry;
+    }
+
+    public function load($type, $method, $args) {
+        if(!$this->registry->has('block_d_visual_designer_'.$type)){
+            require_once DIR_APPLICATION.'controller/extension/d_visual_designer_module/'.$type.'.php';
+
+            $class = 'ControllerExtensionDVisualDesignerModule'.$type;
+            $class = preg_replace('/[^a-zA-Z0-9]/', '', (string)$class);
+            $block_class = new $class($this->registry);
+            $this->registry->set('block_d_visual_designer_'.$type, $block_class);
+        }
+        
+        $output = false;
+        if(method_exists($this->registry->get('block_d_visual_designer_'.$type), $method)) {
+            $output = $this->registry->get('block_d_visual_designer_'.$type)->$method($args);
+        }
+
+        return $output;
+    }
+}
 class ModelExtensionModuleDVisualDesigner extends Model {
     private $error = array();
 
@@ -7,6 +32,15 @@ class ModelExtensionModuleDVisualDesigner extends Model {
     private $order = 'ASC';
 
     private $styles = array();
+
+    public function __construct($registry)
+    {
+        parent::__construct($registry);
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('tool/image');
+        $this->load->model('setting/setting');
+        $this->registry->set('vd_block', new VDBlockLoader($registry));
+    }
 
     /**
      * Converts shortcodes to settings
@@ -100,13 +134,20 @@ class ModelExtensionModuleDVisualDesigner extends Model {
     /**
      * Full Pre-render
      * @param $setting
+     * @param $content
      * @return string
      * @throws Exception
      */
-    public function preRender($setting) {
-        $content = $this->preRenderLevel('', $setting, false);
+    public function preRender($setting, $content) {
+        $hash = md5($content);
 
-        return $content;
+        $result = $this->cache->get('vd-pre-render.' . $hash);
+        if(!$result) {
+            $result = $this->preRenderLevel('', $setting, false);
+            $this->cache->set('vd-pre-render.' .$hash , $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -120,7 +161,6 @@ class ModelExtensionModuleDVisualDesigner extends Model {
     public function preRenderLevel($parent, $setting, $html = false) {
 
         $blocks = $this->getBlocksByParent($parent, $setting);
-        $this->load->model('extension/d_opencart_patch/load');
         $result = '';
         foreach ($blocks as $block_info) {
 
@@ -140,15 +180,15 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
                 $renderData = array(
                     'setting' => $block_info['setting'],
-                    'local' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/local', false),
-                    'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
+                    'local' => $this->vd_block->load($block_info['type'], 'local', false),
+                    'options' => $this->vd_block->load($block_info['type'], 'options', false),
                     'children' => $this->preRenderLevel($block_info['id'], $setting),
                     'styles' => $styles
                 );
 
-                $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
+                 $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
 
-                $output = $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/styles', false);
+                $output = $this->vd_block->load($block_info['type'], 'styles', false);
 
                 if($output) {
                     $this->styles =array_merge($this->styles, $output);
@@ -231,7 +271,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
         $this->error = array();
 
-        $this->load->model('setting/setting');
+
 
         $setting = $this->model_setting_setting->getSetting('d_visual_designer');
 
@@ -570,7 +610,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
     public function prepareUserSetting($setting) {
         $data = array();
-        $this->load->model('tool/image');
+
         if(!empty($setting['design_background_image'])){
             $image = $setting['design_background_image'];
 
@@ -584,7 +624,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
     public function prepareEditSetting($setting) {
         $data = array();
-        $this->load->model('tool/image');
+
         if(!empty($setting['design_background_image'])){
             $image = $setting['design_background_image'];
 
@@ -631,8 +671,9 @@ class ModelExtensionModuleDVisualDesigner extends Model {
                 }
             }
         }
+        $userSetting = $this->vd_block->load($type, 'index', $result);
 
-        $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
+        // $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
 
         if(!$userSetting){
             $userSetting = array();
@@ -641,8 +682,10 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         $globalUserSetting = $this->prepareUserSetting($result);
 
         $userSetting = array_merge($globalUserSetting, $userSetting);
+
+        $editSetting = $this->vd_block->load($type, 'setting', $result);
         
-        $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
+        // $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
 
         if(!$editSetting){
             $editSetting = array();

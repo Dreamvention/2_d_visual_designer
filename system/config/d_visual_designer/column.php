@@ -15,7 +15,7 @@ $_['control_position'] = 'top';
 //Отображение кнопок управления
 $_['display_control']  = true;
 //Кнопка перетаскивания
-$_['button_drag']      = false;
+$_['button_drag']      = true;
 //Кнопка перетаскивания
 $_['button_layout']    = false;
 //Кнопка редатирования

@@ -1,65 +1,60 @@
-<vd-layout-column_inner class="block-inner block-container {getState().className} {getState().activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id={getState().setting.id? getState().setting.id:null}>
-    <virtual if={getState().permission}>
-        <div class="block-mouse-toggle"></div>
-        <div class="control control-{getState().block_config.setting.control_position} {getState().downControl? 'control-down': ''}">
-            <virtual data-is="control-buttons" block={opts.block}/>
-        </div>
-        <div class="vd-border vd-border-left"></div>
-        <div class="vd-border vd-border-top"></div>
-        <div class="vd-border vd-border-right"></div>
-        <div class="vd-border vd-border-bottom"></div>
-    </virtual>
+<vd-layout-column_inner class="block-inner block-container {getState().className} {getState().activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id="{getState().setting.id? getState().setting.id:null}">
+    <div class="block-mouse-toggle" if={getState().permission}></div>
+    <div class="control control-{getState().block_config.setting.control_position} {getState().downControl? 'control-down': ''}" if={getState().permission && ! getState().drag}>
+        <virtual data-is="control-buttons" block={opts.block}/>
+    </div>
+    <div class="vd-border vd-border-left" if={getState().permission}></div>
+    <div class="vd-border vd-border-top" if={getState().permission}></div>
+    <div class="vd-border vd-border-right" if={getState().permission}></div>
+    <div class="vd-border vd-border-bottom" if={getState().permission}></div>
     <layout-style block={opts.block}/>
-    <div class="block-content {getState().block_config.setting.child? 'child' : ''}" data-is="vd-block-{opts.block.type}" block={opts.block}></div>
+    <div class="block-content {getState().contentClassName}" data-is="vd-block-{opts.block.type}" block={opts.block}></div>
     <script>
         this.mixin(new vd_component(this, false))
         this.initState({
             setting: this.opts.block.setting.global,
             activeControl: false,
-            upControl: false,
+            downControl: false,
             permission: false,
             className: '',
             block_config: _.find(this.store.getState().config.blocks, function(block){
                 return block.type == opts.block.type
-            })
+            }),
+            drag: false,
+            hoverDrag: false
         })
 
-        this.store.subscribe('block/control/active', function(data){
+        this.store.subscribe('block/control/up', function(data){
             if(data.id == this.opts.block.id) {
                 var parent = this.opts.block.parent
-                if($(this.root).children('.block-content').height() < 100) {
-                    this.store.dispatch('block/control/down', {id: parent})
-                    this.setState({
-                        downControl: true
-                    })
-                } else {
-                    this.store.dispatch('block/control/normal', {id: parent})
-                    this.setState({
-                        downControl: false
-                    })
-                }
-            }
-        }.bind(this))
-
-        $(this.root).mouseenter(function(){
-            if(!this.getState().activeControl) {
-                this.setState({activeControl: true})
-                this.store.dispatch('block/control/active', {id: this.opts.block.id})
+                this.store.dispatch('block/control/up', {id: parent})
+                this.setState('downControl', true)
                 this.update()
             }
         }.bind(this))
-        $(this.root).mouseleave(function(e, e1){
-            if(this.getState().activeControl) {
-                this.setState({activeControl: false})
-                this.store.dispatch('block/control/deactive', {id: this.opts.block.id})
-                this.setState({downControl: false})
+
+        this.store.subscribe('block/control/normal', function(data){
+            if(data.id == this.opts.block.id) {
+                var parent = this.opts.block.parent
+                this.store.dispatch('block/control/normal', {id: parent})
+                this.setState('downControl', false)
                 this.update()
             }
         }.bind(this))
 
         this.initClassNames = function(){
             var className = []
+            var contentClassName = []
             var setting = this.getState().setting
+
+            if(this.getState().block_config.setting.child) {
+                contentClassName.push('child')
+            }
+            if(this.getState().block_config.setting.child_blocks) {
+                contentClassName.push('child-blocks')
+            }
+
+
             if(setting.offset){
                 className.push('offset-md-'+setting.offset)
             }
@@ -99,7 +94,10 @@
             if(setting.additional_css_class){
                 className.push(setting.additional_css_class)
             }
-            this.setState('className', className.join(' '))
+            this.setState({
+                className: className.join(' '),
+                contentClassName: contentClassName.join(' ')
+            })
         }
 
         this.checkPermission = function(){
@@ -117,7 +115,8 @@
                 block_config: _.find(this.store.getState().config.blocks, function(block){
                     return block.type == opts.block.type
                 }),
-                setting: this.opts.block.setting.global
+                setting: this.opts.block.setting.global,
+                drag: this.store.getState().drag[this.getState().top.opts.id]
             })
             this.initClassNames()
             this.checkPermission()

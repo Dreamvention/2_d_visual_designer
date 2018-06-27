@@ -15,6 +15,14 @@ class ControllerExtensionDVisualDesignerModuleColumn extends Controller
         $this->load->language($this->route);
     }
 
+    public function index($setting) {
+        return array();
+    }
+
+    public function setting($setting) {
+        return array();
+    }
+
     public function options($permission) {
         $data = array();
         if($permission) {
@@ -71,5 +79,15 @@ class ControllerExtensionDVisualDesignerModuleColumn extends Controller
         }
         $data['button_add'] = $this->language->get('button_add');
         return $data;
+    }
+
+    public function scripts($permission) 
+    {
+        return array();
+    }
+
+    public function styles($permission) 
+    {
+        return array();
     }
 }

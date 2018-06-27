@@ -92,6 +92,7 @@
         "catalog/controller/extension/event/d_visual_designer.php",
         "catalog/model/extension/module/d_visual_designer.php",
         "catalog/view/theme/default/javascript/d_visual_designer/main.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/core/sortable.js",
         "catalog/view/theme/default/javascript/d_visual_designer/core/block.js",
         "catalog/view/theme/default/javascript/d_visual_designer/core/component.js",
         "catalog/view/theme/default/javascript/d_visual_designer/model/block.js",

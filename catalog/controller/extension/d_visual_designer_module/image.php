@@ -155,6 +155,11 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         return $data;
     }
 
+    public function scripts($permission) 
+    {
+        return array();
+    }
+
     public function styles($permission) {
         $data = array();
 
