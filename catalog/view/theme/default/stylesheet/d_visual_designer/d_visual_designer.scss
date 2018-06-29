@@ -261,7 +261,9 @@
             margin-right: 0;
             margin-top: 0;
             padding: 0;
-            flex: 1;
+            &:not([class*=col]){
+                flex: 1;
+            }
 
             &::after {
                 display: table;
