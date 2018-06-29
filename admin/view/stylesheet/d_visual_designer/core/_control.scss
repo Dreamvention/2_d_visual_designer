@@ -9,6 +9,7 @@
     &~.block-content{
         left: 50px;
         padding: 15px 15px 40px 15px!important;
+        width: calc(100% - 50px);
         position: relative;
         > .vd-new-child-block{
             left: 75px;
