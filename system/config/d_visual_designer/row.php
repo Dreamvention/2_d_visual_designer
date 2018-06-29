@@ -45,6 +45,7 @@ $_['types'] = array(
 $_['setting'] = array(
     'row_stretch' => '',
     'align' => 'left',
+    'align_items' => 'stretch',
     'background_video' => 0,
     'link' => '',
     // 'link' => 'https://vimeo.com/51589652',

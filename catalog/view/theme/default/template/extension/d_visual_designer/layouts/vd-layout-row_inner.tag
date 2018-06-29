@@ -1,4 +1,4 @@
-<vd-layout-row_inner class="block-inner block-container {getState().className} {opts.block.id} {getState().activeControl? 'active-control':'deactive-control'}" data-id="{opts.block.id}" id="{getState().setting.id? getState().setting.id:null}">
+<vd-layout-row_inner class="block-inner block-container {getState().className}" data-id="{opts.block.id}" id="{getState().setting.id? getState().setting.id:null}">
     <div class="block-mouse-toggle" if={getState().permission}></div>
     <div class="control control-{getState().block_config.setting.control_position} {getState().downControl?'control-down':null}" if={getState().permission && !getState().drag}>
         <virtual data-is="control-buttons" block={opts.block}/>
@@ -8,7 +8,7 @@
     <div class="vd-border vd-border-right" if={getState().permission}></div>
     <div class="vd-border vd-border-bottom" if={getState().permission}></div>
     <layout-style block={opts.block}/>
-    <div class="block-content {getState().contentClassName}" data-is="vd-block-{opts.block.type}" block={opts.block} ref="content"></div>
+    <div class="block-content {getState().contentClassName} {opts.block.id}" data-is="vd-block-{opts.block.type}" block={opts.block} ref="content"></div>
     <script>
         this.mixin(new vd_component(this, false))
         this.initState({
@@ -92,6 +92,9 @@
                     contentClassName.push('justify-content-end')
                 }
             }
+            if(setting.align_items){
+                contentClassName.push('align-items-'+setting.align_items)
+            }
             if(setting.design_show_on){
                 className.push(_.map(setting.design_show_on, function(value){ return value }).join(' '))
             }
@@ -99,7 +102,7 @@
                 className.push('animated '+setting.design_animate)
             }
             if(setting.additional_css_class){
-                className.push(setting.additional_css_class)
+                contentClassName.push(setting.additional_css_class)
             }
             this.setState({
                 className: className.join(' '),

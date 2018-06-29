@@ -17,6 +17,14 @@
             <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.row_inner.aligns')} evchange={change}/>
         </div>
     </div>
+    <div class="form-group" id="align">
+        <label class="control-label">{store.getLocal('blocks.row_inner.entry_align_items')}</label>
+        <div class="fg-setting">
+            <select name="align_items" class="form-control" onChange={change}>
+                <option each={value, key in store.getOptions('blocks.row_inner.align_items')} value="{key}" selected={setting.global.align_items == key}>{value}</option>
+            </select>
+        </div>
+    </div>
     <script>
         this.mixin({store:d_visual_designer})
         this.setting = this.opts.block.setting

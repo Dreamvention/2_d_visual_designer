@@ -49,4 +49,5 @@ $_['setting']          = array(
     'background_video' => 0,
     'link' => '',
     'align' => 'left',
+    'align_items' => 'stretch',
 );

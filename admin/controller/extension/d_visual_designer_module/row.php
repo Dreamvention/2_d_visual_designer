@@ -34,6 +34,14 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller
             'right' => $this->language->get('text_right')
         );
 
+        $data['align_items'] = array(
+            'start' => $this->language->get('text_start'),
+            'center' => $this->language->get('text_center'),
+            'end' => $this->language->get('text_end'),
+            'stretch' => $this->language->get('text_stretch'),
+            'baseline' => $this->language->get('text_baseline')
+        );
+
         return $data;
     }
 
@@ -45,6 +53,7 @@ class ControllerExtensionDVisualDesignerModuleRow extends Controller
         $data['entry_video_link'] = $this->language->get('entry_video_link');
         $data['entry_row_stretch'] = $this->language->get('entry_row_stretch');
         $data['entry_align'] = $this->language->get('entry_align');
+        $data['entry_align_items'] = $this->language->get('entry_align_items');
 
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_yes'] = $this->language->get('text_yes');

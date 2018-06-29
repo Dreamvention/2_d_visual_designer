@@ -3,7 +3,7 @@
         <virtual data-is="control-buttons" block={opts.block}/>
     </div>
     <layout-style block={opts.block}/>
-    <div class="block-content {getState().block_config.setting.child? 'child' : ''}" data-is="vd-block-{opts.block.type}" block={opts.block}></div>
+    <div class="block-content {getState().block_config.setting.child? 'child' : ''} {getState().contentClassName} {opts.block.id}" data-is="vd-block-{opts.block.type}" block={opts.block}></div>
     <script>
         this.mixin(new vd_component(this, false))
         this.initState({
@@ -11,6 +11,7 @@
             controlStyle: '',
             permission: false,
             className: '',
+            contentClassName: '',
             block_config: _.find(this.store.getState().config.blocks, function(block){
                 return block.type == opts.block.type
             }),
@@ -34,6 +35,7 @@
 
         this.initClassNames = function(){
             var className = []
+            var contentClassName = []
             var setting = this.getState().setting
             
             if(setting.design_show_on){
@@ -43,9 +45,12 @@
                 className.push('animated '+setting.design_animate)
             }
             if(setting.additional_css_class){
-                className.push(setting.additional_css_class)
+                contentClassName.push(setting.additional_css_class)
             }
-            this.setState('className', className.join(' '))
+            this.setState({
+                className: className.join(' '),
+                contentClassName: contentClassName.join(' ')
+            })
         }
         this.checkPermission = function(){
             var top = this.getState().top

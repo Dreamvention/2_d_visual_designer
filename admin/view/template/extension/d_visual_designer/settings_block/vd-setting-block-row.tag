@@ -19,12 +19,20 @@
         <input type="text" class="form-control" name="link" value="{setting.global.link}" onChange={change}/>
     </div>
 </div>
-    <div class="form-group" id="align">
-        <label class="control-label">{store.getLocal('blocks.row.entry_align')}</label>
-        <div class="fg-setting">
-            <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.row.aligns')} evchange={change}/>
-        </div>
+<div class="form-group" id="align">
+    <label class="control-label">{store.getLocal('blocks.row.entry_align')}</label>
+    <div class="fg-setting">
+        <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.row.aligns')} evchange={change}/>
     </div>
+</div>
+<div class="form-group" id="align">
+    <label class="control-label">{store.getLocal('blocks.row.entry_align_items')}</label>
+    <div class="fg-setting">
+        <select name="align_items" class="form-control" onChange={change}>
+            <option each={value, key in store.getOptions('blocks.row.align_items')} value="{key}" selected={setting.global.align_items == key}>{value}</option>
+        </select>
+    </div>
+</div>
 <script>
     this.top = this.parent ? this.parent.top : this
     this.level = this.parent.level

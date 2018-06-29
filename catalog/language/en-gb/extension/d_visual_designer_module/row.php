@@ -15,7 +15,14 @@ $_['entry_video_link']                   = 'Video link';
 $_['entry_row_stretch']                  = 'Row stretch';
 $_['text_enabled']                       = 'Enabled';
 $_['entry_align']                        = 'Aligns';
+$_['entry_align_items']                  = 'Align items';
 //Align
-$_['text_left']             = 'Left';
-$_['text_center']           = 'Center';
-$_['text_right']            = 'Right';
+$_['text_left']                          = 'Left';
+$_['text_center']                        = 'Center';
+$_['text_right']                         = 'Right';
+$_['text_start']                         = 'Start';
+$_['text_end']                           = 'End';
+$_['text_baseline']                      = 'Baseline';
+$_['text_stretch']                       = 'Stretch';
+
+
