@@ -1,14 +1,14 @@
 function vd_sortable(options) {
 
-    this.under_id = ''
-    this.drag_id = ''
-    this.drag_type = ''
-    this.start_under_id = ''
-    this.dragging = false
-    this.itemsHorizontal = false
-    this.allowZones = null
-    this.sortableItems = {}
-    this.store = d_visual_designer
+    this.under_id = '';
+    this.drag_id = '';
+    this.drag_type = '';
+    this.start_under_id = '';
+    this.dragging = false;
+    this.itemsHorizontal = false;
+    this.allowZones = null;
+    this.sortableItems = {};
+    this.store = d_visual_designer;
 
     var defaults = {
         designer_id: ''
@@ -18,7 +18,7 @@ function vd_sortable(options) {
         !(name in options) && (options[name] = defaults[name]);
     }
 
-    if (!$('.helper-sortable').size()) {
+    if (!$(".helper-sortable").size()) {
         $('body').append('<div class="helper-sortable" style="display:none;"></div>')
     }
 
@@ -80,7 +80,7 @@ function vd_sortable(options) {
     * Start new drag and drog
     **/
     this.store.subscribe('block/drag/start', function (data) {
-        if(options.designer_id == data.designer_id) {
+        if(data.designer_id === options.designer_id) {
             var block_config = _.find(this.store.getState().config.blocks, function (block) {
                 return block.type == data.type
             })
@@ -110,13 +110,13 @@ function vd_sortable(options) {
             for (var key in this.allowZones) {
                 var blockId = this.allowZones[key].id
                 if (key != '') {
-                    var container = $('.block-container[data-id="' + blockId + '"]')
+                    var container = $('.block-container[id="' + blockId + '"]')
                 } else {
-                    var container = $('[id=sortable][data-vd_id="' + options.designer_id + '"][data-id="' + blockId + '"]')
+                    var container = $('[id=sortable][data-vd_id="' + options.designer_id + '"][id="' + blockId + '"]')
                 }
                 container.on("mouseenter", function (event) {
                     if (this.dragging) {
-                        var underId = $(event.currentTarget).data('id')
+                        var underId = $(event.currentTarget).attr('id')
                         this.store.dispatch('block/placeholder/show', {
                             designer_id: options.designer_id,
                             block_id: underId
@@ -126,7 +126,8 @@ function vd_sortable(options) {
                 }.bind(this));
                 container.on("mouseleave", function (event) {
                     if (this.dragging) {
-                        var underId = $(event.currentTarget).data('id')
+                        var underId = $(event.currentTarget).attr('id')
+
                         this.store.dispatch('block/placeholder/hide', {
                             designer_id: options.designer_id,
                             block_id: underId
@@ -153,14 +154,14 @@ function vd_sortable(options) {
     * End Drag and Drop
     **/
     this.store.subscribe('sortable/end', function(data){
-        if(data.designer_id == options.designer_id) {
+        if(data.designer_id === options.designer_id) {
             $('.helper-sortable').hide()
             for (var key in this.allowZones) {
                 var blockId = this.allowZones[key].id
                 if (key != '') {
-                    var container = $('.block-container[data-id="' + blockId + '"]')
+                    var container = $('.block-container[id="' + blockId + '"]')
                 } else {
-                    var container = $('[id=sortable][data-vd_id="' + options.designer_id + '"][data-id="' + blockId + '"]')
+                    var container = $('[id=sortable][data-vd_id="' + options.designer_id + '"][id="' + blockId + '"]')
                 }
                 container.off("mouseenter");
                 container.off("mouseleave");

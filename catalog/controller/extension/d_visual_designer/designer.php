@@ -70,7 +70,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $this->scripts[] = 'catalog/view/javascript/d_riot/riotcompiler.min.js';
         $this->scripts[] = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.js';
         $this->styles[]  = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.css';
-        $this->scripts[]  = 'catalog/view/javascript/d_visual_designer/dist/sortable/jquery.sortable.min.js';
 
         $data['designer_id'] = substr(md5(rand()), 0, 7);
 
@@ -98,7 +97,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         if ($this->{'model_extension_module_' . $this->codename}->validateEdit($setting['config'])) {
             $this->addStyle('stylesheet/d_visual_designer/d_visual_designer.css');
             $this->addScript('javascript/d_visual_designer/model/block.js');
-            $this->addScript('javascript/d_visual_designer/model/drag.js');
             $this->addScript('javascript/d_visual_designer/model/content.js');
             $this->addScript('javascript/d_visual_designer/model/template.js');
             $this->addScript('javascript/d_visual_designer/model/history.js');

@@ -29,6 +29,13 @@
         }
     }.bind(this))
 
+    this.store.subscribe('sortable/end', function(data){
+        if(this.getState().placeholder) {
+            this.setState({placeholder: false})
+            this.update()
+        }
+    }.bind(this))
+
     this.store.subscribe('block/placeholder/hide', function(data) {
         var designer_id = this.getState().top.opts.id
         var block_id = this.getState().parent_id
@@ -55,7 +62,7 @@
             var block_info = _.find(this.store.getState().config.blocks, function(block){
                 return block.type == value.type
             })
-            if(!_.isUndefined(value.setting.global.size)){
+            if(!_.isUndefined(value.setting.global.size)&&!_.isUndefined(block_info.child_blocks)){
                 placeholder_type = 'column'
             }
             if(block_info.setting.custom_layout) {

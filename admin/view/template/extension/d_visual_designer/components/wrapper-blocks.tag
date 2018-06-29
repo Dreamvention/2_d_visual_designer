@@ -1,10 +1,12 @@
-<wrapper-blocks>
-    <div each={block in blocks} data-is="vd-layout-{block.layout}" block={block}></div>
-    <div class="vd-new-child-block" onClick={addBlock} if={block_config} ><i class="fal fa-plus-square"></i> {newChildBlockTitle}</div>
+<wrapper-blocks><div data-is="placeholder" if="{placeholder && !_.isEmpty(blocks)}" placeholder_type="{placeholder_type}" sort_order="0" block_id="{parent_id}"/><virtual each="{block in blocks}"><div data-is="vd-layout-{block.layout}" block="{block}"></div><div data-is="placeholder" placeholder_type="{placeholder_type}" sort_order="{block.sort_order+1}" block_id="{parent_id}" if="{placeholder}"/></virtual><div data-is="placeholder" if="{placeholder && _.isEmpty(blocks)}" placeholder_type="{placeholder_type}" sort_order="0" block_id="{parent_id}"/><div class="vd-new-child-block" onClick="{addBlock}" if="{block_config && !drag}"><i class="fal fa-plus-square"></i> {newChildBlockTitle}</div>
 <script>
     this.top = this.parent ? this.parent.top : this
     this.level = _.isUndefined(this.parent.level)? 0 : this.parent.level + 1
     this.parent_id = this.opts.block? this.opts.block.id : ''
+    this.drag = null
+    this.sortable = null
+    this.placeholder = false
+    this.placeholder_type ='row'
     this.mixin({store:d_visual_designer})
 
     addBlock(e) {
@@ -15,52 +17,37 @@
         }
     }.bind(this)
 
+    this.store.subscribe('sortable/end', function(data){
+        this.placeholder = false;
+        this.update()
+    }.bind(this))
+
+    this.store.subscribe('block/placeholder/show', function(data) {
+        var designer_id = this.top.opts.id
+        var block_id = this.parent_id
+        if(data.designer_id == designer_id) {
+            if(data.block_id == block_id){
+                this.placeholder = true;
+                this.update()
+            }
+        }
+    }.bind(this))
+
+    this.store.subscribe('block/placeholder/hide', function(data) {
+        var designer_id = this.top.opts.id
+        var block_id = this.parent_id
+        if(data.designer_id == designer_id) {
+            if(data.block_id == block_id){
+                this.placeholder = false;
+                this.update()
+            }
+        }
+    }.bind(this))
+
     this.initSortable = function (){
         var parent_root = this.opts.selector ? this.opts.selector : this.parent.root
         var that = this;
-        $(parent_root).sortable({
-                forcePlaceholderSize: true,
-                forceHelperSize: false,
-                connectWith: this.parent_id == ''? ".block-parent":".block-content:not(.child)",
-                placeholder:  this.parent_id == ''? "row-placeholder vd-col-12" : "element-placeholder vd-col-12",
-                items: this.parent_id == ''? "> .block-parent" : ".block-child, .block-inner",
-                helper: function(event, ui) {
-                    if (ui.hasClass('.block-inner')) {
-                        var type = "inner";
-                    } else {
-                        var type = "child";
-                    }
-                    var block_id = $(ui).closest('.block-container').attr('id')
-                    var block_info = that.store.getState().blocks[that.top.opts.id][block_id]
-                    var block_config = _.find(that.store.getState().config.blocks, function(block){
-                        return block.type == block_info.type
-                    })
-                    var helper = '<div class="helper-sortable '+type+'"><img class="icon" src="'+block_config.image+'" width="32px" height="32px"/>'+block_config.title+'</div>'
-                    return helper;
-                },
-                distance: 3,
-                scroll: true,
-                scrollSensitivity: 70,
-                zIndex: 9999,
-                appendTo: 'body',
-                cursor: 'move',
-                revert: 0,
-                cursorAt: { top: 20, left: 16 },
-                handle: this.parent_id == ''? ' > .control.drag' :'> .control.drag',
-                tolerance: 'intersect',
-                stop: function(event, ui){
-                    var block_id = $(ui.item).closest('.block-container').attr('id')
-                    if(that.parent_id == '') {
-                        var parent_id = ''
-                    }  else {
-                        var parent_id = $(ui.item).parent().closest('.block-container').attr('id')
-                    }
-
-                    that.store.dispatch('block/move', {block_id: block_id, target: parent_id, designer_id: that.top.opts.id, success: function(){
-                            $(parent_root).sortable('cancel')
-                        }.bind(this)})
-                }
-            })
+        this.store.dispatch('sortable/init', {designer_id: this.top.opts.id, block_id: this.parent_id})
     }
 
     this.initBlocks = function () {
@@ -79,6 +66,9 @@
             var block_info = _.find(this.store.getState().config.blocks, function(block){
                 return block.type == value.type
             })
+            if(!_.isUndefined(value.setting.global.size)){
+                this.placeholder_type = 'column'
+            }
             if(block_info.setting.custom_layout) {
                 value.layout = block_info.setting.custom_layout
             } else if(block_info.setting.child_blocks && block_info.type == 'row') {
@@ -112,6 +102,7 @@
 
     this.on('update', function(){
         this.parent_id = this.opts.block? this.opts.block.id : ''
+        this.drag = this.store.getState().drag[this.top.opts.id]
         this.initBlocks()
         this.initSortable()
         this.initName()

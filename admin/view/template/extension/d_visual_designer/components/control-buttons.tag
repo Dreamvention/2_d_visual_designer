@@ -1,8 +1,8 @@
 <control-buttons>
-    <a id="button_edit" class="vd-btn vd-btn-small vd-btn-edit" if={block_config.setting.button_edit} onClick={editBlock}></a>
-    <a id="button_copy" class="vd-btn vd-btn-small vd-btn-copy" if={block_config.setting.button_copy} onclick={cloneBlock}></a>
-    <a id="button_layout" class="vd-btn vd-btn-small vd-btn-layout" if={block_config.setting.button_layout} onClick={layoutBlock}></a>
-    <a id="button_remove" class="vd-btn vd-btn-small vd-btn-remove" if={block_config.setting.button_remove} onClick={removeBlock}></a>
+    <a id="button_edit" class="vd-btn vd-btn-small vd-btn-edit" if={block_config.setting.button_edit} onClick={editBlock} onmousedown="{diableDrag}"></a>
+    <a id="button_copy" class="vd-btn vd-btn-small vd-btn-copy" if={block_config.setting.button_copy} onclick={cloneBlock} onmousedown="{diableDrag}"></a>
+    <a id="button_layout" class="vd-btn vd-btn-small vd-btn-layout" if={block_config.setting.button_layout} onClick={layoutBlock} onmousedown="{diableDrag}"></a>
+    <a id="button_remove" class="vd-btn vd-btn-small vd-btn-remove" if={block_config.setting.button_remove} onClick={removeBlock} onmousedown="{diableDrag}"></a>
 <script>
     this.top = this.parent ? this.parent.top : this
     this.mixin({store:d_visual_designer})
@@ -15,6 +15,31 @@
         })
     })
 
+    this.on('mount', function(){
+        $(this.parent.root).children('.control').on('mousedown', function(e){
+            if(e.button === 0) {
+                this.store.dispatch('block/drag/start', {
+                    designer_id: this.top.opts.id,
+                    type: this.opts.block.type,
+                    block_id: this.opts.block.id
+                })
+            }
+        }.bind(this))
+
+        $(this.parent.root).children('.control').on('mouseup', function(e){
+            if (e.button === 0) {
+                this.store.dispatch('block/drag/end', {
+                    designer_id: this.top.opts.id,
+                    type: this.opts.block.type,
+                    block_id: this.opts.block.id
+                })
+            }
+        }.bind(this))
+    })
+    diableDrag(e){
+        e.preventDefault()
+        e.stopPropagation()
+    }
     editBlock (e) {
         this.store.dispatch('block/setting/begin', {block_id: this.opts.block.id, type: this.opts.block.type, designer_id: this.top.opts.id})
     }

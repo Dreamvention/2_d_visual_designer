@@ -49,7 +49,7 @@
                         this.updateState({blocks: blocks})
 
                         $(el).before('<visual-designer id="'+json.designer_id+'" class="'+json.designer_id+'"></visual-designer>');
-                        riot.mount('visual-designer')
+                        riot.mount(document.getElementById(json.designer_id))
                         this.dispatch('content/designer/init', {designer_id: json.designer_id})
                         setTimeout(function(){
                             this.dispatch('content/mode/update', {designer_id: json.designer_id, 'mode': 'designer'})

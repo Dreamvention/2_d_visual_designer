@@ -61,16 +61,30 @@
         }
     }
 
+    this.subscribe('block/move/start', function(data) {
+        var blocks = JSON.parse(JSON.stringify(this.getState().blocks))
+        blocks[data.designer_id][data.block_id].parent = null
+        this.updateState({blocks: blocks})
+    })
+
     this.subscribe('block/move', function(data){
         var block_info = this.getState().blocks[data.designer_id][data.block_id]
-        this.updateSortOrder(data.designer_id, block_info.parent)
         if(block_info.parent != data.target) {
-            this.updateSortOrder(data.designer_id, data.target)
+            var childBlocks = this.getBlocks(data.designer_id, data.target)
             var blocks = JSON.parse(JSON.stringify(this.getState().blocks))
+            for(var key in childBlocks) {
+                if(blocks[data.designer_id][childBlocks[key].id].sort_order >= data.sort_order)
+                {
+                    blocks[data.designer_id][childBlocks[key].id].sort_order += 1
+                }
+            }
             blocks[data.designer_id][data.block_id].parent = data.target
+            blocks[data.designer_id][data.block_id].sort_order = data.sort_order
             this.updateState({blocks: blocks})
         }
-        data.success()
+        if(data.success){
+            data.success()
+        }
         this.dispatch('block/move/success')
     })
     this.subscribe('block/layout/update', function(data){

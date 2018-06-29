@@ -84,6 +84,10 @@
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
             $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
         }.bind(this))
+        this.store.subscribe('block/clone/success', function(data){
+            this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
+        }.bind(this))
         this.store.subscribe('block/move/success', function(data){
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
             $('textarea[name=\''+this.fieldName+'\']', this.root).html(this.content).val(this.content)
@@ -167,6 +171,7 @@
 
         this.on('mount', function(){
             this.content = JSON.stringify(this.store.getState().blocks[this.top.opts.id])
+            new vd_sortable({designer_id: this.top.opts.id})
         })
 
         $('body').on('designerSave', function(){
