@@ -59,7 +59,7 @@
                 className.push('offset-md-'+setting.offset)
             }
             if(setting.offset_phone){
-                className.push('offset-xs-'+setting.offset_phone)
+                className.push('offset-'+setting.offset_phone)
             }
             if(setting.offset_tablet){
                 className.push('offset-sm-'+setting.offset_tablet)
@@ -73,9 +73,9 @@
             }
             if(setting.size_phone){
                 if(setting.size_phone == 'fill') {
-                    className.push('col-xs')
+                    className.push('col')
                 } else {
-                    className.push('col-xs-'+setting.size_phone)
+                    className.push('col-'+setting.size_phone)
                 }
             }
             if(setting.size_tablet){
