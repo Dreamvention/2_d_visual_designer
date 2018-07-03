@@ -153,7 +153,7 @@
 
         this.renderStyle = function() {
             var setting = this.opts.block.setting.global
-            console.log(setting)
+
             $('body').find('style#layout-'+this.opts.block.id).remove();
 
             var styleTag = '<style id="layout-'+this.opts.block.id+'">';

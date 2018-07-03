@@ -227,6 +227,29 @@
         this.store.dispatch('history/return', {block_id: this.block_id, designer_id: this.designer_id})
     }.bind(this)
 
+    this.closePopup = function () {
+        this.status = false
+        this.block_id = ''
+        this.block_type = ''
+
+        $('body').removeAttr('style');
+        $(window).trigger('resize')
+        this.update();
+    }.bind(this)
+
+    this.store.subscribe('block/layout/begin', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('template/save/popup', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('template/list', function(data) {
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('popup/addBlock', function(data) {
+        this.closePopup()
+    }.bind(this))
+
     this.store.subscribe('block/create/success', function(data){
         if(data.designer_id == this.designer_id) {
             if(!this.status) {

@@ -21,7 +21,7 @@ $_['text_success']                  = 'Success: You have modified settings!';
 $_['text_product']                  = 'Products';
 $_['text_category']                 = 'Categories';
 $_['text_information']              = 'Information pages';
-$_['text_complete_version']         = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart?utm_source=d_visual_desginer&utm_medium=extension&utm_campaign=get_full_version&utm_content=setting" target="_blank">Over 40 building blocks in Complete version. Get it now!</a>';
+$_['text_complete_version']         = '<a href="https://dreamvention.ee/visual-designer-the-first-page-builder-for-opencart?utm_source=d_visual_desginer&utm_medium=extension&utm_campaign=get_full_version&utm_content=setting" target="_blank">Over 40 building blocks in Pro version. Get it now!</a>';
 $_['text_compress_success']         = 'Compress file update successfuly.';
 
 //button

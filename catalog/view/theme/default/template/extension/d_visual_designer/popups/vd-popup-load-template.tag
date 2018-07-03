@@ -50,6 +50,29 @@
             this.update()
         }
     }.bind(this))
+
+    this.closePopup = function () {
+        this.status = false;
+        this.update();
+    }.bind(this)
+
+    this.store.subscribe('block/create/success', function(data){
+        this.closePopup()
+    }.bind(this))
+
+    this.store.subscribe('block/setting/begin', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('template/save/popup', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('block/layout/begin', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('popup/addBlock', function(data) {
+        this.closePopup()
+    }.bind(this))
+
     this.store.subscribe('template/load/success', function(){
         this.status = false
         this.update()
