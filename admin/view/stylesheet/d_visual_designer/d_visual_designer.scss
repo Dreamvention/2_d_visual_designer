@@ -481,7 +481,7 @@ div[data-is="placeholder"] {
 .vd-popup {
     position: fixed;
     z-index: 1003!important;
-    top: 20%;
+    top: 10%;
     left: 25%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -491,7 +491,7 @@ div[data-is="placeholder"] {
     width: 50%;
     min-width: 400px;
     height: auto;
-    max-height: 75%;
+    max-height: 80%;
     -webkit-box-align: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;

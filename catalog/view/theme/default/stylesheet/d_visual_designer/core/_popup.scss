@@ -1,7 +1,7 @@
 .vd-popup {
     position: fixed!important;
     z-index: 1003!important;
-    top: 20%;
+    top: 10%;
     left: 25%;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -92,7 +92,7 @@
         }
     }
     &:not(.drag) {
-        max-height: 50%;
+        max-height: 80%;
         -webkit-transition: all .3s;
         transition: all .3s;
     }
