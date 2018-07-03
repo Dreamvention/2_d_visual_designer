@@ -234,9 +234,13 @@
             return block.type == type
         })
         var childBlocks = this.getBlocks(designer_id, target)
-        var lastBlock = _.max(childBlocks, function(value){
-            return value.sort_order
-        })
+        if(!_.isEmpty(childBlocks)){
+            var lastBlock = _.max(childBlocks, function(value){
+                return value.sort_order
+            })
+        } else{
+            var lastBlock = {}
+        }
         var blocks = this.getState().blocks
         var block_id = type+'_'+Math.random().toString(36).substring(2, 9)
         blocks[designer_id][block_id] = {
@@ -244,7 +248,7 @@
             parent: target,
             id: block_id,
             type: type,
-            sort_order: lastBlock.sort_order? lastBlock.sort_order + 1 : 0
+            sort_order: !_.isEmpty(lastBlock)? lastBlock.sort_order + 1 : 0
         }
         if(!_.isNull(default_setting)){
             blocks[designer_id][block_id].setting.global = _.extend({}, blocks[designer_id][block_id].setting.global, default_setting)
