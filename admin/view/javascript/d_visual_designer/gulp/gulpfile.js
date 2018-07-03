@@ -91,9 +91,8 @@ gulp.task('sass', function () {
 
       .pipe(sourcemaps.init())
       .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-      .pipe(stripCssComments({preserve: false}))
       .pipe(autoprefixer({
-            browsers: ['last 2 versions']
+            browsers: ['last 15 versions']
         }))
       .pipe(sourcemaps.write('./'))
       .pipe(gulp.dest(sassDest));

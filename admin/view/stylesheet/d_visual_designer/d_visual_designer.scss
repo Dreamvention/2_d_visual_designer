@@ -3,13 +3,14 @@
 @import 'core/animation.scss';
 @font-face {
     font-family: 'Glyph';
-    src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphicons-halflings-regular.woff') format('woff');
+    src: url('fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('fonts/glyphic\ons-halflings-regular.woff') format('woff');
 }
 
 .animate-speed {
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
 }
+
 
 .vd.mode_switch {
     display: inline-block;
@@ -762,6 +763,33 @@ div[data-is="placeholder"] {
         -webkit-box-flex: 1;
         -ms-flex: 1 1 auto;
         flex: 1 1 auto;
+
+        .vd-style-tab{
+            padding: 0 0 23px 1em;
+            line-height: 26px;
+            list-style-type: disc;
+            > .vd-style-tab-item{
+                display: inline-block;
+                padding: 7px 15px;
+                cursor: pointer;
+                color: #bec9d6;
+                font-weight: bold;
+                text-transform: uppercase;
+                &.active{
+                    background: #F5F8FB;
+                    color: #0086d6;
+                }
+            }
+        }
+        .vd-style-tab-content {
+            > .vd-style-tab-item{
+                display:none;
+                &.active {
+                    display: block;
+                }
+            }
+        }
+
         > .notify{
             display:block;
             margin: 20px;
@@ -806,6 +834,27 @@ div[data-is="placeholder"] {
             }
             >.fg-setting {
                 width: 100%;
+
+                .vd-icon-group {
+                    display: flex;
+                    flex-flow: row;
+                    > .vd-icon-group-icon {
+                        display: flex;
+                        align-items: center;
+                        position: relative;
+                        width: 40px;
+                        i {
+                            position: absolute;
+                            top: 8px;
+                            left: 15px;
+                            cursor: pointer;
+                            font-size: 18px;
+                        }
+                    }
+                    > .vd-icon-group-content {
+                        flex: 1;
+                    }
+                }
                 .range{
                     position:relative;
                     height: 35px;
@@ -947,17 +996,20 @@ div[data-is="placeholder"] {
                         width: 20%!important;
                     }
                 }
-                .wrap-setting {
-                    float: left;
-                    width: 20%;
-                    margin: 0 5% 0 0;
-                    text-align: center;
-                    &.wrap-50 {
-                        width: 50%;
-                        padding: 0 5% 0 0;
-                        margin: 0;
-                        &:last-child {
-                            padding: 0 0 0 5%;
+                .wrap-setting-wrapper{
+                    display: flex;
+                    flex-flow: row;
+
+                    .wrap-setting {
+                        flex: 1;
+                        margin-right: 25px;
+                        &:last-child{
+                            margin-right: 0;
+                        }
+                        > .label-helper{
+                            display: block;
+                            width: 100%;
+                            text-align: center;
                         }
                     }
                 }

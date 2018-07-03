@@ -21,64 +21,39 @@
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_margin')}</label>
                     <div class="fg-setting">
-                        <div class=wrap-setting>
-                            <input type="text" name="design_margin_top" class="form-control pixels-procent" value="{setting.global.design_margin_top}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_top')}</span>
+                        <div class="vd-icon-group">
+                            <div class="vd-icon-group-content">
+                                <vd-tab-nav tabs="{marginTabs}" if="{setting.global.design_margin_responsive}"/>
+                                <vd-input-group block_id="{block_id}" designer_id="{designer_id}" name="design_margin" if="{!setting.global.design_margin_responsive}"/>
+                            </div>
+                            <div class="vd-icon-group-icon">
+                                <div onclick="{responsiveMargin}" if="{!setting.global.design_margin_responsive}"><i class="fal fa-mobile"></i></div>
+                                <div onclick="{cancelMargin}" if="{setting.global.design_margin_responsive}"><i class="fal fa-times"></i></div>
+                            </div>
                         </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_margin_right" class="form-control pixels-procent" value="{setting.global.design_margin_right}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_right')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_margin_bottom" class="form-control pixels-procent" value="{setting.global.design_margin_bottom}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_bottom')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_margin_left" class="form-control pixels-procent" value="{setting.global.design_margin_left}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_left')}</span>
-                        </div>
+
+
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_padding')}</label>
                     <div class="fg-setting">
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_top" class="form-control pixels-procent" value="{setting.global.design_padding_top}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_top')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_right" class="form-control pixels-procent" value="{setting.global.design_padding_right}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_right')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_bottom" class="form-control pixels-procent" value="{setting.global.design_padding_bottom}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_bottom')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_padding_left" class="form-control pixels-procent" value="{setting.global.design_padding_left}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_left')}</span>
+                        <div class="vd-icon-group">
+                            <div class="vd-icon-group-content">
+                                <vd-tab-nav tabs="{paddingTabs}" if="{setting.global.design_padding_responsive}"/>
+                                <vd-input-group block_id="{block_id}" designer_id="{designer_id}" name="design_padding" if="{!setting.global.design_padding_responsive}"/>
+                            </div>
+                            <div class="vd-icon-group-icon">
+                                <div onclick="{responsivePadding}" if="{!setting.global.design_padding_responsive}"><i class="fal fa-mobile"></i></div>
+                                <div onclick="{cancelPadding}" if="{setting.global.design_padding_responsive}"><i class="fal fa-times"></i></div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label">{store.getLocal('designer.entry_border')}</label>
                     <div class="fg-setting">
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_top" class="form-control pixels-procent" value="{setting.global.design_border_top}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_top')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_right" class="form-control pixels-procent" value="{setting.global.design_border_right}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_right')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_bottom" class="form-control pixels-procent" value="{setting.global.design_border_bottom}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_bottom')}</span>
-                        </div>
-                        <div class="wrap-setting">
-                            <input type="text" name="design_border_left" class="form-control pixels-procent" value="{setting.global.design_border_left}" onChange={change}>
-                            <span class="label-helper">{store.getLocal('designer.text_left')}</span>
-                        </div>
+                        <vd-input-group block_id="{block_id}" designer_id="{designer_id}" name="design_border"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -146,17 +121,19 @@
                 <div class="form-group" hide={setting.global.design_background_image_style == 'parallax'}>
                     <label class="control-label">{store.getLocal('designer.entry_image_position')}</label>
                     <div class="fg-setting">
-                        <div class="wrap-setting wrap-50">
-                            <select name="design_background_image_position_horizontal" class="form-control" onChange={change}>
+                        <div class="wrap-setting-wrapper">
+                            <div class="wrap-setting">
+                                <select name="design_background_image_position_horizontal" class="form-control" onChange={change}>
                                     <option each={value, key in store.getOptions('designer.image_horizontal_positions')} value="{key}" selected={setting.global.design_background_image_position_horizontal == key}>{value}</option>
-                            </select>
-                            <span class="label-helper">{store.getLocal('designer.text_horizontal')}</span>
-                        </div>
-                        <div class="wrap-setting wrap-50">
-                            <select name="design_background_image_position_vertical" class="form-control" onChange={change}>
-                                <option each={value, key in store.getOptions('designer.image_vertical_positions')} value="{key}" selected={setting.global.design_background_image_position_vertical == key}>{value}</option>
-                            </select>
-                            <span class="label-helper">{store.getLocal('designer.text_vertical')}</span>
+                                </select>
+                                <span class="label-helper">{store.getLocal('designer.text_horizontal')}</span>
+                            </div>
+                            <div class="wrap-setting">
+                                <select name="design_background_image_position_vertical" class="form-control" onChange={change}>
+                                    <option each={value, key in store.getOptions('designer.image_vertical_positions')} value="{key}" selected={setting.global.design_background_image_position_vertical == key}>{value}</option>
+                                </select>
+                                <span class="label-helper">{store.getLocal('designer.text_vertical')}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,6 +205,8 @@
     }.bind(this))
     this.block_info = ''
     this.previewColorChange = 0
+    this.marginTabs = {}
+    this.paddingTabs = {}
 
     save(e){
         this.store.dispatch('block/setting/update', {block_id: this.block_id, designer_id: this.designer_id})
@@ -299,6 +278,46 @@
                 this.classPopup = 'child'
             }
             this.setting = this.store.getState().blocks[this.designer_id][this.block_id].setting
+            this.marginTabs = {
+                0: {
+                    name: this.store.getLocal('designer.text_desktop'),
+                    type: 'desktop',
+                    is: 'vd-input-group',
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_margin_desktop'}
+                },
+                1: {
+                    name: this.store.getLocal('designer.text_tablet'),
+                    type: 'tablet',
+                    is: 'vd-input-group',
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_margin_tablet'}
+                },
+                2: {
+                    name: this.store.getLocal('designer.text_phone'),
+                    type: 'phone',
+                    is: 'vd-input-group',
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_margin_mobile'}
+                },
+            }
+            this.paddingTabs = {
+                0: {
+                    name: this.store.getLocal('designer.text_desktop'),
+                    type: 'desktop',
+                    is: 'vd-input-group',
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_padding_desktop'}
+                },
+                1: {
+                    name: this.store.getLocal('designer.text_tablet'),
+                    type: 'tablet',
+                    is: 'vd-input-group',
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_padding_tablet'}
+                },
+                2: {
+                    name: this.store.getLocal('designer.text_phone'),
+                    type: 'phone',
+                    is: 'vd-input-group',
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_padding_phone'}
+                },
+            }
         }
     }.bind(this)
 
@@ -430,6 +449,50 @@
         } else {
             this.block_info.setting.global[e.target.name] = e.target.value
         }
+        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
+    }
+
+    responsiveMargin() {
+        this.block_info.setting.global.design_margin_responsive = true
+
+        this.block_info.setting.global.design_margin_desktop_top = this.block_info.setting.global.design_margin_top
+        this.block_info.setting.global.design_margin_desktop_right = this.block_info.setting.global.design_margin_right
+        this.block_info.setting.global.design_margin_desktop_bottom = this.block_info.setting.global.design_margin_bottom
+        this.block_info.setting.global.design_margin_desktop_left = this.block_info.setting.global.design_margin_left
+        console.log(this.block_info.setting.global)
+        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
+    }
+
+    cancelMargin() {
+        this.block_info.setting.global.design_margin_responsive = false
+
+        this.block_info.setting.global.design_margin_top = this.block_info.setting.global.design_margin_desktop_top
+        this.block_info.setting.global.design_margin_right = this.block_info.setting.global.design_margin_desktop_right
+        this.block_info.setting.global.design_margin_bottom = this.block_info.setting.global.design_margin_desktop_bottom
+        this.block_info.setting.global.design_margin_left = this.block_info.setting.global.design_margin_desktop_left
+        console.log(this.block_info.setting.global)
+        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
+    }
+
+    responsivePadding() {
+        this.block_info.setting.global.design_padding_responsive = true
+
+        this.block_info.setting.global.design_padding_desktop_top = this.block_info.setting.global.design_padding_top
+        this.block_info.setting.global.design_padding_desktop_right = this.block_info.setting.global.design_padding_right
+        this.block_info.setting.global.design_padding_desktop_bottom = this.block_info.setting.global.design_padding_bottom
+        this.block_info.setting.global.design_padding_desktop_left = this.block_info.setting.global.design_padding_left
+        console.log(this.block_info.setting.global)
+        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
+    }
+
+    cancelPadding() {
+        this.block_info.setting.global.design_padding_responsive = false
+
+        this.block_info.setting.global.design_padding_top = this.block_info.setting.global.design_padding_desktop_top
+        this.block_info.setting.global.design_padding_right = this.block_info.setting.global.design_padding_desktop_right
+        this.block_info.setting.global.design_padding_bottom = this.block_info.setting.global.design_padding_desktop_bottom
+        this.block_info.setting.global.design_padding_left = this.block_info.setting.global.design_padding_desktop_left
+        console.log(this.block_info.setting.global)
         this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
     }
 
