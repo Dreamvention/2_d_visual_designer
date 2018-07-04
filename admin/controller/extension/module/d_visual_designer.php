@@ -75,6 +75,7 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
             $this->load->model('extension/module/d_event_manager');
             $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
         }
+        
         $this->{'model_extension_module_'.$this->codename}->dropDatabase();
     }
 
