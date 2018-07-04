@@ -93,6 +93,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         if (!empty($this->extension['support']['email'])) {
             $data['support_email'] = $this->extension['support']['email'];
         }
+        
         $data['version'] = $this->extension['version'];
         $data['token'] =  $this->model_extension_d_opencart_patch_user->getToken();
         $data['url_token'] =  $this->model_extension_d_opencart_patch_user->getUrlToken();
