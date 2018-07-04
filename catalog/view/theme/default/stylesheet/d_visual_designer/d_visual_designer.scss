@@ -147,7 +147,7 @@
         }
 
         [class*=col-] {
-            &:not(.product-layout) {
+            &:not(.product-layout):not(.bm-grid-item) {
                 padding: 0;
             }
         }
