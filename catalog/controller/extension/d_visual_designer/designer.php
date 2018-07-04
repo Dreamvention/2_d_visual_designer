@@ -625,7 +625,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 $setting_module = $this->config->get($this->codename . '_setting');
             }
 
-            if ($setting_module['save_text']) {
+            if ($setting_module['save_text'] && !empty($route_info['edit_route'])) {
                 $name = '';
 
                 parse_str($field_name . '=' . $content_text, $name);
@@ -638,7 +638,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 $result = $this->load->controller($route_info['edit_route'], $saveData);
             }
 
-            if (($setting_module['save_text'] && $result) || !$setting_module['save_text']) {
+            if (($setting_module['save_text'] && !empty($route_info['edit_route']) && $result) || (!$setting_module['save_text'] || empty($route_info['edit_route']) )) {
                 $json['success'] = 'success';
             } else {
                 $json['error'] = 'error';
