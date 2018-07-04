@@ -31,7 +31,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer.json'), true);
-
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 
         if ($this->request->server['HTTPS']) {
