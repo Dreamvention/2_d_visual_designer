@@ -7,39 +7,43 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var stripCssComments = require('gulp-strip-css-comments');
-
+var browserSync = require("browser-sync");
+var path = require("path");
 
 //script paths
 var jsDest = '../dist/';
 
 var sassDest = '../../../stylesheet/d_visual_designer/'
 
-gulp.task('clean', function(){
-    return del(jsDest+'**', {force:true});
+var baseDir = path.resolve(__dirname, "../../../../");
+
+
+gulp.task('clean', function () {
+    return del(jsDest + '**', {force: true});
 });
 
-gulp.task('copy', ['copy-fonts', 'copy-img'], function(){
+gulp.task('copy', ['copy-fonts', 'copy-img'], function () {
     gulp.start(['scripts', 'styles'])
 });
 
-gulp.task('copy-fonts',function(){
+gulp.task('copy-fonts', function () {
     return gulp.src([
         "../library/icon-fonts/fonts/*",
         "../library/fontIconPicker/fonts/*",
         "../library/summernote/fonts/*"
     ])
-    .pipe(gulp.dest(jsDest+'fonts/'));
+        .pipe(gulp.dest(jsDest + 'fonts/'));
 });
 
-gulp.task('copy-img', function(){
+gulp.task('copy-img', function () {
     return gulp.src([
         "../library/bootstrap-colorpicker/img/*",
         "../library/select2/img/*"
     ])
-    .pipe(gulp.dest(jsDest+'img/'));
+        .pipe(gulp.dest(jsDest + 'img/'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
     return gulp.src([
         "../library/fontIconPicker/iconset.js",
         "../library/fontIconPicker/jquery.fonticonpicker.min.js",
@@ -50,14 +54,14 @@ gulp.task('scripts', function() {
         "../library/bootstrap-switch/bootstrap-switch.min.js",
         "../library/summernote/summernote-cleaner.js",
         "../library/select2/select2.full.min.js",
-        "../library/fontset.js"        
+        "../library/fontset.js"
     ])
         .pipe(concat('vd-libraries.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('styles', function() {
+gulp.task('styles', function () {
     return gulp.src([
         "../library/fontIconPicker/jquery.fonticonpicker.css",
         "../library/fontIconPicker/jquery.fonticonpicker.grey.min.css",
@@ -82,24 +86,42 @@ gulp.task('styles', function() {
         .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('build_library', ['clean'], function(){
+gulp.task('build_library', ['clean'], function () {
     gulp.start('copy')
 });
 
 gulp.task('sass', function () {
-    return gulp.src(sassDest+'*.scss')
+    return gulp.src(sassDest + '*.scss')
 
-      .pipe(sourcemaps.init())
-      .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-      .pipe(autoprefixer({
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+        .pipe(autoprefixer({
             browsers: ['last 15 versions']
         }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest(sassDest));
-  });
-   
-  gulp.task('sass:watch', function () {
-    gulp.watch([sassDest+'*.scss', sassDest+'core/*.scss'], ['sass']);
-  });
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(sassDest))
+        .pipe(browserSync.reload({stream: true}));
+});
 
-gulp.task('build_sass', ['sass', 'sass:watch'])
+gulp.task('sass:watch', function () {
+    gulp.watch([sassDest + '*.scss', sassDest + 'core/*.scss'], ['sass']);
+});
+
+
+gulp.task("browser_sync_init", function () {
+    if (typeof process.env.HOST !== "undefined") {
+        browserSync({
+            proxy: process.env.HOST
+        });
+    }
+})
+
+gulp.task("build_sass", ["browser_sync_init"], function () {
+    if (typeof process.env.HOST !== "undefined") {
+        gulp.watch([
+            baseDir + "/controller/extension/d_visual_designer/**/*.php",
+            baseDir + "/view/template/extension/d_visual_designer/**/*.tag"
+        ], browserSync.reload);
+    }
+    gulp.start(["sass", "sass:watch"]);
+})

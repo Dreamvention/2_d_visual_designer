@@ -148,6 +148,8 @@ div[data-is="placeholder"] {
                 max-width: none;
             }
             &.vd-col-fill {
+                margin-right: 1%;
+                margin-left: 1%;
                 flex-basis: 0;
                 flex-grow: 1;
                 max-width: 100%;
