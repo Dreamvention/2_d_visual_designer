@@ -109,6 +109,8 @@
         "admin/view/template/extension/d_visual_designer/layouts/vd-layout-children.tag",
         "admin/view/template/extension/d_visual_designer/layouts/vd-layout-main.tag",
         "admin/view/template/extension/d_visual_designer/layouts/vd-layout-medium.tag",
+        "admin/view/template/extension/d_visual_designer/elements/vd-collapse.tag",
+        "admin/view/template/extension/d_visual_designer/elements/vd-collapse-item.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-switcher.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-range.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-autocomplete.tag",
@@ -239,6 +241,8 @@
         "catalog/view/theme/default/template/extension/d_visual_designer_module/row_inner.twig",
         "catalog/view/theme/default/template/extension/d_visual_designer_module/text.twig",
 
+        "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-collapse.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-collapse-item.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-switcher.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-range.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/elements/vd-autocomplete.tag",

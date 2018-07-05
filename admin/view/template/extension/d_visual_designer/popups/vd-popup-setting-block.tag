@@ -413,7 +413,7 @@
         this.block_info.setting.global.design_margin_desktop_right = this.block_info.setting.global.design_margin_right
         this.block_info.setting.global.design_margin_desktop_bottom = this.block_info.setting.global.design_margin_bottom
         this.block_info.setting.global.design_margin_desktop_left = this.block_info.setting.global.design_margin_left
-        console.log(this.block_info.setting.global)
+
         this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
     }
 
@@ -424,7 +424,7 @@
         this.block_info.setting.global.design_margin_right = this.block_info.setting.global.design_margin_desktop_right
         this.block_info.setting.global.design_margin_bottom = this.block_info.setting.global.design_margin_desktop_bottom
         this.block_info.setting.global.design_margin_left = this.block_info.setting.global.design_margin_desktop_left
-        console.log(this.block_info.setting.global)
+
         this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
     }
 
@@ -435,7 +435,7 @@
         this.block_info.setting.global.design_padding_desktop_right = this.block_info.setting.global.design_padding_right
         this.block_info.setting.global.design_padding_desktop_bottom = this.block_info.setting.global.design_padding_bottom
         this.block_info.setting.global.design_padding_desktop_left = this.block_info.setting.global.design_padding_left
-        console.log(this.block_info.setting.global)
+
         this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
     }
 
@@ -446,7 +446,7 @@
         this.block_info.setting.global.design_padding_right = this.block_info.setting.global.design_padding_desktop_right
         this.block_info.setting.global.design_padding_bottom = this.block_info.setting.global.design_padding_desktop_bottom
         this.block_info.setting.global.design_padding_left = this.block_info.setting.global.design_padding_desktop_left
-        console.log(this.block_info.setting.global)
+
         this.store.dispatch('block/setting/fastUpdate', {designer_id: this.designer_id, block_id: this.block_id, setting: this.block_info.setting})
     }
 
