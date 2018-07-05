@@ -132,13 +132,13 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             foreach ($this->scripts as $script) {
                 if (!$html_dom->find('head', 0)->find('script[src="' . $script . '"]')) {
-                    $html_dom->find('head', 0)->innertext .= '<script src="' . $script . '" type="text/javascript"></script>';
+                    $html_dom->find('head > script', -1)->outertext .= '<script src="' . $script . '" type="text/javascript"></script>';
                 }
             }
 
             foreach ($this->styles as $style) {
                 if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
-                    $html_dom->find('head', 0)->innertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
+                    $html_dom->find('head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
                 }
             }
             return (string)$html_dom;
