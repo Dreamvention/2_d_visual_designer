@@ -60,13 +60,11 @@
             }.bind(this))
         }
 
-
-
         this.blocks = _.mapObject(this.blocks, function(value, key){
             var block_info = _.find(this.store.getState().config.blocks, function(block){
                 return block.type == value.type
             })
-            if(!_.isUndefined(value.setting.global.size)){
+            if(!_.isUndefined(value.setting.global.size) && block_info.setting.child_blocks){
                 this.placeholder_type = 'column'
             }
             if(block_info.setting.custom_layout) {

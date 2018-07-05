@@ -117,6 +117,7 @@ function vd_sortable(options) {
                 container.on("mouseenter", function (event) {
                     if (this.dragging) {
                         var underId = $(event.currentTarget).attr('id')
+
                         this.store.dispatch('block/placeholder/show', {
                             designer_id: options.designer_id,
                             block_id: underId
