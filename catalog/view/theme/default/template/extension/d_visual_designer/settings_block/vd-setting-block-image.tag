@@ -8,8 +8,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.image.entry_image')}</label>
     <div class="fg-setting">
-        <a href="" id="thumb-vd-image" data-toggle="vd-image" class="img-thumbnail"><img src="{setting.edit.thumb}" alt="" title="" width="100px" height="100px"/></a>
-        <input type="hidden" name="image" value="{setting.global.image}" id="input-vd-image"  onChange={change}/>
+        <vd-image name="image" value="{setting.global.image}" thumb="{setting.edit.thumb}" evchange={change}/>
     </div>
 </div>
 <div class="form-group">

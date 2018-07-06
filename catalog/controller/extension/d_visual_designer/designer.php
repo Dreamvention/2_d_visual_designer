@@ -126,8 +126,6 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $this->prepareScripts(true);
             $this->prepareStyles(true);
 
-            $data['state']['config']['filemanager_url'] = $this->store_url . 'index.php?route=extension/' . $this->codename . '/filemanager&' . $url_token;
-
             $data['base'] = $this->store_url . 'catalog/view/theme/default/';
 
             if ($setting['header']) {

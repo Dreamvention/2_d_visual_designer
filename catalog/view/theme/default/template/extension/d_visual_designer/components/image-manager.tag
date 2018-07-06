@@ -12,7 +12,7 @@
                 $('.popover').remove();
             });
 
-            var element = this;
+            var element = e.currentTarget;
 
             $(element).popover({
                 html: true,
@@ -25,34 +25,15 @@
 
             $(element).popover('show');
 
-            $('#vd-button-image').on('click', function () {
+            $('#vd-button-image').on('click', function (e) {
                 $('#modal-image').remove();
-
-                $.ajax({
-                    url: that.store.getState().config.filemanager_url + '&target=' + $(element)
-                        .parent().find('input').attr('id') + '&thumb=' + $(element).attr('id'),
-                    dataType: 'html',
-                    beforeSend: function () {
-                        $('#vd-button-image i').replaceWith(
-                            '<i class="fa fa-circle-o-notch fa-spin"></i>');
-                        $('#vd-button-image').prop('disabled', true);
-                    },
-                    complete: function () {
-                        $('#vd-button-image i').replaceWith('<i class="fa fa-pencil"></i>');
-                        $('#vd-button-image').prop('disabled', false);
-                    },
-                    success: function (html) {
-                        $('body').append('<div id="modal-image" class="modal">' + html +
-                            '</div>');
-
-                        $('#modal-image').modal('show');
-                    }
-                });
+                this.store.dispatch('image/manager/show', {field: $(element).parent().find('input').attr('id'), thumb: $(element).attr('id')});
 
                 $(element).popover('hide', function () {
                     $('.popover').remove();
                 });
-            });
+            }.bind(this));
+
 
             $('#vd-button-clear').on('click', function () {
                 $(this).closest('.fg-setting').find('img').attr('src', $(this).closest('.fg-setting').find(
@@ -60,7 +41,7 @@
 
                 $(this).closest('.fg-setting').find('input').attr('value', '');
                 
-                $(this).popover('hide', function () {
+                $(element).popover('hide', function () {
                     $('.popover').remove();
                 });
                 var event = new Event('change');
@@ -68,6 +49,6 @@
 
             });
 
-        });
+        }.bind(this));
     </script>
 </image-manager>

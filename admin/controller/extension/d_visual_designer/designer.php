@@ -90,13 +90,15 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['state']['config']['independent'] = array();
             $data['state']['config']['mode'] = array();
+            $data['state']['config']['filemanager_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getFileManager');
+            $data['state']['config']['new_image_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getImage');
+            $data['state']['config']['mode'] = array();
             $data['state']['config']['route'] = $setting['config'];
             $data['state']['config']['route_info'] = $route_info;
             $data['state']['config']['id'] = $setting['id'];
             $data['state']['config']['blocks'] = $this->prepareBlocksConfig();
             $data['state']['config']['frontend'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/frontend', 'config='.$setting['config'].'&id='.$setting['id']);
             
-            $data['state']['config']['filemanager_url'] = $this->model_extension_d_opencart_patch_url->ajax('extension/'.$this->codename.'/filemanager');
             $data['state']['config']['url_token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
 
             $data['state']['templates'] = $this->prepareTemplate();
@@ -325,6 +327,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $local['designer']['text_set_custom'] = $this->language->get('text_set_custom');
         $local['designer']['text_add_child_block'] = $this->language->get('text_add_child_block');
         $local['designer']['text_add'] = $this->language->get('text_add');
+        $local['designer']['text_file_manager'] = $this->language->get('text_file_manager');
 
         $local['designer']['entry_border_color'] = $this->language->get('entry_border_color');
         $local['designer']['entry_border_style'] = $this->language->get('entry_border_style');
@@ -588,9 +591,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             }
 
             $data['backend_url'] = $this->model_extension_d_opencart_patch_url->link($route_info['backend_route'], $param);
+            $data['filemanager_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getFileManager');
+            $data['new_image_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getImage');
             $data['direction'] = $this->language->get('direction');
             $data['lang'] = $this->language->get('code');
             $data['base'] = $this->store_url;
+            $data['text_file_manager'] = $this->language->get('text_file_manager');
             $data['text_frontend_title'] = $this->language->get('text_frontend_title');
             $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/frontend_editor', $data));
         }
@@ -621,6 +627,34 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+    public function getFileManager()
+    {
+        $this->load->model('extension/d_opencart_patch/user');
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('user/user_group');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/d_elfinder');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/d_elfinder');
+
+        if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
+            $data['base'] = HTTPS_CATALOG;
+        } else {
+            $data['base'] = HTTP_CATALOG;
+        }
+
+        $data['token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
+        $data['route'] = 'extension/d_elfinder/d_elfinder';
+
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/d_elfinder/d_elfinder', $data));
+    }
+
+    public function getImage()
+    {
+        $this->load->model('tool/image');
+        if (isset($this->request->get['image'])) {
+            $this->response->setOutput($this->model_tool_image->resize(html_entity_decode($this->request->get['image'], ENT_QUOTES, 'UTF-8'), 100, 100));
+        }
     }
 
     public function validate()
