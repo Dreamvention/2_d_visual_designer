@@ -10,7 +10,7 @@
             <a id="mobile-size" class="vd-btn vd-btn-mobile" data-mode="mobile" data-toggle="tooltip" data-placement="bottom" title="{store.getLocal('designer.button_mobile')}" onclick={mobileClick}></a>
         </div>
         <div class="vd-navbar right-bar">
-            <div class="vd-switcher" if={!_.isEmpty(designers)}>{designers[active].title} #{designers[active].id}
+            <div class="vd-switcher" if={!_.isEmpty(designers) && _.size(designers)}>{designers[active].title} #{designers[active].id}
                 <div class="vd-switcher-content" style="left: {left}px;">
                     <div class="vd-switcher-element {active == designer_id?'active' : ''}" each={designer, designer_id in designers} onClick={designerChange}>{designer.title} #{designer.id}</div>
                 </div>
