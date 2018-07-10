@@ -177,7 +177,6 @@
         var block_id = this.newBlock(data.designer_id, block_info.type, block_info.parent, block_info.setting.global, block_info.setting.user, block_info.setting.edit)
         this.cloneBlocks(data.designer_id, block_info.id, block_id)
         this.dispatch('block/clone/success')
-        $('body').trigger('clone_block_success', {'title': block_config.title});
     })
 
     /**

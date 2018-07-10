@@ -13,10 +13,7 @@
                 if(json.success) {
                     this.updateState({templates: json.templates})
                 }
-                this.dispatch('template/save/success')
-            },
-            complete: function(){
-                $('body').trigger('save_template_success');
+                this.dispatch('template/save/success', {designer_id: data.designer_id})
             }
         })
     });
@@ -37,10 +34,7 @@
                     blocks[data.designer_id] = json.setting
                     this.updateState({blocks:blocks})
                 }
-                this.dispatch('template/load/success')
-            },
-            complete: function(){
-                $('body').trigger('save_content_success');
+                this.dispatch('template/load/success', {designer_id: data.designer_id})
             }
         })
     });

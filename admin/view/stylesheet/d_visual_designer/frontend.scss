@@ -1,5 +1,5 @@
 @import "core/loader.scss";
-
+@import 'core/popup.scss';
 html,body{
     overflow: hidden;
 
@@ -228,4 +228,16 @@ iframe{
     height: 100%;
     margin: 0 auto;
 
+}
+
+.alertify-notifier .ajs-message.ajs-success {
+    font-size: 17px;
+}
+
+.alertify-notifier .ajs-message.ajs-error {
+    font-size: 17px;
+}
+
+.alertify-notifier .ajs-message.ajs-warning {
+    font-size: 17px;
 }

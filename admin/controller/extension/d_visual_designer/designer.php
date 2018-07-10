@@ -300,9 +300,30 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
     }
 
     
-    protected function prepareLocal()
+    protected function prepareLocal($front = false)
     {
         $local = array();
+
+        if($front) {
+            $local['designer']['button_add_block'] = $this->language->get('button_add_block');
+            $local['designer']['button_add_template'] = $this->language->get('button_add_template');
+            $local['designer']['button_save_template'] = $this->language->get('button_save_template');
+            $local['designer']['button_mobile'] = $this->language->get('button_mobile');
+            $local['designer']['button_tablet'] = $this->language->get('button_tablet');
+            $local['designer']['button_desktop'] = $this->language->get('button_desktop');
+            $local['designer']['button_reload'] = $this->language->get('button_reload');
+
+            $local['designer']['button_backend_editor'] = $this->language->get('button_backend_editor');
+            $local['designer']['button_publish'] = $this->language->get('button_publish');
+            $local['designer']['button_cancel'] = $this->language->get('button_cancel');
+
+            $local['designer']['text_save_template'] = $this->language->get('text_save_template');
+            $local['designer']['text_success_update'] = $this->language->get('text_success_update');
+            $local['designer']['error_permission'] = $this->language->get('error_permission');
+            $local['designer']['text_success_template_save'] = $this->language->get('text_success_template_save');
+            $local['designer']['text_success_clone_block'] = $this->language->get('text_success_clone_block');
+            $local['designer']['text_success_remove_block'] = $this->language->get('text_success_remove_block');
+        }
 
         $local['designer']['button_add'] = $this->language->get('button_add');
         $local['designer']['button_close'] = $this->language->get('button_close');
@@ -567,6 +588,9 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $data['text_success_remove_block'] = $this->language->get('text_success_remove_block');
 
             $route_info = $this->{'model_extension_'.$this->codename.'_designer'}->getRoute($config);
+
+            $data['state']['config'] = array();
+            $data['state']['blocks'] = array();
             
             $param = array();
 
@@ -582,24 +606,78 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 $param[] = 'config=' . $config;
             }
 
-            $data['url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.implode('&', $param);
-
+            $data['state']['config']['frontend_url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.implode('&', $param);
+            
             if (!empty($route_info['backend_param'])&!empty($id)) {
                 $param = $route_info['backend_param'].'='.$id;
             } else {
                 $param = '';
             }
 
-            $data['backend_url'] = $this->model_extension_d_opencart_patch_url->link($route_info['backend_route'], $param);
-            $data['filemanager_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getFileManager');
-            $data['new_image_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getImage');
+            $data['state']['config']['backend_url'] = $this->model_extension_d_opencart_patch_url->ajax($route_info['backend_route'], $param);
+
+            $this->load->model('setting/setting');
+
+            $setting_module = $this->model_setting_setting->getSetting($this->codename);
+        
+            if (!empty($setting_module[$this->codename.'_setting'])) {
+                $setting_module = $setting_module[$this->codename.'_setting'];
+            } else {
+                $this->load->config($this->codename);
+                $setting_module = $this->config->get($this->codename.'_setting');
+            }
+
+            $data['riot_tags'] = $this->{'model_extension_'.$this->codename.'_designer'}->getRiotTags($setting_module['compress_files']);
+            
+            $data['state']['config']['notify'] = $this->{'model_extension_'.$this->codename.'_designer'}->checkCompleteVersion();
+            
+            $data['state']['config']['update_settings_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/updateBlocks');
+            $data['state']['config']['filemanager_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getFileManager');
+            $data['state']['config']['new_image_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/getImage');
+            $data['state']['config']['blocks'] = $this->prepareBlocksConfig();
+
+            $data['state']['history'] = array();
+            
+            $data['state']['config']['url_token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
+
+            $data['state']['templates'] = $this->prepareTemplate();
+
+            $data['local'] = $this->prepareLocal(true);
+            $data['options'] = $this->prepareOptions();
+
             $data['direction'] = $this->language->get('direction');
             $data['lang'] = $this->language->get('code');
             $data['base'] = $this->store_url;
+
             $data['text_file_manager'] = $this->language->get('text_file_manager');
             $data['text_frontend_title'] = $this->language->get('text_frontend_title');
+            
             $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/frontend_editor', $data));
         }
+    }
+
+    public function updateBlocks(){
+        $json = array();
+
+        if (!empty($this->request->post['blocks'])) {
+            $blocks = json_decode(html_entity_decode($this->request->post['blocks'], ENT_QUOTES, 'UTF-8'), true);
+        }
+
+        if (isset($blocks)) {
+            foreach ($blocks as $block_id => $block) {
+                $setting = $this->{'model_extension_'.$this->codename.'_designer'}->getSetting($block['setting']['global'], $block['type'], true);   
+                $blocks[$block_id]['setting']['edit'] = $setting['edit'];
+            }
+
+            $json['blocks'] = $blocks;
+            
+            $json['success'] = 'success';
+        } else {
+            $json['error'] = 'error';
+        }
+            
+        $this->response->addHeader("Content-Type: application/json");
+        $this->response->setOutput(json_encode($json, JSON_FORCE_OBJECT));
     }
 
     public function sort_block($a, $b)

@@ -1,8 +1,8 @@
 <vd-popup-setting-block>
-<div class="vd vd-popup-overlay" if={this.status}></div>
 <div class="vd vd-popup {classPopup} {stick_left? 'stick-left':''}" if={this.status} style="max-height:75vh;">
     <div class="popup-header">
         <h2 class="title">{block_config.title} {store.getLocal('designer.text_edit_block')}</h2>
+        <a class="stick-left" onClick={stickPopup}></a>
         <a class="close" onClick={close}><i class="fal fa-times"></i></a>
     </div>
     <div class="popup-tabs">
@@ -191,6 +191,7 @@
 <script>
     this.mixin({store:d_visual_designer})
     this.status = false
+    this.stick_left = false
     this.block_id = ''
     this.classPopup = ''
     this.block_type = ''
@@ -212,6 +213,9 @@
         this.status = false;
         this.block_id = '';
         this.block_type = '';
+
+        $('body').removeAttr('style');
+        $(window).trigger('resize')
         this.update();
     }.bind(this)
 
@@ -223,8 +227,39 @@
         this.store.dispatch('history/return', {block_id: this.block_id, designer_id: this.designer_id})
     }.bind(this)
 
+    this.closePopup = function () {
+        this.status = false
+        this.block_id = ''
+        this.block_type = ''
+
+        $('body').removeAttr('style');
+        $(window).trigger('resize')
+        this.update();
+    }.bind(this)
+
+    this.store.subscribe('block/layout/begin', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('template/save/popup', function(data){
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('template/list', function(data) {
+        this.closePopup()
+    }.bind(this))
+    this.store.subscribe('popup/addBlock', function(data) {
+        this.closePopup()
+    }.bind(this))
+
     this.store.subscribe('block/create/success', function(data){
         if(data.designer_id == this.designer_id) {
+            if(!this.status) {
+                if(this.stick_left) {
+                    var body_width = $('body').width();
+
+                    body_width = body_width - 340;
+                    $('body').attr('style', 'width:' + body_width + 'px; margin-left:auto');
+                }
+            }
             this.block_id = data.block_id
             this.block_type = data.type
             this.initSetting()
@@ -235,6 +270,14 @@
 
     this.store.subscribe('block/setting/begin', function(data){
         if(data.designer_id == this.designer_id) {
+            if(!this.status) {
+                if(this.stick_left) {
+                    var body_width = $('body').width();
+
+                    body_width = body_width - 340;
+                    $('body').attr('style', 'width:' + body_width + 'px; margin-left:auto');
+                }
+            }
             this.block_id = data.block_id
             this.block_type = data.type
             this.initSetting()
@@ -301,14 +344,34 @@
         }
     }.bind(this)
 
+    stickPopup(){
+        if(!this.stick_left){
+            var body_width = $('body').width();
+
+            body_width = body_width - 340;
+            $('body').attr('style', 'width:' + body_width + 'px; margin-left:auto');
+            this.stick_left = true;
+        } else {
+            $('body').removeAttr('style');
+            this.stick_left = false;
+        }
+        $(window).trigger('resize')
+    }
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
             resize: function(event, ui) {
+                if(this.stick_left) {
+                    $('body').removeAttr('style');
+                    this.stick_left = false
+                }
                 if(!$('.vd-popup', this.root).hasClass('drag')){
+                    this.height = $('.vd-popup', this.root).height()
+                    $('.vd-popup', this.root).css({'height': this.height });
                     $('.vd-popup', this.root).addClass('drag')
                 }
                 
                 $('.vd-popup', this.root).css({ 'max-height': '' });
+                this.update();
             }.bind(this),
             stop: function( event, ui ) {
                 this.width = ui.size.width;
@@ -318,7 +381,13 @@
         $('.vd-popup', this.root).draggable({
             handle: '.popup-header',
             drag: function(event, ui) {
+                if(this.stick_left) {
+                    $('body').removeAttr('style');
+                    this.stick_left = false
+                }
                 if (!ui.helper.hasClass('drag')) {
+                    this.height = ui.helper.height()
+                    $('.vd-popup', this.root).css({'height': this.height });
                     ui.helper.addClass('drag');
                 }
             },
@@ -383,7 +452,7 @@
         this.initSetting()
     })
     this.on('updated', function(){
-        
+
         if(this.status) {
             this.initPopup()
         }
@@ -455,12 +524,17 @@
         this.status = false
         this.block_id = ''
         this.block_type = ''
+        $('body').removeAttr('style');
+        $(window).trigger('resize')
     }
 
     close() {
         this.status = false
         this.block_id = ''
         this.block_type = ''
+       
+        $('body').removeAttr('style');
+        $(window).trigger('resize')
     }
 </script>
 </vd-popup-setting-block>

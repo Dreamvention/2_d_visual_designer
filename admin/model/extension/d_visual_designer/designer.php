@@ -255,7 +255,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * @param $type
      * @return array
      */
-    public function getSetting($setting, $type)
+    public function getSetting($setting, $type, $short = false)
     {
         $this->config->load('d_visual_designer');
 
@@ -288,17 +288,19 @@ class ModelExtensionDVisualDesignerDesigner extends Model
                 }
             }
         }
+        if (!$short) {
+            $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
 
-        $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
+            if (!$userSetting) {
+                $userSetting = array();
+            }
 
-        if (!$userSetting) {
-            $userSetting = array();
+            $globalUserSetting = $this->prepareUserSetting($result);
+
+            $userSetting = array_merge($globalUserSetting, $userSetting);
+        } else {
+            $userSetting = false;
         }
-
-        $globalUserSetting = $this->prepareUserSetting($result);
-
-        $userSetting = array_merge($globalUserSetting, $userSetting);
-
         $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
 
         if (!$editSetting) {
@@ -309,6 +311,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
         $editSetting = array_merge($globalEditSetting, $editSetting);
 
+
         return array('global'=>$result, 'user' => $userSetting, 'edit' => $editSetting);
     }
 
@@ -318,7 +321,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      */
     public function getBlocks()
     {
-        $dir = DIR_APPLICATION.'controller/extension/d_visual_designer_module';
+        $dir = DIR_CONFIG.'/d_visual_designer';
         $files = scandir($dir);
         $result = array();
         foreach ($files as $file) {

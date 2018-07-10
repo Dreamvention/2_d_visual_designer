@@ -655,6 +655,7 @@ class ControllerExtensionDVisualDesignerTemplate extends Controller {
                 'sort_order' => $sort_order
                 );
             $this->{'model_extension_'.$this->codename.'_template'}->addTemplate($template_info);
+            $json['templates'] = $this->load->controller('extension/'.$this->codename.'/designer/prepareTemplate');
             $json['success'] = 'success';
         }
         else{

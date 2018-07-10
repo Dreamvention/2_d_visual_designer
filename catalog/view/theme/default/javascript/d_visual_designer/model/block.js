@@ -39,8 +39,8 @@
 
         this.removeBlock(data.designer_id, data.block_id)
 
-        this.dispatch('block/remove/success')
-        $('body').trigger('remove_block_success', {'title': block_config.title});
+        this.dispatch('block/remove/success', {designer_id: data.designer_id, block_id: data.block_id})
+        this.dispatch('remove_block_success', {'title': block_config.title});
     }.bind(this));
 
     this.removeBlock = function(designer_id, block_id) {
@@ -181,9 +181,10 @@
             return block.type == block_info.type
         })
         var block_id = this.newBlock(data.designer_id, block_info.type, block_info.parent, block_info.setting.global, block_info.setting.user, block_info.setting.edit)
+        this.dispatch('block/clone/complete', {designer_id: data.designer_id, block_id: block_id})
         this.cloneBlocks(data.designer_id, block_info.id, block_id)
         this.dispatch('block/clone/success')
-        $('body').trigger('clone_block_success', {'title': block_config.title});
+        this.dispatch('clone_block_success', {'title': block_config.title})
     })
 
     /**
@@ -217,6 +218,7 @@
         if(_.size(blocks)){
             for (var key in blocks){
                 var block_id = this.newBlock(designer_id, blocks[key].type, new_parent_id, blocks[key].setting.global, blocks[key].setting.user, blocks[key].setting.edit)
+                this.dispatch('block/clone/complete', {designer_id: designer_id, block_id: block_id})
                 this.cloneBlocks(designer_id, blocks[key].id, block_id)
             }
         }

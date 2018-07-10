@@ -8,13 +8,17 @@ class VDBlockLoader {
 
     public function load($type, $method, $args) {
         if(!$this->registry->has('block_d_visual_designer_'.$type)){
-            require_once DIR_APPLICATION.'controller/extension/d_visual_designer_module/'.$type.'.php';
+            if(file_exists(DIR_APPLICATION.'controller/extension/d_visual_designer_module/'.$type.'.php')){
+                require_once DIR_APPLICATION.'controller/extension/d_visual_designer_module/'.$type.'.php';
 
-            $class = 'ControllerExtensionDVisualDesignerModule'.$type;
-            $class = preg_replace('/[^a-zA-Z0-9]/', '', (string)$class);
-            $block_class = new $class($this->registry);
-            $this->registry->set('block_d_visual_designer_'.$type, $block_class);
-        }
+                $class = 'ControllerExtensionDVisualDesignerModule'.$type;
+                $class = preg_replace('/[^a-zA-Z0-9]/', '', (string)$class);
+                $block_class = new $class($this->registry);
+                $this->registry->set('block_d_visual_designer_'.$type, $block_class);
+            } else {
+                return false;
+            }
+        } 
         
         $output = false;
         if(method_exists($this->registry->get('block_d_visual_designer_'.$type), $method)) {
@@ -256,7 +260,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
      * @return array
      */
     public function getBlocks(){
-        $dir = DIR_APPLICATION.'controller/extension/d_visual_designer_module';
+        $dir = DIR_CONFIG.'/d_visual_designer';
         $files = scandir($dir);
         $result = array();
         foreach($files as $file){
@@ -400,152 +404,6 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         return $results;
     }
 
-    public function getConfigTemplates(){
-
-        $dir = DIR_CONFIG.'d_visual_designer_template/';
-        if(is_dir($dir)){
-            $files = scandir($dir);
-        }
-        else{
-            $files = array();
-        }
-        $template_data = array();
-
-        foreach($files as $file){
-            if(strlen($file) > 1 && strpos( $file, '.php')){
-                $_ = array();
-
-                $results = array();
-
-                require($dir.$file);
-
-                $results = array_merge($results, $_);
-
-                $templates = $results['d_visual_designer_templates'];
-                foreach ($templates as $template) {
-                    $template_data[] = array(
-                       'template_id' => $template['template_id'],
-                       'content' => $template['content'],
-                       'config' => substr($file, 0, -4),
-                       'image' => $template['image'],
-                       'category' => $template['category'],
-                       'sort_order' => $template['sort_order'],
-                       'name' => $template['name']
-                       );
-                }    
-            }
-        }
-        return $template_data;
-    }
-
-    public function getTemplates(){
-        $sql = "SELECT * FROM ".DB_PREFIX."visual_designer_template  t ";
-
-        $query = $this->db->query($sql);
-
-        $template_data = array();
-
-        if($query->num_rows){
-            foreach ($query->rows as $row) {
-                $template_data[] = array(
-                    'template_id' => $row['template_id'],
-                    'content' => $row['content'],
-                    'sort_order' => $row['sort_order'],
-                    'name' => $row['name'],
-                    'config' => '',
-                    'image' => $row['image'],
-                    'category' => $row['category']
-                    );
-            }
-        }
-
-        $templates_config = $this->getConfigTemplates();
-
-        $template_data = array_merge($template_data, $templates_config);
-
-        $sort_data = array(
-          'name',
-          'sort_order'
-          );
-
-        if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-            $this->sort = $data['sort'];
-        }
-
-
-        if (isset($data['order']) && ($data['order'] == 'DESC')) {
-            $this->order = "DESC";
-        } else {
-            $this->order = "ASC";
-        }
-
-        uasort($template_data, 'ModelExtensionModuleDVisualDesigner::sort');
-
-        if (isset($data['start']) || isset($data['limit'])) {
-            if ($data['start'] < 0) {
-                $data['start'] = 0;
-            }
-
-            if ($data['limit'] < 1) {
-                $data['limit'] = 20;
-            }
-            $template_data = array_slice($template_data, $data['start'], $data['limit']);
-        }
-
-        return $template_data;
-    }
-
-    public function sort($a, $b){
-        if($a[$this->sort] < $b[$this->sort]){
-            return $this->order=='ASC'?-1:1;
-        }
-        else{
-            return $this->order=='ASC'?1:-1;
-        }
-
-        if($a[$this->sort] == $b[$this->sort]){
-            return 0;
-        }
-    }
-
-    public function getTemplate($template_id){
-        $query = $this->db->query("SELECT * FROM ".DB_PREFIX."visual_designer_template t WHERE t.template_id='".$template_id."'");
-
-        return $query->row;
-    }
-    public function getConfigTemplate($template_id, $config){
-        $_ = array();
-
-        $results = array();
-
-        require(DIR_CONFIG.'d_visual_designer_template/'.$config.'.php');
-
-        $results = array_merge($results, $_);
-
-        $templates = $results['d_visual_designer_templates'];
-
-        foreach ($templates as $template) {
-            if($template['template_id'] == $template_id){
-                return $template;
-            }
-        }
-        return array();
-    }
-
-    public function addTemplate($data){
-        $this->db->query("INSERT INTO ".DB_PREFIX."visual_designer_template SET 
-            content='".$this->db->escape($data['content'])."', 
-            image='".$data['image']."', 
-            category='".$data['category']."', 
-            name='".$data['name']."', 
-            sort_order='".$data['sort_order']."
-            '");
-
-        $template_id = $this->db->getLastId();
-
-        return $template_id;
-    }
-
     public function editProduct($product_id, $data){
         if(!empty($data['product_description'])){
             foreach ($data['product_description'] as $language_id => $value) {
@@ -622,23 +480,6 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         return $data;
     }
 
-    public function prepareEditSetting($setting) {
-        $data = array();
-
-        if(!empty($setting['design_background_image'])){
-            $image = $setting['design_background_image'];
-
-            if(file_exists(DIR_IMAGE.$image)){
-                $data['design_background_thumb'] = $this->model_tool_image->resize($image, 100, 100);
-            } else {
-                $data['design_background_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
-            }
-        } else {
-            $data['design_background_thumb'] = $this->model_tool_image->resize('no_image.png', 100, 100);
-        }
-        return $data;
-    }
-
     public function getSetting($setting, $type){
         $this->config->load('d_visual_designer');
 
@@ -673,8 +514,6 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         }
         $userSetting = $this->vd_block->load($type, 'index', $result);
 
-        // $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
-
         if(!$userSetting){
             $userSetting = array();
         }
@@ -683,43 +522,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
 
         $userSetting = array_merge($globalUserSetting, $userSetting);
 
-        $editSetting = $this->vd_block->load($type, 'setting', $result);
-        
-        // $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
-
-        if(!$editSetting){
-            $editSetting = array();
-        }
-
-        $globalEditSetting = $this->prepareEditSetting($result);
-
-        $editSetting = array_merge($globalEditSetting, $editSetting);
-
-        return array('global'=>$result, 'user' => $userSetting, 'edit' => $editSetting);
-    }
-
-    public function checkCompleteVersion(){
-        $return = false;
-        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_module.json')){
-            $return = true; 
-        }
-        if(!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_landing.json')){
-            $return = true; 
-        }
-
-        return $return;
-    }
-
-    public function getIconSets(){
-        $files = glob(DIR_APPLICATION."view/javascript/d_visual_designer/iconset/*.js", GLOB_BRACE);
-
-        $result = array();
-
-        foreach ($files as $file) {
-            $result[] = basename($file, '.js');
-        }
-
-        return $result;
+        return array('global'=>$result, 'user' => $userSetting);
     }
 
     public function getRiotTags($compress = true){
@@ -748,7 +551,7 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         }
         
         if (!$compress || empty($result)) {
-            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,elements,popups,layouts,content_blocks,settings_block,layout_blocks}/*.tag", GLOB_BRACE);
+            $files = glob(DIR_TEMPLATE."default/template/extension/d_visual_designer/{components,elements,layouts,content_blocks}/*.tag", GLOB_BRACE);
             foreach ($files as $file) {
                 if (file_exists(DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file))) {
                     $result[] = 'catalog/view/theme/' . $this->theme . '/template/extension/d_visual_designer/'.basename(dirname($file)).'/'.basename($file);
@@ -786,12 +589,6 @@ class ModelExtensionModuleDVisualDesigner extends Model {
             }
             file_put_contents($folder."compress/elements.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
-
-        $files = glob($folder . 'popups/*.tag', GLOB_BRACE);
-        foreach($files as $file){
-            file_put_contents($folder."compress/popups.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
-        }
-
         $files = glob($folder . 'layouts/*.tag', GLOB_BRACE);
         foreach($files as $file){
             file_put_contents($folder."compress/layouts.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
@@ -802,14 +599,6 @@ class ModelExtensionModuleDVisualDesigner extends Model {
                 $file = DIR_TEMPLATE . $this->theme . '/template/extension/d_visual_designer/content_blocks/'.basename($file);
             }
             file_put_contents($folder."compress/content_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
-        }
-        $files = glob($folder . 'settings_block/*.tag', GLOB_BRACE);
-        foreach($files as $file){
-            file_put_contents($folder."compress/settings_block.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
-        }
-        $files = glob($folder . 'layout_blocks/*.tag', GLOB_BRACE);
-        foreach($files as $file){
-            file_put_contents($folder."compress/layout_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
     }
 }

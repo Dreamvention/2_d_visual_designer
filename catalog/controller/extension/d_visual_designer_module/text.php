@@ -13,7 +13,6 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
         parent::__construct($registry);
         
         $this->load->language($this->route);
-        $this->load->model('extension/d_opencart_patch/load');
     }
     
     public function index($setting)
@@ -22,37 +21,5 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
         $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
         
         return $data;
-    }
-    
-    public function setting($setting)
-    {
-        $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
-        
-        return $data;
-    }
-
-    public function options($permission) 
-    {
-        return array();
-    }
-
-    public function local($permission)
-    {
-        $data = array();
-        if($permission){
-            $data['entry_text'] = $this->language->get('entry_text');
-        }
-
-        return $data;
-    }
-
-    public function scripts($permission) 
-    {
-        return array();
-    }
-
-    public function styles($permission) 
-    {
-        return array();
     }
 }
