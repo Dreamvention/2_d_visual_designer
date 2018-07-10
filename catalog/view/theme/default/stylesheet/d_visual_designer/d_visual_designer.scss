@@ -401,6 +401,10 @@
             }
         }
 
+        div[data-is="vd-block-accordion"] {
+            flex-flow: column;
+        }
+
         .block-section {
             margin: 0;
             padding: 0;
