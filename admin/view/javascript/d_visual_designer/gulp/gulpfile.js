@@ -9,6 +9,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var stripCssComments = require('gulp-strip-css-comments');
 var browserSync = require("browser-sync");
 var path = require("path");
+var fs = require("fs");
+var glob = require("glob")
 
 //script paths
 var jsDest = '../dist/';
@@ -23,6 +25,51 @@ gulp.task('clean', function () {
 });
 
 gulp.task('copy', ['copy-fonts', 'copy-img'], function () {
+    gulp.start(['iconsets', 'iconsetsPro'])
+});
+
+gulp.task('iconsetsPro', function () {
+    const dirs = fs.readdirSync('../library/iconsetsPro').filter(function(dir) {
+        return fs.lstatSync('../library/iconsetsPro/'+dir).isDirectory()
+    })
+    for (var key in dirs) {
+        if(fs.existsSync('../library/iconsetsPro/'+dirs[key]+'.js')){
+            del('../library/iconsets/'+dirs[key]+'.js')
+        }
+        var getContent = require('../library/iconsetsPro/'+dirs[key]+'/index.js')
+        var content = getContent()
+        fs.writeFileSync('../iconset/'+dirs[key]+'.js', content.content)
+    }
+});
+
+gulp.task('iconsets', function () {
+    const dirs = fs.readdirSync('../library/iconsets').filter(function(dir) {
+        return fs.lstatSync('../library/iconsets/'+dir).isDirectory()
+    })
+    for (var key in dirs) {
+        if(fs.existsSync('../library/iconsets/'+dirs[key]+'.js')){
+            del('../library/iconsets/'+dirs[key]+'.js')
+        }
+        var getContent = require('../library/iconsets/'+dirs[key]+'/index.js')
+        var content = getContent()
+        fs.writeFileSync('../library/iconsets/'+dirs[key]+'.js', content.content)
+    }
+    gulp.start(['scripts', 'styles'])
+});
+
+
+gulp.task('iconsets', function () {
+    const dirs = fs.readdirSync('../library/iconsets').filter(function(dir) {
+        return fs.lstatSync('../library/iconsets/'+dir).isDirectory()
+    })
+    for (var key in dirs) {
+        if(fs.existsSync('../library/iconsets/'+dirs[key]+'.js')){
+            del('../library/iconsets/'+dirs[key]+'.js')
+        }
+        var getContent = require('../library/iconsets/'+dirs[key]+'/index.js')
+        var content = getContent()
+        fs.writeFileSync('../library/iconsets/'+dirs[key]+'.js', content.content)
+    }
     gulp.start(['scripts', 'styles'])
 });
 
@@ -45,8 +92,6 @@ gulp.task('copy-img', function () {
 
 gulp.task('scripts', function () {
     return gulp.src([
-        "../library/fontIconPicker/iconset.js",
-        "../library/fontIconPicker/jquery.fonticonpicker.min.js",
         "../library/jquery-ui.js",
         "../library/jquery.serializejson.js",
         "../library/underscore-min.js",
@@ -54,7 +99,8 @@ gulp.task('scripts', function () {
         "../library/bootstrap-switch/bootstrap-switch.min.js",
         "../library/summernote/summernote-cleaner.js",
         "../library/select2/select2.full.min.js",
-        "../library/fontset.js"
+        "../library/fontset.js",
+        "../library/iconsets/*.js"
     ])
         .pipe(concat('vd-libraries.min.js'))
         .pipe(uglify())
@@ -63,16 +109,14 @@ gulp.task('scripts', function () {
 
 gulp.task('styles', function () {
     return gulp.src([
-        "../library/fontIconPicker/jquery.fonticonpicker.css",
-        "../library/fontIconPicker/jquery.fonticonpicker.grey.min.css",
-        "../library/icon-fonts/ionicons.min.css",
-        "../library/icon-fonts/fontawesome.css",
-        "../library/icon-fonts/map-icons.min.css",
-        "../library/icon-fonts/material-design-iconic-font.min.css",
-        "../library/icon-fonts/typicons.min.css",
-        "../library/icon-fonts/elusive-icons.min.css",
-        "../library/icon-fonts/octicons.min.css",
-        "../library/icon-fonts/weather-icons.min.css",
+        "../library/icon-fonts/elusive-icons.scss",
+        "../library/icon-fonts/fontawesome.scss",
+        "../library/icon-fonts/ionicons.scss",
+        "../library/icon-fonts/map-icons.scss",
+        "../library/icon-fonts/material-design-iconic-font.scss",
+        "../library/icon-fonts/octicons.scss",
+        "../library/icon-fonts/typicons.scss",
+        "../library/icon-fonts/weather-icons.scss",
         "../library/bootstrap-colorpicker/bootstrap-colorpicker.min.css",
         "../library/bootstrap-switch/bootstrap-switch.min.css",
         "../library/summernote/summernote.css",
@@ -80,10 +124,11 @@ gulp.task('styles', function () {
         "../library/select2/select2.font.css",
         "../library/select2/select2.min.css",
     ])
-        .pipe(concat('vd-libraries.min.css'))
-        .pipe(cleanCSS())
-        .pipe(stripCssComments({preserve: false}))
-        .pipe(gulp.dest(jsDest));
+    .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
+    .pipe(concat('vd-libraries.min.css'))
+    .pipe(cleanCSS())
+    .pipe(stripCssComments({preserve: false}))
+    .pipe(gulp.dest(jsDest));
 });
 
 gulp.task('build_library', ['clean'], function () {

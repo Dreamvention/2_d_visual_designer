@@ -13,6 +13,9 @@
     <link type="text/css" href="view/javascript/d_alertify/css/alertify.min.css" rel="stylesheet" media="all" />
     <link type="text/css" href="view/javascript/d_alertify/css/themes/bootstrap.min.css" rel="stylesheet" media="all" />
     <link href="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen" />
+    {% for style in styles %}
+        <link type="text/css" href="{{style.href}}" rel="{{style.rel}}" media="{{style.media}}" />
+    {% endfor %}
     <script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="view/javascript/common.js"></script>
@@ -27,6 +30,9 @@
     <script src="view/javascript/jquery/datetimepicker/moment.js" type="text/javascript"></script>
     <script src="view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="view/javascript/d_alertify/alertify.min.js"></script>
+    {% for script in scripts %}
+        <script type="text/javascript" src="{{script}}"></script>
+    {% endfor %}
     <script type="text/javascript">
        $(document).ready(function(){
             riot.compile({{riot_tags|json_encode}}, function(e) {

@@ -651,6 +651,11 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['text_file_manager'] = $this->language->get('text_file_manager');
             $data['text_frontend_title'] = $this->language->get('text_frontend_title');
+
+            $this->parseHeader();
+
+            $data['scripts'] = $this->document->getScripts();
+            $data['styles'] = $this->document->getStyles();
             
             $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/frontend_editor', $data));
         }
