@@ -33,6 +33,12 @@
     {% for script in scripts %}
         <script type="text/javascript" src="{{script}}"></script>
     {% endfor %}
+</head>
+<body>
+    <div data-is="vd-navbar-container"  id="vd-navbar-container">
+        <div id="visual-designer-preloader"></div>
+        <div id="visual-designer-preloader-icon" class="la-ball-scale-ripple-multiple la-2x"><div></div><div></div><div></div></div>
+    </div>
     <script type="text/javascript">
        $(document).ready(function(){
             riot.compile({{riot_tags|json_encode}}, function(e) {
@@ -44,11 +50,5 @@
             })
         });
     </script>
-</head>
-<body>
-    <div data-is="vd-navbar-container"  id="vd-navbar-container">
-        <div id="visual-designer-preloader"></div>
-        <div id="visual-designer-preloader-icon" class="la-ball-scale-ripple-multiple la-2x"><div></div><div></div><div></div></div>
-    </div>
 </body>
 </html>
