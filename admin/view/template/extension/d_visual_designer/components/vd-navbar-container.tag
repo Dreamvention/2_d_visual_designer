@@ -54,7 +54,7 @@
         }.bind(this)
 
         tabletClick(e) {
-            $('iframe', this.root).animate({width: '767px'})
+            $('iframe', this.root).animate({width: '770px'})
         }.bind(this)
 
         mobileClick(e) {

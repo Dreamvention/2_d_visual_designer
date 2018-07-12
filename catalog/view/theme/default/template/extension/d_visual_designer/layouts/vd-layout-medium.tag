@@ -55,19 +55,19 @@
             }
 
             if(setting.offset){
-                className.push('offset-md-'+setting.offset)
+                className.push('offset-lg-'+setting.offset)
             }
             if(setting.offset_phone){
                 className.push('offset-'+setting.offset_phone)
             }
             if(setting.offset_tablet){
-                className.push('offset-sm-'+setting.offset_tablet)
+                className.push('offset-md-'+setting.offset_tablet)
             }
             if(!_.isUndefined(setting.size)){
                 if(setting.size == 'fill') {
-                    className.push('col-md')
+                    className.push('col-lg')
                 } else {
-                    className.push('col-md-'+setting.size)
+                    className.push('col-lg-'+setting.size)
                 }
             }
             if(setting.size_phone){
@@ -79,9 +79,9 @@
             }
             if(setting.size_tablet){
                 if(setting.size_tablet == 'fill') {
-                    className.push('col-sm')
+                    className.push('col-md')
                 } else {
-                    className.push('col-sm-'+setting.size_tablet)
+                    className.push('col-md-'+setting.size_tablet)
                 }
             }
             if(setting.design_show_on){

@@ -18,20 +18,11 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
     public function index($setting)
     {  
         $this->load->model('tool/image');
-        
+
         if (!empty($setting['image']) && is_file(DIR_IMAGE . $setting['image'])) {
             $image = $setting['image'];
         } else {
             $image = 'no_image.png';
-        }
-        $data['desktop_size'] = $this->{'model_extension_d_visual_designer_module_'.$this->codename}->getSize($image, $setting['size'], $setting['width'], $setting['height']);
-        
-        if (!empty($setting['size_phone'])) {
-            $data['phone_size'] = $this->{'model_extension_d_visual_designer_module_'.$this->codename}->getSize($image, $setting['size_phone'], $setting['width_phone'], $setting['height_phone']);
-        }
-
-        if (!empty($setting['size_tablet'])) {
-            $data['tablet_size'] = $this->{'model_extension_d_visual_designer_module_'.$this->codename}->getSize($image, $setting['size_tablet'], $setting['width_tablet'], $setting['height_tablet']);
         }
 
         list($width, $height) = getimagesize(DIR_IMAGE . $image);

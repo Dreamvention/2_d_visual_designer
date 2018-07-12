@@ -1,3 +1,58 @@
+@mixin semiResponsive() {
+    > .vd-image {
+        > a {
+            > img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}
+@mixin responsive() {
+    width: 100%;
+    > .vd-image {
+        width: 100%;
+        > a {
+            width: 100%;
+            > img {
+                width: 100%;
+                height: auto;
+            }
+        }
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+@mixin smallSize() {
+    > .vd-image {
+        img{
+            width:80px;
+            height:80px;
+        }
+    }
+}
+@mixin mediumSize() {
+    > .vd-image {
+        img{
+            width:300px;
+            height:94px;
+        }
+    }
+}
+@mixin largeSize() {
+    > .vd-image {
+        img{
+            width:600px;
+            height:188px;
+        }
+    }
+}
 .vd-image-container {
     display: flex;
     flex-wrap: wrap;
@@ -183,55 +238,108 @@
                 }
             }
         }
-        &.vd-image-size-small{
-            > .vd-image {
-                img{
-                    width:80px;
-                    height:80px;
-                }
+        &.vd-image-size-small {
+            @media screen and (min-width: 992px) {
+                @include smallSize();
             }
         }
-        &.vd-image-size-medium{
-            > .vd-image {
-                img{
-                    width:300px;
-                    height:94px;
-                }
+        &.vd-image-size-tablet-small {
+            @media screen and (min-width: 768px) and (max-width: 991px) {
+                @include smallSize();
             }
         }
-        &.vd-image-size-large{
-            > .vd-image {
-                img{
-                    width:600px;
-                    height:188px;
-                }
+        &.vd-image-size-phone-small {
+            @media screen and (max-width: 767px) {
+                @include smallSize();
             }
         }
-        &.vd-image-size-phone-responsive {
-            @media screen and (max-width: 767px){
-                @import "_responsive.scss";
+        &.vd-image-size-medium {
+            @media screen and (min-width: 992px) {
+                @include mediumSize();
+            }
+        }
+        &.vd-image-size-tablet-medium {
+            @media screen and (min-width: 768px) and (max-width: 991px) {
+                @include mediumSize();
+            }
+        }
+        &.vd-image-size-phone-medium {
+            @media screen and (max-width: 767px) {
+                @include mediumSize();
+            }
+        }
+        &.vd-image-size-large {
+            @media screen and (min-width: 992px) {
+                @include largeSize();
+            }
+        }
+        &.vd-image-size-tablet-large {
+            @media screen and (min-width: 768px) and (max-width: 991px) {
+                @include largeSize();
+            }
+        }
+        &.vd-image-size-phone-large {
+            @media screen and (max-width: 767px) {
+                @include largeSize();
+            }
+        }
+        /* Semi Responsive*/
+        &.vd-image-size-semi_responsive{
+            @media screen and (min-width: 992px) {
+                @include semiResponsive();
+            }
+        }
+        &.vd-image-size-phone-semi_responsive{
+            @media screen and (max-width: 767px) {
+                @include semiResponsive();
+            }
+        }
+        &.vd-image-size-tablet-semi_responsive{
+            @media screen and (min-width: 768px) and (max-width: 991px) {
+                @include semiResponsive();
+            }
+        }
+        &.vd-image-size-responsive{
+            @media screen and (min-width: 992px) {
+                @include responsive();
+            }
+        }
+        &.vd-image-size-phone-responsive{
+            @media screen and (max-width: 767px) {
+                @include responsive();
+            }
+        }
+        &.vd-image-size-tablet-responsive{
+            @media screen and (min-width: 768px) and (max-width: 991px) {
+                @include responsive();
             }
         }
 
-        &.vd-image-size-tablet-responsive {
-            @media screen and (min-width: 768px) and (max-width: 992px){
-                @import "_responsive.scss";
-            }
-        }
+        // &.vd-image-size-phone-responsive {
+        //     @media screen and (max-width: 767px){
+        //         @import "_responsive.scss";
+        //     }
+        // }
 
-        &.vd-image-size-responsive:not(.vd-image-size-tablet-responsive):not(.vd-image-size-phone-responsive) {
-            @import "_responsive.scss";
-        }
+        // &.vd-image-size-tablet-responsive {
+        //     @media screen and (min-width: 768px) and (max-width: 992px){
+        //         @import "_responsive.scss";
+        //     }
+        // }
 
-        &.vd-image-size-responsive.vd-image-size-tablet-responsive {
-            @media screen and (min-width: 992px){
-                @import "_responsive.scss";
-            }
-        }
-        &.vd-image-size-responsive.vd-image-size-phone-responsive {
-            @media screen and (min-width: 992px){
-                @import "_responsive.scss";
-            }
-        }
+        // &.vd-image-size-responsive:not(.vd-image-size-tablet-responsive):not(.vd-image-size-phone-responsive) {
+        //     @import "_responsive.scss";
+        // }
+
+        // &.vd-image-size-responsive.vd-image-size-tablet-responsive {
+        //     @media screen and (min-width: 992px){
+        //         @import "_responsive.scss";
+        //     }
+        // }
+        // &.vd-image-size-responsive.vd-image-size-phone-responsive {
+        //     @media screen and (min-width: 992px){
+        //         @import "_responsive.scss";
+        //     }
+        // }
     }
 }

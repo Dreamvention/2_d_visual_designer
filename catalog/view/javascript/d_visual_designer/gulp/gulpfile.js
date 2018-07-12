@@ -89,9 +89,20 @@ gulp.task("sass", function () {
         .pipe(gulp.dest(sassDest))
         .pipe(browserSync.reload({stream: true}));
 });
+gulp.task("sass:blocks", function () {
+    return gulp.src(sassDest + "blocks/*.scss")
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
+        .pipe(autoprefixer({
+            browsers: ["last 15 versions"]
+        }))
+        .pipe(sourcemaps.write("./blocks/"))
+        .pipe(gulp.dest(sassDest+'blocks/'))
+        .pipe(browserSync.reload({stream: true}));
+});
 
 gulp.task("sass:watch", function () {
-    gulp.watch([sassDest + "*.scss", sassDest + "core/*.scss"], ["sass"]);
+    gulp.watch([sassDest + "*.scss", sassDest + "core/*.scss", sassDest+"blocks/*.scss"], ["sass", "sass:blocks"]);
 });
 
 gulp.task("browser_sync_init", function () {
@@ -109,5 +120,5 @@ gulp.task("build_sass", ["browser_sync_init"], function () {
             baseDir + "/view/theme/default/template/extension/d_visual_designer/**/*.tag"
         ], browserSync.reload);
     }
-    gulp.start(["sass", "sass:watch"]);
+    gulp.start(["sass", "sass:blocks", "sass:watch"]);
 })

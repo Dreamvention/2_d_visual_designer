@@ -276,19 +276,19 @@
             }
 
             &:not(.show_mobile) {
-                @media only screen and (min-width: 320px) and (max-width: 767px) {
+                @media only screen and (max-width: 767px) {
                     opacity: 0.5;
                 }
             }
 
             &:not(.show_tablet) {
-                @media only screen and (min-width: 768px) and (max-width: 1023px) {
+                @media only screen and (min-width: 768px) and (max-width: 992px) {
                     opacity: 0.5;
                 }
             }
 
             &:not(.show_desktop) {
-                @media only screen and (min-width: 1024px) {
+                @media only screen and (min-width: 992px) {
                     opacity: 0.5;
                 }
             }

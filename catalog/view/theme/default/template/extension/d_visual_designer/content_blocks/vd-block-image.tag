@@ -55,33 +55,27 @@
                 $('.vd-image > a', this.root).attr('href', setting.global.link)
             }
             $('.vd-image img', this.root).css({width: '', height: ''})
-            if(setting.user.phone_size && _.indexOf(['responsive', 'semi_responsive'], setting.global.size_phone) == -1){
-                if (window.matchMedia('(max-width: 767px)').matches){
-                    $('.vd-image img', this.root).css({width: setting.user.phone_size.width, height: setting.user.phone_size.height})
-                }
-            } else if (_.indexOf(['responsive', 'semi_responsive'], setting.global.size_phone) == -1 && !setting.user.tablet_size && _.indexOf(['responsive', 'semi_responsive'], setting.global.size) == -1){
-                if (window.matchMedia('(max-width: 767px)').matches){
-                    $('.vd-image img', this.root).css({width: setting.user.desktop_size.width, height: setting.user.desktop_size.height})
-                }
-            }
-
-            if(setting.user.tablet_size && _.indexOf(['responsive', 'semi_responsive'], setting.global.size_tablet) == -1){
-                if (window.matchMedia('(min-width: 768px) and (max-width: 992px)').matches){
-                    $('.vd-image img', this.root).css({width: setting.user.tablet_size.width, height: setting.user.tablet_size.height})
-                }
-            } else if (_.indexOf(['responsive', 'semi_responsive'], setting.global.size_tablet) == -1 && !setting.user.phone_size && _.indexOf(['responsive', 'semi_responsive'], setting.global.size) == -1){
-                if (window.matchMedia('(min-width: 768px) and (max-width: 992px)').matches){
-                    $('.vd-image img', this.root).css({width: setting.user.desktop_size.width, height: setting.user.desktop_size.height})
-                }
-            }
-
-            if(_.indexOf(['responsive', 'semi_responsive'], setting.global.size) == -1) {
-                if(setting.user.tablet_size || setting.user.phone_size){
-                    if (window.matchMedia('(min-width: 992px)').matches){
-                        $('.vd-image img', this.root).css({width: setting.user.desktop_size.width, height: setting.user.desktop_size.height})
+            var styles = {
+                'phone': {
+                    '.vd-image-size-phone-custom img': {
+                        'width': setting.global.width,
+                        'height': setting.global.height,
                     }
-                }
+                },
+                'tablet': {
+                    '.vd-image-size-tablet-custom img': {
+                        'width': setting.global.width_tablet,
+                        'height': setting.global.height_tablet,
+                    }
+                },
+                'desktop': {
+                    '.vd-image-size-custom img': {
+                        'width': setting.global.width_phone,
+                        'height': setting.global.height_phone,
+                    }
+                },
             }
+            this.store.dispatch('block/style/media/update', {designer_id: this.getState().top.opts.id, block_id: this.opts.block.id, styles: styles})
         }
         this.initClassContainer = function(){
             var classContainer = []
@@ -101,9 +95,15 @@
 
             if(setting.global.size_phone){
                 classWrapper.push('vd-image-size-phone-'+setting.global.size_phone)
+            } else if(setting.global.size_tablet) {
+                classWrapper.push('vd-image-size-phone-'+setting.global.size_tablet)
+            } else {
+                classWrapper.push('vd-image-size-phone-'+setting.global.size)
             }
-            if(setting.global.classWrapper){
+            if(setting.global.size_tablet){
                 classWrapper.push('vd-image-size-tablet-'+setting.global.size_tablet)
+            } else {
+                classWrapper.push('vd-image-size-tablet-'+setting.global.size)
             }
             this.setState({classWrapper: classWrapper.join(' ')})
         }.bind(this)
@@ -124,31 +124,5 @@
             this.initImage()
             this.update()
         }.bind(this))
-
-        this.vd_semi_responsive = function($block, width, status, semi_responsive, responsive) {
-            $wrapper = $block.closest('.vd-image-wrapper');
-            $block_content = $block.closest('.block-content');
-
-            if (status) {
-                if($block_content.outerWidth(true) > width){
-                    if($wrapper.hasClass(responsive)){
-                        $wrapper.removeClass(responsive);
-                        $wrapper.addClass(semi_responsive);
-                    }
-                }
-                else{
-                    if($wrapper.hasClass(semi_responsive)){
-                        $wrapper.removeClass(semi_responsive);
-                        $wrapper.addClass(responsive);
-                    }
-                }
-            }
-            else{
-                if($wrapper.hasClass(responsive)){
-                    $wrapper.removeClass(responsive);
-                    $wrapper.addClass(semi_responsive);
-                }
-            }
-        }
     </script>
 </vd-block-image>

@@ -26,7 +26,9 @@
             this.open = !this.open
         }
         clickIcon(e){
-            this.opts.evchange({currentTarget: {name: this.opts.name, value: e.item.icon}})
+            var event = {}
+            event.currentTarget = event.target = {name: this.opts.name, value: e.item.icon}
+            this.opts.evchange(event)
         }.bind(this)
         this.on('update', function(e){
             if(this.library !== this.opts.library) {
