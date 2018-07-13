@@ -45,6 +45,9 @@
 
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
+            start: function(){
+                $('body').addClass('vd-resizable')
+            },
             resize: function(event, ui) {
                 if(!$('.vd-popup', this.root).hasClass('drag')){
                     $('.vd-popup', this.root).addClass('drag')
@@ -55,6 +58,7 @@
             stop: function( event, ui ) {
                 this.width = ui.size.width;
                 this.height = ui.size.height;
+                $('body').removeClass('vd-resizable')
             }.bind(this)
         });
         $('.vd-popup', this.root).draggable({

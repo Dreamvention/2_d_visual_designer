@@ -92,7 +92,7 @@ gulp.task('copy-img', function () {
 
 gulp.task('scripts', function () {
     return gulp.src([
-        "../library/jquery-ui.js",
+        "../library/jquery-ui/jquery-ui.js",
         "../library/jquery.serializejson.js",
         "../library/underscore-min.js",
         "../library/bootstrap-colorpicker/bootstrap-colorpicker.min.js",
@@ -123,6 +123,7 @@ gulp.task('styles', function () {
         "../library/select2/select2-bootstrap.min.css",
         "../library/select2/select2.font.css",
         "../library/select2/select2.min.css",
+        "../library/jquery-ui/jquery-ui.css"
     ])
     .pipe(sass({outputStyle: "compressed"}).on("error", sass.logError))
     .pipe(concat('vd-libraries.min.css'))

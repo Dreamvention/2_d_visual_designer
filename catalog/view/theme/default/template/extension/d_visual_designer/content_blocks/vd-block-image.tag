@@ -58,8 +58,8 @@
             var styles = {
                 'phone': {
                     '.vd-image-size-phone-custom img': {
-                        'width': setting.global.width,
-                        'height': setting.global.height,
+                        'width': setting.global.width_phone,
+                        'height': setting.global.height_phone,
                     }
                 },
                 'tablet': {
@@ -70,8 +70,8 @@
                 },
                 'desktop': {
                     '.vd-image-size-custom img': {
-                        'width': setting.global.width_phone,
-                        'height': setting.global.height_phone,
+                        'width': setting.global.width,
+                        'height': setting.global.height,
                     }
                 },
             }

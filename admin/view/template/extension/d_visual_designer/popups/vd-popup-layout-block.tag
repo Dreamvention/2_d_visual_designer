@@ -50,11 +50,15 @@
             this.block_id = data.block_id
             this.block_type = data.type
             this.update()
+            this.initPopup()
         }
     }.bind(this))
 
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
+            start: function(){
+                $('body').addClass('vd-resizable')
+            },
             resize: function(event, ui) {
                 if(!$('.vd-popup', this.root).hasClass('drag')){
                     $('.vd-popup', this.root).addClass('drag')
@@ -65,6 +69,7 @@
             stop: function( event, ui ) {
                 this.width = ui.size.width;
                 this.height = ui.size.height;
+                $('body').removeClass('vd-resizable')
             }.bind(this)
         });
         $('.vd-popup', this.root).draggable({
@@ -111,11 +116,6 @@
                 this.classPopup = 'child'
             }
             this.setting = this.store.getState().blocks[this.parent.opts.id][this.block_id].setting
-        }
-    })
-    this.on('updated', function(){
-        if(this.status) {
-            this.initPopup()
         }
     })
 

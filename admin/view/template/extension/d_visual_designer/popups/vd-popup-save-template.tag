@@ -57,6 +57,7 @@
         if(data.designer_id == this.parent.top.opts.id){
             this.status = true
             this.update()
+            this.initPopup()
         }
     }.bind(this))
     this.store.subscribe('template/save/success', function(){
@@ -76,6 +77,9 @@
 
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
+            start: function(){
+                $('body').addClass('vd-resizable')
+            },
             resize: function(event, ui) {
                 if(!$('.vd-popup', this.root).hasClass('drag')){
                     $('.vd-popup', this.root).addClass('drag')
@@ -86,6 +90,7 @@
             stop: function( event, ui ) {
                 this.width = ui.size.width;
                 this.height = ui.size.height;
+                $('body').removeClass('vd-resizable')
             }.bind(this)
         });
         $('.vd-popup', this.root).draggable({
@@ -117,11 +122,6 @@
         $('.vd-popup', this.root).css({ visibility: 'visible', opacity: 1 });
 
     }.bind(this)
-    this.on('updated', function(){
-        if(this.status) {
-            this.initPopup()
-        }
-    })
 
     close() {
         this.status = false

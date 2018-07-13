@@ -307,9 +307,11 @@
             padding: 0;
             list-style-type: none;
             background-color: #539FDF;
+            display: flex;
+            flex-wrap: wrap;
             >li {
-                float: left;
                 >a {
+                    min-height: 37px;
                     display: block;
                     padding: 10px 26px;
                     text-align: center;
@@ -621,6 +623,9 @@
 
 .popup-new-template {
     padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+
     >.element {
         margin: 0 !important;
         padding: 30px !important;
@@ -848,81 +853,4 @@
             }
         }
     }
-}
-
-.ui-resizable-handle {
-    position: absolute;
-    display: block;
-    font-size: 0.1px;
-    -ms-touch-action: none;
-    touch-action: none;
-}
-
-.ui-resizable-autohide .ui-resizable-handle,
-.ui-resizable-disabled .ui-resizable-handle {
-    display: none;
-}
-
-.ui-resizable-n {
-    top: -5px;
-    left: 0;
-    width: 100%;
-    height: 7px;
-    cursor: n-resize;
-}
-
-.ui-resizable-s {
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 7px;
-    cursor: s-resize;
-}
-
-.ui-resizable-e {
-    top: 0;
-    right: -5px;
-    width: 7px;
-    height: 100%;
-    cursor: e-resize;
-}
-
-.ui-resizable-w {
-    top: 0;
-    left: -5px;
-    width: 7px;
-    height: 100%;
-    cursor: w-resize;
-}
-
-.ui-resizable-se {
-    right: 1px;
-    bottom: 1px;
-    width: 12px;
-    height: 12px;
-    cursor: se-resize;
-}
-
-.ui-resizable-sw {
-    bottom: -5px;
-    left: -5px;
-    width: 9px;
-    height: 9px;
-    cursor: sw-resize;
-}
-
-.ui-resizable-nw {
-    top: -5px;
-    left: -5px;
-    width: 9px;
-    height: 9px;
-    cursor: nw-resize;
-}
-
-.ui-resizable-ne {
-    top: -5px;
-    right: -5px;
-    width: 9px;
-    height: 9px;
-    cursor: ne-resize;
 }

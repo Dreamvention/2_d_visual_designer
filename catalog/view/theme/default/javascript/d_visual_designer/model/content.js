@@ -16,7 +16,6 @@
             data: send_data,
             context: this,
             success: function(json){
-                console.log(this)
                 if(json.success) {
                     this.dispatch('save_content_success');
                 } else {

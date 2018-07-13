@@ -265,6 +265,7 @@
             this.initSetting()
             this.status = true
             this.update();
+            this.initPopup()
         }
     }.bind(this))
 
@@ -283,6 +284,7 @@
             this.initSetting()
             this.status = true
             this.update()
+            this.initPopup()
         }
     }.bind(this))
 
@@ -359,6 +361,9 @@
     }
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
+            start: function(){
+                $('body').addClass('vd-resizable')
+            },
             resize: function(event, ui) {
                 if(this.stick_left) {
                     $('body').removeAttr('style');
@@ -369,15 +374,15 @@
                     $('.vd-popup', this.root).css({'height': this.height });
                     $('.vd-popup', this.root).addClass('drag')
                 }
-                
                 $('.vd-popup', this.root).css({ 'max-height': '' });
                 this.update();
             }.bind(this),
-            stop: function( event, ui ) {
-                this.width = ui.size.width;
-                this.height = ui.size.height;
+            stop: function(event, ui) {
+                this.width = ui.size.width
+                this.height = ui.size.width
+                $('body').removeClass('vd-resizable')
             }.bind(this)
-        });
+        })
         $('.vd-popup', this.root).draggable({
             handle: '.popup-header',
             drag: function(event, ui) {
@@ -450,12 +455,6 @@
 
     this.on('update', function(){
         this.initSetting()
-    })
-    this.on('updated', function(){
-
-        if(this.status) {
-            this.initPopup()
-        }
     })
 
     change(e){

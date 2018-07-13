@@ -13,7 +13,6 @@ class ControllerExtensionDVisualDesignerModuleImage extends Controller
         parent::__construct($registry);
         
         $this->load->language($this->route);
-        $this->load->model($this->route);
     }
     public function index($setting)
     {  

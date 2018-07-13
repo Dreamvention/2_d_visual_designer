@@ -20,7 +20,7 @@
             <formatted-message path='designer.text_complete_version'/>
         </div>
         <div class="popup-new-template">
-            <div class="col-md-3 col-sm-6 col-xs-12 element" each={template in templates}>
+            <div class="element" each={template in templates}>
                 <div class="template" onClick={addTemplate}>
                     <a id="add_block" name="type">
                         <img src="{template.image}" class="image">
@@ -49,6 +49,7 @@
             this.level = data.level
             this.parent_id = data.parent_id
             this.update()
+            this.initPopup()
         }
     }.bind(this))
     this.store.subscribe('template/load/success', function(){
@@ -60,6 +61,9 @@
     }
     this.initPopup = function() {
         $('.vd-popup', this.root).resizable({
+            start: function(){
+                $('body').addClass('vd-resizable')
+            },
             resize: function(event, ui) {
                 if(!$('.vd-popup', this.root).hasClass('drag')){
                     $('.vd-popup', this.root).addClass('drag')
@@ -70,6 +74,7 @@
             stop: function( event, ui ) {
                 this.width = ui.size.width;
                 this.height = ui.size.height;
+                $('body').removeClass('vd-resizable')
             }.bind(this)
         });
         $('.vd-popup', this.root).draggable({
@@ -121,11 +126,6 @@
             this.templates = _.pick(this.templates, function(template){
                 return template.name.toLowerCase().indexOf(this.search.toLowerCase()) != -1
             }.bind(this))
-        }
-    })
-    this.on('updated', function(){
-        if(this.status) {
-            this.initPopup()
         }
     })
 
