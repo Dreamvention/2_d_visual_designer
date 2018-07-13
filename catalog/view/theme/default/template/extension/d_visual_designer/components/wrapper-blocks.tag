@@ -62,7 +62,8 @@
             var block_info = _.find(this.store.getState().config.blocks, function(block){
                 return block.type == value.type
             })
-            if(!_.isUndefined(value.setting.global.size)&&!_.isUndefined(block_info.child_blocks)){
+
+            if(!_.isUndefined(value.setting.global.size) && block_info.setting.child_blocks){
                 placeholder_type = 'column'
             }
             if(block_info.setting.custom_layout) {
@@ -76,6 +77,7 @@
             }
             return value
         }.bind(this))
+
         this.setState({
             blocks: blocks,
             placeholder_type: placeholder_type

@@ -40,9 +40,7 @@ div[data-is="placeholder"] {
 }
 
 .element-placeholder {
-    border: 2px solid rgb(114,179,56);
-    background: rgba(114,179,56, 0.4);
-    opacity: 0.8;
+    border: 2px dashed #72b338;
     border-radius: 6px;
     margin-bottom: 10px;
     &.type-row{
@@ -60,7 +58,7 @@ div[data-is="placeholder"] {
         display: table;
     }
     &:hover{
-        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(114,179,56,0.4);
+        background-color: #e8fad9;
     }
 }
 
@@ -123,10 +121,9 @@ div[data-is="placeholder"] {
         background: white;
         padding: 30px 30px 15px;
         > .element-placeholder{
-            border: 2px solid rgb(48,140,214);
-            background: rgba(48,140,214, 0.4);
+            border: 2px dashed #308cd6 ;
             &:hover{
-                background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(48,140,214,0.4);
+                background-color: #e8f5ff;
             }
         }
         .block-container{
@@ -202,10 +199,10 @@ div[data-is="placeholder"] {
                 }
                 & > .block-content {
                     > .element-placeholder {
-                        border: 2px solid rgb(244, 192, 0);
-                        background: rgba(244, 192, 0, 0.4);
+                        border: 2px dashed #f4c000;
+                        background-color: inherit;
                         &:hover {
-                            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(244, 192, 0, 0.4);
+                            background-color: #fff2c4;
                         }
                     }
                 }

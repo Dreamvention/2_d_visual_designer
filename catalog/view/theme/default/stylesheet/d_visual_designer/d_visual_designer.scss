@@ -64,10 +64,9 @@
                 }
             }
             > .element-placeholder{
-                border: 2px solid rgb(48,140,214);
-                background: rgba(48,140,214, 0.4);
+                border: 2px dashed #308cd6;
                 &:hover{
-                    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(48,140,214,0.4);
+                    background-color: #e8f5ff;
                 }
             }
         }
@@ -230,8 +229,7 @@
         }
 
         .element-placeholder {
-            border: 2px solid rgb(114,179,56);
-            background: rgba(114,179,56, 0.4);
+            border: 2px solid #72b338;
             opacity: 0.8;
             border-radius: 6px;
             &.type-row{
@@ -249,7 +247,7 @@
                 display: table;
             }
             &:hover{
-            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(114,179,56,0.4);
+                background-color: #e8fad9;
             }
         }
 
@@ -392,10 +390,9 @@
                 padding: 0;
                 background-color: transparent;
                 > .element-placeholder{
-                    border: 2px solid rgb(244,192,0);
-                    background: rgba(244,192,0, 0.4);
+                    border: 2px dashed #f4c000;
                     &:hover{
-                        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAH0lEQVQYV2NkQAX/GZH4/xkYGBhhAmAOSBJEwDkgAQCCrgQEjpMcPgAAAABJRU5ErkJggg==) repeat rgba(244,192,0,0.4);
+                        background-color: #fff2c4;
                     }
                 }
             }
