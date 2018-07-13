@@ -62,6 +62,8 @@
             }
             if(setting.offset_tablet){
                 className.push('offset-md-'+setting.offset_tablet)
+            } else if (setting.offset){
+                className.push('offset-md-'+setting.offset)
             }
             if(!_.isUndefined(setting.size)){
                 if(setting.size == 'fill') {
@@ -82,6 +84,12 @@
                     className.push('col-md')
                 } else {
                     className.push('col-md-'+setting.size_tablet)
+                }
+            } else if(setting.size{
+                if(setting.size == 'fill') {
+                    className.push('col-md')
+                } else {
+                    className.push('col-md-'+setting.size)
                 }
             }
             if(setting.design_show_on){
