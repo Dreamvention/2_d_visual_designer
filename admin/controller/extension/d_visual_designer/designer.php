@@ -642,6 +642,14 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
             $data['state']['templates'] = $this->prepareTemplate();
 
+            $this->styles[] = 'view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css';
+            if(VERSION >= '3.0.0.0') {
+                $this->scripts[] = 'view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js';
+            } else {
+                $this->scripts[] = 'view/javascript/jquery/datetimepicker/moment.js';
+            }
+            $this->scripts[] = 'view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js';
+
             $data['local'] = $this->prepareLocal(true);
             $data['options'] = $this->prepareOptions();
 
