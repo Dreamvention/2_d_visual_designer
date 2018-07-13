@@ -21,11 +21,6 @@
             </div>
         </virtual>
     </div>
-    <!--  <vd-popup-new-block/>
-    <vd-popup-setting-block/>
-    <vd-popup-layout-block/>
-    <vd-popup-save-template/>
-    <vd-popup-load-template/>  -->
     <script>
         this.mixin(new vd_component(this, false))
         this.initState({

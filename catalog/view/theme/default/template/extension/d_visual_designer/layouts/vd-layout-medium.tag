@@ -85,7 +85,7 @@
                 } else {
                     className.push('col-md-'+setting.size_tablet)
                 }
-            } else if(setting.size{
+            } else if(setting.size){
                 if(setting.size == 'fill') {
                     className.push('col-md')
                 } else {

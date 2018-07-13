@@ -54,7 +54,6 @@
                 contentClassName.push('child-blocks')
             }
 
-
             if(setting.offset){
                 className.push('offset-lg-'+setting.offset)
             }
@@ -86,7 +85,7 @@
                 } else {
                     className.push('col-md-'+setting.size_tablet)
                 }
-            } else if(setting.size{
+            } else if(setting.size){
                 if(setting.size == 'fill') {
                     className.push('col-md')
                 } else {
