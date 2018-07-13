@@ -438,7 +438,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             'outset' => $this->language->get('text_outset')
             );
 
-        $options['designer']['designer']['image_styles'] = array(
+        $options['designer']['image_styles'] = array(
                 'cover' => $this->language->get('text_cover'),
                 'contain' => $this->language->get('text_contain'),
                 'no-repeat'  => $this->language->get('text_no_repeat'),
