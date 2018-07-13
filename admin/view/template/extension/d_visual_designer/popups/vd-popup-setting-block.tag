@@ -422,7 +422,7 @@
         $(this.root).on('change', 'input.pixels-procent', function(){
             var value = $(this).val();
             var er = /^-?[0-9]+$/;
-            var er2 = /^-?[0-9]+(px|%)$/;
+            var er2 = /^-?[0-9]+(px|%|rem)$/;
 
             if(er.test(value)){
                 this.value = value+'px'
@@ -438,7 +438,7 @@
         $(this.root).on('change', 'input.pixels', function(){
             var value = $(this).val();
             var er = /^-?[0-9]+$/;
-            var er2 = /^-?[0-9]+px$/;
+            var er2 = /^-?[0-9]+(px|rem)$/;
 
             if(er.test(value)){
                 this.value = value+'px'
