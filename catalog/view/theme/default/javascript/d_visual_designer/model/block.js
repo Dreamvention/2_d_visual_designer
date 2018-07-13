@@ -6,15 +6,20 @@
         var blocks = {}
         if(block_config.setting.level_min == 2 && data.level == 0){
             var row_id = this.newBlock(data.designer_id, 'row', '');
+            this.dispatch('block/child/create', {designer_id: data.designer_id, block_id: row_id})
             var column_id = this.newBlock(data.designer_id, 'column', row_id);
+            this.dispatch('block/child/create', {designer_id: data.designer_id, block_id: column_id})
             data.target = column_id
         }
         var new_block_id = this.newBlock(data.designer_id, data.type, data.target)
         if(block_config.setting.child) {
-            this.newBlock(data.designer_id, block_config.setting.child, new_block_id);
+             var child_id = this.newBlock(data.designer_id, block_config.setting.child, new_block_id);
+             this.dispatch('block/child/create', {designer_id: data.designer_id, block_id: child_id})
         }
         this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id})
     }.bind(this));
+
+    
     this.subscribe('block/remove', function(data) {
 
         var block_config = _.find(this.getState().config.blocks, function(block){

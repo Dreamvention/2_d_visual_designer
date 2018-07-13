@@ -23,7 +23,9 @@
 
         this.external_vd.subscribe('block/layout/begin', function(data) { this.dispatch('block/layout/begin', data) }.bind(this)) 
 
-        this.external_vd.subscribe('block/setting/begin', function(data) { this.dispatch('block/setting/begin', data) }.bind(this)) 
+        this.external_vd.subscribe('block/setting/begin', function(data) { 
+            this.dispatch('block/setting/begin', data) 
+        }.bind(this)) 
 
         this.external_vd.subscribe('save_content_success', function() {
             this.alert_handler(this.getLocal('designer.text_success_update'), 'success')
@@ -56,6 +58,13 @@
             this.updateState({blocks: blocks})
             this.dispatch('block/create/success', data) 
         }.bind(this)) 
+        this.external_vd.subscribe('block/child/create', function(data){
+            var blocks = this.getState().blocks
+            var externalBlocks = this.external_vd.getState().blocks
+            blocks[data.designer_id][data.block_id] = JSON.parse(JSON.stringify(externalBlocks[data.designer_id][data.block_id]))
+            this.updateState({blocks: blocks})
+            this.updateSetting(data)
+        }.bind(this))
     }
 
     this.subscribe('block/new', function(data){

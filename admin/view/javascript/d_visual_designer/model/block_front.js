@@ -3,6 +3,10 @@
      * Full update block setting with Ajax Request
      */
     this.subscribe('block/setting/update', function(data){
+        this.updateSetting(data)
+    })
+
+    this.updateSetting = function(data) {
         var block_info = this.getState().blocks[data.designer_id][data.block_id]
         var send_data = {
             setting: JSON.stringify(block_info.setting),
@@ -24,13 +28,17 @@
                     blocks[data.designer_id][data.block_id].setting = _.extend({}, json.setting)
                     this.updateState({blocks: blocks})
                     this.dispatch('history/backup', {block_id: data.block_id, designer_id: data.designer_id, fast: false})
+                    if(!_.isUndefined(data.callback)) {
+                        data.callback()
+                    }
                 }
             },
             complete: function() {
                 this.dispatch('block/setting/update/end', {designer_id: data.designer_id})
             }
         })
-    })
+    }
+
 
     /**
      * Update setting without Ajax request
