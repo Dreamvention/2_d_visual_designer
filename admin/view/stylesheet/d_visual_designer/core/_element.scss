@@ -131,6 +131,9 @@ input[type=range]{
     margin: 0;
     padding: 0;
     -webkit-appearance: none;
+    &[disabled] {
+        opacity: 0.5;
+    }
     &:focus {
         outline: none!important;
         box-shadow: none!important
