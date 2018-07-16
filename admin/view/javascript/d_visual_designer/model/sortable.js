@@ -169,11 +169,11 @@ function vd_sortable(options) {
             }
             this.allowZones = null
             this.dragging = false
-            this.start_under_id = '';
             this.store.dispatch('block/placeholder/hide', {designer_id: options.designer_id, block_id: this.under_id})
             this.store.dispatch('block/move', {
                 block_id: this.drag_id,
                 target: this.under_id,
+                start_under_id: this.start_under_id,
                 designer_id: options.designer_id,
                 sort_order: data.sort_order,
                 success: function () {
@@ -182,6 +182,7 @@ function vd_sortable(options) {
                     this.store.updateState({drag: drag})
                 }.bind(this)
             })
+            this.start_under_id = '';
         }
     }.bind(this))
 }

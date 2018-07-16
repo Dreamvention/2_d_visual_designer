@@ -83,9 +83,23 @@
                     blocks[data.designer_id][childBlocks[key].id].sort_order += 1
                 }
             }
+
             blocks[data.designer_id][data.block_id].parent = data.target
             blocks[data.designer_id][data.block_id].sort_order = data.sort_order
             this.updateState({blocks: blocks})
+
+            if(data.start_under_id != ''){
+                var block_config_parent = _.find(this.getState().config.blocks, function(block){
+                    return block.type == blocks[data.designer_id][data.start_under_id].type
+                })
+    
+                var childBlocks = this.getBlocks(data.designer_id, data.start_under_id)
+    
+                if (block_config_parent.setting.child && _.size(childBlocks) == 0){
+                    data.block_id = data.start_under_id
+                    this.removeBlock(data.designer_id, data.block_id)
+                }
+            }
         }
         if(data.success){
             data.success()

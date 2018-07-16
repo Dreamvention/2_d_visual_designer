@@ -109,6 +109,7 @@
         "admin/view/template/extension/d_visual_designer/layouts/vd-layout-children.tag",
         "admin/view/template/extension/d_visual_designer/layouts/vd-layout-main.tag",
         "admin/view/template/extension/d_visual_designer/layouts/vd-layout-medium.tag",
+        "admin/view/template/extension/d_visual_designer/elements/vd-adaptive-checkobx.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-collapse.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-image.tag",
         "admin/view/template/extension/d_visual_designer/elements/vd-collapse-item.tag",
