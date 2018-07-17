@@ -143,7 +143,12 @@ class ModelExtensionModuleDVisualDesigner extends Model {
      * @throws Exception
      */
     public function preRender($setting, $content) {
-        $hash = md5(json_encode(array($content, $this->config->get('config_language_id'))));
+        $md5_data = array(
+            'content' => $content,
+            'language_id' => $this->config->get('config_language_id'),
+            'route' => !empty($this->request->get['route'])? $this->request->get['route']:'common/home'
+        );
+        $hash = md5(json_encode($md5_data));
 
         $result = $this->cache->get('vd-pre-render.' . $hash);
         if(!$result) {
