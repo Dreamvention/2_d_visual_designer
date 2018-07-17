@@ -210,9 +210,7 @@
         "catalog/language/russian/extension/d_visual_designer_module/column_inner.php",
         "catalog/language/russian/extension/d_visual_designer_module/text.php",
         "catalog/language/russian/extension/d_visual_designer_module/image.php",
-
-        "catalog/model/extension/d_visual_designer_module/image.php",
-
+        
         "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-row.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-row_inner.tag",
         "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-row_inner.tag",
