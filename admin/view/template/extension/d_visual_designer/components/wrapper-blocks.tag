@@ -1,4 +1,5 @@
-<wrapper-blocks><div data-is="placeholder" if="{placeholder && !_.isEmpty(blocks)}" placeholder_type="{placeholder_type}" sort_order="0" block_id="{parent_id}"/><virtual each="{block in blocks}"><div data-is="vd-layout-{block.layout}" block="{block}"></div><div data-is="placeholder" placeholder_type="{placeholder_type}" sort_order="{block.sort_order+1}" block_id="{parent_id}" if="{placeholder}"/></virtual><div data-is="placeholder" if="{placeholder && _.isEmpty(blocks)}" placeholder_type="{placeholder_type}" sort_order="0" block_id="{parent_id}"/><div class="vd-new-child-block" onClick="{addBlock}" if="{block_config && !drag}"><i class="fal fa-plus-square"></i> {newChildBlockTitle}</div>
+<wrapper-blocks><div data-is="placeholder" if={drag && !_.isEmpty(blocks)} show="{placeholder}" placeholder_type="{placeholder_type}" sort_order="0" block_id="{parent_id}"/><virtual each="{block in blocks}"><div data-is="vd-layout-{block.layout}" block="{block}"></div>
+<div data-is="placeholder" placeholder_type="{placeholder_type}" sort_order="{block.sort_order+1}" block_id="{parent_id}" if={drag} show="{placeholder}"/></virtual><div data-is="placeholder" if={drag && _.isEmpty(blocks)} show="{placeholder}" placeholder_type="{placeholder_type}" sort_order="0" block_id="{parent_id}"/><div class="vd-new-child-block" onClick="{addBlock}" if="{block_config && !drag}"><i class="fal fa-plus-square"></i> {newChildBlockTitle}</div>
 <script>
     this.top = this.parent ? this.parent.top : this
     this.level = _.isUndefined(this.parent.level)? 0 : this.parent.level + 1
@@ -29,6 +30,7 @@
             if(data.block_id == block_id){
                 this.placeholder = true;
                 this.update()
+
             }
         }
     }.bind(this))

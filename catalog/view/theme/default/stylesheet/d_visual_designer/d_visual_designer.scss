@@ -847,8 +847,8 @@ span.module_name {
             font-size: 14px;
             font-weight: 400;
 
-            &#vd-add-button {
-                background: url(../../image/d_visual_designer/add-block.svg) no-repeat 25% center;
+            &.vd-add-block {
+                background: #00aeee url(../../image/d_visual_designer/add-block.svg) no-repeat 25% center;
             }
 
             &.vd-add-text-block {

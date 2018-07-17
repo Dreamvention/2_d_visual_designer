@@ -309,6 +309,11 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $local['designer']['button_wishlist'] = $this->language->get('button_wishlist');
         $local['designer']['button_compare']  = $this->language->get('button_compare');
 
+        $local['designer']['text_welcome_header']  = $this->language->get('text_welcome_header');
+        $local['designer']['text_add_block']  = $this->language->get('text_add_block');
+        $local['designer']['text_add_text_block']  = $this->language->get('text_add_text_block');
+        $local['designer']['text_add_template']  = $this->language->get('text_add_template');
+
         $local['designer']['text_tax'] = $this->language->get('text_tax');
 
         $blocks = $this->{'model_extension_module_' . $this->codename}->getBlocks();
