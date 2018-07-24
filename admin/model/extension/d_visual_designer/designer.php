@@ -514,6 +514,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             $config_block = $this->getSettingBlock($filename);
             if($config_block){
                 $this->load->controller('extension/'.$this->codename.'_module/'.$filename, $config_block['setting']);
+                $this->load->controller('extension/'.$this->codename.'_module/'.$filename.'/setting', $config_block['setting']);
             }
         }
 
