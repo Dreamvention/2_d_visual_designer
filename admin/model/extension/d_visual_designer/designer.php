@@ -257,7 +257,6 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      */
     public function getSetting($setting, $type, $short = false)
     {
-        echo '<pre>'; print_r($type); echo '</pre>';
         if(!empty($this->session->data['vd_test_setting'])){
             $this->session->data['vd_old_blocks'][] = $type;
             return $setting;
