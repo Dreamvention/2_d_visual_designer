@@ -1,5 +1,5 @@
 <visual-designer>
-    <div class="vd mode_switch btn-group" role="group" if={!store.getState().config.independent[opts.id]}>
+    <div class="vd mode_switch" if={!store.getState().config.independent[opts.id]}>
         <a id="button_classic" class="btn btn-default" hide={store.getState().config.mode[opts.id] == 'classic'} onClick={modeClassic}><formatted-message path='designer.text_classic_mode'/></a>
         <a id="button_vd" class="btn btn-default" hide={!store.getState().config.mode[opts.id] || store.getState().config.mode[opts.id] == 'designer'} onClick={modeDesigner}><formatted-message path='designer.text_backend_editor'/></a>
     </div>
