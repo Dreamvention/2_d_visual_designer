@@ -189,6 +189,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
 
         $data['notify'] = $this->{'model_extension_'.$this->codename.'_designer'}->checkCompleteVersion();
 
+        $this->{'model_extension_'.$this->codename.'_designer'}->updateModule();
+
         $data['landing_notify'] = (!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_landing.json'));
         $data['module_notify'] = (!file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_visual_designer_module.json'));
 

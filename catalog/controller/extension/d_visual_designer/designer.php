@@ -31,6 +31,9 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
     public function index($setting)
     {
+
+        $this->{'model_extension_module_'.$this->codename}->updateModule();
+
         $this->load->model('extension/d_opencart_patch/load');
 
         $url_token = '';

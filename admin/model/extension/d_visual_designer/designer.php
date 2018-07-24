@@ -257,6 +257,12 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      */
     public function getSetting($setting, $type, $short = false)
     {
+        echo '<pre>'; print_r($type); echo '</pre>';
+        if(!empty($this->session->data['vd_test_setting'])){
+            $this->session->data['vd_old_blocks'][] = $type;
+            return $setting;
+        }
+
         $this->config->load('d_visual_designer');
 
         $setting_main = $this->config->get('d_visual_designer_default_block_setting');
@@ -484,6 +490,41 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         }
 
         return $return;
+    }
+
+    /**
+     * Update module
+     * @return bool
+     */
+    public function updateModule()
+    {
+
+        $this->load->model('extension/module/'.$this->codename);
+
+        $this->{'model_extension_module_'.$this->codename}->createDatabase();
+
+        $files = glob(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/*.php');
+        
+        $result = array();
+
+        $this->session->data['vd_test_setting'] = true;
+        $this->session->data['vd_old_blocks'] = array();
+
+        foreach($files as $file) {
+            $filename = basename($file, '.php');
+            $config_block = $this->getSettingBlock($filename);
+            if($config_block){
+                $this->load->controller('extension/'.$this->codename.'_module/'.$filename, $config_block['setting']);
+            }
+        }
+
+        unset($this->session->data['vd_test_setting']);
+
+        foreach($this->session->data['vd_old_blocks'] as $type) {
+            rename(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php', DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php_');
+        }
+
+        unset($this->session->data['vd_old_blocks']);
     }
 
     /**
