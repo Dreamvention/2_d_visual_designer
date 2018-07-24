@@ -821,20 +821,17 @@ span.module_name {
             position: relative;
             display: inline-block;
             box-sizing: border-box;
-            min-width: 190px;
+            // min-width: 190px;
             margin: 10px 10px 0;
-            padding: 14px 21px;
+            padding: 14px 14px 14px 35px;
             cursor: pointer;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            -webkit-transition-timing-function: ease-in-out;
             transition-timing-function: ease-in-out;
-            -webkit-transition-duration: .2s;
-            transition-duration: .2s;
-            -webkit-transition-property: color, background, border, opacity, -webkit-transform;
-            transition-property: color, background, border, opacity, transform, -webkit-transform;
+            transition-duration: 0.2s;
+            transition-property: color, background, border, opacity, transform;
             text-align: center;
             vertical-align: middle;
             text-decoration: none;
@@ -848,15 +845,22 @@ span.module_name {
             font-weight: 400;
 
             &.vd-add-block {
-                background: #00aeee url(../../image/d_visual_designer/add-block.svg) no-repeat 25% center;
+                background: url('../../image/d_visual_designer/add-block.svg') no-repeat 15px center #00aeee;
+                background-size: 15px;
             }
 
             &.vd-add-text-block {
-                background-color: #73c02a;
+                background-color: #73C02A;
+                > i {
+                    position: absolute;
+                    left: 15px;
+                    top: calc(50% - 7.5px);
+                }
             }
 
             &.vd-add-template {
-                background: #feb710 url(../../image/d_visual_designer/template-add.svg) no-repeat 15% center;
+                background: #FEB710 url('../../image/d_visual_designer/template-add.svg') no-repeat 15px center;
+                background-size: 15px;
             }
         }
     }

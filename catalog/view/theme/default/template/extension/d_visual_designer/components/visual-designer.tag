@@ -9,11 +9,11 @@
                 <div class="vd-welcome-header"><formatted-message path='designer.text_welcome_header'/></div>
                 <div class="vd-button-group">
                     <a id="vd-add-button" class="vd-button vd-add-block" title="Add Element" onClick={addBlock}><formatted-message path='designer.text_add_block'/></a>
-                    <a id="vd-add-text-block" class="vd-button vd-add-text-block" title="Add text block">
+                    <a id="vd-add-text-block" class="vd-button vd-add-text-block" title="Add text block" onClick={addTextBlock}>
                         <i class="fa fa-pencil-square-o"></i>
                         <formatted-message path='designer.text_add_text_block'/>
                     </a>
-                    <a id="vd-add-template" class="vd-button vd-add-template"><formatted-message path='designer.text_add_template'/></a>
+                    <a id="vd-add-template" class="vd-button vd-add-template" onClick={addTemplate}><formatted-message path='designer.text_add_template'/></a>
                 </div>
                 <div class="vc_welcome-visible-ne">
                     <a id="vc_not-empty-add-element" class="vc_add-element-not-empty-button" title="Add Element" data-vc-element="add-element-action" onClick={addBlock}></a>
@@ -30,7 +30,13 @@
         })
         addBlock() {
             this.store.dispatch('popup/addBlock', {level: 0, parent_id: '', designer_id: this.getState().top.opts.id});
-        }
+        }.bind(this)
+        addTextBlock() {
+            this.store.dispatch('block/new', {type: 'text', designer_id:this.getState().top.opts.id, target: '', level: 0})
+        }.bind(this)
+        addTemplate() {
+            this.store.dispatch('template/list', {designer_id: this.getState().top.opts.id, empty: true});
+        }.bind(this)
         $('body').on('designerSave', function(e, data){
             if(this.getState().top.opts.id == data.designer_id) {
                 this.store.dispatch('content/save', {designer_id: data.designer_id});

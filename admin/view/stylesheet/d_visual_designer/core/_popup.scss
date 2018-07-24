@@ -76,6 +76,10 @@
         }
     }
     &.add_template {
+        @media screen and (max-width: 1580px) {
+            width: 70%;
+            left: 15%;
+        }
         width: 60%;
         left: 20%;
         > .popup-header{

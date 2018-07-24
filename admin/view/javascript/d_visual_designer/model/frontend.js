@@ -26,6 +26,11 @@
         this.external_vd.subscribe('block/setting/begin', function(data) { 
             this.dispatch('block/setting/begin', data) 
         }.bind(this)) 
+        this.external_vd.subscribe('template/list', function(data) { 
+            if(!_.isUndefined(data.empty)){
+                this.dispatch('template/list', data) 
+            }
+        }.bind(this)) 
 
         this.external_vd.subscribe('save_content_success', function() {
             this.alert_handler(this.getLocal('designer.text_success_update'), 'success')

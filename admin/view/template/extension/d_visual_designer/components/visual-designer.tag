@@ -30,7 +30,7 @@
                     <i class="far fa-pencil-square-o"></i>
                     <formatted-message path='designer.text_add_text_block'/>
                 </a>
-                <a id="vd-add-template" class="vd-button vd-add-template"  onClick={addTemplate}><formatted-message path='designer.text_add_template'/></a>
+                <a id="vd-add-template" class="vd-button vd-add-template" onClick={addTemplate}><formatted-message path='designer.text_add_template'/></a>
             </div>
             <div class="vc_welcome-visible-ne">
                 <a id="vc_not-empty-add-element" class="vc_add-element-not-empty-button" title="Add Element" data-vc-element="add-element-action" onClick={addBlock}></a>
