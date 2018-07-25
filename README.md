@@ -5,19 +5,19 @@ The first Visual Page Builder for Opencart.
 
 You can purchase the full version from [Opencart](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=28530) or [Shopunity](https://shopunity.net/index.php?route=extension/extension&extension_id=84)
 
-##Installation and Update
-###With [shopunity](https://shopunity.net/download)
+## Installation and Update
+### With [shopunity](https://shopunity.net/download)
 1. go to shopunity admin panel
 2. go to tab market 
 3. search for Visual Designer
 4. click install
 
-###With FTP  (shopunity required)
+### With FTP  (shopunity required)
 1. Download the archive
 2. Unzip
 3. Upload into your opencart root folder
 
-###When the Visual designer is visible in the admin panel
+### When the Visual designer is visible in the admin panel
 1. Click install Visual Designer
 2. Click edit Visual Designer
 3. Set status to enabled and click save.
@@ -25,12 +25,12 @@ You can purchase the full version from [Opencart](https://www.opencart.com/index
 Now you can edit your Category, Product and Information Description using the best visual page builder for opencart.
 
 
-#API
+# API
 You can extend the functionality of Visual Designer by creating your very own Visual Designer Module. 
 
 To create a module you will need to setup a special file structure and specify the api methods. You can find an example here.
 
-##File structure of a module
+## File structure of a module
 This is a minimum file structure your module should have to properly work with VD.
 ```
 my_vd_module
@@ -89,8 +89,8 @@ my_vd_module
 			
 ```
 
-##admin
-###admin/controller
+## admin
+### admin/controller
 > The controller must have the following methods
 
 ```php
@@ -168,7 +168,7 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 ```
 
 
-###admin/language
+### admin/language
 every module gets it's own language file. It must have the following parameters:
 
 ```php
@@ -181,11 +181,11 @@ $_['text_description']		= 'Helps me display text';
 $_['entry_text']			= 'Text';
 ```
 
-###admin/view
+### admin/view
 the view will always have two tpl files: one to display the building block and one to display settings input fields. It is best to add all the html, custom javascript and custom styles directly here - this way you will have a clean component, which is much easier to manager. Please, always keep your styles and javascript scoped to your component, so that they do not conflict with the rest of your modules.
 
 **admin/view/template/d_visual_designer/content_blocks/vd-block-my_vd_module.tag**
-```
+```html
 <vd-block-my_vd_module>
         <raw html={getState().setting.user.text}/>
     <script>
@@ -195,7 +195,7 @@ the view will always have two tpl files: one to display the building block and o
 ```
 
 **admin/view/template/d_visual_designer/settings_block/vd-setting-block-my_vd_module.tag**
-```
+```html
 <vd-setting-block-my_vd_module>
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.my_vd_module.entry_text')}</label>
@@ -220,17 +220,17 @@ the view will always have two tpl files: one to display the building block and o
 ```
 
 **admin/view/template/d_visual_designer_module/my_vd_module.twig**
-```
+```twig
 <div class="{{ setting.global.additional_css_class }}" style="{{ styles }}">{{setting.user.text}}</div>
 ```
 
 
 
-##Catalog
-###catalog/controller
+## Catalog
+### catalog/controller
 same as in admin, the controller must have `index($setting)`, `local()`, `options()`, `scripts()` and `styles()` methods.
 
-```
+```php
 <?php
 
 class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
@@ -291,10 +291,10 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 }
 ```
 
-###catalog/language
+### catalog/language
 add required block title and description, followed by setting labels.
 
-```
+```php
 <?php
 //text
 $_['text_title']       = 'Text Box';
@@ -304,15 +304,15 @@ $_['text_description'] = 'A block of text with WYSIWYG editor';
 $_['entry_text']       = 'Text';
 ```
 
-###catalog/model/d_visual_designer_module
+### catalog/model/d_visual_designer_module
 If you need to add methods to work with the database etc. you must add your model files here to keep all VD files in one location.
 
-###catalog/view
+### catalog/view
 The view like in admin must have the tpl for displaying the block and settings form. It is also recomended to keep all the styles and javascript together with html and scoped to this html only. 
 > in many cases your catalog will be a mirror of your admin files. It is ok. 
 
 **catalog/view/theme/default/template/d_visual_designer/content_blocks/vd-block-my_vd_module.tag**
-```
+```html
 <vd-block-my_vd_module>
         <raw html={getState().setting.user.text}/>
     <script>
@@ -322,14 +322,13 @@ The view like in admin must have the tpl for displaying the block and settings f
 ```
 
 **catalog/view/theme/default/template/d_visual_designer_module/my_vd_module.twig**
-```
+```twig
 <div class=" {{ setting.global.additional_css_class }}" style="{{ styles }}">{{setting.user.text}}</div>
-
 ```
 
 
-##System
-###system/config
+## System
+### system/config
 You will need to specify the default values of you module, as well as toggle the basic styling options that Visual Designer offers to every builing block module.
 ```php
 <?php
@@ -373,7 +372,7 @@ $_['setting'] = array(
     'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in erat eu lacus varius venenatis ut ac urna.'
 );
 ```
-###system/library/d_shopunity
+### system/library/d_shopunity
 Mbooth (module booth) is part of the Shopunity.net extension manager module. It keeps the most important information about you module like codename, version, files and folders and even changelog. It is your responsibility as a developer to keep this file accurate and upto date. 
 
 **system/library/d_Shopunity/extension/my_vd_module.json**
