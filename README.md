@@ -231,6 +231,8 @@ the view will always have two tpl files: one to display the building block and o
 same as in admin, the controller must have `index($setting)`, `local()`, `options()`, `scripts()` and `styles()` methods.
 
 ```
+<?php
+
 class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	/**
 	 * module codename - keep it simple yet unique. add prefix
