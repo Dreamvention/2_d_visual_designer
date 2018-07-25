@@ -16,7 +16,7 @@ class ControllerExtensionDVisualDesignerModuleText extends Controller
     }
     
     public function index($setting)
-    {           
+    {
         $data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
         
         return $data;

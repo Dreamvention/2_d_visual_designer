@@ -491,10 +491,12 @@ class ModelExtensionModuleDVisualDesigner extends Model {
     public function getSetting($setting, $type){
 
         if(!empty($this->session->data['vd_test_setting'])){
-            $this->session->data['vd_old_blocks'][] = $type;
+            rename(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php', DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php_');
+            unset($this->session->data['vd_test_setting']);
             return $setting;
         }
 
+        $this->session->data['vd_test_setting'] = true;
         $this->config->load('d_visual_designer');
 
         $setting_main = $this->config->get('d_visual_designer_default_block_setting');
@@ -535,6 +537,8 @@ class ModelExtensionModuleDVisualDesigner extends Model {
         $globalUserSetting = $this->prepareUserSetting($result);
 
         $userSetting = array_merge($globalUserSetting, $userSetting);
+
+        unset($this->session->data['vd_test_setting']);
 
         return array('global'=>$result, 'user' => $userSetting);
     }
@@ -614,37 +618,5 @@ class ModelExtensionModuleDVisualDesigner extends Model {
             }
             file_put_contents($folder."compress/content_blocks.tag", file_get_contents($file).PHP_EOL, FILE_APPEND);
         }
-    }
-
-        /**
-     * Update module
-     * @return bool
-     */
-    public function updateModule()
-    {
-
-        $files = glob(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/*.php');
-
-        $result = array();
-
-        $this->session->data['vd_test_setting'] = true;
-        $this->session->data['vd_old_blocks'] = array();
-
-        foreach($files as $file) {
-            $filename = basename($file, '.php');
-            $config_block = $this->getSettingBlock($filename);
-            if($config_block){
-                $this->vd_block->load($filename, 'index', $config_block['setting']);
-                $this->vd_block->load($filename, 'setting', $config_block['setting']);
-            }
-        }
-
-        unset($this->session->data['vd_test_setting']);
-
-        foreach($this->session->data['vd_old_blocks'] as $type) {
-            rename(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php', DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php_');
-        }
-        
-        unset($this->session->data['vd_old_blocks']);
     }
 }
