@@ -36,56 +36,56 @@ This is a minimum file structure your module should have to properly work with V
 my_vd_module
 │
 ├─admin 
-│	├─controller
-│	│	└─extension
-|	|		 └─d_visual_designer_module
-│	│			 └─my_vd_module.php				#Methods index($setting) and setting($setting) are required
-│	├─language
-│	│	└─en-gb 
-│	│		 └─extension						#before 2.2.0.0 it was english.
-│	│			 └─d_visual_designer_module
-│	│				 └─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
-│	└─view
-│	    └─extension
-│		├─d_visual_designer
-│		|	├─content_blocks
-│		|	|	└─vd-block-my_vd_block.tag			#display the $setting data. Also you can add styles directly here.
-|		|	└─settings_block
-│		|		└─vd-setting-block-my_vd_block.tag		#add setting form input
-│		└─d_visual_designer_module
-│			└─my_vd_module.twig					#display the $setting data. Also you can add styles directly here.
+│    ├─controller
+│    │	└─extension
+|    |      └─d_visual_designer_module
+│    │    	└─my_vd_module.php				#Methods index($setting) and setting($setting) are required
+│    ├─language
+│    │	└─en-gb 
+│    │	    └─extension						#before 2.2.0.0 it was english.
+│    │	    	 └─d_visual_designer_module
+│    │	    		 └─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
+│    └─view
+│       └─extension
+│    	    ├─d_visual_designer
+│    	    |	├─content_blocks
+│    	    |	|	└─vd-block-my_vd_block.tag		#display the $setting data. Also you can add styles directly here.
+|    	    |	└─settings_block
+│    	    |		└─vd-setting-block-my_vd_block.tag	#add setting form input
+│    	    └─d_visual_designer_module
+│    	    	└─my_vd_module.twig				#display the $setting data. Also you can add styles directly here.
 ├─catalog
-│	├─controller
-│	│	└─extension
-│	│		└─d_visual_designer_module
-│	│			└─my_vd_module.php				#Methods index($setting) and setting($setting) are required
-│	├─language
-│	│	└─en-gb
-│	│		└─extension
-│	│			└─d_visual_designer_module
-│	│				└─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
-│	├─model
-│	│	└─extension
-│	│		 └─d_visual_designer_module
-│	│		 	└─my_vd_module.php				#add model methods here if you module require.
-│	└─view
-│	   └─extension
-│		├─d_visual_designer
-│		|	├─content_blocks
-│		|	|	└─vd-block-my_vd_block.tag			#display the $setting data. Also you can add styles directly here.
-|		|	└─settings_block
-│		|		└─vd-setting-block-my_vd_block.tag		#add setting form input
-│		└─d_visual_designer_module
-│			└─my_vd_module.twig					#display the $setting data. Also you can add styles directly here
+│    ├─controller
+│    │	└─extension
+|    |      └─d_visual_designer_module
+│    │    	└─my_vd_module.php				#Methods index($setting) and setting($setting) are required
+│    ├─language
+│    │	└─en-gb
+│    │	    └─extension
+│    │	    	└─d_visual_designer_module
+│    │		    	└─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
+│    ├─model
+│    │	└─extension
+|    |      └─d_visual_designer_module
+│    │		    	└─my_vd_module.php			#add model methods here if you module require.
+│    └─view
+│       └─extension
+│    	    ├─d_visual_designer
+│    	    |	├─content_blocks
+│    	    |	|	└─vd-block-my_vd_block.tag		#display the $setting data. Also you can add styles directly here.
+│    	    |	└─settings_block
+│    	    |		└─vd-setting-block-my_vd_block.tag	#add setting form input
+│    	    └─d_visual_designer_module
+│    		└─my_vd_module.twig				#display the $setting data. Also you can add styles directly here
 └─system
     ├─config
     │	└─d_visual_designer
-    │		└─my_vd_module.php						#default settings for your module
+    │		└─my_vd_module.php				#default settings for your module
     └─system
     	└─library
     		└─d_shopunity
     			└─extension
-    				└─my_vd_module.json				#Add d_shopunity mbooth.json
+    				└─my_vd_module.json		#Add d_shopunity mbooth.json
 			
 ```
 
