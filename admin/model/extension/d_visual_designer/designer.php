@@ -257,10 +257,13 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      */
     public function getSetting($setting, $type, $short = false)
     {
-        if(!empty($this->session->data['vd_test_setting'])){
-            rename(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php', DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php_');
+        if (!empty($this->session->data['vd_test_setting'])) {
+            if(file_exists(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php')) {
+                rename(DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php', DIR_APPLICATION.'controller/extension/'.$this->codename.'_module/'.$type.'.php_');
+            }
+            
             unset($this->session->data['vd_test_setting']);
-            return $setting;
+            return array('global'=>$setting, 'user' => array(), 'edit' => array());
         }
 
         $this->session->data['vd_test_setting'] = true;
@@ -299,7 +302,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         if (!$short) {
             $userSetting = $this->load->controller('extension/d_visual_designer_module/'.$type, $result);
 
-            if (!$userSetting) {
+            if (!$userSetting || !is_array($userSetting)) {
                 $userSetting = array();
             }
 
@@ -311,7 +314,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         }
         $editSetting = $this->load->controller('extension/d_visual_designer_module/'.$type.'/setting', $result);
 
-        if (!$editSetting) {
+        if (!$editSetting || !is_array($editSetting)) {
             $editSetting = array();
         }
 
