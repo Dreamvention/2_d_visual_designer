@@ -187,9 +187,14 @@ the view will always have two tpl files: one to display the building block and o
 **admin/view/template/d_visual_designer/content_blocks/vd-block-my_vd_module.tag**
 ```html
 <vd-block-my_vd_module>
-        <raw html={getState().setting.user.text}/>
+    <span>{block_config.title}</span>
     <script>
-        this.mixin(new vd_block(this))
+        this.top = this.parent ? this.parent.top : this
+        this.level = this.parent.level
+        this.mixin({store:d_visual_designer})
+        this.block_config = _.find(this.store.getState().config.blocks, function(block){
+            return block.type == opts.block.type
+        })
     </script>
 </vd-block-my_vd_module>
 ```
@@ -375,7 +380,7 @@ $_['setting'] = array(
 ### system/library/d_shopunity
 Mbooth (module booth) is part of the Shopunity.net extension manager module. It keeps the most important information about you module like codename, version, files and folders and even changelog. It is your responsibility as a developer to keep this file accurate and upto date. 
 
-**system/library/d_Shopunity/extension/my_vd_module.json**
+**system/library/d_shopunity/extension/my_vd_module.json**
 ```json
 {
     "codename": "my_vd_module",
