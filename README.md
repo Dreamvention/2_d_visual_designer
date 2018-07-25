@@ -37,38 +37,55 @@ my_vd_module
 │
 ├─admin 
 │	├─controller
-│	│	└─d_visual_designer_module
-│	│		└─my_vd_module.php				#Methods index($setting) and setting($setting) are required
+│	│	└─extension
+|	|		 └─d_visual_designer_module
+│	│			 └─my_vd_module.php				#Methods index($setting) and setting($setting) are required
 │	├─language
-│	│	└─en-gb 							#before 2.2.0.0 it was english.
-│	│		└─d_visual_designer_module
-│	│			└─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
+│	│	└─en-gb 
+│	│		 └─extension						#before 2.2.0.0 it was english.
+│	│			 └─d_visual_designer_module
+│	│				 └─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
 │	└─view
-│		└─d_visual_designer_module
-│			├─my_vd_module_setting.tpl		#add setting form input
-│			└─my_vd_module.tpl				#display the $setting data. Also you can add styles directly here.
+│		└─extension
+│			├─d_visual_designer
+│			|	├─content_blocks
+│			|	|	└─vd-block-my_vd_block.tag		#display the $setting data. Also you can add styles directly here.
+|			|	└─settings_block
+│			|		└─vd-setting-block-my_vd_block.tag	#add setting form input
+│			└─d_visual_designer_module
+│				└─my_vd_module.twig				#display the $setting data. Also you can add styles directly here.
 ├─catalog
 │	├─controller
-│	│	└─d_visual_designer_module
-│	│		└─my_vd_module.php				#Methods index($setting) and setting($setting) are required
+│	│	└─extension
+│	│		└─d_visual_designer_module
+│	│			└─my_vd_module.php				#Methods index($setting) and setting($setting) are required
 │	├─language
 │	│	└─en-gb
-│	│		└─d_visual_designer_module
-│	│			└─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
+│	│		└─extension
+│	│			└─d_visual_designer_module
+│	│				└─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
 │	├─model
-│	│	└─d_visual_designer_module
-│	│		└─my_vd_module.php				#add model methods here if you module require.
+│	│	└─extension
+│	│		 └─d_visual_designer_module
+│	│		 	└─my_vd_module.php				#add model methods here if you module require.
 │	└─view
-│		└─d_visual_designer_module
-│			├─my_vd_module_setting.tpl		#add setting form input
-│			└─my_vd_module.tpl				#display the $setting data. Also you can add styles directly here
+│		└─extension
+│			├─d_visual_designer
+│			|	├─content_blocks
+│			|	|	└─vd-block-my_vd_block.tag		#display the $setting data. Also you can add styles directly here.
+|			|	└─settings_block
+│			|		└─vd-setting-block-my_vd_block.tag	#add setting form input
+│			└─d_visual_designer_module
+│				└─my_vd_module.twig				#display the $setting data. Also you can add styles directly here
 └─system
 	├─config
 	│	└─d_visual_designer
-	│		└─my_vd_module.php				#default settings for your module
-	└─mbooth
-		└─extension
-			└─my_vd_module.json				#Add d_shopunity mbooth.json
+	│		└─my_vd_module.php					#default settings for your module
+	└─system
+		└─library
+			└─d_shopunity
+				└─extension
+					└─my_vd_module.json			#Add d_shopunity mbooth.json
 			
 ```
 
@@ -82,12 +99,12 @@ my_vd_module
  *	location: admin/controller
  */
 
-class ControllerDVisualDesignerModuleMyVDModule extends Controller {
+class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	/**
 	 * module codename - keep it simple yet unique. add prefix
 	 */
 	private $codename = 'my_vd_module';
-	private $route = 'd_visual_designer_module/my_vd_module';
+	private $route = 'extension/d_visual_designer_module/my_vd_module';
 
 	/**
 	 * share loaded language files and models with all methods
@@ -96,31 +113,35 @@ class ControllerDVisualDesignerModuleMyVDModule extends Controller {
 		parent::__construct($registry);
 		
 		$this->load->language($this->route);
-		$this->load->model('d_visual_designer/designer');
 	}
 	
 	/**
-	 * returns the module block view. Required
+	 * returns the module block view. Optional
 	 */
 	public function index($setting){
 
-		$data['setting'] = $this->model_d_visual_designer_designer->getSetting($setting, $this->codename);
+		$data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
 		
-		$data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-		
-		return $this->load->view($this->route.'.tpl', $data);
+		return $data;
 	}
 	
 	/**
-	 * returns the module settings view. Required
+	 * returns the module settings view. Optional
 	 */
 	public function setting($setting){
 
-		$data['entry_text'] = $this->language->get('entry_text');
-		$data['setting'] = $this->model_d_visual_designer_designer->getSetting($setting, $this->codename);
-		$data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
+		$data['text'] = html_entity_decode(htmlspecialchars_decode($data['text']), ENT_QUOTES, 'UTF-8');
 		
-		return $this->load->view($this->route.'_setting.tpl', $data);
+		return $data;
+	}
+
+	/**
+	 * returns the module settings view. Optional
+	 */
+	public function local() {
+		$data['entry_text'] = $this->language->get('entry_text');
+
+		return $data;
 	}
 }
 ```
@@ -143,12 +164,12 @@ $_['entry_text']			= 'Text';
 the view will always have two tpl files: one to display the building block and one to display settings input fields. It is best to add all the html, custom javascript and custom styles directly here - this way you will have a clean component, which is much easier to manager. Please, always keep your styles and javascript scoped to your component, so that they do not conflict with the rest of your modules.
 
 
-**catalog/view/template/d_visual_designer_module/my_vd_module.tpl**
+**catalog/view/template/d_visual_designer_module/my_vd_module.twig**
 ```
-<div><?php echo $setting['text']; ?></div>
+<div><?php echo $setting['global']['text']; ?></div>
 ```
 
-**catalog/view/template/d_visual_designer_module/my_vd_module_setting.tpl**
+**catalog/view/template/d_visual_designer_module/my_vd_module_setting.twig**
 ```html
 <div class="form-group">
     <label class="control-label"><?php echo $entry_text; ?></label>
