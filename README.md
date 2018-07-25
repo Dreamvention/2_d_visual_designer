@@ -150,6 +150,20 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	public function options() {
 		return array();
 	}
+
+	/**
+	 * returns the styles. Optional
+	 */
+	public function styles() {
+		return array();
+	}
+
+	/**
+	 * returns the scripts. Optional
+	 */
+	public function scripts() {
+		return array();
+	}
 }
 ```
 
@@ -214,7 +228,7 @@ the view will always have two tpl files: one to display the building block and o
 
 ##Catalog
 ###catalog/controller
-same as in admin, the controller must have `index($setting)`, `local()` and `options()` methods.
+same as in admin, the controller must have `index($setting)`, `local()`, `options()`, `scripts()` and `styles()` methods.
 
 ```
 class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
@@ -258,6 +272,20 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	public function options() {
 		return array();
 	}
+
+	/**
+	 * returns the styles. Optional
+	 */
+	public function styles() {
+		return array();
+	}
+
+	/**
+	 * returns the scripts. Optional
+	 */
+	public function scripts() {
+		return array();
+	}
 }
 ```
 
@@ -281,22 +309,20 @@ If you need to add methods to work with the database etc. you must add your mode
 The view like in admin must have the tpl for displaying the block and settings form. It is also recomended to keep all the styles and javascript together with html and scoped to this html only. 
 > in many cases your catalog will be a mirror of your admin files. It is ok. 
 
-**catalog/view/theme/default/template/d_visual_designer_module/my_vd_module.tpl**
+**catalog/view/theme/default/template/d_visual_designer/content_blocks/vd-block-my_vd_module.tag**
 ```
-<div><?php echo $setting['text']; ?></div>
+<vd-block-my_vd_module>
+        <raw html={getState().setting.user.text}/>
+    <script>
+        this.mixin(new vd_block(this))
+    </script>
+</vd-block-my_vd_module>
 ```
 
-**catalog/view/theme/default/template/d_visual_designer_module/my_vd_module_setting.tpl**
+**catalog/view/theme/default/template/d_visual_designer_module/my_vd_module.twig**
 ```
-<div class="form-group">
-    <label class="control-label"><?php echo $entry_text; ?></label>
-    <div class="fg-setting">
-        <textarea class="form-control" name="text"><?php echo $setting['text']; ?></textarea>
-    </div>
-</div>
-<script>
-    $('textarea[name=text]').summernote({height:'200px'});
-</script>
+<div class=" {{ setting.global.additional_css_class }}" style="{{ styles }}">{{setting.user.text}}</div>
+
 ```
 
 
@@ -307,6 +333,8 @@ You will need to specify the default values of you module, as well as toggle the
 <?php
 //should this block be displayed in popup block list window 
 $_['display']         = true;
+//Sort order
+$_['sort_order']       = 1;
 //Pick a category for you module (three at the moment content, social, structure)
 $_['category'] = 'cotent';
 //Should the name of the module be displayed
@@ -330,16 +358,23 @@ $_['button_copy']     = true ;
 $_['button_collapse'] = true;
 //display remove button
 $_['button_remove']   = true;
+//Available pre-renderer
+$_['pre_render'] = true;
+//Save to html
+$_['save_html'] = true;
+//Field types
+$_['types'] = array(
+    'text' => 'string'
+);
 //custom settings of your module
 $_['setting'] = array(
-    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in erat eu lacus varius venenatis ut ac urna.',
-    'design_margin_bottom' => '15px'
+    'text' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in erat eu lacus varius venenatis ut ac urna.'
 );
 ```
-###system/mbooth
+###system/library/d_shopunity
 Mbooth (module booth) is part of the Shopunity.net extension manager module. It keeps the most important information about you module like codename, version, files and folders and even changelog. It is your responsibility as a developer to keep this file accurate and upto date. 
 
-**system/mbooth/extension/my_vd_module.json**
+**system/library/d_Shopunity/extension/my_vd_module.json**
 ```json
 {
     "codename": "my_vd_module",
@@ -353,16 +388,21 @@ Mbooth (module booth) is part of the Shopunity.net extension manager module. It 
     },
     "opencart_version": [
         "2.0.0.0",
-        "2.0.1.1",
+        "2.0.1.0",
         "2.0.1.1",
         "2.0.2.0",
         "2.0.3.1",
         "2.1.0.1",
         "2.1.0.2",
         "2.2.0.0",
-        "2.3.0.2"
+        "2.3.0.0",
+        "2.3.0.1",
+        "2.3.0.2",
+        "3.0.0.0",
+        "3.0.1.1",
+        "3.0.1.2",
+        "3.0.2.0"
     ],
-    "mbooth_version": "^4.0.0",
     "type": "module",
     "license": {
         "type": "free",
@@ -373,23 +413,24 @@ Mbooth (module booth) is part of the Shopunity.net extension manager module. It 
         "url": "https://developer.com/support"
     },
     "required": {
-        "d_visual_designer": ">= 1.0.0"
+        "d_visual_designer": ">= 3.0.0"
     },
     "files": [
-        "admin/controller/d_visual_designer_module/my_vd_module.php",
-        "admin/language/en-gb/d_visual_designer_module/my_vd_module.php",
-        "admin/language/english/d_visual_designer_module/my_vd_module.php",
-        "admin/view/template/d_visual_designer_module/my_vd_module.tpl",
-        "admin/view/template/d_visual_designer_module/my_vd_module_setting.tpl",
+        "admin/controller/extension/d_visual_designer_module/my_vd_module.php",
+        "admin/language/en-gb/extension/d_visual_designer_module/my_vd_module.php",
+        "admin/language/english/extension/d_visual_designer_module/my_vd_module.php",
+        "admin/view/template/extension/d_visual_designer/content_blocks/vd-block-my_vd_module.tag",
+        "admin/view/template/extension/d_visual_designer/settings_block/vd-setting-block-my_vd_module.tag",
+        "admin/view/template/extension/d_visual_designer_module/my_vd_module.twig",
 
-        "catalog/controller/d_visual_designer_module/my_vd_module.php",
-        "catalog/language/en-gb/d_visual_designer_module/my_vd_module.php",
-        "catalog/language/english/d_visual_designer_module/my_vd_module.php",
-        "catalog/model/d_visual_designer_module/my_vd_module.php",
-        "catalog/view/theme/default/template/d_visual_designer_module/my_vd_module.tpl",
-        "catalog/view/theme/default/template/d_visual_designer_module/my_vd_module_setting.tpl",
+        "catalog/controller/extension/d_visual_designer_module/my_vd_module.php",
+        "catalog/language/en-gb/extension/d_visual_designer_module/my_vd_module.php",
+        "catalog/language/english/extension/d_visual_designer_module/my_vd_module.php",
+        "catalog/model/extension/d_visual_designer_module/my_vd_module.php",
+        "catalog/view/theme/default/template/extension/d_visual_designer/content_blocks/vd-block-my_vd_module.tag",
+        "catalog/view/theme/default/template/extension/d_visual_designer_module/my_vd_module.twig",
         
-        "system/mbooth/extension/my_vd_module.json",
+        "system/library/d_shopunity/extension/my_vd_module.json",
         "system/config/d_visual_designer/my_vd_module.php"
     ],
     "changelog": [
