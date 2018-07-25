@@ -116,7 +116,7 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	}
 	
 	/**
-	 * returns the module block view. Optional
+	 * returns user settings. Optional
 	 */
 	public function index($setting){
 
@@ -126,7 +126,7 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	}
 	
 	/**
-	 * returns the module settings view. Optional
+	 * returns the settings for editing. Optional
 	 */
 	public function setting($setting){
 
@@ -136,12 +136,19 @@ class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
 	}
 
 	/**
-	 * returns the module settings view. Optional
+	 * returns the localization. Optional
 	 */
 	public function local() {
 		$data['entry_text'] = $this->language->get('entry_text');
 
 		return $data;
+	}
+	
+	/**
+	 * returns the options. Optional
+	 */
+	public function options() {
+		return array();
 	}
 }
 ```
@@ -163,64 +170,93 @@ $_['entry_text']			= 'Text';
 ###admin/view
 the view will always have two tpl files: one to display the building block and one to display settings input fields. It is best to add all the html, custom javascript and custom styles directly here - this way you will have a clean component, which is much easier to manager. Please, always keep your styles and javascript scoped to your component, so that they do not conflict with the rest of your modules.
 
-
-**catalog/view/template/d_visual_designer_module/my_vd_module.twig**
+**admin/view/template/d_visual_designer/content_blocks/vd-block-my_vd_module.tag**
 ```
-<div><?php echo $setting['global']['text']; ?></div>
+<vd-block-my_vd_module>
+        <raw html={getState().setting.user.text}/>
+    <script>
+        this.mixin(new vd_block(this))
+    </script>
+</vd-block-my_vd_module>
 ```
 
-**catalog/view/template/d_visual_designer_module/my_vd_module_setting.twig**
-```html
+**admin/view/template/d_visual_designer/settings_block/vd-setting-block-my_vd_module.tag**
+```
+<vd-setting-block-my_vd_module>
 <div class="form-group">
-    <label class="control-label"><?php echo $entry_text; ?></label>
+    <label class="control-label">{store.getLocal('blocks.my_vd_module.entry_text')}</label>
     <div class="fg-setting">
-        <textarea class="form-control" name="text"><?php echo $setting['text']; ?></textarea>
+        <vd-summernote name={'text'} value={setting.edit.text} evchange={change}/>
     </div>
 </div>
 <script>
-	//add summernote to your textarea
-    $('textarea[name=text]').summernote({height:'200px'});
+    this.mixin({store:d_visual_designer})
+    this.setting = this.opts.block.setting
+    this.on('update', function(){
+        this.setting = this.opts.block.setting
+    })
+    change(name, value){
+        this.setting.global[name] = value
+        this.setting.user[name] = value
+        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
+        this.update()
+    }
 </script>
-
+</vd-setting-block-my_vd_module>
 ```
+
+**admin/view/template/d_visual_designer_module/my_vd_module.twig**
+```
+<div class="{{ setting.global.additional_css_class }}" style="{{ styles }}">{{setting.user.text}}</div>
+```
+
 
 
 ##Catalog
 ###catalog/controller
-same as in admin, the controller must have `index($setting)` and `setting($setting)` methods.
+same as in admin, the controller must have `index($setting)`, `local()` and `options()` methods.
 
 ```
-<?php
-/*
- *	location: admin/controller
- */
+class ControllerExtensionDVisualDesignerModuleMyVDModule extends Controller {
+	/**
+	 * module codename - keep it simple yet unique. add prefix
+	 */
+	private $codename = 'my_vd_module';
+	private $route = 'extension/d_visual_designer_module/my_vd_module';
 
-class ControllerDVisualDesignerModuleText extends Controller {
-	private $codename = 'text';
-	private $route = 'd_visual_designer_module/text';
-
+	/**
+	 * share loaded language files and models with all methods
+	 */
 	public function __construct($registry) {
 		parent::__construct($registry);
 		
 		$this->load->language($this->route);
-		$this->load->model('module/d_visual_designer');
 	}
 	
+	/**
+	 * returns user settings. Optional
+	 */
 	public function index($setting){
+
+		$data['text'] = html_entity_decode(htmlspecialchars_decode($setting['text']), ENT_QUOTES, 'UTF-8');
 		
-		$data['setting'] = $this->model_module_d_visual_designer->getSetting($setting, $this->codename);
-		$data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-		
-		$this->model_module_d_visual_designer->loadView($this->route, $data);
+		return $data;
+	}
+
+	/**
+	 * returns the localization. Optional
+	 */
+	public function local() {
+		$data['entry_text'] = $this->language->get('entry_text');
+
+		return $data;
 	}
 	
-	public function setting($setting){
-
-		$data['entry_text'] = $this->language->get('entry_text');
-		$data['setting'] = $this->model_module_d_visual_designer->getSetting($setting, $this->codename);
-		$data['setting']['text'] = html_entity_decode(htmlspecialchars_decode($data['setting']['text']), ENT_QUOTES, 'UTF-8');
-		
-		$this->model_module_d_visual_designer->loadView($this->route.'_setting', $data);
+	/**
+	 * returns the options. Optional
+	 */
+	public function options() {
+		return array();
 	}
 }
 ```
