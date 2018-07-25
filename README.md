@@ -47,13 +47,13 @@ my_vd_module
 │	│				 └─my_vd_module.php			#language text. $_['text_title'] and $_['text_description'] are required.
 │	└─view
 │	    └─extension
-│			├─d_visual_designer
-│			|	├─content_blocks
-│			|	|	└─vd-block-my_vd_block.tag		#display the $setting data. Also you can add styles directly here.
-|			|	└─settings_block
-│			|		└─vd-setting-block-my_vd_block.tag	#add setting form input
-│			└─d_visual_designer_module
-│				└─my_vd_module.twig				#display the $setting data. Also you can add styles directly here.
+│		├─d_visual_designer
+│		|	├─content_blocks
+│		|	|	└─vd-block-my_vd_block.tag			#display the $setting data. Also you can add styles directly here.
+|		|	└─settings_block
+│		|		└─vd-setting-block-my_vd_block.tag		#add setting form input
+│		└─d_visual_designer_module
+│			└─my_vd_module.twig					#display the $setting data. Also you can add styles directly here.
 ├─catalog
 │	├─controller
 │	│	└─extension
@@ -78,14 +78,14 @@ my_vd_module
 │		└─d_visual_designer_module
 │			└─my_vd_module.twig					#display the $setting data. Also you can add styles directly here
 └─system
-	├─config
-	│	└─d_visual_designer
-	│		└─my_vd_module.php					#default settings for your module
-	└─system
-		└─library
-			└─d_shopunity
-				└─extension
-					└─my_vd_module.json			#Add d_shopunity mbooth.json
+    ├─config
+    │	└─d_visual_designer
+    │		└─my_vd_module.php						#default settings for your module
+    └─system
+    	└─library
+    		└─d_shopunity
+    			└─extension
+    				└─my_vd_module.json				#Add d_shopunity mbooth.json
 			
 ```
 
