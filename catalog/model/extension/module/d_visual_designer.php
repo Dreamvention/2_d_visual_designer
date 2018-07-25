@@ -502,7 +502,7 @@ class ModelExtensionModuleDVisualDesigner extends Model
             }
             
             unset($this->session->data['vd_test_setting']);
-            return array('global'=>$setting, 'user' => array());
+            return $setting;
         }
 
         $this->session->data['vd_test_setting'] = true;
