@@ -502,13 +502,30 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * Install template
      */
 
+     public function checkInstallModule() {
+        $this->load->model('extension/d_opencart_patch/extension');
+
+        if(!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
+            return false;
+        }
+
+        $this->load->model('setting/setting');
+
+        $setting_module = $this->model_setting_setting->getSetting($this->codename);
+
+        if(!$setting_module) {
+            return false;
+        }
+        return true;
+     }
+
     /**
      * Check config enabled
      * @param $config_name
      * @return bool
      * @throws Exception
      */
-    public function checkConfig($config_name)
+    public function checkConfig($config_name = false)
     {
         $this->load->model('extension/d_opencart_patch/extension');
 
@@ -526,11 +543,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             $this->load->config($this->codename);
             $setting = $this->config->get($this->codename.'_setting');
         }
-
-        if(!in_array($config_name, $setting['use'])) {
-            return false;
-        }
-
+        
         if(!empty($setting_module[$this->codename.'_status'])){
             $status = $setting_module[$this->codename.'_status'];
         } else {
@@ -541,6 +554,20 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             return false;
         }
 
+        if ($config_name) {
+            if (is_array($config_name)) {
+                foreach ($config_name as $value) {
+                    if (!in_array($value, $setting['use'])) {
+                        return false;
+                    }
+                }
+            } else {
+                if (!in_array($config_name, $setting['use'])) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
@@ -549,7 +576,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * @param $config_name
      * @throws Exception
      */
-    public function installConfig($config_name) {
+    public function installConfig($config_name = false) {
         $this->load->model('extension/d_opencart_patch/extension');
         $this->load->model('extension/d_opencart_patch/setting');
         $this->load->model('extension/d_opencart_patch/user');
@@ -571,10 +598,18 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
         if(!empty($setting_module[$this->codename.'_setting'])){
             $setting = $setting_module[$this->codename.'_setting'];
-
-            if(!in_array($config_name, $setting['use'])) {
-                $setting['use'][] = $config_name;
-                $setting_module[$this->codename.'_setting'] = $setting;
+            if(is_array($config_name)) {
+                foreach($config_name as $value) {
+                    if(!in_array($value, $setting['use'])) {
+                        $setting['use'][] = $value;
+                        $setting_module[$this->codename.'_setting'] = $setting;
+                    }
+                }
+            } else {
+                if(!in_array($config_name, $setting['use'])) {
+                    $setting['use'][] = $config_name;
+                    $setting_module[$this->codename.'_setting'] = $setting;
+                }
             }
 
             $this->load->controller('extension/'.$this->codename.'/setting/uninstallEvents');
@@ -586,7 +621,13 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             $this->load->config($this->codename);
             $setting = $this->config->get($this->codename.'_setting');
 
-            $setting['use'][] = $config_name;
+            if (is_array($config_name)) {
+                foreach ($config_name as $value) {
+                    $setting['use'][] = $value;
+                }
+            } else {
+                $setting['use'][] = $config_name;
+            }
             $this->load->controller('extension/'.$this->codename.'/setting/installEvents', $setting['use']);
             $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, array(
                 $this->codename.'_setting'=> $setting,

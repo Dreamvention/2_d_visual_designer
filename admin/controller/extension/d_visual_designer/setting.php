@@ -14,6 +14,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->load->language('extension/module/'.$this->codename);
         $this->load->language($this->route);
         $this->load->model('extension/module/'.$this->codename);
+        $this->load->model('extension/'.$this->codename.'/designer');
         
         $this->d_shopunity = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_shopunity.json'));
         $this->d_event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
@@ -25,6 +26,10 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     
     public function index()
     {
+        if(!$this->{'model_extension_'.$this->codename.'_designer'}->checkInstallModule()){
+            $this->welcome();
+            return;
+        }
         $this->load->model('setting/setting');
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/store');
@@ -185,8 +190,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['href_setting'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/setting');
         $data['href_instruction'] = $this->model_extension_d_opencart_patch_url->link('extension/'.$this->codename.'/instruction');
         
-        $this->load->model('extension/'.$this->codename.'/designer');
-
         $data['notify'] = $this->{'model_extension_'.$this->codename.'_designer'}->checkCompleteVersion();
 
         $this->{'model_extension_module_'.$this->codename}->createDatabase();
@@ -233,7 +236,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        
+
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view($this->route, $data));
     }
 
@@ -291,6 +294,82 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
             $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
         }
     }
+
+    public function welcome() {
+        
+        $this->load->model('extension/d_opencart_patch/load');
+        $this->load->model('extension/d_opencart_patch/url');
+
+        if($this->d_admin_style){
+            $this->load->model('extension/d_admin_style/style');
+
+            $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        }
+        
+        $url_params = array();
+        
+        if (isset($this->response->get['store_id'])) {
+            $url_params['store_id'] = $this->store_id;
+        }
+        
+        $url = ((!empty($url_params)) ? '&' : '') . http_build_query($url_params);
+        
+        // Breadcrumbs
+        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->model_extension_d_opencart_patch_url->link('common/home')
+            );
+
+        $data['breadcrumbs'][] = array(
+            'text'      => $this->language->get('text_module'),
+            'href'      => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', 'type=module')
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title_main'),
+            'href' => $this->model_extension_d_opencart_patch_url->link('marketplace/extension', $url)
+        );
+        
+        // Notification
+        foreach ($this->error as $key => $error) {
+            $data['error'][$key] = $error;
+        }
+        
+        // Heading
+        $this->document->setTitle($this->language->get('heading_title_main'));
+        $data['heading_title'] = $this->language->get('heading_title_main');
+        $data['text_edit'] = $this->language->get('text_edit');
+
+        $data['version'] = $this->extension['version'];
+        
+        $data['text_welcome_title'] = $this->language->get('text_welcome_title');
+        $data['text_welcome_description'] = $this->language->get('text_welcome_description');
+
+        $data['text_welcome_visual_editor'] = $this->language->get('text_welcome_visual_editor');
+        $data['text_welcome_building_blocks'] = $this->language->get('text_welcome_building_blocks');
+        $data['text_welcome_mobile_ready'] = $this->language->get('text_welcome_mobile_ready');
+        $data['text_welcome_increase_seales'] = $this->language->get('text_welcome_increase_seales');
+
+        $data['button_setup'] = $this->language->get('button_setup');
+
+        $data['quick_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route.'/quickSetup');
+        
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/welcome', $data));
+    }
+
+    public function quickSetup(){
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->{'model_extension_'.$this->codename.'_designer'}->installConfig();
+        $json['redirect'] = $this->model_extension_d_opencart_patch_url->ajax($this->route);
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
     public function uninstallEvents()
     {
         if ($this->d_event_manager) {
