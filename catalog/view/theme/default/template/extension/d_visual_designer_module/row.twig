@@ -1,3 +1,3 @@
-<div class="container{{ setting.global.container == 'fluid' ?? '-fluid' }}">
-    <div class="row {{ setting.global.align == 'left' ? 'justify-content-start' }} {{ setting.global.align == 'center' ?? 'justify-content-center' }} {{ setting.global.align == 'right' ? 'justify-content-end' }} no-gutters {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
+<div class="container{{ setting.global.container == 'fluid' ? '-fluid' }}">
+    <div class="row {{ setting.global.align == 'left' ? 'justify-content-start' }} {{ setting.global.align == 'center' ? 'justify-content-center' }} {{ setting.global.align == 'right' ? 'justify-content-end' }} no-gutters {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
 </div>
