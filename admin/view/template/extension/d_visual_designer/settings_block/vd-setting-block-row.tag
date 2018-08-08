@@ -20,6 +20,12 @@
     </div>
 </div>
 <div class="form-group" id="align">
+    <label class="control-label">{store.getLocal('blocks.row.entry_container')}</label>
+    <div class="fg-setting">
+        <vd-radio-btn-group name="container" value={setting.global.container} options={store.getOptions('blocks.row.containers')} evchange={change}/>
+    </div>
+</div>
+<div class="form-group" id="align">
     <label class="control-label">{store.getLocal('blocks.row.entry_align')}</label>
     <div class="fg-setting">
         <vd-radio-btn-group name="align" value={setting.global.align} options={store.getOptions('blocks.row.aligns')} evchange={change}/>

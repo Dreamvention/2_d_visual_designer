@@ -1,4 +1,14 @@
-<wrapper-blocks><div class="vd-new-child-block" onClick={addBlock} if={_.isEmpty(getState().blocks) && !getState().drag && getState().parent_id != ''}></div><div data-is="placeholder" if={!_.isEmpty(getState().blocks) && getState().drag} show={getState().placeholder} placeholder_type={getState().placeholder_type} sort_order="0" block_id={getState().parent_id}/><virtual each={block in getState().blocks}><div data-is="vd-layout-{block.layout}" block={block}></div><div data-is="placeholder" placeholder_type={getState().placeholder_type} sort_order={block.sort_order+1} block_id={getState().parent_id} if={getState().drag} show={getState().placeholder}/></virtual><div data-is="placeholder" if={_.isEmpty(getState().blocks) && getState().drag} show={getState().placeholder} placeholder_type={getState().placeholder_type} sort_order="0" block_id={getState().parent_id}/>
+<wrapper-blocks>
+    <div class="vd-new-child-block" onClick={addBlock} if={_.isEmpty(getState().blocks) && !getState().drag && getState().parent_id != ''}></div>
+    <div data-is="placeholder" if={!_.isEmpty(getState().blocks) && getState().drag} show={getState().placeholder} placeholder_type={getState().placeholder_type} sort_order="0" block_id={getState().parent_id}/>
+    <virtual each={block in getState().blocks}>
+        <div class="{block.container}" if={getState().level == 0}>
+            <div data-is="vd-layout-{block.layout}" block={block}></div>
+        </div>
+        <div data-is="vd-layout-{block.layout}" block={block} if={getState().level != 0}></div>
+        <div data-is="placeholder" placeholder_type={getState().placeholder_type} sort_order={block.sort_order+1} block_id={getState().parent_id} if={getState().drag} show={getState().placeholder}/>
+    </virtual>
+    <div data-is="placeholder" if={_.isEmpty(getState().blocks) && getState().drag} show={getState().placeholder} placeholder_type={getState().placeholder_type} sort_order="0" block_id={getState().parent_id}/>
 <script>
     this.mixin(new vd_component(this, false))
     this.initState({
@@ -64,6 +74,14 @@
 
             if(!_.isUndefined(value.setting.global.size) && block_info.setting.child_blocks){
                 placeholder_type = 'column'
+            }
+
+            value.container = 'container-fluid';
+
+            if(!_.isUndefined(value.setting.global.container)){
+                if(value.setting.global.container == 'responsive'){
+                    value.container = 'container'
+                }
             }
             if(block_info.setting.custom_layout) {
                 value.layout = block_info.setting.custom_layout

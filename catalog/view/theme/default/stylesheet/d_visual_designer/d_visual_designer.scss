@@ -39,6 +39,9 @@
         }
 
         > .vd#sortable {
+            > .container, > .container-fluid{
+                padding: 0;
+            }
             &.dragging{
                 user-select: none;
                 /*.block-content {

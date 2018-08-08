@@ -40,9 +40,11 @@ $_['types'] = array(
     'background_video' => 'boolean',
     'link' => 'string',
     'align' => 'string',
+    'container' => 'string'
 );
 //Настройки по умолчанию
 $_['setting'] = array(
+    'container' => 'fluid',
     'row_stretch' => '',
     'align' => 'left',
     'align_items' => 'stretch',

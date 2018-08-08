@@ -65,7 +65,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $content = $setting['content'];
         }
         
-        $this->scripts[] = 'catalog/view/javascript/d_riot/riotcompiler.min.js';
+        $this->scripts[] = 'catalog/view/javascript/d_riot/riotcompiler.js';
         $this->scripts[] = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.js';
         $this->styles[]  = 'catalog/view/javascript/d_visual_designer/dist/vd-basic-libraries.min.css';
 

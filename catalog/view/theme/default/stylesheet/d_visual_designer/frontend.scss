@@ -17,6 +17,11 @@
             visibility: visible;
         }
     }
+    #sortable{
+        > .container, > .container-fluid{
+            padding: 0;
+        }
+    }
 
     .vd-btn-frontend-edit.btn-group-xs.btn-edit{
         z-index: 2;
