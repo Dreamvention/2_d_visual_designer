@@ -1,3 +1,19 @@
+
+{% set className = '' %}
+{% if setting.global.align %}
+    {% if setting.global.align == 'left' %}
+        {% set className = className~' justify-content-start' %}
+    {% endif %}
+    {% if setting.global.align == 'center' %}
+        {% set className = className~' justify-content-center' %}
+    {% endif %}
+    {% if setting.global.align == 'right' %}
+        {% set className = className~' justify-content-end' %}
+    {% endif %}
+{% endif %}
+{% if setting.global.align_items %}
+    {% set className = className~' align-items-'~setting.global.align_items %}
+{% endif %}
 <div class="container{{ setting.global.container == 'fluid' ? '-fluid' }}">
-    <div class="row {{ setting.global.align == 'left' ? 'justify-content-start' }} {{ setting.global.align == 'center' ? 'justify-content-center' }} {{ setting.global.align == 'right' ? 'justify-content-end' }} no-gutters {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
+    <div class="row {{className}} no-gutters {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
 </div>

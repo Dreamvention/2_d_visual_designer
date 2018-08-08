@@ -84,6 +84,7 @@
         "admin/view/javascript/d_visual_designer/model/history.js",
         "admin/view/javascript/d_visual_designer/model/template.js",
         "admin/view/javascript/d_visual_designer/model/sortable.js",
+        "admin/view/template/extension/d_visual_designer/welcome.twig",
         "admin/view/template/extension/d_visual_designer/designer.twig",
         "admin/view/template/extension/d_visual_designer/frontend_editor.twig",
         "admin/view/template/extension/d_visual_designer/instruction.twig",

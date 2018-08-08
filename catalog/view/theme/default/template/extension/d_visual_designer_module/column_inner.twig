@@ -26,4 +26,15 @@
          {% set className = className~' col-md' %}
     {% endif %}
 {% endif %}
+{% if setting.global.offset %}
+    {% set className = className~' offset-lg-'~setting.global.offset %}
+{% endif %}
+{% if setting.global.offset_phone %}
+    {% set className = className~' offset-'~setting.global.offset_tablet %}
+{% endif %}
+{% if setting.global.offset_tablet %}
+    {% set className = className~' offset-md-'~setting.global.offset_tablet %}
+{% else %}
+    {% set className = className~' offset-md-'~setting.global.offset %}
+{% endif %}
 <div class="{{className}} {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>

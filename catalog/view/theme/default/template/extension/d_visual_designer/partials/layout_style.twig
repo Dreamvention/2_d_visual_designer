@@ -1,27 +1,33 @@
-{% if setting.global.design_margin_top %}
-    margin-top: {{setting.global.design_margin_top}};
+{% if not setting.global.design_margin_responsive %}
+    {% if setting.global.design_margin_top %}
+        margin-top: {{setting.global.design_margin_top}};
+    {% endif %}
+    {% if setting.global.design_margin_left %}
+        margin-left: {{setting.global.design_margin_left}};
+    {% endif %}
+    {% if setting.global.design_margin_right %}
+        margin-right: {{setting.global.design_margin_right}};
+    {% endif %}
+    {% if setting.global.design_margin_bottom %}
+        margin-bottom: {{setting.global.design_margin_bottom}};
+    {% endif %}
 {% endif %}
-{% if setting.global.design_margin_left %}
-    margin-left: {{setting.global.design_margin_left}};
+
+{% if not setting.global.design_padding_responsive %}
+    {% if setting.global.design_padding_top %}
+        padding-top: {{setting.global.design_padding_top}};
+    {% endif %}
+    {% if setting.global.design_padding_left %}
+        padding-left: {{setting.global.design_padding_left}};
+    {% endif %}
+    {% if setting.global.design_padding_right %}
+        padding-right: {{setting.global.design_padding_right}};
+    {% endif %}
+    {% if setting.global.design_padding_bottom %}
+        padding-bottom: {{setting.global.design_padding_bottom}};
+    {% endif %}
 {% endif %}
-{% if setting.global.design_margin_right %}
-    margin-right: {{setting.global.design_margin_right}};
-{% endif %}
-{% if setting.global.design_margin_bottom %}
-    margin-bottom: {{setting.global.design_margin_bottom}};
-{% endif %}
-{% if setting.global.design_padding_top %}
-    padding-top: {{setting.global.design_padding_top}};
-{% endif %}
-{% if setting.global.design_padding_left %}
-    padding-left: {{setting.global.design_padding_left}};
-{% endif %}
-{% if setting.global.design_padding_right %}
-    padding-right: {{setting.global.design_padding_right}};
-{% endif %}
-{% if setting.global.design_padding_bottom %}
-    padding-bottom: {{setting.global.design_padding_bottom}};
-{% endif %}
+
 {% if setting.global.design_border_top %}
     border-top: {{setting.global.design_border_top}} {{ setting.global.design_border_style }} {{setting.global.design_border_color}};
 {% endif %}
