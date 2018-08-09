@@ -42,6 +42,8 @@ class ModelExtensionModuleDVisualDesigner extends Model
 
     private $styles = array();
 
+    private $styleContent = '';
+
     public function __construct($registry)
     {
         parent::__construct($registry);
@@ -139,7 +141,7 @@ class ModelExtensionModuleDVisualDesigner extends Model
         }
         $styles .= '</style>';
 
-        $content = $styles.$content;
+        $content = $content.$styles;
 
         return $content;
     }
@@ -158,11 +160,15 @@ class ModelExtensionModuleDVisualDesigner extends Model
             'language_id' => $this->config->get('config_language_id'),
             'route' => !empty($this->request->get['route'])? $this->request->get['route']:'common/home'
         );
+        $this->stylesContent = '';
         $hash = md5(json_encode($md5_data));
 
         $result = $this->cache->get('vd-pre-render.' . $hash);
         if (!$result) {
             $result = $this->preRenderLevel('', $setting, false);
+            $result .= '<style type="text/css">';
+            $result .= $this->stylesContent;
+            $result .= '</style>';
             $this->cache->set('vd-pre-render.' .$hash, $result);
         }
 
@@ -190,22 +196,26 @@ class ModelExtensionModuleDVisualDesigner extends Model
             $saveToHtml = !empty($block_config['pre_render']) && !empty($block_config['save_html']) && $html;
 
             if ($fullPreRender || $saveToHtml) {
-                $styles = $this->load->view('extension/d_visual_designer/partials/layout_style', $block_info);
-
-                $styles = trim(str_replace(array("\n","\r"), '', $styles));
-                $styles = preg_replace("/(\\;\\s+)/", ';', $styles);
-
                 $renderData = array(
                     'setting' => $block_info['setting'],
                     'local' => $this->vd_block->load($block_info['type'], 'local', false),
                     'options' => $this->vd_block->load($block_info['type'], 'options', false),
                     'children' => $this->preRenderLevel($block_info['id'], $setting),
-                    'styles' => $styles
+                    'id' => $block_info['id']
                 );
 
                 $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
 
                 $output = $this->vd_block->load($block_info['type'], 'styles', false);
+
+                $styles = $this->load->view('extension/d_visual_designer/partials/layout_style', $block_info);
+
+                $styles = preg_replace('/\/\*((?!\*\/).)*\*\//', '', $styles);
+                $styles = preg_replace('/\s{2,}/', ' ', $styles);
+                $styles = preg_replace('/\s*([:;{}])\s*/', '$1', $styles);
+                $styles = preg_replace('/;}/', '}', $styles);
+
+                $this->stylesContent .= $styles;
 
                 if ($output) {
                     $this->styles =array_merge($this->styles, $output);

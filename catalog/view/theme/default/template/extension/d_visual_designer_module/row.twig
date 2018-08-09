@@ -15,5 +15,5 @@
     {% set className = className~' align-items-'~setting.global.align_items %}
 {% endif %}
 <div class="container{{ setting.global.container == 'fluid' ? '-fluid' }}">
-    <div class="row {{className}} no-gutters {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
+    <div class="row {{className}} {{id}} no-gutters {{ setting.global.additional_css_class }}" >{{ children }}</div>
 </div>

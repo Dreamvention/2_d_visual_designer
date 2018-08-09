@@ -37,4 +37,4 @@
 {% else %}
     {% set className = className~' offset-md-'~setting.global.offset %}
 {% endif %}
-<div class="{{className}} {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
+<div class="{{className}} {{id}} {{ setting.global.additional_css_class }}" >{{ children }}</div>

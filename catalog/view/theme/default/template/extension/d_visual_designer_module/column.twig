@@ -26,4 +26,4 @@
          {% set className = className~' col-md' %}
     {% endif %}
 {% endif %}
-<div class="{{className}} {{ setting.global.additional_css_class }}" id="{{ setting.global.id?setting.global.id }}" style="{{ styles }}">{{ children }}</div>
+<div class="{{className}} {{id}} {{ setting.global.additional_css_class }}" id="{{ setting.global.id?setting.global.id }}" >{{ children }}</div>

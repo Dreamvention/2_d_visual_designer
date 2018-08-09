@@ -1,1 +1,40 @@
-<div class="col-md{{ setting.global.size != 'fill'?'-'~setting.global.size }} {{ setting.global.additional_css_class }}" style="{{ styles }}">{{ children }}</div>
+{% set className = '' %}
+{% if setting.global.size %}
+    {% if setting.global.size != 'fill' %}
+        {% set className = className~' col-lg-'~setting.global.size %}
+    {% else %}
+         {% set className = className~' col-lg' %}
+    {% endif %}
+{% endif %}
+{% if setting.global.size_phone %}
+    {% if setting.global.size_phone != 'fill' %}
+        {% set className = className~' col-'~setting.global.size_phone %}
+    {% else %}
+         {% set className = className~' col' %}
+    {% endif %}
+{% endif %}
+{% if setting.global.size_tablet %}
+    {% if setting.global.size_tablet != 'fill' %}
+        {% set className = className~' col-md-'~setting.global.size_tablet %}
+    {% else %}
+         {% set className = className~' col-md' %}
+    {% endif %}
+{% elseif setting.global.size %}
+    {% if setting.global.size != 'fill' %}
+        {% set className = className~' col-md-'~setting.global.size %}
+    {% else %}
+         {% set className = className~' col-md' %}
+    {% endif %}
+{% endif %}
+{% if setting.global.offset %}
+    {% set className = className~' offset-lg-'~setting.global.offset %}
+{% endif %}
+{% if setting.global.offset_phone %}
+    {% set className = className~' offset-'~setting.global.offset_tablet %}
+{% endif %}
+{% if setting.global.offset_tablet %}
+    {% set className = className~' offset-md-'~setting.global.offset_tablet %}
+{% else %}
+    {% set className = className~' offset-md-'~setting.global.offset %}
+{% endif %}
+<div class="{{className}} {{id}} {{ setting.global.additional_css_class }}" >{{ children }}</div>

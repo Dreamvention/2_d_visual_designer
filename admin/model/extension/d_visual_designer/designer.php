@@ -11,6 +11,8 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
     private $styles = array();
 
+    private $styleContent = '';
+
     /**
      * Converts shortcodes to settings
      * @param $text
@@ -126,7 +128,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         }
         $styles .= '</style>';
 
-        $content = $styles.$content;
+        $content = $content.$styles;
 
         return $content;
     }
@@ -139,7 +141,9 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      */
     public function preRender($setting) {
         $content = $this->preRenderLevel('', $setting, false);
-
+        $content .= '<style type="text/css">';
+        $content .= $this->stylesContent;
+        $content .= '</style>';
         return $content;
     }
 
@@ -167,21 +171,25 @@ class ModelExtensionDVisualDesignerDesigner extends Model
 
             if($fullPreRender || $saveToHtml) {
 
-                $styles = $this->load->view('extension/d_visual_designer/partials/layout_style', $block_info);
-
-                $styles = trim(str_replace(array("\n","\r"), '', $styles));
-                $styles = preg_replace("/(\\;\\s+)/", ';', $styles);
-
                 $renderData = array(
                     'setting' => $block_info['setting'],
                     'local' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/local', false),
                     'options' => $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/options', false),
                     'children' => $this->preRenderLevel($block_info['id'], $setting),
-                    'styles' => $styles
+                    'id' => $block_info['id']
                 );
 
                 $result .= $this->model_extension_d_opencart_patch_load->view('extension/d_visual_designer_module/'.$block_info['type'], $renderData);
                 $output = $this->load->controller('extension/d_visual_designer_module/'.$block_info['type'].'/catalog_styles', false);
+
+                $styles = $this->load->view('extension/d_visual_designer/partials/layout_style', $block_info);
+
+                $styles = preg_replace('/\/\*((?!\*\/).)*\*\//', '', $styles);
+                $styles = preg_replace('/\s{2,}/', ' ', $styles);
+                $styles = preg_replace('/\s*([:;{}])\s*/', '$1', $styles);
+                $styles = preg_replace('/;}/', '}', $styles);
+
+                $this->stylesContent .= $styles;
 
                 if($output) {
                     $this->styles =array_merge($this->styles, $output);
