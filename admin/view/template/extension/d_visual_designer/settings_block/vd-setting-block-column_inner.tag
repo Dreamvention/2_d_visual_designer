@@ -69,7 +69,7 @@
                     <td>
                         <select name="order_phone" class="form-control" onChange={change}>
                             <option value="" selected={setting.global.order_phone == ''}>{store.getLocal('blocks.column_inner.text_none')}</option>
-                            <option each={value, key in store.getOptions('blocks.column_inner.sizes')} value="{key}" selected={key == setting.global.order_phone}>{value}</option>
+                            <option each={value, key in store.getOptions('blocks.column_inner.orders')} value="{key}" selected={key == setting.global.order_phone}>{value}</option>
                         </select>
                     </td>
                     <td>
