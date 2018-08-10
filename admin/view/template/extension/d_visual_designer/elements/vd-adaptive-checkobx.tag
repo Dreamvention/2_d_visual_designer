@@ -21,7 +21,6 @@
                     return name != e.target.value
                 })
             }
-            values[e.target.name] = _.extend({}, values)
             this.opts.evchange({
                 currentTarget: {
                     name: this.opts.name,
