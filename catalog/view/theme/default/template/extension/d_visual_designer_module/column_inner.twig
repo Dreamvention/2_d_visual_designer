@@ -30,11 +30,22 @@
     {% set className = className~' offset-lg-'~setting.global.offset %}
 {% endif %}
 {% if setting.global.offset_phone %}
-    {% set className = className~' offset-'~setting.global.offset_tablet %}
+    {% set className = className~' offset-'~setting.global.offset_phone %}
 {% endif %}
 {% if setting.global.offset_tablet %}
     {% set className = className~' offset-md-'~setting.global.offset_tablet %}
 {% else %}
     {% set className = className~' offset-md-'~setting.global.offset %}
+{% endif %}
+{% if setting.global.order %}
+    {% set className = className~' order-lg-'~setting.global.order %}
+{% endif %}
+{% if setting.global.order_phone %}
+    {% set className = className~' order-'~setting.global.order_phone %}
+{% endif %}
+{% if setting.global.order_tablet %}
+    {% set className = className~' order-md-'~setting.global.order_tablet %}
+{% else %}
+    {% set className = className~' order-md-'~setting.global.order %}
 {% endif %}
 <div class="{{className}} {{id}} {{ setting.global.additional_css_class }}" >{{ children }}</div>
