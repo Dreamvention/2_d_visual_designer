@@ -19,7 +19,7 @@
         <input type="text" class="form-control" name="link" value="{setting.global.link}" onChange={change}/>
     </div>
 </div>
-<div class="form-group" id="align">
+<div class="form-group">
     <label class="control-label">{store.getLocal('blocks.row.entry_container')}</label>
     <div class="fg-setting">
         <vd-radio-btn-group name="container" value={setting.global.container} options={store.getOptions('blocks.row.containers')} evchange={change}/>

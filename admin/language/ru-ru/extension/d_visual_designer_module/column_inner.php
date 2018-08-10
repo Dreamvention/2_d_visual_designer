@@ -17,6 +17,7 @@ $_['text_tablet']           = 'Планшет';
 
 $_['column_device']         = 'Устройство';
 $_['column_offset']         = 'Отступ';
+$_['column_order']          = 'Порядковый номер';
 $_['column_size']           = 'Размер';
 
 //entry
@@ -24,4 +25,5 @@ $_['entry_size']            = 'Размер колонки';
 $_['entry_float']           = 'Блоки в один ряд';
 $_['entry_align']           = 'Выравнивание блоков';
 $_['entry_offset']          = 'Отступ';
+$_['entry_order']           = 'Порядковый номер';
 $_['entry_adaptive_design'] = 'Адаптивный дизайн';

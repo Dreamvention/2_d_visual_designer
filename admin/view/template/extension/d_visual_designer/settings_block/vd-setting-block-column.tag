@@ -17,12 +17,22 @@
         </div>
     </div>
     <div class="form-group">
+        <label class="control-label">{store.getLocal('blocks.column.entry_order')}</label>
+        <div class="fg-setting">
+            <select name="order" class="form-control" onChange={change}>
+                <option value="" selected={setting.global.order == ''}>{store.getLocal('blocks.column.text_none')}</option>
+                <option each={value, key in store.getOptions('blocks.column.orders')} value="{key}" selected={key == setting.global.order}>{value}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="control-label">{store.getLocal('blocks.column.entry_adaptive_design')}</label>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <td>{store.getLocal('blocks.column.column_device')}</td>
                     <td>{store.getLocal('blocks.column.column_offset')}</td>
+                    <td>{store.getLocal('blocks.column.column_order')}</td>
                     <td>{store.getLocal('blocks.column.column_size')}</td>
                 </tr>
             </thead>
@@ -33,6 +43,12 @@
                         <select name="offset_tablet" class="form-control" onChange={change}>
                             <option value="" selected={setting.global.offset_tablet == ''}>{store.getLocal('blocks.column.text_none')}</option>
                             <option each={value, key in store.getOptions('blocks.column.sizes')} value="{key}" selected={key == setting.global.offset_tablet}>{value}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="order_tablet" class="form-control" onChange={change}>
+                            <option value="" selected={setting.global.order_tablet == ''}>{store.getLocal('blocks.column.text_none')}</option>
+                            <option each={value, key in store.getOptions('blocks.column.orders')} value="{key}" selected={key == setting.global.order_tablet}>{value}</option>
                         </select>
                     </td>
                     <td>
@@ -48,6 +64,12 @@
                         <select name="offset_phone" class="form-control" onChange={change}>
                             <option value="" selected={setting.global.offset_phone == ''}>{store.getLocal('blocks.column.text_none')}</option>
                             <option each={value, key in store.getOptions('blocks.column.sizes')} value="{key}" selected={key == setting.global.offset_phone}>{value}</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="order_phone" class="form-control" onChange={change}>
+                            <option value="" selected={setting.global.order_phone == ''}>{store.getLocal('blocks.column.text_none')}</option>
+                            <option each={value, key in store.getOptions('blocks.column.sizes')} value="{key}" selected={key == setting.global.order_phone}>{value}</option>
                         </select>
                     </td>
                     <td>

@@ -17,6 +17,7 @@ $_['text_tablet']           = 'Tablet';
 
 $_['column_device']         = 'Device';
 $_['column_offset']         = 'Offset';
+$_['column_order']          = 'Order';
 $_['column_size']           = 'Size';
 
 //entry
@@ -24,4 +25,5 @@ $_['entry_size']            = 'Size column';
 $_['entry_float']           = 'Float';
 $_['entry_align']           = 'Align';
 $_['entry_offset']          = 'Offset';
+$_['entry_order']           = 'Order';
 $_['entry_adaptive_design'] = 'Adaptive design';

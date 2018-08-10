@@ -9,7 +9,7 @@
 }
 
 .vd {
-    > .container, > .container-fluid{
+    .no-padding{
         padding: 0;
     }
 }
@@ -23,7 +23,7 @@
         }
     }
     #sortable{
-        > .container, > .container-fluid{
+        .no-padding{
             padding: 0;
         }
     }

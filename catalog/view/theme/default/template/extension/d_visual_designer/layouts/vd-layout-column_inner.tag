@@ -65,6 +65,19 @@
             } else if (setting.offset){
                 className.push('offset-md-'+setting.offset)
             }
+
+           if(setting.order){
+                className.push('order-lg-'+setting.order)
+            }
+            if(setting.order_phone){
+                className.push('order-'+setting.order_phone)
+            }
+            if(setting.order_tablet){
+                className.push('order-md-'+setting.order_tablet)
+            } else if (setting.order){
+                className.push('order-md-'+setting.order)
+            }
+
             if(!_.isUndefined(setting.size)){
                 if(setting.size == 'fill') {
                     className.push('col-lg')

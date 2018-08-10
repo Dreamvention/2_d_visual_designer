@@ -2,10 +2,10 @@
     <div class="vd-new-child-block" onClick={addBlock} if={_.isEmpty(getState().blocks) && !getState().drag && getState().parent_id != ''}></div>
     <div data-is="placeholder" if={!_.isEmpty(getState().blocks) && getState().drag} show={getState().placeholder} placeholder_type={getState().placeholder_type} sort_order="0" block_id={getState().parent_id}/>
     <virtual each={block in getState().blocks}>
-        <div class="{block.container}" if={getState().level == 0}>
+        <div class="{block.container} no-padding" if={!_.isUndefined(block.setting.global.container)}>
             <div data-is="vd-layout-{block.layout}" block={block}></div>
         </div>
-        <div data-is="vd-layout-{block.layout}" block={block} if={getState().level != 0}></div>
+        <div data-is="vd-layout-{block.layout}" block={block} if={_.isUndefined(block.setting.global.container)}></div>
         <div data-is="placeholder" placeholder_type={getState().placeholder_type} sort_order={block.sort_order+1} block_id={getState().parent_id} if={getState().drag} show={getState().placeholder}/>
     </virtual>
     <div data-is="placeholder" if={_.isEmpty(getState().blocks) && getState().drag} show={getState().placeholder} placeholder_type={getState().placeholder_type} sort_order="0" block_id={getState().parent_id}/>

@@ -34,22 +34,28 @@ $_['save_html']        = true;
 $_['types']            = array(
     'size' => 'string',
     'offset' => 'string',
+    'order' => 'string',
     'float' => 'boolean',
     'align' => 'string',
     'size_phone' => 'string',
     'size_tablet' => 'string',
     'offset_phone' => 'string',
-    'offset_tablet' => 'string'
+    'offset_tablet' => 'string',
+    'order_phone' => 'string',
+    'order_tablet' => 'string'
 );
 //Настройки по умолчанию
 $_['setting']          = array(
     'design_margin_bottom' => '',
     'size'   => 12,
     'offset' => '',
+    'order' => '',
     'float'  => '',
     'align'  => 'center',
     'size_phone' => '',
     'size_tablet' => '',
     'offset_phone' => '',
-    'offset_tablet' => ''
+    'offset_tablet' => '',
+    'order_phone' => '',
+    'order_tablet' => ''
 );
