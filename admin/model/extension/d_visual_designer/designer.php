@@ -27,16 +27,49 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         $setting = $d_shortcode_reader_writer->readShortcode($text);
 
         if (!empty($text) && empty($setting)) {
-            $text = "[vd_row][vd_column][vd_text text='".$d_shortcode_reader_writer->escape($text)."'][/vd_column][/vd_row]";
+            $text = "[vd_section_wrapper][vd_row][vd_column][vd_text text='".$d_shortcode_reader_writer->escape($text)."'][/vd_column][/vd_row][/vd_section_wrapper]";
             $setting = $d_shortcode_reader_writer->readShortcode($text);
         }
+        
+        $setting = $this->checkCompability($setting);
 
         $that = $this;
         array_walk($setting, function (&$block, $key) use ($that) {
             $block['setting'] = $that->getSetting($block['setting'], $block['type']);
         });
 
+
         return $setting;
+    }
+
+    public function checkCompability($setting)
+    {
+        $resSetting = $setting;
+        
+        $blocks = $this->getBlocksByParent('', $setting);
+
+        foreach($blocks as $block_id => $block_info) {
+            if($block_info['type'] == 'row') {
+                $new_block = $this->newBlock('section_wrapper');
+                $new_block['sort_order'] = $block_info['sort_order'];
+                $resSetting[$new_block['id']] = $new_block;
+                $resSetting[$block_id]['parent'] = $new_block['id'];
+            }
+        }
+
+        return $resSetting;
+    }
+
+    public function newBlock($type)
+    {
+        $setting = $this->getSettingBlock($type);
+
+        return array(
+            'id' => $type.'_'.substr( md5(rand()), 0, 7),
+            'parent' => '',
+            'type' => $type,
+            'setting' => $setting['setting']
+        );
     }
 
     /**
