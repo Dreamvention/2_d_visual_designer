@@ -4,14 +4,21 @@
             return block.type == data.type
         })
         var blocks = {}
-        if(block_config.setting.level_min == 2 && data.level == 0){
-            var row_id = this.newBlock(data.designer_id, 'row', '');
+        if(block_config.setting.level_min == 3 && data.level == 0){
+            var section_wrapper_id = this.newBlock(data.designer_id, 'section_wrapper', '');
+            var row_id = this.newBlock(data.designer_id, 'row', section_wrapper_id);
             var column_id = this.newBlock(data.designer_id, 'column', row_id);
             data.target = column_id
         }
         var new_block_id = this.newBlock(data.designer_id, data.type, data.target)
         if(block_config.setting.child) {
-            this.newBlock(data.designer_id, block_config.setting.child, new_block_id);
+            var new_child_block_id = this.newBlock(data.designer_id, block_config.setting.child, new_block_id);
+            var block_child_config = _.find(this.getState().config.blocks, function(block){
+                return block.type == block_config.setting.child
+            })
+            if(block_child_config.setting.child) {
+                this.newBlock(data.designer_id, block_child_config.setting.child, new_child_block_id);
+            }
         }
         this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id})
     }.bind(this));

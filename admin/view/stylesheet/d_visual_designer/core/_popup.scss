@@ -163,6 +163,38 @@
             margin: 15px -5px -5px -5px;
         }
     }
+    &.main-wrapper {
+        >.popup-header {
+            background: #c75261;
+            >a.close {
+                &:hover {
+                    background-color: #da808c;
+                }
+            }
+            >a.stick-left {
+                &:hover {
+                    background-color: #da808c;
+                }
+            }
+        }
+        .popup-tabs {
+            .vd-nav {
+                background: #da6070;
+                li {
+                    >a {
+                        &:hover {
+                            background-color: #c75261;
+                        }
+                    }
+                }
+                li.active {
+                    >a {
+                        background-color: #da808c;
+                    }
+                }
+            }
+        }
+    }
     &.inner {
         >.popup-header {
             background: #f4c000;

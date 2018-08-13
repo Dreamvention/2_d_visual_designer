@@ -87,11 +87,14 @@
                 value.layout = block_info.setting.custom_layout
             } else if(block_info.setting.child_blocks && block_info.type == 'row') {
                 value.layout = 'main'
+            } else if(block_info.setting.child_blocks && this.getState().level == 0){
+                value.layout = 'main-wrapper'
             } else if(block_info.setting.child_blocks) {
                 value.layout = 'medium'
             } else {
                 value.layout = 'children'
             }
+            console.log(value)
             return value
         }.bind(this))
 

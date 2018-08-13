@@ -192,8 +192,37 @@ div[data-is="placeholder"] {
                     height: 32px;
                 }
             }
+            &.block-parent-wrapper {
+                background: #f2f4f7;
+                > .control {
+                    background: #c75261;
+                }
+                > .block-content{
+                    flex-flow: column;
+                }
+                .block-inner {
+                    border-radius: 4px;
+                    &.level1{
+                        background: #DEE3E7;
+                        > .control {
+                            background-color: #4c5866;
+                        }
+                    }
+                    &.level0 {
+                        background: #fff;
+                        > .control {
+                            background-color: #f4c000;
+                        }
+                    }
+                    > .block-content {
+                        padding-left: 15px;
+                    }
+
+                }
+            }
             &.block-parent{
                 background: #DEE3E7;
+                flex: 1;
                 > .control {
                     background-color: #56a6e6;
                 }

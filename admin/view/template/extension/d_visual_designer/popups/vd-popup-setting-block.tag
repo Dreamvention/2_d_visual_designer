@@ -295,7 +295,9 @@
             }.bind(this))
             this.block_info = this.store.getState().blocks[this.designer_id][this.block_id]
             this.block_info.id = this.block_id
-            if( this.block_info.parent == ''){
+            if(this.block_info.parent == ''){
+                this.classPopup = 'main-wrapper'
+            } else if (this.block_config.setting.level_min == 1 && this.block_config.setting.child_blocks) {
                 this.classPopup = 'main'
             } else if (this.block_config.setting.child_blocks) {
                 this.classPopup = 'inner'
