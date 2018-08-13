@@ -67,6 +67,7 @@
         "system/config/d_visual_designer/row_inner.php",
         "system/config/d_visual_designer/text.php",
         "system/config/d_visual_designer/image.php",
+        "system/config/d_visual_designer/section_wrapper.php",
 
         "admin/controller/extension/module/d_visual_designer.php",
         "admin/controller/extension/event/d_visual_designer.php",
