@@ -349,7 +349,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['text_welcome_visual_editor'] = $this->language->get('text_welcome_visual_editor');
         $data['text_welcome_building_blocks'] = $this->language->get('text_welcome_building_blocks');
         $data['text_welcome_mobile_ready'] = $this->language->get('text_welcome_mobile_ready');
-        $data['text_welcome_increase_seales'] = $this->language->get('text_welcome_increase_seales');
+        $data['text_welcome_increase_sales'] = $this->language->get('text_welcome_increase_sales');
 
         $data['button_setup'] = $this->language->get('button_setup');
 

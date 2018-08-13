@@ -32,7 +32,7 @@ Start designing now and turn your visitors in real customers.';
 $_['text_welcome_visual_editor']    = 'Visual editor';
 $_['text_welcome_building_blocks']  = '50 Buildings blocks';
 $_['text_welcome_mobile_ready']     = 'Mobile ready';
-$_['text_welcome_increase_seales']  = 'Increase seales';
+$_['text_welcome_increase_sales']   = 'Increase sales';
 
 $_['button_setup']                  = 'Setup';
 
