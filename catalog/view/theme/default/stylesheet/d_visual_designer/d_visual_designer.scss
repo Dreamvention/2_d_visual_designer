@@ -40,9 +40,7 @@
 
         > .vd#sortable {
             .no-padding{
-                @media only screen and (min-width: 767px) {
-                    padding: 0!important;
-                }
+                padding: 0!important;
             }
             &.dragging{
                 user-select: none;
