@@ -10,7 +10,9 @@
 
 .vd {
     .no-padding{
-        padding: 0!important;
+        @media only screen and (min-width: 767px) {
+            padding: 0!important;
+        }
     }
 }
 
@@ -24,7 +26,9 @@
     }
     #sortable{
         .no-padding{
-            padding: 0!important;
+            @media only screen and (min-width: 767px) {
+                padding: 0!important;
+            }
         }
     }
 
