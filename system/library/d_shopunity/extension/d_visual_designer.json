@@ -100,6 +100,7 @@
         "catalog/view/theme/default/javascript/d_visual_designer/core/block.js",
         "catalog/view/theme/default/javascript/d_visual_designer/core/component.js",
         "catalog/view/theme/default/javascript/d_visual_designer/model/block.js",
+        "catalog/view/theme/default/javascript/d_visual_designer/model/block_front.js",
         "catalog/view/theme/default/javascript/d_visual_designer/model/style.js",
         "catalog/view/theme/default/javascript/d_visual_designer/model/content.js",
         "catalog/view/theme/default/javascript/d_visual_designer/model/history.js",
