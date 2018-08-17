@@ -109,6 +109,39 @@
             border-bottom: 1px solid #c8c8c8;
         }
     }
+    &.image-manager {
+        > .popup-header {
+            background: #969696;
+            user-select: none;
+            >a.close {
+                &:hover {
+                    background-color: #aaa;
+                }
+            }
+        }
+        > .popup-content {
+            min-height: 560px;
+            padding: 0;
+            position: relative;
+            border-bottom: 1px solid #c8c8c8;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            > .popup-image-manager {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom:0;
+                > iframe{
+                    display: block;
+                    width: 100%;
+                    // min-height: 560px;
+                    height: 100%;
+
+                }
+            }
+        }
+    }
     &.add_block {
         width: 60%;
         left: 20%;

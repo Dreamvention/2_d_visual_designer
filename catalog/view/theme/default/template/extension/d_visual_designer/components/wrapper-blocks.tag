@@ -94,7 +94,7 @@
             } else {
                 value.layout = 'children'
             }
-            console.log(value)
+
             return value
         }.bind(this))
 

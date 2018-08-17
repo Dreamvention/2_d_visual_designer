@@ -70,7 +70,7 @@ $_['text_phone']                     = 'Phone';
 $_['text_tablet']                    = 'Tablet';
 $_['text_desktop']                   = 'Desktop';
 
-$_['text_welcome_header']            = 'You have blank page <br> Start adding content or templates';
+$_['text_welcome_header']            = 'You have a blank page <br> Start adding content or templates';
 $_['text_add_block']                 = 'Add block';
 $_['text_add_text_block']            = 'Add Text block';
 $_['text_add_template']              = 'Add Template';

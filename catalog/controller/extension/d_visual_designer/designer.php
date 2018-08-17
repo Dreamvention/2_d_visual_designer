@@ -136,6 +136,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         } elseif ($this->{'model_extension_module_' . $this->codename}->validateEdit($setting['config'], false) && !empty($setting['id'])) {
 
             $this->addStyle('stylesheet/d_visual_designer/frontend.css');
+            $this->addScript('javascript/d_visual_designer/model/block_front.js');
 
             $data['edit_url'] = $this->store_url . 'admin/index.php?route=extension/d_visual_designer/designer/frontend&' . $url_token . '&config=' . $setting['config'] . '&id=' . $setting['id'];
 
@@ -163,6 +164,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             return $this->model_extension_d_opencart_patch_load->view('extension/' . $this->codename . '/frontend', $data);
         } else {
             $this->addStyle('stylesheet/d_visual_designer/frontend.css');
+            $this->addScript('javascript/d_visual_designer/model/block_front.js');
 
             $data['local']   = $this->prepareLocal(false);
             $data['options'] = $this->prepareOptions(false);

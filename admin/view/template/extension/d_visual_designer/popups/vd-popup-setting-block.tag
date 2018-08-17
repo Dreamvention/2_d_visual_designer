@@ -186,7 +186,7 @@
             <a class="vd-btn apply" onClick={save}><i class="fas fa-check"></i></a>
         </div>
     </div>
-    <image-manager/>
+    <image-manager designer_id={designer_id}/>
 </div>
 <script>
     this.mixin({store:d_visual_designer})

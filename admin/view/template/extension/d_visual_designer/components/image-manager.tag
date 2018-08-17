@@ -17,6 +17,10 @@
             });
         };
 
+        window.selectImage = function(){
+            that.store.dispatch('popup/image-manager/hide', {designer_id: that.opts.designer_id})
+        }
+
         var that =this
         $(document).off('click', 'a[data-toggle=\'vd-image\']');
         $(document).on('click', 'a[data-toggle=\'vd-image\']', function (e) {
@@ -40,11 +44,8 @@
             $(element).popover('show');
 
             $('#vd-button-image').on('click', function () {
-                $('#modal-image').remove();
-                $('body').append('<div id="modal-image" class="modal"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button><h4 class="modal-title">'+that.store.getLocal('designer.text_file_manager')+'</h4></div><div class="modal-body"><iframe src="'+that.store.getState().config.filemanager_url +'&field='+$(element)
-                        .parent().find('input').attr('id')+'&thumb='+$(element).attr('id')+'" style="padding:0; margin: 0; display: block; width: 100%; height: 560px;" frameborder="no" scrolling="no"></iframe></div><div class="modal-footer"></div></div></div></div>');
-                $('#modal-image').modal('show');
-                $('.modal-backdrop').remove();  
+                that.store.dispatch('popup/image-manager/show', {designer_id: that.opts.designer_id, input_id: $(element)
+                        .parent().find('input').attr('id'), element_id:$(element).attr('id') })
 
                 $(element).popover('hide', function () {
                     $('.popover').remove();

@@ -4,6 +4,7 @@
     <vd-popup-layout-block/>
     <vd-popup-save-template/>
     <vd-popup-load-template/>
+    <vd-popup-image-manager/>
     <script>
         this.mixin({store:d_visual_designer})
         

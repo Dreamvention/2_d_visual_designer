@@ -42,6 +42,7 @@
     <vd-popup-layout-block/>
     <vd-popup-save-template/>
     <vd-popup-load-template/>
+    <vd-popup-image-manager/>
     <vd-popup-codeview/>
     <textarea style="display:none;" name="{fieldName}">{content}</textarea>
     <script>
