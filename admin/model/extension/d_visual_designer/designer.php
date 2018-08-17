@@ -542,8 +542,20 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     /**
      * Install template
      */
+    public function installTemplate($content, $route, $id, $field_name, $template, $template_id, $config = '')
+    {
+         $this->load->model('extension/'.$this->codename.'_template');
+         if(!empty($config)){
+            $template_info = $this->{'model_extension_'.$this->codename.'_template'}->getConfigTemplate($template_id, $config);
+        }
+        else{
+            $template_info = $this->{'model_extension_'.$this->codename.'_template'}->getTemplate($template_id);
+        }
 
-     public function checkInstallModule() {
+        $this->saveContent($template_info['content'], $route, $id, $field_name);
+    }
+
+    public function checkInstallModule() {
         $this->load->model('extension/d_opencart_patch/extension');
 
         if(!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
