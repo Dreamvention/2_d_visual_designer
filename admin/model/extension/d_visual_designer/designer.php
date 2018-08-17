@@ -542,7 +542,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
     /**
      * Install template
      */
-    public function installTemplate($route, $id, $field_name, $template, $template_id, $config = '')
+    public function installTemplate($route, $id, $field_name, $template_id, $config = '')
     {
         $this->load->model('extension/'.$this->codename.'/template');
         if(!empty($config)){
@@ -550,7 +550,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         }
         else{
             $template_info = $this->{'model_extension_'.$this->codename.'_template'}->getTemplate($template_id);
-        }
+        };
 
         $this->saveContent($template_info['content'], $route, $id, $field_name);
     }
