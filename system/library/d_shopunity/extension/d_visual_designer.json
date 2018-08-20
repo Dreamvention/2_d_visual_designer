@@ -255,7 +255,8 @@
         "image/catalog/d_visual_designer/row_inner.svg",
         "image/catalog/d_visual_designer/column.svg",
         "image/catalog/d_visual_designer/text.svg",
-        "image/catalog/d_visual_designer/image.svg"
+        "image/catalog/d_visual_designer/image.svg",
+        "image/catalog/d_visual_designer/section_wrapper.svg"
     ],
     "dirs": [
         "admin/controller/extension/d_visual_designer",
