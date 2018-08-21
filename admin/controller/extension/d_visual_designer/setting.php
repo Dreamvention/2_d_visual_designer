@@ -334,6 +334,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->document->setTitle($this->language->get('heading_title_main'));
         $data['heading_title'] = $this->language->get('heading_title_main');
         $data['text_edit'] = $this->language->get('text_edit');
+        $data['cancel'] =$this->model_extension_d_opencart_patch_url->getExtensionLink('module');
 
         $data['version'] = $this->extension['version'];
         
