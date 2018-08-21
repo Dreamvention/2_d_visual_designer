@@ -94,11 +94,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['store_id'] = $this->store_id;
         $data['stores'] = $this->model_extension_d_opencart_patch_store->getAllStores();
         $data['extension'] = $this->extension;
-        
-        if (!empty($this->extension['support']['email'])) {
-            $data['support_email'] = $this->extension['support']['email'];
-        }
-
         $data['version'] = $this->extension['version'];
         $data['token'] =  $this->model_extension_d_opencart_patch_user->getToken();
         $data['url_token'] =  $this->model_extension_d_opencart_patch_user->getUrlToken();
@@ -174,7 +169,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $data['tab_support'] = $this->language->get('tab_support');
         $data['text_support'] = $this->language->get('text_support');
         $data['entry_support'] = $this->language->get('entry_support');
-        $data['button_support_email'] = $this->language->get('button_support_email');
         $data['text_no_results'] = $this->language->get('text_no_results');
         
         $data['text_templates'] = $this->language->get('text_templates');

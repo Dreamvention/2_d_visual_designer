@@ -24,8 +24,17 @@
                     <li><a href="{{href_templates}}" class="htab-item"><i class="fa fa-list"></i> {{text_templates}}</a></li>
                     <li class="active"><a href="{{href_instruction}}" class="htab-item"><i class="fa fa-graduation-cap fa-fw"></i> {{text_instructions}}</a></li>
                 </ul>
-                {{text_instruction_full}}
+                <div class="instruction"></div>
             </div>
         </div>
     </div>
 </div>
+ <script type="text/javascript">
+
+    var url = 'https://dreamvention.ee/visual-designer-instructions';
+
+    $.getJSON(url + '?format=json&callback=?', function(data) {
+        $('.instruction').html(data['description']);
+    });
+
+</script>
