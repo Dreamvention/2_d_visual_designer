@@ -24,9 +24,7 @@ $_['text_complete_version']         = '<a href="https://dreamvention.ee/visual-d
 $_['text_compress_success']         = 'Compress file update successfuly.';
 
 $_['text_welcome_title']            = 'Visual Designer';
-$_['text_welcome_description']      = 'Everyone knows that landing pages increase conversions by 50%, yet many people struggle to make them.
-We have created Visual Designer to let you create amazing landing pages with a Drag-&-drop Editor.
-Start designing now and turn your visitors in real customers.';
+$_['text_welcome_description']      = 'Landing pages increase conversions by 50%, yet many people struggle with them. We have created this module to help you add amazing landing pages to your shop with a drag-&-drop visual editor. Turn your visitors into paying customers.';
 
 $_['text_welcome_visual_editor']    = 'Visual editor';
 $_['text_welcome_building_blocks']  = '50 Buildings blocks';
@@ -34,6 +32,7 @@ $_['text_welcome_mobile_ready']     = 'Mobile ready';
 $_['text_welcome_increase_sales']   = 'Increase sales';
 
 $_['button_setup']                  = 'Setup';
+$_['success_setup']                 = 'Success: Visual Designer is setup and ready. You will see it when editing product, category or information page.';
 
 //button
 $_['entry_support']                 = 'Support<br/><small>Create a ticket. If you find a bug, even in a free version, please let us know.</small>';
@@ -42,3 +41,4 @@ $_['button_save_and_stay']          = 'Save and stay';
 $_['button_increase_fields']        = 'Increase description';
 $_['button_decrease_fields']        = 'Descrease description';
 $_['button_compress_update']        = 'Update';
+$_['text_powered_by']               = 'Tested with <a href="https://shopunity.net/extension/ajax-quick-checkout-pro" target="_blank">Shopunity.net</a> <br> Find more amazing extensions at <a href="https://dreamvention.ee/" target="_blank">Dreamvention.ee</a>';

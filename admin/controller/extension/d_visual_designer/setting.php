@@ -360,6 +360,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->load->model('extension/d_opencart_patch/url');
         $this->{'model_extension_'.$this->codename.'_designer'}->installConfig();
         $json['redirect'] = $this->model_extension_d_opencart_patch_url->ajax($this->route);
+        $this->session->data['success'] = $this->language->get('success_setup');
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
