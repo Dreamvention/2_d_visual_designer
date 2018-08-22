@@ -34,6 +34,9 @@
     "install": {
         "url": "extension/extension/module/install&extension=d_visual_designer"
     },
+    "uninstall": {
+        "url": "extension/extension/module/uninstall&extension=d_visual_designer"
+    },
     "support": {
         "email": "support@dreamvention.com",
         "url": "https://dreamvention.com/support"
