@@ -258,10 +258,9 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                     $html_dom->find('head > script', -1)->outertext .= '<script src="' . $script . '" type="text/javascript"></script>';
                 }
             }
-
             foreach ($this->styles as $style) {
                 if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
-                    $html_dom->find('head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
+                    $html_dom->find('head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"/>';
                 }
             }
             return (string)$html_dom;
@@ -297,6 +296,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         foreach ($blocks as $block) {
             $output = $this->vd_block->load($block, 'styles', $permission);
             if ($output) {
+
                 $this->styles = array_merge($this->styles, $output);
             }
         }
