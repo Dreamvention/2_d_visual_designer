@@ -22,7 +22,7 @@
                 this.dispatch('block/child/create', {block_id: new_child_block_2_id, type: block_config.setting.child, designer_id: data.designer_id})
             }
         }
-        this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id,})
+        this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id})
     }.bind(this));
 
     
