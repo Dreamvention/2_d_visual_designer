@@ -1,6 +1,6 @@
 {
     "codename": "d_visual_designer",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "name": "Visual Designer",
     "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
     "index": "extension/module/d_visual_designer",
@@ -34,9 +34,6 @@
     "install": {
         "url": "extension/extension/module/install&extension=d_visual_designer"
     },
-    "uninstall": {
-        "url": "extension/extension/module/uninstall&extension=d_visual_designer"
-    },
     "support": {
         "email": "support@dreamvention.com",
         "url": "https://dreamvention.com/support"
@@ -55,6 +52,7 @@
         "d_alertify": ">= 1.11.1"
     },
     "files": [
+        "catalog/view/theme/default/template/extension/d_visual_designer/compress/content_blocks.tag",
         "system/library/d_shopunity/extension/d_visual_designer.json",
         "system/library/d_shortcode_reader_writer.php",
         "system/config/d_visual_designer.php",
@@ -289,6 +287,10 @@
         "system/library/d_shortcode_reader_writer"
     ],
     "changelog": [
+        {
+            "version": "3.0.1",
+            "change": "Fix bug with create child blocks"
+        },
         {
             "version": "3.0.0",
             "change": "Bug fix"

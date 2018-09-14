@@ -16,11 +16,13 @@
             var block_child_config = _.find(this.getState().config.blocks, function(block){
                 return block.type == block_config.setting.child
             })
+            this.dispatch('block/child/create', {block_id: new_child_block_id, type: block_config.setting.child, designer_id: data.designer_id})
             if(block_child_config.setting.child) {
-                this.newBlock(data.designer_id, block_child_config.setting.child, new_child_block_id);
+                var new_child_block_2_id = this.newBlock(data.designer_id, block_child_config.setting.child, new_child_block_id);
+                this.dispatch('block/child/create', {block_id: new_child_block_2_id, type: block_config.setting.child, designer_id: data.designer_id})
             }
         }
-        this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id})
+        this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id,})
     }.bind(this));
 
     
