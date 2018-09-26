@@ -147,12 +147,6 @@
             }
         }
 
-        [class*=col-] {
-            &:not(.product-layout):not(.bm-grid-item) {
-                padding: 0;
-            }
-        }
-
         .block-content {
             &.child {
                 display: flex;
