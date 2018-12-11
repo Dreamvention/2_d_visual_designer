@@ -1,5 +1,6 @@
 <?php
 namespace d_shortcode_reader_writer;
+
 class shortcode_reader
 {
     private $setting;
@@ -9,7 +10,8 @@ class shortcode_reader
     private $sort_orders = array();
     private $level= 0;
 
-    public function __construct($items){
+    public function __construct($items)
+    {
         $this->items = $items;
     }
 
@@ -24,34 +26,30 @@ class shortcode_reader
         return $this->setting;
     }
 
-    protected function do_shortcode_tag($m) {
-
-        if ( $m[1] == '[' && $m[6] == ']' ) {
+    protected function do_shortcode_tag($m)
+    {
+        if ($m[1] == '[' && $m[6] == ']') {
             return substr($m[0], 1, -1);
         }
 
         $tag = $m[2];
 
-        $type=str_replace('vd_','',$tag);
+        $type=str_replace('vd_', '', $tag);
 
         $attr = $this->shortcode_parse_atts($m[3]);
 
-        if ( !empty( $m[5] ) ) {
-
+        if (!empty($m[5])) {
             $current_block = $type.'_'.$this->getRandomString();
 
-            if(!empty($this->parents))
-            {
+            if (!empty($this->parents)) {
                 $parent_id = current(array_slice($this->parents, -1));
-            }
-            else{
+            } else {
                 $parent_id = '';
             }
 
-            if(!isset($this->sort_orders[$parent_id])){
+            if (!isset($this->sort_orders[$parent_id])) {
                 $this->sort_orders[$parent_id] = 0;
-            }
-            else{
+            } else {
                 $this->sort_orders[$parent_id]++;
             }
 
@@ -63,21 +61,19 @@ class shortcode_reader
                 'type' => $type
                 );
 
-            array_push($this->parents,$current_block);
+            array_push($this->parents, $current_block);
             $this->level++;
             $content_child = $this->parseDescriptionHelper($m[5]);
 
             return '';
-
         } else {
             $current_block = $type.'_'.$this->getRandomString();
 
             $parent_id = current(array_slice($this->parents, -1));
 
-            if(!isset($this->sort_orders[$parent_id])){
+            if (!isset($this->sort_orders[$parent_id])) {
                 $this->sort_orders[$parent_id] = 0;
-            }
-            else{
+            } else {
                 $this->sort_orders[$parent_id]++;
             }
 
@@ -94,7 +90,8 @@ class shortcode_reader
         }
     }
 
-    public function parseDescriptionHelper($description){
+    public function parseDescriptionHelper($description)
+    {
         // $this->sort_orders[$this->level] = -1;
         $content = preg_replace_callback('/' . $this->getPattern() . '/s', array( &$this, "do_shortcode_tag" ), $description);
         array_pop($this->parents);
@@ -107,13 +104,13 @@ class shortcode_reader
      * Returns attributes from a string
      */
 
-    public function shortcode_parse_atts($text) {
-
+    public function shortcode_parse_atts($text)
+    {
         $atts = array();
         $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|([a-zA-Z:0-9_]+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
         $text = preg_replace("/[\x{00a0}\x{200b}]+/u", " ", $text);
 
-        if ( preg_match_all($pattern, $text, $match, PREG_SET_ORDER) ) {
+        if (preg_match_all($pattern, $text, $match, PREG_SET_ORDER)) {
             $params = '';
             $attr = array();
             foreach ($match as $m) {
@@ -134,23 +131,30 @@ class shortcode_reader
      * Converts the variable name to an array
      */
 
-    public function parseName($name, $value, &$attr){
+    public function parseName($name, $value, &$attr)
+    {
         $pos = strpos($name, '::');
-        if($pos === false){
 
+        $or = $name;
+
+        if ($pos === false) {
             $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
             $value = $this->unescape($value);
             $attr[$name] = $value;
-        }
-        else{
-            $name = str_replace('::',',',$name);
-            $name = str_replace(':',',',$name);
+        } else {
+            $name = str_replace('::', ',', $name);
+
+            $name = str_replace(':', ',', $name);
+
             $value = html_entity_decode($value, ENT_QUOTES, 'UTF-8');
-            $value = $this->unescape($value);
+
             $exploded = explode(',', $name);
+            $value = $this->unescape($value);
+
             $path = '';
             $temp = &$attr;
-            foreach($exploded as $key) {
+
+            foreach ($exploded as $key) {
                 $temp = &$temp[$key];
             }
             $temp = $value;
@@ -161,12 +165,13 @@ class shortcode_reader
      * Returns a unique id
      */
 
-    public function getRandomString(){
-        return substr( md5(rand()), 0, 7);
+    public function getRandomString()
+    {
+        return substr(md5(rand()), 0, 7);
     }
 
-    public function unescape($text){
-
+    public function unescape($text)
+    {
         $text = str_replace('`{`', '[', $text);
         $text = str_replace('`}`', ']', $text);
         $text = str_replace('``', "'", $text);
@@ -178,7 +183,8 @@ class shortcode_reader
      * Returns the pattern for processing shortcodes
      */
 
-    public function getPattern(){
+    public function getPattern()
+    {
         $pattern = "\\[(\\[?)(vd_row|vd_column";
 
         foreach ($this->items as $block) {

@@ -289,7 +289,7 @@
     "changelog": [
         {
             "version": "3.0.1",
-            "change": "Fix bug with create child blocks"
+            "change": "Fix bug with create child blocks. Fix bug with checkbox."
         },
         {
             "version": "3.0.0",

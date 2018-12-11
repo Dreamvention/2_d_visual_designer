@@ -54,6 +54,9 @@ class shortcode_writer
         foreach ($setting as $name => $value) {
             if (is_array($value)) {
                 $values = $this->writeAttrArray($name, $value);
+                if(empty($values)) {
+                    $result .= ' ' . $name . ':: =\'\'';
+                }
                 foreach ($values as $fullName => $value2) {
                     $fullName = preg_replace('/\]\[/', ':', $fullName);
                     $fullName = preg_replace('/\[/', '::', $fullName);
