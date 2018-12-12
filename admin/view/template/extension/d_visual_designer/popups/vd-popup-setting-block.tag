@@ -322,7 +322,7 @@
                     name: this.store.getLocal('designer.text_phone'),
                     type: 'phone',
                     is: 'vd-input-group',
-                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_margin_mobile'}
+                    opts: {block_id: this.block_id, designer_id: this.designer_id, 'name': 'design_margin_phone'}
                 },
             }
             this.paddingTabs = {
