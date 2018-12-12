@@ -336,7 +336,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         $options['blocks'] = array();
 
         foreach ($blocks as $block) {
-            $options['blocks'][$block] = $this->vd_block->load($block, 'options', $permission);
+            $options['blocks'][$block] = $this->{'model_extension_module_' . $this->codename}->getOptions($block, $permission);
         }
 
         return $options;

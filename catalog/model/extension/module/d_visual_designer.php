@@ -208,6 +208,10 @@ class ModelExtensionModuleDVisualDesigner extends Model
         return $result;
     }
 
+    public function getOptions($type, $permission) {
+        return $this->vd_block->load($type, 'options', $permission);
+    }
+
     /**
      * Pre-render content from settings by Parent ID
      * @param $parent
