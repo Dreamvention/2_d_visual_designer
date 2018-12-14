@@ -55,8 +55,8 @@ gulp.task("basic-styles", function () {
     return gulp.src([
         "../library/sharrre/style.css",
         "../library/magnific/magnific-popup.css",
-        "../library/owl-carousel/owl.carousel.css",
-        "../library/owl-carousel/owl.transitions.css",
+        "../library/owl-carousel/owl.carousel.scss",
+        "../library/owl-carousel/owl.transitions.scss",
         "../library/animate.css",
         "../library/icon-fonts/elusive-icons.scss",
         "../library/icon-fonts/fontawesome.scss",
