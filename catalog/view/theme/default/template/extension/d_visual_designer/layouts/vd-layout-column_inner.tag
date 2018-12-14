@@ -112,7 +112,7 @@
                 className.push('animated '+setting.design_animate)
             }
             if(setting.additional_css_class){
-                contentClassName.push(setting.additional_css_class)
+                className.push(setting.additional_css_class)
             }
             this.setState({
                 className: className.join(' '),
