@@ -255,6 +255,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
 
             $this->uninstallEvents();
             
+            $this->cache->delete('vd-pre-render');
+
             if (!empty($this->request->post[$this->codename.'_status']) && !empty($this->request->post[$this->codename.'_setting']['use'])) {
                 $this->installEvents($this->request->post[$this->codename.'_setting']['use']);
             }

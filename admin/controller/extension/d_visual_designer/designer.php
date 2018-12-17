@@ -18,7 +18,7 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
 
     private $store_id = '';
 
-
+    
     public function __construct($registry)
     {
         parent::__construct($registry);
