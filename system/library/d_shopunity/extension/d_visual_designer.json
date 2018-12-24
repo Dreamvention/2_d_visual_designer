@@ -1,6 +1,6 @@
 {
     "codename": "d_visual_designer",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "name": "Visual Designer",
     "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
     "index": "extension/module/d_visual_designer",
@@ -287,6 +287,10 @@
         "system/library/d_shortcode_reader_writer"
     ],
     "changelog": [
+        {
+            "version": "3.0.2",
+            "change": "Remove some bootsrap normilize rules to reduce theme overloading"
+        },
         {
             "version": "3.0.1",
             "change": "Fix bug with create child blocks. Fix bug with checkbox."
