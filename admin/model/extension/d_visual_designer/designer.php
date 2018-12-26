@@ -693,7 +693,6 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * @return void
      */
     public function disableBootstrap() {
-        $this->load->config($this->codename);
         $setting = $this->config->get($this->codename.'_setting');
 
         $setting['bootstrap'] = 0;
