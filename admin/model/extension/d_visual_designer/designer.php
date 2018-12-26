@@ -688,6 +688,18 @@ class ModelExtensionDVisualDesignerDesigner extends Model
             ));
         }
     }
+    /**
+     * Disabling Force Bootstrap
+     * @return void
+     */
+    public function disableBootstrap() {
+        $this->load->config($this->codename);
+        $setting = $this->config->get($this->codename.'_setting');
+
+        $setting['bootstrap'] = 0;
+
+        $this->model_extension_d_opencart_patch_setting->editSettingValue($this->codename, $this->codename.'_setting', $setting);
+    }
 
     /**
      * Validate access
