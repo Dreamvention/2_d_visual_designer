@@ -693,7 +693,8 @@ class ModelExtensionDVisualDesignerDesigner extends Model
      * @return void
      */
     public function disableBootstrap() {
-        $setting = $this->config->get($this->codename.'_setting');
+        $this->load->model('extension/d_opencart_patch/setting');
+        $setting = $this->model_extension_d_opencart_patch_setting->getSettingValue($this->codename.'_setting');
 
         $setting['bootstrap'] = 0;
 
