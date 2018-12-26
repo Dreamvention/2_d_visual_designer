@@ -105,7 +105,7 @@
         this.resize_iframe = function(){
             var $w_height = $( window ).height(),
             $b_height = $( '.vd-navbar-container' ).height(),
-            $i_height = $w_height - $b_height - 2;
+            $i_height = $w_height - $b_height;
             this.iframeHeight = $i_height
             this.update()
         }.bind(this)
