@@ -14,6 +14,7 @@ $_['text_set_custom']                = 'Set';
 $_['text_add_child_block']           = 'Add block';
 $_['text_add']                       = 'Add';
 $_['text_file_manager']              = 'Image Manager';
+$_['text_field_label']               = 'Visual Designer';
 
 $_['text_default']                   = 'Default';
 $_['text_dotted']                    = 'Dotted';

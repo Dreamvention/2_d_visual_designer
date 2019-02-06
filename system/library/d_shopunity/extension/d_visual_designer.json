@@ -105,6 +105,7 @@
     "catalog/view/theme/default/javascript/d_visual_designer/model/style.js",
     "catalog/view/theme/default/javascript/d_visual_designer/model/content.js",
     "catalog/view/theme/default/javascript/d_visual_designer/model/history.js",
+    "catalog/view/theme/default/template/extension/d_visual_designer/field.twig",
     "catalog/view/theme/default/template/extension/d_visual_designer/designer.twig",
     "catalog/view/theme/default/template/extension/d_visual_designer/content.twig",
     "catalog/view/theme/default/template/extension/d_visual_designer/frontend.twig",

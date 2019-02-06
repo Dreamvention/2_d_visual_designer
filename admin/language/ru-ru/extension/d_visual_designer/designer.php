@@ -14,6 +14,7 @@ $_['text_set_custom']                = 'Задать';
 $_['text_add_child_block']           = 'Добавить блок';
 $_['text_add']                       = 'Добавить';
 $_['text_file_manager']              = 'Менеджер изображений';
+$_['text_field_label']               = 'Visual Designer';
 
 $_['text_dotted']                    = 'Точечный';
 $_['text_dashed']                    = 'Пунктирный';

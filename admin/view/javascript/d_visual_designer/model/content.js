@@ -8,7 +8,11 @@
             }
             if(el.classList.contains('d_visual_designer_backend')){
                 send_data['field_name'] = el.dataset["name"]
-                send_data['content'] = ''
+                if(typeof el.dataset["content"] !== 'undefined') {
+                    send_data['content'] = el.dataset["content"]
+                } else {
+                    send_data['content'] = ''
+                }
             } else {
                 send_data['field_name'] = el.name
                 send_data['content'] = el.value

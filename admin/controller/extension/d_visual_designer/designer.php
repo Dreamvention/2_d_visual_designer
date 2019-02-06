@@ -127,6 +127,17 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         }
     }
 
+    public function field($field_data) {
+        $this->load->model('extension/d_opencart_patch/load');
+
+        $data['text_label'] = $this->language->get('text_field_label');
+
+        $data['name'] = $field_data['field'];
+        $data['content'] = $field_data['content'];
+
+        return $this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/field', $data);
+    }
+
     protected function parseHeader($header = false)
     {
         if ($header) {
@@ -166,18 +177,19 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
             $setting = json_decode(html_entity_decode($this->request->post['setting'], ENT_QUOTES, 'UTF-8'), true);
         }
 
+        
         if (isset($setting['route'])) {
             $route = $setting['route'];
         }
-
+        
         if (isset($setting['field_name'])) {
             $field_name = $setting['field_name'];
         }
-
+        
         if (isset($setting['content'])) {
             $content = $setting['content'];
         }
-
+        
         if (isset($setting['id'])) {
             $id = $setting['id'];
         }
@@ -185,13 +197,12 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
         if (isset($route) && isset($field_name) && isset($content) && isset($id)) {
             if ($id != '') {
                 $result = $this->{'model_extension_'.$this->codename.'_designer'}->getContent($route, $id, $field_name);
-                if (!empty($result)) {
+                if (!empty($result) && !empty($result['content'])) {
                     $content = $result['content'];
                 }
             }
 
             $shortcode = false;
-
             $block_setting = $this->{'model_extension_'.$this->codename.'_designer'}->parseContent($content, array(&$shortcode));
      
             $json['designer_id'] = substr(md5(rand()), 0, 7);
