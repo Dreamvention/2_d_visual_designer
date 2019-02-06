@@ -27,7 +27,6 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         'output' => &$output,
         'id' => !empty($this->request->get['product_id'])?$this->request->get['product_id']:false
         );
-        
         $vd_content = $this->load->controller('extension/'.$this->codename.'/designer', $designer_data);
         
         $html_dom = new d_simple_html_dom();
@@ -38,7 +37,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         $languages = $this->model_localisation_language->getLanguages();
         
         foreach ($languages as $language) {
-            $el = $html_dom->find('textarea[name^="product_description['.$language['language_id'].'][description]"]', 0);
+            $el = $html_dom->find('textarea[name^="product_description['.$language['language_id'].'][description"]', 0);
             $field_data = array(
                 'field' => "product_description[".$language['language_id']."][description]",
                 'content' => $el->innertext
@@ -120,7 +119,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         $languages = $this->model_localisation_language->getLanguages();
         
         foreach ($languages as $language) {
-            $el = $html_dom->find('textarea[name^="category_description['.$language['language_id'].'][description]"]', 0);
+            $el = $html_dom->find('textarea[name^="category_description['.$language['language_id'].'][description"]', 0);
             $field_data = array(
                 'field' => "category_description[".$language['language_id']."][description]",
                 'content' => $el->innertext
@@ -201,7 +200,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         $languages = $this->model_localisation_language->getLanguages();
         
         foreach ($languages as $language) {
-            $el = $html_dom->find('textarea[name^="information_description['.$language['language_id'].'][description]"]', 0);
+            $el = $html_dom->find('textarea[name^="information_description['.$language['language_id'].'][description"]', 0);
             $field_data = array(
                 'field' => "information_description[".$language['language_id']."][description]",
                 'content' => $el->innertext
