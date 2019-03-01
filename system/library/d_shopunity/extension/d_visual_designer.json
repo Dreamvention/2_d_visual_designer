@@ -1,6 +1,6 @@
 {
   "codename": "d_visual_designer",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "name": "Visual Designer",
   "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
   "index": "extension/module/d_visual_designer",
@@ -287,6 +287,10 @@
   ],
   "changelog": [
     {
+      "version": "3.0.4",
+      "change": "Bugs Fixed"
+    },
+	{
       "version": "3.0.3",
       "change": "Added d_shoprtcode_reader_writer library. Reworked view for products, categories and informational pages. Added support OC 3.0.3.1."
     },
