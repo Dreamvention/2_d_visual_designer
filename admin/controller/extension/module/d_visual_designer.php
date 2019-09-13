@@ -22,7 +22,7 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
         $this->d_opencart_patch = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_opencart_patch.json'));
         $this->d_twig_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_twig_manager.json'));
         $this->d_event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json'));
-        
+        $this->d_validator = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_validator.json'));
     }
 
     public function index()
@@ -40,6 +40,11 @@ class ControllerExtensionModuleDVisualDesigner extends Controller
         if($this->d_shopunity){
             $this->load->model('extension/d_shopunity/mbooth');
             $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
+        }
+
+        if ($this->d_validator) {
+            $this->load->model('extension/d_shopunity/d_validator');
+            $this->model_extension_d_shopunity_d_validator->installCompatibility();
         }
 
         $this->load->controller('extension/d_visual_designer/setting');

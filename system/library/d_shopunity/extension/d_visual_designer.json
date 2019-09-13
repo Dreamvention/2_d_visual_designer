@@ -1,6 +1,6 @@
 {
   "codename": "d_visual_designer",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "name": "Visual Designer",
   "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
   "index": "extension/module/d_visual_designer",
@@ -13,8 +13,8 @@
   "opencart_version": "2-4",
   "type": "module",
   "license": {
-    "type": "commercial",
-    "url": "https://shopunity.net/licenses/commercial"
+    "type": "free",
+    "url": "https://shopunity.net/licenses/free"
   },
   "install": {
     "url": "extension/extension/module/install&extension=d_visual_designer"
@@ -35,7 +35,8 @@
     "d_twig_partial": ">= 1.0.0",
     "d_admin_style": ">= 1.0.0",
     "d_alertify": ">= 1.11.1",
-    "d_shortcode_reader_writer": ">=1.0.0"
+    "d_shortcode_reader_writer": ">=1.0.0",
+    "d_validator": ">=1.0.2"
   },
   "files": [
     "catalog/view/theme/default/template/extension/d_visual_designer/compress/content_blocks.tag",
@@ -270,6 +271,10 @@
     "catalog/view/javascript/d_visual_designer/dist"
   ],
   "changelog": [
+    {
+      "version": "3.0.6",
+      "change": "Validator dependency"
+    },
     {
       "version": "3.0.5",
       "change": "sem var"
