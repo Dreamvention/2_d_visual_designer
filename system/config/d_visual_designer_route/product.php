@@ -22,5 +22,6 @@ $_['events']            = array(
     'admin/model/catalog/product/addProduct/before' => 'extension/event/d_visual_designer/model_catalog_product_addProduct_before',
     'admin/model/catalog/product/editProduct/after' => 'extension/event/d_visual_designer/model_catalog_product_editProduct_after',
     'admin/model/catalog/product/editProduct/before' => 'extension/event/d_visual_designer/model_catalog_product_editProduct_before',
-    'catalog/view/product/product/before' => 'extension/event/d_visual_designer/view_product_before'
+    'catalog/view/product/product/before' => 'extension/event/d_visual_designer/view_product_before',
+    'catalog/controller/journal3/product_tabs/after' => 'extension/event/d_visual_designer/controller_journal3_product_tabs_after'
 );

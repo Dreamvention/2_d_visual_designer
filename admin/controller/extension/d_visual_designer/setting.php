@@ -26,7 +26,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     
     public function index()
     {
-        if(!$this->{'model_extension_'.$this->codename.'_designer'}->checkInstallModule()){
+        if (!$this->{'model_extension_'.$this->codename.'_designer'}->checkInstallModule()) {
             $this->welcome();
             return;
         }
@@ -37,7 +37,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('extension/d_opencart_patch/user');
         
-         // styles and scripts
+        // styles and scripts
         $this->document->addStyle('view/stylesheet/d_bootstrap_extra/bootstrap.css');
         $this->document->addStyle('view/stylesheet/d_visual_designer/menu.css');
         
@@ -47,7 +47,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->document->addStyle('view/javascript/d_alertify/css/alertify.min.css');
         $this->document->addStyle('view/javascript/d_alertify/css/themes/semantic.min.css');
 
-        if($this->d_admin_style){
+        if ($this->d_admin_style) {
             $this->load->model('extension/d_admin_style/style');
 
             $this->model_extension_d_admin_style_style->getAdminStyle('light');
@@ -252,7 +252,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         }
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
-
             $this->uninstallEvents();
             
             $this->cache->delete('vd-pre-render');
@@ -281,7 +280,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
     public function installEvents($status)
     {
         if ($this->d_event_manager) {
-            
             $this->load->model('extension/module/d_event_manager');
             $this->load->model('extension/'.$this->codename.'/designer');
             foreach ($status as $value) {
@@ -293,17 +291,18 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
                 }
             }
             
+            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/journal3/module/blocks/before', 'extension/event/'.$this->codename.'/view_journal3_module_block_before');
             $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
             $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
         }
     }
 
-    public function welcome() {
-        
+    public function welcome()
+    {
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('extension/d_opencart_patch/url');
 
-        if($this->d_admin_style){
+        if ($this->d_admin_style) {
             $this->load->model('extension/d_admin_style/style');
 
             $this->model_extension_d_admin_style_style->getAdminStyle('light');
@@ -366,7 +365,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         $this->response->setOutput($this->model_extension_d_opencart_patch_load->view('extension/'.$this->codename.'/welcome', $data));
     }
 
-    public function quickSetup(){
+    public function quickSetup()
+    {
         $this->load->model('extension/d_opencart_patch/url');
         $this->{'model_extension_'.$this->codename.'_designer'}->installConfig();
         $json['redirect'] = $this->model_extension_d_opencart_patch_url->ajax($this->route);
@@ -395,7 +395,8 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         return true;
     }
 
-    public function compress_update(){
+    public function compress_update()
+    {
         $json = array();
 
         try {
