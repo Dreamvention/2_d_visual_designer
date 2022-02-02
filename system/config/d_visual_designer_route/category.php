@@ -3,11 +3,11 @@
 $_['name']                = 'Category';
 //Статус Frontend редатора
 $_['frontend_status']     = '1';
-//GET параметр route в админке 
+//GET параметр route в админке
 $_['backend_route']       = 'catalog/category/edit';
 //REGEX для GET параметров route в админке
 $_['backend_route_regex'] = 'catalog/category/*';
-//GET параметр route на Frontend 
+//GET параметр route на Frontend
 $_['frontend_route']      = 'product/category';
 //GET параметр содержащий id страницы в админке
 $_['backend_param']       = 'category_id';
@@ -23,5 +23,6 @@ $_['events']              = array(
     'admin/model/catalog/category/addCategory/after' => 'extension/event/d_visual_designer/model_catalog_category_addCategory_after',
     'admin/model/catalog/category/editCategory/before' => 'extension/event/d_visual_designer/model_catalog_category_editCategory_before',
     'admin/model/catalog/category/editCategory/after' => 'extension/event/d_visual_designer/model_catalog_category_editCategory_after',
-    'catalog/view/product/category/before' => 'extension/event/d_visual_designer/view_category_before'
+    'catalog/view/product/category/before' => 'extension/event/d_visual_designer/view_category_before',
+    'catalog/view/journal3/module/blocks/before' => 'extension/event/d_visual_designer/category_view_journal3_module_block_before'
 );

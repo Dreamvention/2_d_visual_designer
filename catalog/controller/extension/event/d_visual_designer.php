@@ -47,7 +47,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         }
     }
 
-    public function view_journal3_module_block_before(&$view, &$data, &$output)
+    public function product_view_journal3_module_block_before(&$view, &$data, &$output)
     {
         if (!empty($data['items'])) {
             foreach ($data['items'] as $key => $value) {
@@ -64,7 +64,18 @@ class ControllerExtensionEventDVisualDesigner extends Controller
                         $data['items'][$key]['content'] = $this->load->controller('extension/d_visual_designer/designer', $designer_data);
         
                         $data['items'][$key]['content']= html_entity_decode($data['items'][$key]['content'], ENT_QUOTES, 'UTF-8');
-                    } elseif (isset($this->request->get['path'])) {
+                    }
+                }
+            }
+        }
+    }
+
+    public function category_view_journal3_module_block_before(&$view, &$data, &$output)
+    {
+        if (!empty($data['items'])) {
+            foreach ($data['items'] as $key => $value) {
+                if (!empty($value['contentType']) && $value['contentType'] === 'description') {
+                    if (isset($this->request->get['path'])) {
                         $parts = explode('_', (string)$this->request->get['path']);
 
                         $category_id = (int)array_pop($parts);
@@ -84,6 +95,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             }
         }
     }
+
 
     public function view_category_before(&$view, &$data, &$output)
     {

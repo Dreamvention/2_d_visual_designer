@@ -291,7 +291,6 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
                 }
             }
             
-            $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/view/journal3/module/blocks/before', 'extension/event/'.$this->codename.'/view_journal3_module_block_before');
             $this->model_extension_module_d_event_manager->addEvent($this->codename, 'admin/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
             $this->model_extension_module_d_event_manager->addEvent($this->codename, 'catalog/model/tool/image/resize/before', 'extension/event/'.$this->codename.'/model_imageResize_before');
         }
