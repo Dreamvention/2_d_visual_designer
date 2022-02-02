@@ -75,7 +75,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         if (!empty($data['items'])) {
             foreach ($data['items'] as $key => $value) {
                 if (!empty($value['contentType']) && $value['contentType'] === 'description') {
-                    if (isset($this->request->get['path'])) {
+                    if (isset($this->request->get['path']) && !isset($this->request->get['product_id'])) {
                         $parts = explode('_', (string)$this->request->get['path']);
 
                         $category_id = (int)array_pop($parts);
