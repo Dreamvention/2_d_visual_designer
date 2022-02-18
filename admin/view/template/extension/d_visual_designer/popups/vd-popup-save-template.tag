@@ -37,6 +37,7 @@
     <div class="popup-footer">
         <a class="vd-btn save" data-loading-text="{store.getLocal('designer.button_saved')}" onClick={saveTemplate}>{store.getLocal('designer.button_save')}</a>
     </div>
+    <image-manager designer_id={parent.top.opts.id}/>
 </div>
 <script>
     this.mixin({store:d_visual_designer})
