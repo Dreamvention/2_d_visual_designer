@@ -40,7 +40,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $el = $html_dom->find('textarea[name^="product_description['.$language['language_id'].'][description"]', 0);
             $field_data = array(
                 'field' => "product_description[".$language['language_id']."][description]",
-                'content' => $el->innertext
+                'content' => htmlspecialchars($el->innertext)
             );
             $designer_content = $this->load->controller('extension/'.$this->codename.'/designer/field', $field_data);
             $el->parent()->parent()->outertext = $designer_content . $el->parent()->parent()->outertext;
@@ -52,7 +52,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         $output = (string)$html_dom;
     }
     
-    public function model_catalog_product_addProduct_before(&$route, &$data, &$output)
+    public function model_catalog_product_addProduct_before(&$route, &$data)
     {
         if ($this->setting_module['save_text']) {
             $this->load->model('localisation/language');
@@ -76,7 +76,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $this->{'model_extension_'.$this->codename.'_designer'}->saveContent($content, 'product', $output, rawurldecode($field_name));
         }
     }
-    public function model_catalog_product_editProduct_before(&$route, &$data, &$output)
+    public function model_catalog_product_editProduct_before(&$route, &$data)
     {
         if ($this->setting_module['save_text']) {
             $this->load->model('localisation/language');
@@ -122,7 +122,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $el = $html_dom->find('textarea[name^="category_description['.$language['language_id'].'][description"]', 0);
             $field_data = array(
                 'field' => "category_description[".$language['language_id']."][description]",
-                'content' => $el->innertext
+                'content' => htmlspecialchars($el->innertext)
             );
             $designer_content = $this->load->controller('extension/'.$this->codename.'/designer/field', $field_data);
             $el->parent()->parent()->outertext = $designer_content . $el->parent()->parent()->outertext;
@@ -133,7 +133,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         $output = (string)$html_dom;
     }
     
-    public function model_catalog_category_addCategory_before(&$route, &$data, &$output)
+    public function model_catalog_category_addCategory_before(&$route, &$data)
     {
         if ($this->setting_module['save_text']) {
             $this->load->model('localisation/language');
@@ -157,7 +157,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $this->{'model_extension_'.$this->codename.'_designer'}->saveContent($content, 'category', $output, rawurldecode($field_name));
         }
     }
-    public function model_catalog_category_editCategory_before(&$route, &$data, &$output)
+    public function model_catalog_category_editCategory_before(&$route, &$data)
     {
         if ($this->setting_module['save_text']) {
             $this->load->model('localisation/language');
@@ -203,7 +203,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $el = $html_dom->find('textarea[name^="information_description['.$language['language_id'].'][description"]', 0);
             $field_data = array(
                 'field' => "information_description[".$language['language_id']."][description]",
-                'content' => $el->innertext
+                'content' => htmlspecialchars($el->innertext)
             );
             $designer_content = $this->load->controller('extension/'.$this->codename.'/designer/field', $field_data);
             $el->parent()->parent()->outertext = $designer_content . $el->parent()->parent()->outertext;
@@ -214,7 +214,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
         $output = (string)$html_dom;
     }
     
-    public function model_catalog_infromation_addInformation_before(&$route, &$data, &$output)
+    public function model_catalog_infromation_addInformation_before(&$route, &$data)
     {
         if ($this->setting_module['save_text']) {
             $this->load->model('localisation/language');
@@ -238,7 +238,7 @@ class ControllerExtensionEventDVisualDesigner extends Controller
             $this->{'model_extension_'.$this->codename.'_designer'}->saveContent($content, 'information', $output, rawurldecode($field_name));
         }
     }
-    public function model_catalog_infromation_editInformation_before(&$route, &$data, &$output)
+    public function model_catalog_infromation_editInformation_before(&$route, &$data)
     {
         if ($this->setting_module['save_text']) {
             $this->load->model('localisation/language');
