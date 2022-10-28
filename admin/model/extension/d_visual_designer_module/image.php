@@ -9,8 +9,8 @@ class ModelExtensionDVisualDesignerModuleImage extends Model {
             $height .= 'px';
         } elseif ($size == 'small') {
             if(VERSION>='2.2.0.0'){
-                $width = $this->config->get($this->config->get('config_theme') . '_image_category_width').'px';
-                $height = $this->config->get($this->config->get('config_theme') . '_image_category_height').'px';
+                $width = ($this->config->get($this->config->get('config_theme') . '_image_category_width') ? $this->config->get($this->config->get('config_theme') . '_image_category_width') : $this->config->get('theme_default_image_category_width')).'px';
+                $height = ($this->config->get($this->config->get('config_theme') . '_image_category_height') ? $this->config->get($this->config->get('config_theme') . '_image_category_height') : $this->config->get('theme_default_image_category_height')).'px';
             }
             else{
                 $width = $this->config->get('config_image_category_width').'px';

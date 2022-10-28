@@ -373,14 +373,16 @@ class ModelExtensionModuleDVisualDesigner extends Model
             'extension/d_visual_designer/designer/getChildBlock'
             );
 
-        if (isset($this->request->get['route'])) {
+        if (isset($this->request->post['route'])) {
+            $route = $this->request->post['route'];
+        } elseif (isset($this->request->get['route'])) {
             $route = $this->request->get['route'];
         } else {
             $route = '';
         }
         
         if (!in_array($route, $routes)) {
-            if ($edit&&!isset($this->request->get['edit'])) {
+            if ($edit&&(!isset($this->request->get['edit']) && !isset($this->request->post['edit']))) {
                 $this->error['warning'] = $this->language->get('error_permission');
             }
             $route_info = $this->getRoute($config_name);

@@ -618,6 +618,8 @@ class ControllerExtensionDVisualDesignerDesigner extends Controller
                 $param[] = 'config=' . $config;
             }
 
+            $data['state']['config']['frontend_base_url'] = $this->catalog_url;
+
             $data['state']['config']['frontend_url'] = $this->catalog_url.'index.php?route='.$route_info['frontend_route'].'&'.implode('&', $param);
             
             if (!empty($route_info['backend_param'])&!empty($id)) {

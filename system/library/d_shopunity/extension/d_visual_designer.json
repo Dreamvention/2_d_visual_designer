@@ -1,6 +1,6 @@
 {
   "codename": "d_visual_designer",
-  "version": "3.0.11",
+  "version": "3.0.13",
   "name": "Visual Designer",
   "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
   "index": "extension/module/d_visual_designer",
@@ -271,6 +271,14 @@
     "catalog/view/javascript/d_visual_designer/dist"
   ],
   "changelog": [
+    {
+      "version": "3.0.13",
+      "change": "Fix error when using double quotes"
+    },
+    {
+      "version": "3.0.12",
+      "change": "Fix image resize issue on journal theme"
+    },
     {
       "version": "3.0.11",
       "change": "Compatibility with nitropack and carbon"

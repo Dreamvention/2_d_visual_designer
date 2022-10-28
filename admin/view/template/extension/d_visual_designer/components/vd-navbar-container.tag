@@ -41,9 +41,17 @@
             this.iframeWindow = $('iframe', this.root)[0].contentWindow
             this.resize_iframe()
             if(!_.isUndefined(this.iframeWindow.d_visual_designer)) {
-                this.store.dispatch('designer/external/init', {external_vd: $('iframe')[0].contentWindow.d_visual_designer})
+                that = this;
+                external_state_init = () => {
+                    if (!_.isUndefined($('iframe')[0].contentWindow.d_visual_designer.state)) {
+                        that.store.dispatch('designer/external/init', {external_vd: $('iframe')[0].contentWindow.d_visual_designer});
+                    } else {
+                        setTimeout(external_state_init, 250);
+                    }
+                };
+                external_state_init();
             }
-            this.loadingIframe = false
+            this.loadingIframe = false;
         }.bind(this)
         designerChange(e) {
             this.active = e.item.designer_id
