@@ -1,6 +1,7 @@
 <?php
 //entry
 $_['entry_status']                  = 'Status';
+$_['entry_webp_status']              = 'Transform images to webp';
 $_['entry_save_change']             = 'Save at change';
 $_['entry_save_text']               = 'Update description from Visual Designer';
 $_['entry_use_designer']            = 'Use Visual Designer for ';

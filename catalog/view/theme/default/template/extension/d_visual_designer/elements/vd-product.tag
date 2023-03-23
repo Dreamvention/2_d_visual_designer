@@ -1,7 +1,8 @@
 <vd-product >
     <div class="image">
         <a href="{opts.product.href}">
-            <img src="{opts.product.thumb}" alt="{opts.product.name}" title="{opts.product.name}" class="img-responsive" />
+            <img if={store.getState().config.webpSupports === true && opts.product.webp_thumb} src="{opts.product.webp_thumb}" alt="{opts.product.name}" title="{opts.product.name}" class="img-responsive" />
+            <img if={store.getState().config.webpSupports === false || !opts.product.webp_thumb} src="{opts.product.thumb}" alt="{opts.product.name}" title="{opts.product.name}" class="img-responsive" />
         </a>
     </div>
     <div class="caption">
@@ -15,7 +16,7 @@
         </div>
         <p if={opts.product.price} class="price">
             <virtual if={!opts.product.special}>{opts.product.symbolLeft}{opts.product.price}{opts.product.symbolRight}</virtual>
-            <span if={opts.product.special} class="price-new">{opts.product.symbolLeft}{opts.product.special}{opts.product.symbolRight}</span> <span class="price-old">{opts.product.symbolLeft}{opts.product.price}{opts.product.symbolRight}</span>
+            <virtual if={opts.product.special}><span class="price-new">{opts.product.symbolLeft}{opts.product.special}{opts.product.symbolRight}</span> <span class="price-old">{opts.product.symbolLeft}{opts.product.price}{opts.product.symbolRight}</span></virtual>
             <span if={opts.product.tax} class="price-tax">{store.getLocal('designer.text_tax')} {opts.product.symbolLeft}{opts.product.tax}{opts.product.symbolRight}</span>
         </p>
     </div>

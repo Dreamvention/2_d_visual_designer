@@ -18,6 +18,7 @@ var vd = function () {
         } else {
             this.state = state;
         }
+        this.checkWebpSupport();
     };
 
     this.initLocal = function(local){
@@ -87,6 +88,15 @@ var vd = function () {
 
     this.subscribe = function(action, callback){
         this.on(action, callback);
+    };
+    this.checkWebpSupport = function() {
+        var webP = new Image();
+        var that = this;
+        webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+        webP.onload = webP.onerror = function () {
+            that.state.config.webpSupports = (webP.height === 2);
+            riot.update();
+        };
     };
 };
 

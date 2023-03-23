@@ -11,6 +11,7 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+        
         request_body = {{ request_body|raw }};
 
         $.post('index.php?route=extension/d_visual_designer/designer/get_content_data_via_ajax', request_body, function(json) {

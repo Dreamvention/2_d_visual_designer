@@ -121,6 +121,7 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
         
         // Entry
         $data['entry_status'] = $this->language->get('entry_status');
+        $data['entry_webp_status'] = $this->language->get('entry_webp_status');
         $data['entry_save_change'] = $this->language->get('entry_save_change');
         $data['entry_save_text'] = $this->language->get('entry_save_text');
         $data['entry_use_designer'] = $this->language->get('entry_use_designer');
@@ -202,6 +203,12 @@ class ControllerExtensionDVisualDesignerSetting extends Controller
             $data[$this->codename.'_status'] = $this->request->post[$this->codename.'_status'];
         } else {
             $data[$this->codename.'_status'] = $this->config->get($this->codename.'_status');
+        }
+
+        if (isset($this->request->post[$this->codename.'_webp_status'])) {
+            $data[$this->codename.'_webp_status'] = $this->request->post[$this->codename.'_webp_status'];
+        } else {
+            $data[$this->codename.'_webp_status'] = $this->config->get($this->codename.'_webp_status');
         }
         
         //get setting

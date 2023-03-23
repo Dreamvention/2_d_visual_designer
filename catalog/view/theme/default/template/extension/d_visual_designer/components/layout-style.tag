@@ -3,13 +3,14 @@
         this.mixin(new vd_component(this))
         this.initState({
             block_parent: {},
-        })
+        });
         this.initParentSetting = function(){
             var top = this.getState().top
             if(this.opts.block.parent != ''){
                 this.setState('block_parent', this.store.getState().blocks[top.opts.id][this.opts.block.parent])
             }
-        }
+        };
+        
         this.initStyle = function(){
             var element = this.parent.root
             var setting = this.opts.block.setting.global
@@ -113,8 +114,14 @@
             } else {
                 $(element).css({'background-color': ''})
             }
+            
             if(setting.design_background_image){
-                $(element).css({'background-image': 'url('+this.opts.block.setting.user.design_background_image+')'})
+                if (this.store.getState().config.webpSupports === true && this.opts.block.setting.user.design_background_webp_image) {
+                    $(element).css({'background-image': 'url('+this.opts.block.setting.user.design_background_webp_image+')'});
+                } else if (this.store.getState().config.webpSupports === false || !this.opts.block.setting.user.design_background_webp_image) {
+                    $(element).css({'background-image': 'url('+this.opts.block.setting.user.design_background_image+')'});
+                }
+                
                 if(setting.design_background_image_position_vertical && setting.design_background_image_position_horizontal){
                     $(element).css({'background-position': setting.design_background_image_position_vertical+' '+setting.design_background_image_position_horizontal})
                 }
@@ -269,13 +276,13 @@
         this.on('mount', function(){
             this.initParentSetting();
             this.initStyle();
-            this.renderStyle()
+            this.renderStyle();
         })
 
         this.on('update', function(){
-            this.initParentSetting()
-            this.initStyle()
-            this.renderStyle()
+            this.initParentSetting();
+            this.initStyle();
+            this.renderStyle();
         })
     </script>
 </layout-style>

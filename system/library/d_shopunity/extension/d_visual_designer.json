@@ -1,6 +1,6 @@
 {
   "codename": "d_visual_designer",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "name": "Visual Designer",
   "description": "Amazing page builder that will blow your mind away. Try out the lite version and swith to pro when you are ready build professional landing pages.",
   "index": "extension/module/d_visual_designer",
@@ -184,6 +184,8 @@
     "catalog/controller/extension/d_visual_designer_module/text.php",
     "catalog/controller/extension/d_visual_designer_module/image.php",
 
+    "catalog/model/extension/d_visual_designer/webp.php",
+
     "catalog/language/en-gb/extension/d_visual_designer_module/row.php",
     "catalog/language/en-gb/extension/d_visual_designer_module/row_inner.php",
     "catalog/language/en-gb/extension/d_visual_designer_module/column.php",
@@ -238,6 +240,8 @@
     "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-children.tag",
     "catalog/view/theme/default/template/extension/d_visual_designer/layouts/vd-layout-medium.tag",
 
+    "system/library/d_webp_image.php",
+
     "image/catalog/d_visual_designer/row.svg",
     "image/catalog/d_visual_designer/row_inner.svg",
     "image/catalog/d_visual_designer/column.svg",
@@ -271,6 +275,10 @@
     "catalog/view/javascript/d_visual_designer/dist"
   ],
   "changelog": [
+    {
+      "version": "3.0.14",
+      "change": "Fix small bugs and added webp"
+    },
     {
       "version": "3.0.13",
       "change": "Fix error when using double quotes"

@@ -15,25 +15,25 @@
         })
         this.loadIframe = function(e) {
             this.reCalculate()
-        }.bind(this)
+        }.bind(this);
 
         this.getLink = function(){
-            var link = ''
-            var setting = this.getState().setting
+            var link = '';
+            var setting = this.getState().setting;
             if(setting.global.link.indexOf('youtube') != -1){
-                var matches = setting.global.link.match(/(v=)([a-zA-Z0-9]+)/)
+                var matches = setting.global.link.match(/(v=)([a-zA-Z0-9]+)/);
                 if(matches != null){
-                    var youtube_id = matches[2]
-                    link = setting.global.link.replace('watch?v=', 'embed/') + "?playlist="+youtube_id+"&autoplay=1&controls=0&showinfo=0&disablekb=1&loop=1&rel=0&modestbranding"
+                    var youtube_id = matches[2];
+                    link = setting.global.link.replace('watch?v=', 'embed/') + "?playlist="+youtube_id+"&autoplay=1&controls=0&showinfo=0&disablekb=1&loop=1&rel=0&modestbranding";
                 }
             } else if (setting.global.link.indexOf('vimeo') != -1){
-                link = setting.global.link.replace('vimeo.com', 'player.vimeo.com/video') + '?autoplay=1&background=1&loop=1'
+                link = setting.global.link.replace('vimeo.com', 'player.vimeo.com/video') + '?autoplay=1&background=1&loop=1';
             }
-            return link
-        }.bind(this)
+            return link;
+        }.bind(this);
         
         this.reCalculate = function(){
-            var content = $(this.root).closest('.block-container')
+            var content = $(this.root).closest('.block-container');
             content.css('position','');
             content.css('z-index','');
             content.css('left','');
@@ -92,9 +92,9 @@
                 video.find('iframe').css('margin-left','-'+marginleft+'px');
                 video.find('iframe').css('margin-top','-'+margintop+'px');
             }
-        }.bind(this)
+        }.bind(this);
         $(window).on('resize', function(){
-            this.reCalculate()
-        }.bind(this))
+            this.reCalculate();
+        }.bind(this));
     </script>
 </vd-block-section_wrapper>

@@ -259,7 +259,7 @@ class ModelExtensionDVisualDesignerDesigner extends Model
         if (!empty($setting['design_background_image'])) {
             $image = $setting['design_background_image'];
 
-            if (file_exists(DIR_IMAGE.$image)) {
+            if (is_file(DIR_IMAGE.$image)) {
                 list($width, $height) = getimagesize(DIR_IMAGE . $image);
                 $data['design_background_image'] = $this->model_tool_image->resize($image, $width, $height);
             }

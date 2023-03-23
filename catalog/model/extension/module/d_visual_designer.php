@@ -50,6 +50,9 @@ class ModelExtensionModuleDVisualDesigner extends Model
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('tool/image');
         $this->load->model('setting/setting');
+        if ((bool)($registry->get('config'))->get('d_visual_designer_webp_status')) {
+            $this->load->model('extension/d_visual_designer/webp');
+        }
         $this->registry->set('vd_block', new VDBlockLoader($registry));
     }
 
@@ -535,9 +538,15 @@ class ModelExtensionModuleDVisualDesigner extends Model
         if (!empty($setting['design_background_image'])) {
             $image = $setting['design_background_image'];
 
-            if (file_exists(DIR_IMAGE.$image)) {
+            if (is_file(DIR_IMAGE.$image)) {
                 list($width, $height) = getimagesize(DIR_IMAGE . $image);
                 $data['design_background_image'] = $this->model_tool_image->resize($image, $width, $height);
+                if((bool)$this->config->get('d_visual_designer_webp_status') && $this->model_extension_d_visual_designer_webp->toWebp(DIR_IMAGE . $image)) {
+                    $extension = strtolower(pathinfo(DIR_IMAGE . $image, PATHINFO_EXTENSION));
+                    $webp_image = dirname($image) . '/' . basename($image, '.' . $extension) . '.webp';
+        
+                    $data['design_background_webp_image'] = $this->model_extension_d_visual_designer_webp->resize($webp_image, $width, $height);   
+                }
             }
         }
         return $data;

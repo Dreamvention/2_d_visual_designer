@@ -5,7 +5,14 @@
     <div class="vd-image-wrapper vd-image-size-{{ setting.global.size }}">
         <div class="vd-image {{ setting.global.style?'vd-image-style'~setting.global.style }}">
             <a>
-                <img src="{{ setting.user.thumb }}" alt="{{ setting.global.image_alt }}" title="{{ setting.global.image_title }}"/>
+                {% if not setting.user.webp_thumb %}
+                    <img src="{{ setting.user.thumb }}" alt="{{ setting.global.image_alt }}" title="{{ setting.global.image_title }}"/>
+                {% elseif setting.user.webp_thumb %}
+                    <picture>
+                        <source srcset="{{ setting.user.webp_thumb }}" type="image/webp">
+                        <img src="{{ setting.user.thumb }}" alt="{{ setting.global.image_alt }}" title="{{ setting.global.image_title }}">
+                    </picture>
+                {% endif %}
             </a>
         </div>
     </div>

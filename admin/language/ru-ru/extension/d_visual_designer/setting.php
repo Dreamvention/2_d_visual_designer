@@ -1,6 +1,7 @@
 <?php
 //entry
 $_['entry_status']                  = 'Статус';
+$_['entry_webp_status']             = 'Преобразовать изображения в webp';
 $_['entry_save_change']             = 'Сохранять при изменении';
 $_['entry_save_text']               = 'Обновлять описания из Visual Designer';
 $_['entry_use_designer']            = 'Использовать Visual Designer для ';

@@ -10,7 +10,8 @@
                         <div class="parallax-window" style="{getState().parallaxStyles}"></div>
                     </virtual>
                     <virtual if={getState().setting.global.parallax == '0'}>
-                        <img src="{getState().setting.user.thumb}" alt="{getState().setting.global.image_alt}" title="{getState().setting.global.image_title}"/>
+                        <img if={getState().setting.user.webp_thumb == undefined || store.getState().config.webpSupports === false } src="{getState().setting.user.thumb}" alt="{getState().setting.global.image_alt}" title="{getState().setting.global.image_title}"/> 
+                        <img if={getState().setting.user.webp_thumb != undefined && store.getState().config.webpSupports === true} src="{getState().setting.user.webp_thumb}" alt="{getState().setting.global.image_alt}" title="{getState().setting.global.image_title}">
                     </virtual>
                 </a>
             </div>
@@ -22,21 +23,28 @@
             parallaxStyles: '',
             classContainer: '',
             classWrapper: '',
+            webpSupport: undefined
         })
         this.initImage = function (){
-            var parallaxStyles = []
-            var setting = this.getState().setting
+            var parallaxStyles = [];
+            var setting = this.getState().setting;
             if(setting.global.parallax == '1'){
-                parallaxStyles.push('background-image: url(\''+setting.user.thumb+'\');');
+               
+                if (this.store.getState().config.webpSupports === true && setting.user.webp_thumb) {
+                    parallaxStyles.push('background-image: url(\''+setting.user.webp_thumb+'\');');
+                } else if (this.store.getState().config.webpSupports === false || !setting.user.webp_thumb) {
+                    parallaxStyles.push('background-image: url(\''+setting.user.thumb+'\');');
+                }
                 parallaxStyles.push('height:'+setting.global.parallax_height+';');
+                
                 if(setting.global.size != 'responsive') {
                     $('.parallax-window', this.root).css({
                         'width': setting.user.desktop_size.width,
                         'height': setting.user.desktop_size.height,
-                    })
+                    });
                 }
             }
-            this.setState({parallaxStyles: parallaxStyles.join(' ')})
+            this.setState({parallaxStyles: parallaxStyles.join(' ')});
             if(setting.global.onclick == 'popup'){
                 $('.vd-image', this.root).magnificPopup({
                     type:'image',
@@ -46,7 +54,11 @@
                     }
                 });
                 $('.vd-image > a', this.root).attr('class', 'image-popup')
-                $('.vd-image > a', this.root).attr('href', setting.user.popup)
+                if (this.store.getState().config.webpSupports === true && setting.user.webp_popup) {
+                    $('.vd-image > a', this.root).attr('href', setting.user.webp_popup)
+                } else if (this.store.getState().config.webpSupports === false || !setting.user.webp_popup) {
+                    $('.vd-image > a', this.root).attr('href', setting.user.popup)
+                }
             }
             if(setting.global.onclick == 'link'){
                 if(setting.global.link_target == 'new'){
@@ -76,7 +88,8 @@
                 },
             }
             this.store.dispatch('block/style/media/update', {designer_id: this.getState().top.opts.id, block_id: this.opts.block.id, styles: styles})
-        }
+        };
+
         this.initClassContainer = function(){
             var classContainer = []
             var setting = this.getState().setting
@@ -110,19 +123,20 @@
 
         this.initClassContainer()
         this.initClassWrapper()
-        this.on('mount', function(){
-            this.initImage()
-        })
+        this.on('mount', function(){   
+            this.initImage();
+            this.update();
+        });
 
         this.on('update', function(){
-            this.initClassContainer()
-            this.initClassWrapper()
-            this.initImage()
-        })
+            this.initClassContainer();
+            this.initClassWrapper();
+            this.initImage();
+        });
 
         $(window).on('resize', function(){
-            this.initImage()
-            this.update()
+            this.initImage();
+            this.update();
         }.bind(this))
     </script>
 </vd-block-image>

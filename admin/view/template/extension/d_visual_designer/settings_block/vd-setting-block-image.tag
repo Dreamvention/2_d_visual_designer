@@ -8,7 +8,7 @@
 <div class="form-group">
     <label class="control-label">{store.getLocal('blocks.image.entry_image')}</label>
     <div class="fg-setting">
-        <a href="" id="thumb-vd-image" data-toggle="vd-image" class="img-thumbnail"><img src="{setting.edit.thumb}" alt="" title="" width="100px" height="100px"/></a>
+        <a href="" id="thumb-vd-image" data-toggle="vd-image" class="img-thumbnail"><img src="{setting.edit.thumb}" data-placeholder="{store.getOptions('blocks.image.placeholder')}" alt="" title="" width="100px" height="100px"/></a>
         <input type="hidden" name="image" value="{setting.global.image}" id="input-vd-image"  onChange={change}/>
     </div>
 </div>
@@ -178,11 +178,11 @@
     this.mixin({store:d_visual_designer})
     this.setting = this.opts.block.setting
     this.on('update', function(){
-        this.setting = this.opts.block.setting
-    })
+        this.setting = this.opts.block.setting;
+    });
     change(e){
-        this.setting.global[e.target.name] = e.target.value
-        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting})
+        this.setting.global[e.target.name] = e.target.value;
+        this.store.dispatch('block/setting/fastUpdate', {designer_id: this.parent.designer_id, block_id: this.opts.block.id, setting: this.setting});
     }
 </script>
 </vd-setting-block-image>
