@@ -16,7 +16,12 @@
     {% for style in styles %}
         <link type="text/css" href="{{style.href}}" rel="{{style.rel}}" media="{{style.media}}" />
     {% endfor %}
-    <script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
+    {% if constant('VERSION') > '3.0.3.8' %}
+        <script type="text/javascript" src="view/javascript/jquery/jquery-3.7.0.min.js"></script>
+    {% else %}
+        <script type="text/javascript" src="view/javascript/jquery/jquery-2.1.1.min.js"></script>
+    {% endif %}
+    
     <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="view/javascript/common.js"></script>
     <script type="text/javascript" src="view/javascript/d_riot/riotcompiler.min.js"></script>

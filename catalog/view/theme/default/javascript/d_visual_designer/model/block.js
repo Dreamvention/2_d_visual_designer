@@ -4,10 +4,13 @@
             return block.type == data.type;
         });
         var blocks = {};
+        var section_wrapper_id;
+        var row_id;
+        var column_id;
         if(block_config.setting.level_min == 3 && data.level == 0){
-            var section_wrapper_id = this.newBlock(data.designer_id, 'section_wrapper', '');
-            var row_id = this.newBlock(data.designer_id, 'row', section_wrapper_id);
-            var column_id = this.newBlock(data.designer_id, 'column', row_id);
+            section_wrapper_id = this.newBlock(data.designer_id, 'section_wrapper', '');
+            row_id = this.newBlock(data.designer_id, 'row', section_wrapper_id);
+            column_id = this.newBlock(data.designer_id, 'column', row_id);
             data.target = column_id;
         }
         var new_block_id = this.newBlock(data.designer_id, data.type, data.target);
@@ -21,6 +24,11 @@
                 var new_child_block_2_id = this.newBlock(data.designer_id, block_child_config.setting.child, new_child_block_id);
                 this.dispatch('block/child/create', {block_id: new_child_block_2_id, type: block_config.setting.child, designer_id: data.designer_id});
             }
+        }
+        if (section_wrapper_id && row_id && column_id) {
+            this.dispatch('block/create/success', {block_id: section_wrapper_id, type: 'section_wrapper', designer_id: data.designer_id, isParent: true});
+            this.dispatch('block/create/success', {block_id: row_id, type: 'row', designer_id: data.designer_id, isParent: true});
+            this.dispatch('block/create/success', {block_id: column_id, type: 'column', designer_id: data.designer_id, isParent: true});
         }
         this.dispatch('block/create/success', {block_id: new_block_id, type: data.type, designer_id: data.designer_id});
     }.bind(this));

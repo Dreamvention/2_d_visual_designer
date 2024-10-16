@@ -136,8 +136,8 @@
         this.on('updated', function () {
             var oldLeft = this.left
 
-            width_popup = $('.vd-switcher', this.root).outerWidth()
-            width_popup_content = $('.vd-switcher-content', this.root).outerWidth()
+            width_popup = $('.vd-switcher', this.root).outerWidth() ? $('.vd-switcher', this.root).outerWidth() : 0;
+            width_popup_content = $('.vd-switcher-content', this.root).outerWidth() ? $('.vd-switcher-content', this.root).outerWidth() : 0;
 
             this.left = Math.floor((width_popup - width_popup_content) / 2)
             if (this.left != oldLeft) {

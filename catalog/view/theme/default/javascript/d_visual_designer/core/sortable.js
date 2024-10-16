@@ -18,7 +18,7 @@ function vd_sortable(options) {
         !(name in options) && (options[name] = defaults[name]);
     }
 
-    if (!$('.helper-sortable').size()) {
+    if (!$('.helper-sortable').length) {
         $('body').append('<div class="helper-sortable" style="display:none;"></div>');
     }
 
